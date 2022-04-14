@@ -15,6 +15,7 @@ class AddPermission extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         Permission::create(['name' => 'user.list','module_name' => 'user']);
+        // fasdf
         Permission::create(['name' => 'user.create','module_name' => 'user']);
         Permission::create(['name' => 'user.update','module_name' => 'user']);
         Permission::create(['name' => 'user.delete','module_name' => 'user']);
