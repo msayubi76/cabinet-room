@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Gate;
 class AuthServiceProvider extends ServiceProvider
 {
     /**
-     * The policy mappings for the application.
+     * The model to policy mappings for the application.
      *
      * @var array<class-string, class-string>
      */
@@ -24,9 +24,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        Gate::before(function ($user, $ability) {
-            return $user->hasRole('Super Admin') ? true : null;
-        });
+
         //
     }
 }
