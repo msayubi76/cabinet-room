@@ -1,0 +1,322 @@
+@extends('layouts.theme')
+@section('title', 'Home')
+@section('content')
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-8 col-md-6 col-sm-8 text-left">
+                                <h4 class="card-title">Users Table</h4>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-4 text-right">
+                                <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addUserModal">Add
+                                    User</button>
+
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered zero-configuration">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($users as $user)
+                                        <tr id='row_{{ $user->id }}'>
+                                            <td>{{ $user->name }}</td>
+                                            <td>{{ $user->email }}</td>
+                                            <td>
+                                                @if ($user->email_verified_at == null)
+                                                    Not Approved
+                                                @else
+                                                    Approved
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <div class="button-group">
+                                                    <div class="btn-group">
+                                                        <div class="btn-group">
+                                                            <button id="btnGroupDrop1" type="button"
+                                                                class="btn btn-primary dropdown-toggle py-0 px-2"
+                                                                data-toggle="dropdown"></button>
+                                                            <div class="dropdown-menu">
+                                                                <a class="dropdown-item"
+                                                                    onclick="openViewModal({{ $user }})">View</a>
+                                                                <a class="dropdown-item"
+                                                                    onclick="openEditModal({{ $user }})">Edit</a>
+                                                                <a class="dropdown-item" data-toggle="modal"
+                                                                    data-target="#deleteModal_{{ $user->id }}">Delete</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <div class="modal fade" id="deleteModal_{{ $user->id }}" tabindex="-1"
+                                            role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">Delete User
+                                                        </h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Are you sure you want to delete this user?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">No</button>
+                                                        <button type="button" class="btn btn-primary"
+                                                            onclick="deleteUser({{ $user->id }})">Yes</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- add --}}
+    <div class="modal fade" id="addUserModal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add User</h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <form class="form-valide" id="user-form" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
+                                <img id="image_preview" src="{{ url('images/profile/default_image.png') }}" alt=""
+                                    width="120" class="rounded-circle border border-dark" />
+                            </div>
+                        </div>
+                        <div class="form-validation">
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="name">Name <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="name" name="name"
+                                        placeholder="Enter a name.." :value="old('name')">
+                                    <div id="name_text" class="text-danger"></div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="email">Email
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="email" name="email"
+                                        placeholder="Your valid email.." :value="old('email')">
+                                    <div id="email_text" class="text-danger"></div>
+
+                                    {{-- @error('email')
+                                        <span class="text-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror --}}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="profile">Profile
+                                    Picture
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="file" class="form-control" id="profile" name="profile"
+                                        placeholder="Choose File">
+                                    <div id="profile_text" class="text-danger"></div>
+
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="password">Password
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        placeholder="Choose a safe one..">
+                                    <div id="password_text" class="text-danger"></div>
+                                    @error('password')
+                                        <span class="text-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="confirm-password">Confirm Password <span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="password" class="form-control" id="password" name="password_confirmation"
+                                        placeholder="..and confirm it!">
+                                    <div id="confirmed_text" class="text-danger"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" onclick="submitUser(this)" class="btn btn-primary">Add User</button>
+                        </div>
+                    </form>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    {{-- edit --}}
+    <div class="modal fade" id="editModalUser">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit User</h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-valide" id="edit-user-form" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
+                                <img id="edit_image_preview" src="{{ url('images/profile/default_image.png') }}" alt=""
+                                    width="120" class="rounded-circle border border-dark" />
+                            </div>
+                        </div>
+                        <div class="form-validation">
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="name">Name <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="edit_name" name="name"
+                                        placeholder="Enter a name.." value="">
+                                    <div id="edit_name_text" class="text-danger"></div>
+                                </div>
+                            </div>
+
+                            {{-- <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="email">Email
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="mail" name="email"
+                                        placeholder="Your valid email.." value="">
+                                    <div id="mail_text" class="text-danger"></div>
+                                </div>
+                            </div> --}}
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="profile">Profile
+                                    Picture
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="file" class="form-control" id="edit_profile" name="profile"
+                                        placeholder="Choose File" value="">
+                                    <div id="edit_profile_text" class="text-danger"></div>
+
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="password">Password
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="password" class="form-control" id="edit_password" name="password"
+                                        placeholder="Choose a safe one..">
+                                    <div id="edit_password_text" class="text-danger"></div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="confirm-password">Confirm Password <span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="password" class="form-control" id="edit_password"
+                                        name="password_confirmation" placeholder="..and confirm it!">
+                                    <div id="edit_password_text" class="text-danger"></div>
+                                    <input type="text" id="user_id">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" onclick="editUser(this)" class="btn btn-primary">Edit User</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- view --}}
+    <div class="modal fade" id="viewModalUser">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">View User</h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-valide" id="view-user-form" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
+                                <img id="view_image_preview" src="{{ url('images/profile/default_image.png') }}" alt=""
+                                    width="120" class="rounded-circle border border-dark" />
+                            </div>
+                        </div>
+                        <div class="form-validation">
+                            <div class="form-group row">
+                                <div class="col-12 text-center">
+                                    <label class=" col-form-label" id="view_name" for=""> 
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-12 text-center">
+                                    <label class="col-lg-4 col-form-label" id="view_email" for=""> 
+                                    </label>
+                                </div>
+                            </div>
+                           
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +16,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
+
+Route::get('/dashboard', function () {
+    return view('home');
+})->middleware(['auth'])->name('dashboard');
+Route::group(['middleware' => ['auth']], function() {
+Route::resource('users',UserController::class)->except('update');
+Route::post('users/{user}',[UserController::class,'update']);
+
+Route::resource('roles',RoleController::class)->except('update');
+});
+
+require __DIR__.'/auth.php';
