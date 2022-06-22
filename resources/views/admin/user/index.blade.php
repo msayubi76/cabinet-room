@@ -1,8 +1,6 @@
 @extends('layouts.theme')
 @section('title', 'Home')
 @section('content')
-<p>samad</p>
-<p>ahmad</p>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
