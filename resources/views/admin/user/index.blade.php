@@ -1,6 +1,8 @@
 @extends('layouts.theme')
 @section('title', 'Home')
 @section('content')
+<p>samad</p>
+<p>ahmad</p>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -298,18 +300,18 @@
                         <div class="form-validation">
                             <div class="form-group row">
                                 <div class="col-12 text-center">
-                                    <label class=" col-form-label" id="view_name" for=""> 
+                                    <label class=" col-form-label" id="view_name" for="">
                                     </label>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-12 text-center">
-                                    <label class="col-lg-4 col-form-label" id="view_email" for=""> 
+                                    <label class="col-lg-4 col-form-label" id="view_email" for="">
                                     </label>
                                 </div>
                             </div>
-                           
-                            
+
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
