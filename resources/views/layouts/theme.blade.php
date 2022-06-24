@@ -120,6 +120,7 @@
 
     <script src="{{ url('admin/js/myScript.js') }}"></script>
     <script src="{{ url('admin/js/dashboard/dashboard-1.js') }}"></script>
+    <script src="{{ url('admin/js/tab.jquery.js') }}"></script>
 </body>
 
 </html>

@@ -12,16 +12,20 @@ class UserController extends Controller
 {
 
     public function index(){
-        
+
         $users = UserService::getUsers();
         return view('admin.user.index',compact('users'));
 
-    } 
+    }
+    public function profile(){
+
+        return view('admin.user.userprofile');
+    }
     public function store(UserRequest $request){
         try {
             $user_obj = new UserService;
             $user_response = $user_obj->store($request);
-            return $user_response; 
+            return $user_response;
 
         } catch (\Throwable $th) {
             return $th;
@@ -42,6 +46,6 @@ class UserController extends Controller
             return $user_response;
        } catch (\Throwable $th) {
            return $th;
-       }    
+       }
     }
 }

@@ -25,6 +25,7 @@ Route::get('/dashboard', function () {
 Route::group(['middleware' => ['auth']], function() {
 Route::resource('users',UserController::class)->except('update');
 Route::post('users/{user}',[UserController::class,'update']);
+Route::get('userprofile',[UserController::class,'profile']);
 
 Route::resource('roles',RoleController::class)->except('update');
 });

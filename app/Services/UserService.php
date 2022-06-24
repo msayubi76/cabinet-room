@@ -22,7 +22,7 @@ class UserService
             return $th;
         }
     }
-    public function store(UserRequest $request)
+    public function store(UserRequest $request) 
     {
         DB::beginTransaction();
         $data = $request->validated();
