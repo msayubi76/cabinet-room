@@ -86,6 +86,63 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
+
+        $(function(){
+    /* UPDATE ADMIN PERSONAL INFO */
+    $('#adminIninfo').on('submit', function(e){
+        e.preventDefault();
+        $.ajax({
+           url:$(this).attr('action'),
+           method:$(this).attr('method'),
+           data:new FormData(this),
+           processData:false,
+           dataType:'json',
+           contentType:false,
+           beforeSend:function(){
+               $(document).find('span.error-text').text('');
+           },
+           success:function(data){
+                if(data.status == 0){
+                  $.each(data.error, function(prefix, val){
+                    $('span.'+prefix+'_error').text(val[0]);
+                  });
+                }else{
+                  $('.admin_name').each(function(){
+                     $(this).html( $('#adminIninfo').find( $('input[name="name"]') ).val() );
+                  });
+                  alert(data.msg);
+                }
+           }
+        });
+    });
+
+    $('#changepassword').on('submit', function(e){
+         e.preventDefault();
+         $.ajax({
+            url:$(this).attr('action'),
+            method:$(this).attr('method'),
+            data:new FormData(this),
+            processData:false,
+            dataType:'json',
+            contentType:false,
+            beforeSend:function(){
+              $(document).find('span.error-text').text('');
+            },
+            success:function(data){
+              if(data.status == 0){
+                $.each(data.error, function(prefix, val){
+                  $('span.'+prefix+'_error').text(val[0]);
+                });
+              }else{
+                $('#changepassword')[0].reset();
+                alert(data.msg);
+              }
+            }
+         });
+    });
+});
+
     </script>
 
     {{-- datatables --}}
@@ -120,7 +177,7 @@
 
     <script src="{{ url('admin/js/myScript.js') }}"></script>
     <script src="{{ url('admin/js/dashboard/dashboard-1.js') }}"></script>
-    <script src="{{ url('admin/js/tab.jquery.js') }}"></script>
+
 </body>
 
 </html>

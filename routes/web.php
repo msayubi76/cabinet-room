@@ -26,6 +26,8 @@ Route::group(['middleware' => ['auth']], function() {
 Route::resource('users',UserController::class)->except('update');
 Route::post('users/{user}',[UserController::class,'update']);
 Route::get('userprofile',[UserController::class,'profile']);
+Route::post('update-profile',[UserController::class,'updateinfo'])->name('updateinfo');
+Route::post('change-password',[UserController::class,'changePassword'])->name('changePassword');
 
 Route::resource('roles',RoleController::class)->except('update');
 });
