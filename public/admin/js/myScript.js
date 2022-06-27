@@ -39,7 +39,7 @@ function deleteUser(id) {
 function openEditModal(user) {
     document.getElementById('edit_name').value = user.name;
     document.getElementById('user_id').value = user.id;
-    
+
     var image;
     if (user.image_url) {
         image = user.image_url;
@@ -93,11 +93,11 @@ function editUser() {
             $(form)
                 .find('[type="button"]')
                 .prop("disabled", false);
-                swal({  
-                    title: "",  
-                    text: data.message,  
-                    icon: "success",  
-                  });  
+                swal({
+                    title: "",
+                    text: data.message,
+                    icon: "success",
+                  });
         },
         error: function (error) {
             $(form)
@@ -109,11 +109,11 @@ function editUser() {
                 errorMessage = handleValidationErrors(error, 'edit')
                 sweetMessage = 'Invalid Data'
             }
-            swal({  
-                title: "Error",  
-                text: sweetMessage,  
-                icon: "error",  
-              }); 
+            swal({
+                title: "Error",
+                text: sweetMessage,
+                icon: "error",
+              });
             // toastr.error(errorMessage, "Error");
             // hideLoader();
         },
@@ -144,16 +144,16 @@ function submitUser() {
         },
         success: function (data) {
             console.log('data',data);
-            swal({  
-                title: "",  
-                text: data.message,  
-                icon: "success",  
-              });  
+            swal({
+                title: "",
+                text: data.message,
+                icon: "success",
+              });
             $(form)
                 .find('[type="button"]')
                 .prop("disabled", false);
             document.getElementById("user-form").reset();
-            
+
         },
         error: function (error) {
             $(form)
@@ -165,11 +165,11 @@ function submitUser() {
                 errorMessage = handleValidationErrors(error)
                 sweetMessage ='Invalid Data'
             }
-            swal({  
-                title: "Error",  
-                text: sweetMessage,  
-                icon: "error",  
-              });  
+            swal({
+                title: "Error",
+                text: sweetMessage,
+                icon: "error",
+              });
             // toastr.error(errorMessage, "Error");
             // hideLoader();
         },
@@ -202,3 +202,6 @@ function handleValidationErrors(error, type = 'create') {
 // function showLoader(message, options) {
 //   waitingDialog.show(message, options);
 // }
+
+
+

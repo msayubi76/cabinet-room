@@ -177,6 +177,7 @@
 
     <script src="{{ url('admin/js/myScript.js') }}"></script>
     <script src="{{ url('admin/js/dashboard/dashboard-1.js') }}"></script>
+    @yield('scripts')
 
 </body>
 

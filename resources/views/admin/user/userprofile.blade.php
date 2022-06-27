@@ -32,9 +32,10 @@
                                     <div class="card-body">
                                         <div class="media align-items-center mb-4">
                                             @if( isset(Auth::user()->image) && file_exists('images/profile/'.Auth::user()->image))
-                                              <img class="mr-3" src="{{ asset('images/profile/'.Auth::user()->image) }}" alt="{{ Auth::user()->image }}">
+                                              <img class="mr-3 img-circle" src="{{ asset('images/profile/'.Auth::user()->image) }}" alt="{{ Auth::user()->image }}">
                                             @else
-                                             <img class="mr-3" src="{{ asset('images/profile/62a78f89223fd.jpg') }}" width="80" height="80"  alt="...">
+                                             <img class="mr-3 img-circle" src="{{ asset('images/profile/default_image.png') }}" width="80" height="80"  alt="...">
+
                                             @endif
                                             {{-- <img class="mr-3" src="images/avatar/11.png" width="80" height="80" alt=""> --}}
                                             {{-- <div class="media-body">
@@ -47,6 +48,7 @@
 
 
 
+
                                         <h4 class="text-align-center">About Me</h4>
                                         <ul class="card-profile__info">
                                             <li class="mb-1"><strong class="text-dark mr-4">Name</strong> <span>{{ Auth::user()->name }}</span></li>
@@ -54,6 +56,7 @@
                                             <li><strong class="text-dark mr-4">Email</strong> <span>{{ Auth::user()->email }}</span></li>
                                             <li><strong class="text-dark mr-4">Email</strong> <span>{{ Auth::user()->password }}</span></li>
                                         </ul>
+
 
                                     </div>
 
