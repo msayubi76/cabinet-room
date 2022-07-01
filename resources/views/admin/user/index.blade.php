@@ -26,7 +26,7 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="table_id">
                                     @foreach ($users as $user)
                                         <tr id='row_{{ $user->id }}'>
                                             <td>{{ $user->name }}</td>
@@ -49,9 +49,8 @@
                                                                 <a class="dropdown-item"
                                                                     onclick="openViewModal({{ $user }})">View</a>
                                                                 <a class="dropdown-item"
-                                                                    onclick="openEditModal({{ $user }})">Edit</a>
-                                                                <a class="dropdown-item" data-toggle="modal"
-                                                                    data-target="#deleteModal_{{ $user->id }}">Delete</a>
+                                                                href="javascript:openEditModal({{ json_encode($user) }})">Edit</a>
+                                                                <a class="dropdown-item" href="javascript:openDeleteDialog({{ $user->id }})">Delete</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -59,30 +58,7 @@
                                             </td>
                                         </tr>
 
-                                        <div class="modal fade" id="deleteModal_{{ $user->id }}" tabindex="-1"
-                                            role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLongTitle">Delete User
-                                                        </h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        Are you sure you want to delete this user?
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">No</button>
-                                                        <button type="button" class="btn btn-primary"
-                                                            onclick="deleteUser({{ $user->id }})">Yes</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                     @endforeach
                                 </tbody>
                                 <tfoot>
@@ -96,6 +72,31 @@
                             </table>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="deleteModal" tabindex="-1"
+        role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <input type="hidden" value="-1" id="deleteID">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Delete User
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this user?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                        data-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-primary"
+                        onclick="deleteUser({{ $user->id }})">Yes</button>
                 </div>
             </div>
         </div>
@@ -208,6 +209,8 @@
                 <div class="modal-body">
                     <form class="form-valide" id="edit-user-form" method="post" enctype="multipart/form-data">
                         @csrf
+                        <input type="hidden" value="-1" id="user_id">
+                        <input type="hidden" value="PUT" name="_method">
                         <div class="row">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
                                 <img id="edit_image_preview" src="{{ url('images/profile/default_image.png') }}" alt=""
@@ -264,7 +267,7 @@
                                     <input type="password" class="form-control" id="edit_password"
                                         name="password_confirmation" placeholder="..and confirm it!">
                                     <div id="edit_password_text" class="text-danger"></div>
-                                    <input type="text" id="user_id">
+
                                 </div>
                             </div>
                         </div>
@@ -319,4 +322,228 @@
             </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+<script>
+    profile.onchange = evt => {
+    const [file] = profile.files
+    console.log('file', file);
+    if (file) {
+        image_preview.src = URL.createObjectURL(file)
+    }
+}
+edit_profile.onchange = evt => {
+    const [file] = edit_profile.files
+    if (file) {
+        edit_image_preview.src = URL.createObjectURL(file)
+    }
+}
+
+function openDeleteDialog(id) {
+    $("#deleteID").val(id);
+    $("#deleteModal").modal('show');
+ }
+
+function deleteUser(id) {
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
+        },
+        url: "/users/" + $("#deleteID").val(), // the endpoint
+        type: "DELETE", // http method
+        processData: false,
+        contentType: false,
+        success: function (data) {
+            $('.alert-success').html(data.success).fadeIn('slow');
+            $('.alert-success').delay(3000).fadeOut('slow');
+
+            document.getElementById("row_" + id).remove();
+            $('#deleteModal').modal('hide');
+            alert(data.message);
+        },
+        error: function (error) {
+            alert(error);
+
+            // toastr.error(errorMessage, "Error");
+            // hideLoader();
+        },
+    });
+}
+
+function openEditModal(user) {
+    document.getElementById('edit_name').value = user.name;
+    document.getElementById('user_id').value = user.id;
+
+    var image;
+    if (user.image_url) {
+        image = user.image_url;
+    } else {
+        image = base_url + '/storage/profile/default_image.png';
+    }
+    // document.getElementById('edit_profile').value = user.image_name;
+    $('#edit_image_preview').attr('src', image)
+    // document.getElementById('edit_image_preview').src = user.image_url;
+    $("#editModalUser").modal()
+}
+function openViewModal(user){
+    // document.getElementById('view_name').value = user.name;
+    // document.getElementById('view_email').value = user.email;
+    document.getElementById("view_name").innerHTML = user.name;
+    document.getElementById("view_email").innerHTML = user.email;
+
+    var image;
+    if (user.image_url) {
+        image = user.image_url;
+    } else {
+        image = base_url + '/storage/profile/default_image.png';
+    }
+    $('#view_image_preview').attr('src', image)
+    $("#viewModalUser").modal()
+}
+function editUser() {
+    var form = $('#edit-user-form')[0];
+    user_id = form.user_id.value;
+    console.log('user id ', user_id.value);
+    const myFormData = new FormData(form);
+    const formDataObj = {};
+    myFormData.forEach((value, key) => (formDataObj[key] = value));
+    console.log(formDataObj);
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
+        },
+        url: "/users/" + user_id, // the endpoint
+        type: "POST", // http method
+        processData: false,
+        contentType: false,
+        data: myFormData,
+        beforeSend: function () {
+            $(form)
+                .find('[type="button"]')
+                .prop("disabled", true);
+        },
+        success: function (data) {
+            alert(data);
+            $(form)
+                .find('[type="button"]')
+                .prop("disabled", false);
+                swal({
+                    title: "",
+                    text: data.message,
+                    icon: "success",
+                  });
+        },
+        error: function (error) {
+            $(form)
+                .find('[type="button"]')
+                .prop("disabled", false);
+            var errorMessage = error.statusText;
+            var sweetMessage = error.statusText;
+            if (error.status == 422) {
+                errorMessage = handleValidationErrors(error, 'edit')
+                sweetMessage = 'Invalid Data'
+            }
+            swal({
+                title: "Error",
+                text: sweetMessage,
+                icon: "error",
+              });
+            // toastr.error(errorMessage, "Error");
+            // hideLoader();
+        },
+    });
+}
+
+function submitUser() {
+    var form = $('#user-form')[0];
+    console.log('form ', form);
+
+    const myFormData = new FormData(form);
+    const formDataObj = {};
+    myFormData.forEach((value, key) => (formDataObj[key] = value));
+    console.log(formDataObj);
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
+        },
+        url: "/users", // the endpoint
+        type: "POST", // http method
+        processData: false,
+        contentType: false,
+        data: myFormData,
+        beforeSend: function () {
+            $(form)
+                .find('[type="button"]')
+                .prop("disabled", true);
+        },
+        success: function (data) {
+            console.log('data',data);
+            swal({
+                title: "",
+                text: data.message,
+                icon: "success",
+              });
+            $(form)
+                .find('[type="button"]')
+                .prop("disabled", false);
+            document.getElementById("user-form").reset();
+            var string = '<tr id="row_'+data.user.id + '" ><td>'+data.user.name+'</td><td>'+data.user.email+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.user+')">View</a> <a class="dropdown-item" onclick="openEditModal('+data.user+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.user.id+');">Delete</a></div></div></div></div></td></tr>';
+            $("#table_id").append(string);
+
+
+            $('#addUserModal').modal('hide');
+
+        },
+        error: function (error) {
+            $(form)
+                .find('[type="button"]')
+                .prop("disabled", false);
+            var errorMessage = error.statusText;
+            var sweetMessage = error.statusText;
+            if (error.status == 422) {
+                errorMessage = handleValidationErrors(error)
+                sweetMessage ='Invalid Data'
+            }
+            swal({
+                title: "Error",
+                text: sweetMessage,
+                icon: "error",
+              });
+            // toastr.error(errorMessage, "Error");
+            // hideLoader();
+        },
+    });
+}
+
+function handleValidationErrors(error, type = 'create') {
+    let errors = error.responseJSON.errors;
+    var errorMessage = error.responseJSON.message
+    var element = '';
+    $.each(errors, function (key, item) {
+        element = key.split('.')
+        if (element.length > 1) {
+            element = `${element[0]}_${element[1]}`
+        } else {
+            element = `${element}`
+        }
+        // dataAttr = $(element).closest('.tab').data('id')
+        // $(`.step-${dataAttr}`).addClass('backend-error')
+        if (type == 'edit') {
+            console.log('edit',element);
+            $(`#edit_${element}_text`).text(item[0])
+        } else if (type == 'create') {
+            $(`#${element}_text`).text(item[0])
+        }
+    });
+
+    return errorMessage;
+}
+// function showLoader(message, options) {
+//   waitingDialog.show(message, options);
+// }
+
+
+
+
+</script>
 @endsection

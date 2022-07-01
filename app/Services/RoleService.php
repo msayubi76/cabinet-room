@@ -32,6 +32,18 @@ class RoleService
         return $response;
     }
 
+    public function update(RoleRequest $request, Role $role){
+        DB::beginTransaction();
+        $data = $request->validated();
+
+        $role->update($data);
+
+
+        DB::commit();
+        $response = ['status' => true, 'message' => 'Sub role updated.', 'role' => $role];
+        return $response;
+    }
+
     public static function destroy($id)
     {
         DB::beginTransaction();

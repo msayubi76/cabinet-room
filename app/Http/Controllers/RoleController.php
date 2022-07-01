@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use DB;
+
+use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Services\RoleService;
 use App\Http\Requests\RoleRequest;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
+
 
 class RoleController extends Controller
 {
@@ -23,6 +23,15 @@ class RoleController extends Controller
 
         } catch (\Throwable $th) {
             return $th;
+        }
+    }
+    public function update(RoleRequest $request, Role $role){
+        try {
+           $role_obj = new RoleService;
+           $role_response = $role_obj->update($request,$role);
+           return $role_response;
+        } catch (\Throwable $th) {
+           return $th;
         }
     }
     public function destroy($id){

@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
-class RoleRequest extends FormRequest
+class PermissionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,12 @@ class RoleRequest extends FormRequest
      */
     public function rules(Request $request)
     {
-        $id = $request->route('role');
+
+        $id = $request->route('permissions');
         return [
             'name' => ['required', 'max:255'],
+            'display_name' => ['required', 'max:255'],
+            'module_name' => ['required', 'max:255'],
             'guard_name' => ['nullable'],
 
         ];

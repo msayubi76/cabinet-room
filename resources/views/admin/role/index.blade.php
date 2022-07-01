@@ -21,16 +21,16 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Guard Name</th>
+
 
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="table_id">
                                     @foreach ($roles as $role)
                                         <tr id='row_{{ $role->id }}'>
                                             <td>{{ $role->name }}</td>
-                                            <td>{{ $role->guard_name }}</td>
+
 
                                             <td>
                                                 <div class="button-group">
@@ -43,9 +43,8 @@
                                                                 <a class="dropdown-item"
                                                                     onclick="openViewModal({{ $role }})">View</a>
                                                                 <a class="dropdown-item"
-                                                                    onclick="openEditModal({{ $role }})">Edit</a>
-                                                                <a class="dropdown-item" data-toggle="modal"
-                                                                    data-target="#deleteModal_{{ $role->id }}">Delete</a>
+                                                                href="javascript:openEditModal({{ json_encode($role) }})">Edit</a>
+                                                                <a class="dropdown-item" href="javascript:openDeleteDialog({{ $role->id }})">Delete</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -53,36 +52,13 @@
                                             </td>
                                         </tr>
 
-                                        <div class="modal fade" id="deleteModal_{{ $role->id }}" tabindex="-1"
-                                            role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLongTitle">Delete Role
-                                                        </h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        Are you sure you want to delete this Role?
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">No</button>
-                                                        <button type="button" class="btn btn-primary"
-                                                            onclick="delete({{ $role->id }})">Yes</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                     @endforeach
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Guard Name</th>
+
 
                                         <th>Action</th>
                                     </tr>
@@ -94,6 +70,33 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="deleteModal" tabindex="-1"
+        role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <input type="hidden" value="-1" id="deleteID">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Delete Role
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this Role?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                        data-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-primary"
+                        onclick="deleteRole()">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
     {{-- add --}}
     <div class="modal fade" id="addRoleModal">
@@ -119,21 +122,13 @@
                                     <div id="name_text" class="text-danger"></div>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" for="guard_name">Guard Name <span class="text-danger">*</span>
-                                </label>
-                                <div class="col-lg-6">
-                                    <input type="text" class="name form-control" id="guard_name" name="guard_name"
-                                        placeholder="Enter a name.." :value="old('guard_name')">
-                                    <div id="guard_name_text" class="text-danger"></div>
-                                </div>
-                            </div>
+
 
 
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" onclick="submitRole(this)" class="btn btn-primary add_role">Add Role</button>
+                            <button type="button" onclick="submitRole(this)" class="btn btn-primary ">Add Role</button>
                         </div>
                     </form>
 
@@ -144,18 +139,20 @@
         </div>
     </div>
 
- {{-- edit --}}
- <div class="modal fade" id="EditModalRole">
+  {{-- edit --}}
+  <div class="modal fade" id="editModalRole">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Edit role</h5>
+                <h5 class="modal-title">Edit Role</h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form class="form-valide" id="edit-role-form" method="post" enctype="multipart/form-data">
                     @csrf
+                    <input type="hidden" value="-1" id="role_id">
+                    <input type="hidden" value="PUT" name="_method">
 
                     <div class="form-validation">
                         <div class="form-group row">
@@ -167,20 +164,12 @@
                                 <div id="edit_name_text" class="text-danger"></div>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-lg-4 col-form-label" for="guard_name">Guard Name <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-lg-6">
-                                <input type="text" class="form-control" id="edit_guard_name" name="guard_name"
-                                    placeholder="Enter a name.." value="">
-                                <div id="edit_guard_name_text" class="text-danger"></div>
-                            </div>
-                        </div>
 
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" onclick="editRole(this)" class="btn btn-primary">Edit Role</button>
+                        <button type="button"  onclick="editRole(this)"  class="btn btn-primary">Edit User</button>
                     </div>
                 </form>
             </div>
@@ -214,7 +203,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-12 text-center">
-                                <label class="col-lg-4 col-form-label" id="view_email" for="">
+                                <label class="col-lg-4 col-form-label" id="view_guard_name" for="">
                                 </label>
                             </div>
                         </div>
@@ -233,28 +222,8 @@
 
     @section('scripts')
     <script>
-    //      $(document).ready(function () {
-    //     $(document).on('click','.add_role', function (e) {
-    //         e.preventDefault();
 
-    //         var data = {
-    //             'name' : $ ('.name').val(),
-    //         }
-    //         $.ajax({
-    //     headers: {
-    //         'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
-    //     },
-    //     url: "/roles", // the endpoint
-    //     type: "POST", // http method
-    //     processData: false,
-    //     contentType: false,
-    //     data: data,
-    //     success: function (response) {
-    //         console.log(response);
-    //     }
 
-    //     });
-    // });
 
     function submitRole() {
     var form = $('#role-form')[0];
@@ -289,6 +258,11 @@
                 .find('[type="button"]')
                 .prop("disabled", false);
             document.getElementById("role-form").reset();
+            var string = '<tr id="row_'+data.role.id + '" ><td>'+data.role.name+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.role+')">View</a> <a class="dropdown-item" onclick="openEditModal('+data.role+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.role.id+');">Delete</a></div></div></div></div></td></tr>';
+            $("#table_id").append(string);
+
+
+            $('#addRoleModal').modal('hide');
 
         },
         error: function (error) {
@@ -306,8 +280,7 @@
                 text: sweetMessage,
                 icon: "error",
               });
-            // toastr.error(errorMessage, "Error");
-            // hideLoader();
+
         },
     });
 }
@@ -315,7 +288,7 @@
 function editRole() {
     var form = $('#edit-role-form')[0];
     role_id = form.role_id.value;
-    console.log('role id ', role_id.value);
+    console.log('role id ', role_id);
     const myFormData = new FormData(form);
     const formDataObj = {};
     myFormData.forEach((value, key) => (formDataObj[key] = value));
@@ -333,9 +306,10 @@ function editRole() {
             $(form)
                 .find('[type="button"]')
                 .prop("disabled", true);
+
         },
         success: function (data) {
-            alert(data);
+            // alert(data);
             $(form)
                 .find('[type="button"]')
                 .prop("disabled", false);
@@ -366,28 +340,64 @@ function editRole() {
     });
 }
 
-function deleteRole(id) {
+
+function openDeleteDialog(id) {
+    $("#deleteID").val(id);
+    $("#deleteModal").modal('show');
+ }
+
+function deleteRole() {
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
         },
-        url: "/roles/" + id, // the endpoint
+        url: "/roles/" + $("#deleteID").val(), // the endpoint
         type: "DELETE", // http method
         processData: false,
         contentType: false,
         success: function (data) {
             $('.alert-success').html(data.success).fadeIn('slow');
             $('.alert-success').delay(3000).fadeOut('slow');
-            alert(data);
-            document.getElementById("row_" + id).remove();
+            document.getElementById("row_" + $("#deleteID").val()).remove();
+            $('#deleteModal').modal('hide');
+            alert(data.message);
         },
         error: function (error) {
-            alert(error);
-
-            // toastr.error(errorMessage, "Error");
-            // hideLoader();
+            alert(error.message);
         },
     });
+}
+function openEditModal(role) {
+    document.getElementById('edit_name').value = role.name;
+
+    document.getElementById('role_id').value = role.id;
+
+
+    $("#editModalRole").modal()
+}
+
+function handleValidationErrors(error, type = 'create') {
+    let errors = error.responseJSON.errors;
+    var errorMessage = error.responseJSON.message
+    var element = '';
+    $.each(errors, function (key, item) {
+        element = key.split('.')
+        if (element.length > 1) {
+            element = `${element[0]}_${element[1]}`
+        } else {
+            element = `${element}`
+        }
+        // dataAttr = $(element).closest('.tab').data('id')
+        // $(`.step-${dataAttr}`).addClass('backend-error')
+        if (type == 'edit') {
+            console.log('edit',element);
+            $(`#edit_${element}_text`).text(item[0])
+        } else if (type == 'create') {
+            $(`#${element}_text`).text(item[0])
+        }
+    });
+
+    return errorMessage;
 }
     </script>
 

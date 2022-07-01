@@ -26,11 +26,19 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="{{ url('/roles')}}" aria-expanded="false">
+                        <a class="has-arrow" href="javascript:void()" href="{{ url('/roles')}}" aria-expanded="false">
                             <i class="icon-badge menu-icon"></i><span class="nav-text">Roles</span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="{{ url('/roles')}}">Role List</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" href="{{ url('/permissions')}}" aria-expanded="false">
+                            <i class="icon-badge menu-icon"></i><span class="nav-text">Permissions</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ url('/permissions')}}">permission List</a></li>
                         </ul>
                     </li>
                     <li class="mega-menu mega-menu-sm">

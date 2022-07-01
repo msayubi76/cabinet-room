@@ -22,7 +22,7 @@ class UserService
             return $th;
         }
     }
-    public function store(UserRequest $request) 
+    public function store(UserRequest $request)
     {
         DB::beginTransaction();
         $data = $request->validated();
@@ -47,11 +47,11 @@ class UserService
             $image_name = $this->fileUpload($request->profile, 'profile');
             $data['image_floder'] = 'profile';
             $data['profile_photo'] =  $image_name;
-            
+
             $data['profile_photo_path'] = url('/storage/profile/' . $image_name);
         endif;
         $sub_user->update($data);
-        $sub_user->load('roles');
+
 
         DB::commit();
         $response = ['status' => true, 'message' => 'Sub user updated.', 'sub_user' => $sub_user];

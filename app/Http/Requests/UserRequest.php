@@ -24,7 +24,7 @@ class UserRequest extends FormRequest
      * @return array<string, mixed>
      */
     public function rules(Request $request)
-    {   
+    {
         $id = $request->route('user');
         return [
             'name' => ['required', 'alpha', 'max:255'],
