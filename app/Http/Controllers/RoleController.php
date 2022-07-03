@@ -42,4 +42,9 @@ class RoleController extends Controller
             return $th;
         }
      }
+
+     public function attach($role){
+        $roles =Role::find('role');
+        return view('admin.role.attachpermission',compact('roles'));
+     }
 }

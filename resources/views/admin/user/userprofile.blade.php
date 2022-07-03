@@ -54,8 +54,7 @@
                                             <li class="mb-1"><strong class="text-dark mr-4">Name</strong> <span>{{ Auth::user()->name }}</span></li>
                                             <li class="mb-1"><strong class="text-dark mr-4">Role</strong> <span>{{ Auth::user()->type }}</span></li>
                                             <li><strong class="text-dark mr-4">Email</strong> <span>{{ Auth::user()->email }}</span></li>
-                                            <li><strong class="text-dark mr-4">Email</strong> <span>{{ Auth::user()->password }}</span></li>
-                                        </ul>
+                                            </ul>
 
 
                                     </div>
@@ -72,18 +71,18 @@
 
                                     <input type="text" class="form-control" id="edit_name" name="name"
                                         placeholder="Enter a name.." value="{{ Auth::user()->name }}">
-                                        <span class="text-dange error-text name_error"></span>
+                                        <span class="text-danger error-text name_error" style="font-size: 1rem;line-height: 0rem;"></span>
                                 </div>
                                 <div class="form-group ">
 
                                      <input type="file" class="form-control" id="edit_profile" name="profile"
                                     placeholder="Choose File" value="">
-                                <div id="edit_profile_text" class="text-danger"></div>
+                                    <span class="text-danger error-text profile_error" style="font-size: 1rem;line-height: 0rem;"></span>
                                 </div>
                                 <div class="form-group">
                                     <input type="email" class="form-control" id="mail" name="email"
                                         placeholder="Your valid email.." value="{{ Auth::user()->email }}">
-                                        <span class="text-dange error-text email_error"></span>
+                                        <span class="text-danger error-text email_error" style="font-size: 1rem;line-height: 0rem;"></span>
 
                                 </div>
                               <button type="submit" name="submit" class="btn btn-dark">save</button>
@@ -94,17 +93,18 @@
                          <form action="{{route('changePassword')}}" method="POST" id="changepassword">
                             <div class="form-group ">
                                   <input type="text" class="form-control" id="oldpassword" placeholder="Old Password" name="oldpassword">
-                                    <span class="text-dange error-text oldpassword_error"></span>
+                                  <span class="text-danger error-text oldpassword_error" style="font-size: 1rem;line-height: 0rem;"></span>
                                 </div>
                                 <div class="form-group ">
 
                                     <input type="text" class="form-control" id="newpassword" placeholder="New Password" name="newpassword">
-                                    <span class="text-dange error-text newpassword_error"></span>
+                                    <span class="text-danger error-text newpassword_error" style="font-size: 1rem;line-height: 0rem;"></span>
                                 </div>
                                 <div class="form-group ">
 
                                     <input type="text" class="form-control" id="cnewpassword" placeholder="Confirm Password" name="cnewpassword">
-                                    <span class="text-dange error-text cnewpassword_error"></span>
+                                    <span class="text-danger error-text cnewpassword_error" style="font-size: 1rem;line-height: 0rem;"></span>
+
                                 </div>
                                 <button type="submit" class="btn btn-dark">update Passowrd</button>
                         </form>
@@ -119,11 +119,87 @@
 </div>
 
 
+  @endsection
+  @section('scripts')
+  <script>
+    (function($) {
+        "use strict"
 
 
 
 
+    })(jQuery);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
 
+    $(function(){
+/* UPDATE ADMIN PERSONAL INFO */
+$('#adminIninfo').on('submit', function(e){
+    e.preventDefault();
+    $.ajax({
+       url:$(this).attr('action'),
+       method:$(this).attr('method'),
+       data:new FormData(this),
+       processData:false,
+       dataType:'json',
+       contentType:false,
+       beforeSend:function(){
+           $(document).find('span.error-text').text('');
+       },
+       success:function(data){
+            if(data.status == 0){
+              $.each(data.error, function(prefix, val){
+                $('span.'+prefix+'_error').text(val[0]);
+              });
+            }else{
+              $('.admin_name').each(function(){
+                 $(this).html( $('#adminIninfo').find( $('input[name="name"]') ).val() );
+              });
+              console.log('data',data);
+            swal({
+                title: "",
+                text: data.msg,
+                icon: "success",
+              });
+            }
+       }
+    });
+});
 
+$('#changepassword').on('submit', function(e){
+     e.preventDefault();
+     $.ajax({
+        url:$(this).attr('action'),
+        method:$(this).attr('method'),
+        data:new FormData(this),
+        processData:false,
+        dataType:'json',
+        contentType:false,
+        beforeSend:function(){
+          $(document).find('span.error-text').text('');
+        },
+        success:function(data){
+          if(data.status == 0){
+            $.each(data.error, function(prefix, val){
+              $('span.'+prefix+'_error').text(val[0]);
+            });
+          }else{
+            $('#changepassword')[0].reset();
+            console.log('data',data);
+            swal({
+                title: "",
+                text: data.msg,
+                icon: "success",
+              });
+          }
+        }
+     });
+});
+});
+
+</script>
   @endsection

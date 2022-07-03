@@ -122,49 +122,62 @@
                         </div>
                         <div class="form-validation">
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" for="name">Name <span class="text-danger">*</span>
-                                </label>
-                                <div class="col-lg-6">
-                                    <input type="text" class="form-control" id="name" name="name"
-                                        placeholder="Enter a name.." :value="old('name')">
-                                    <div id="name_text" class="text-danger"></div>
+
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="fist_name" name="fist_name"
+                                        placeholder="Fist name.." :value="old('fist_name')">
+                                    <div id="fist_name_text" class="text-danger"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="last_name" name="last_name"
+                                        placeholder="last_name.." :value="old('last_name')">
+                                    <div id="last_name_text" class="text-danger"></div>
                                 </div>
                             </div>
-
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" for="email">Email
-                                    <span class="text-danger">*</span>
-                                </label>
-                                <div class="col-lg-6">
+
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="mobile_no" name="mobile_no"
+                                        placeholder="mobile_no.." :value="old('mobile_no')">
+                                    <div id="mobile_no_text" class="text-danger"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="address" name="address"
+                                        placeholder="address.." :value="old('address')">
+                                    <div id="address_text" class="text-danger"></div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="city" name="city"
+                                        placeholder="city .." :value="old('city')">
+                                    <div id="city_text" class="text-danger"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="region" name="region"
+                                        placeholder="region.." :value="old('region')">
+                                    <div id="region_text" class="text-danger"></div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+
+                                <div class="col-md-6">
                                     <input type="text" class="form-control" id="email" name="email"
-                                        placeholder="Your valid email.." :value="old('email')">
+                                        placeholder="email .." :value="old('email')">
                                     <div id="email_text" class="text-danger"></div>
-
-                                    {{-- @error('email')
-                                        <span class="text-danger" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror --}}
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" for="profile">Profile
-                                    Picture
-                                </label>
-                                <div class="col-lg-6">
+                                <div class="col-md-6">
                                     <input type="file" class="form-control" id="profile" name="profile"
-                                        placeholder="Choose File">
+                                        placeholder="profile.." :value="old('profile')">
                                     <div id="profile_text" class="text-danger"></div>
-
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" for="password">Password
-                                    <span class="text-danger">*</span>
-                                </label>
-                                <div class="col-lg-6">
+
+                                <div class="col-md-6">
                                     <input type="password" class="form-control" id="password" name="password"
-                                        placeholder="Choose a safe one..">
+                                        placeholder="password .." :value="old('password')">
                                     <div id="password_text" class="text-danger"></div>
                                     @error('password')
                                         <span class="text-danger" role="alert">
@@ -172,18 +185,14 @@
                                         </span>
                                     @enderror
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" for="confirm-password">Confirm Password <span
-                                        class="text-danger">*</span>
-                                </label>
-                                <div class="col-lg-6">
+                                <div class="col-md-6">
                                     <input type="password" class="form-control" id="password" name="password_confirmation"
                                         placeholder="..and confirm it!">
                                     <div id="confirmed_text" class="text-danger"></div>
-
                                 </div>
                             </div>
+
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -211,6 +220,7 @@
                         @csrf
                         <input type="hidden" value="-1" id="user_id">
                         <input type="hidden" value="PUT" name="_method">
+
                         <div class="row">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
                                 <img id="edit_image_preview" src="{{ url('images/profile/default_image.png') }}" alt=""
@@ -219,12 +229,55 @@
                         </div>
                         <div class="form-validation">
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" for="name">Name <span class="text-danger">*</span>
-                                </label>
-                                <div class="col-lg-6">
-                                    <input type="text" class="form-control" id="edit_name" name="name"
+
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="edit_fist_name" name="fist_name"
                                         placeholder="Enter a name.." value="">
-                                    <div id="edit_name_text" class="text-danger"></div>
+                                    <div id="edit_fist_name_text" class="text-danger"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="edit_last_name" name="last_name"
+                                        placeholder="Enter a name.." value="">
+                                    <div id="edit_last_name_text" class="text-danger"></div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="edit_mobile_no" name="mobile_no"
+                                        placeholder="Enter a name.." value="">
+                                    <div id="edit_mobile_no_text" class="text-danger"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="edit_address" name="address"
+                                        placeholder="Enter a name.." value="">
+                                    <div id="edit_address_text" class="text-danger"></div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="edit_city" name="city"
+                                        placeholder="Enter a name.." value="">
+                                    <div id="edit_city_text" class="text-danger"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="edit_region" name="region"
+                                        placeholder="Enter a name.." value="">
+                                    <div id="edit_region_text" class="text-danger"></div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="edit_email" name="email"
+                                        placeholder="Enter a name.." value="">
+                                    <div id="edit_email_text" class="text-danger"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="file" class="form-control" id="edit_profile" name="profile"
+                                        placeholder="Enter a name.." value="">
+                                    <div id="edit_profile_text" class="text-danger"></div>
                                 </div>
                             </div>
 
@@ -249,24 +302,11 @@
 
                                 </div>
                             </div>
+
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" for="password">Password
-                                    <span class="text-danger">*</span>
-                                </label>
+
                                 <div class="col-lg-6">
-                                    <input type="password" class="form-control" id="edit_password" name="password"
-                                        placeholder="Choose a safe one..">
-                                    <div id="edit_password_text" class="text-danger"></div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" for="confirm-password">Confirm Password <span
-                                        class="text-danger">*</span>
-                                </label>
-                                <div class="col-lg-6">
-                                    <input type="password" class="form-control" id="edit_password"
-                                        name="password_confirmation" placeholder="..and confirm it!">
-                                    <div id="edit_password_text" class="text-danger"></div>
+
 
                                 </div>
                             </div>
@@ -388,7 +428,14 @@ function openEditModal(user) {
 function openViewModal(user){
     // document.getElementById('view_name').value = user.name;
     // document.getElementById('view_email').value = user.email;
-    document.getElementById("view_name").innerHTML = user.name;
+    document.getElementById("view_fist_name").innerHTML = user.fist_name;
+    document.getElementById("view_last_name").innerHTML = user.last_name;
+    document.getElementById("view_mobile_no").innerHTML = user.mobile_no;
+    document.getElementById("view_address").innerHTML = user.address;
+    document.getElementById("view_city").innerHTML = user.city;
+    document.getElementById("view_region").innerHTML = user.region;
+    document.getElementById("view_profile").innerHTML = user.profile;
+
     document.getElementById("view_email").innerHTML = user.email;
 
     var image;

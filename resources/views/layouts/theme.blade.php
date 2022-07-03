@@ -62,93 +62,12 @@
         hljs.initHighlightingOnLoad();
     </script>
 
-    <script>
-        (function($) {
-            "use strict"
-
-            new quixSettings({
-                version: "light", //2 options "light" and "dark"
-                layout: "vertical", //2 options, "vertical" and "horizontal"
-                navheaderBg: "color_1", //have 10 options, "color_1" to "color_10"
-                headerBg: "color_1", //have 10 options, "color_1" to "color_10"
-                sidebarStyle: "full", //defines how sidebar should look like, options are: "full", "compact", "mini" and "overlay". If layout is "horizontal", sidebarStyle won't take "overlay" argument anymore, this will turn into "full" automatically!
-                sidebarBg: "color_1", //have 10 options, "color_1" to "color_10"
-                sidebarPosition: "fixed", //have two options, "static" and "fixed"
-                headerPosition: "static", //have two options, "static" and "fixed"
-                containerLayout: "wide", //"boxed" and  "wide". If layout "vertical" and containerLayout "boxed", sidebarStyle will automatically turn into "overlay".
-                direction: "ltr" //"ltr" = Left to Right; "rtl" = Right to Left
-            });
-
-
-        })(jQuery);
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-
-        $(function(){
-    /* UPDATE ADMIN PERSONAL INFO */
-    $('#adminIninfo').on('submit', function(e){
-        e.preventDefault();
-        $.ajax({
-           url:$(this).attr('action'),
-           method:$(this).attr('method'),
-           data:new FormData(this),
-           processData:false,
-           dataType:'json',
-           contentType:false,
-           beforeSend:function(){
-               $(document).find('span.error-text').text('');
-           },
-           success:function(data){
-                if(data.status == 0){
-                  $.each(data.error, function(prefix, val){
-                    $('span.'+prefix+'_error').text(val[0]);
-                  });
-                }else{
-                  $('.admin_name').each(function(){
-                     $(this).html( $('#adminIninfo').find( $('input[name="name"]') ).val() );
-                  });
-                  alert(data.msg);
-                }
-           }
-        });
-    });
-
-    $('#changepassword').on('submit', function(e){
-         e.preventDefault();
-         $.ajax({
-            url:$(this).attr('action'),
-            method:$(this).attr('method'),
-            data:new FormData(this),
-            processData:false,
-            dataType:'json',
-            contentType:false,
-            beforeSend:function(){
-              $(document).find('span.error-text').text('');
-            },
-            success:function(data){
-              if(data.status == 0){
-                $.each(data.error, function(prefix, val){
-                  $('span.'+prefix+'_error').text(val[0]);
-                });
-              }else{
-                $('#changepassword')[0].reset();
-                alert(data.msg);
-              }
-            }
-         });
-    });
-});
-
-    </script>
+    
 
     {{-- datatables --}}
-    <script src="{{ url('admin/plugins/tables/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ url('admin/plugins/tables/js/datatable/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ url('admin/plugins/tables/js/datatable-init/datatable-basic.min.js') }}"></script>
+    {{-- <script src="{{ url('admin/plugins/tables/js/jquery.dataTables.min.js') }}"></script>
+     <script src="{{ url('admin/plugins/tables/js/datatable/dataTables.bootstrap4.min.js') }}"></script>
+     <script src="{{ url('admin/plugins/tables/js/datatable-init/datatable-basic.min.js') }}"></script>--}}
     <!-- Chartjs -->
     <script src="{{ url('admin/plugins/chart.js/Chart.bundle.min.js') }}"></script>
     <!-- Circle progress -->

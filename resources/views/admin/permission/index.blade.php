@@ -274,6 +274,7 @@
                 text: sweetMessage,
                 icon: "error",
               });
+              document.getElementById("permission-form").reset();
 
         },
     });
@@ -295,10 +296,14 @@ function deletePermission() {
         contentType: false,
         success: function (data) {
             $('.alert-success').html(data.success).fadeIn('slow');
-            $('.alert-success').delay(3000).fadeOut('slow');
+            // $('.alert-success').delay(3000).fadeOut('slow');
             document.getElementById("row_" + $("#deleteID").val()).remove();
-            $('#deleteModal').modal('hide');
-            alert(data.message);
+                 swal({
+                    title: "",
+                    text: data.message,
+                    icon: "success",
+                });
+                $('#deleteModal').modal('hide');
         },
         error: function (error) {
             alert(error.message);

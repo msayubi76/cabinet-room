@@ -2,11 +2,12 @@
 
 namespace App\Services;
 
-use App\Http\Requests\UserRequest;
-use Illuminate\Support\Facades\DB;
-
 use App\Models\User;
 use App\Traits\FileUploadTrait;
+
+use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserService
@@ -65,5 +66,20 @@ class UserService
         DB::commit();
         $response = ['status' => true, 'message' => 'Sub user removed successfully.'];
         return $response;
+    }
+
+    public  function updateinfo(UserRequest $request,User $user){
+        DB::beginTransaction();
+        $data = $request->validated();
+
+             $user = User::find(Auth::user()->id)->update([$data]);
+
+
+
+        DB::commit();
+        $response = ['status' => true, 'message' => ' user updated Sucessfully.', 'user' => $user];
+        return $response;
+
+
     }
 }

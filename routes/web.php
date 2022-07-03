@@ -32,6 +32,7 @@ Route::post('change-password',[UserController::class,'changePassword'])->name('c
 
 Route::resource('roles',RoleController::class);
 Route::resource('permissions',PermissionController::class);//->except('update');  salahuddin changed
+Route::get('attach-permission/{role}',[RoleController::class,'attach']);
 
 
 });

@@ -27,10 +27,16 @@ class UserRequest extends FormRequest
     {
         $id = $request->route('user');
         return [
-            'name' => ['required', 'alpha', 'max:255'],
+            'fist_name' => ['required', 'alpha', 'max:255'],
+            'last_name' => ['required', 'alpha', 'max:255'],
+            'mobile_no' => ['required',  'max:11'],
+            'address' => ['required'],
+            'city' => ['required'],
+            'region' => ['required'],
             'email' => ['required', 'email:rfc,dns',Rule::unique('users')->ignore($id)],
             'password' => ['required', 'confirmed'],
             'profile' => ['nullable', 'mimes:jpg,bmp,png'],
+
         ];
     }
 }

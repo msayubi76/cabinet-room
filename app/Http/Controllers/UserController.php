@@ -26,9 +26,16 @@ class UserController extends Controller
 
         return view('admin.user.userprofile');
     }
-    public function updateinfo(Request $request){
+    // public function updateinfo(UserRequest $request, User $user){
+    //     try {
+    //        $user_obj = new UserService;
+    //        $user_response = $user_obj->update($request,$user);
+    //        return $user_response;
+    //     } catch (\Throwable $th) {
+    //        return $th;
+    //     }
 
-
+ public function updateinfo(Request $request){
         $validator = Validator::make($request->all(),[
             'name'=>'required',
             'email'=> 'required|email|unique:users,email,'.Auth::user()->id,

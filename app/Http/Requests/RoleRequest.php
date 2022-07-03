@@ -26,7 +26,7 @@ class RoleRequest extends FormRequest
     {
         $id = $request->route('role');
         return [
-            'name' => ['required', 'max:255'],
+            'name' => ['required','unique:Roles','max:255'],
             'guard_name' => ['nullable'],
 
         ];
