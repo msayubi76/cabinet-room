@@ -176,7 +176,7 @@
                                 <div class="dropdown-content-body">
                                     <ul>
                                         <li>
-                                            <a href="{{url('userprofile')}}"><i class="icon-user"></i> <span>Profile</span></a>
+                                            <a href="{{url('admin/userprofile')}}"><i class="icon-user"></i> <span>Profile</span></a>
                                         </li>
                                         <li>
                                             <a href="javascript:void()">

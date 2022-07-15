@@ -12,12 +12,10 @@ use App\Http\Requests\PermissionRequest;
 class PermissionService
 {
     public static function getPermissions(){
-        try {
-            $permissions = Permission::all();
+
+            $permissions = Permission::orderBy('id', 'DESC')->paginate(30);
             return $permissions;
-        } catch (\Throwable $th) {
-            return $th;
-        }
+
     }
 
     public function store(PermissionRequest $request)

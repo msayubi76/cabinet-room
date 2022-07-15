@@ -16,12 +16,10 @@ class UserService
 
     public static function getUsers()
     {
-        try {
-            $users = User::all();
+
+            $users = User::orderBy('id', 'DESC')->paginate(30);
             return $users;
-        } catch (\Throwable $th) {
-            return $th;
-        }
+
     }
     public function store(UserRequest $request)
     {
@@ -41,21 +39,15 @@ class UserService
 
         return $response;
     }
-    public function update(UserRequest $request, User $sub_user){
+    public function update(UserRequest $request, User $user){
         DB::beginTransaction();
         $data = $request->validated();
-        if ($request->hasFile('profile')) :
-            $image_name = $this->fileUpload($request->profile, 'profile');
-            $data['image_floder'] = 'profile';
-            $data['profile_photo'] =  $image_name;
 
-            $data['profile_photo_path'] = url('/storage/profile/' . $image_name);
-        endif;
-        $sub_user->update($data);
+        $user->update($data);
 
 
         DB::commit();
-        $response = ['status' => true, 'message' => 'Sub user updated.', 'sub_user' => $sub_user];
+        $response = ['status' => true, 'message' => 'Sub user updated.', 'sub_user' => $user];
         return $response;
     }
     public static function destroy($id)
@@ -68,18 +60,5 @@ class UserService
         return $response;
     }
 
-    public  function updateinfo(UserRequest $request,User $user){
-        DB::beginTransaction();
-        $data = $request->validated();
 
-             $user = User::find(Auth::user()->id)->update([$data]);
-
-
-
-        DB::commit();
-        $response = ['status' => true, 'message' => ' user updated Sucessfully.', 'user' => $user];
-        return $response;
-
-
-    }
 }

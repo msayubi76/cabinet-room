@@ -11,7 +11,7 @@
                     <div class="basic-form">
                         <form>
                             <div class="form-group mb-8">
-                                <input type="text" class="form-control input-default" placeholder="Input Default" value="{{Auth::user()->name }}">
+                                <input type="text" class="form-control input-default" placeholder="Input Default" value="{!!$roles->name!!}">
                             </div><br>
                             <div class="form-group">
                                 <h4 class="card-title">User</h4>

@@ -19,6 +19,7 @@
     <link href="{{ url('admin/plugins/sweetalert/css/sweetalert.css') }}" rel="stylesheet">
     <!-- Custom Stylesheet -->
     <link href="{{ url('admin/css/style.css') }}" rel="stylesheet">
+
     <script>
         var base_url = '{{ url('/') }}';
     </script>
@@ -62,7 +63,7 @@
         hljs.initHighlightingOnLoad();
     </script>
 
-    
+
 
     {{-- datatables --}}
     {{-- <script src="{{ url('admin/plugins/tables/js/jquery.dataTables.min.js') }}"></script>

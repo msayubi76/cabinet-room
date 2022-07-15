@@ -20,7 +20,8 @@
                             <table class="table table-striped table-bordered zero-configuration">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
+                                        <th>Fist Name</th>
+                                        <th>Last Name</th>
                                         <th>Email</th>
                                         <th>Status</th>
                                         <th>Action</th>
@@ -29,7 +30,8 @@
                                 <tbody id="table_id">
                                     @foreach ($users as $user)
                                         <tr id='row_{{ $user->id }}'>
-                                            <td>{{ $user->name }}</td>
+                                            <td>{{ $user->fist_name }}</td>
+                                            <td>{{ $user->last_name }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>
                                                 @if ($user->email_verified_at == null)
@@ -63,7 +65,8 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>Name</th>
+                                        <th>Fist Name</th>
+                                        <th>Last Name</th>
                                         <th>Email</th>
                                         <th>Status</th>
                                         <th>Action</th>
@@ -126,7 +129,7 @@
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="fist_name" name="fist_name"
                                         placeholder="Fist name.." :value="old('fist_name')">
-                                    <div id="fist_name_text" class="text-danger"></div>
+                                    <div id="fist_name_text  err" class="text-danger"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="last_name" name="last_name"
@@ -196,7 +199,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" onclick="submitUser(this)" class="btn btn-primary">Add User</button>
+                            <button type="button"  id="btnsave" onclick="submitUser(this)" class="btn btn-primary">Add User</button>
                         </div>
                     </form>
 
@@ -223,7 +226,8 @@
 
                         <div class="row">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
-                                <img id="edit_image_preview" src="{{ url('images/profile/default_image.png') }}" alt=""
+
+                                <img id="edit_image_preview" src="{{ url('images/profile/62a7764c8bf14.jpg') }}" alt=""
                                     width="120" class="rounded-circle border border-dark" />
                             </div>
                         </div>
@@ -270,7 +274,7 @@
                             <div class="form-group row">
 
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" id="edit_email" name="email"
+                                    <input type="email" class="form-control" id="edit_email" name="email"
                                         placeholder="Enter a name.." value="">
                                     <div id="edit_email_text" class="text-danger"></div>
                                 </div>
@@ -291,17 +295,7 @@
                                     <div id="mail_text" class="text-danger"></div>
                                 </div>
                             </div> --}}
-                            <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" for="profile">Profile
-                                    Picture
-                                </label>
-                                <div class="col-lg-6">
-                                    <input type="file" class="form-control" id="edit_profile" name="profile"
-                                        placeholder="Choose File" value="">
-                                    <div id="edit_profile_text" class="text-danger"></div>
 
-                                </div>
-                            </div>
 
                             <div class="form-group row">
 
@@ -313,7 +307,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" onclick="editUser(this)" class="btn btn-primary">Edit User</button>
+                            <button type="button" id="btnsave" onclick="editUser(this)" class="btn btn-primary">Edit User</button>
                         </div>
                     </form>
                 </div>
@@ -384,22 +378,25 @@ function openDeleteDialog(id) {
     $("#deleteModal").modal('show');
  }
 
-function deleteUser(id) {
+function deleteUser() {
     $.ajax({
         headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
-        url: "/users/" + $("#deleteID").val(), // the endpoint
+        url: "/admin/users/" + $("#deleteID").val(), // the endpoint
         type: "DELETE", // http method
         processData: false,
         contentType: false,
         success: function (data) {
             $('.alert-success').html(data.success).fadeIn('slow');
-            $('.alert-success').delay(3000).fadeOut('slow');
-
-            document.getElementById("row_" + id).remove();
-            $('#deleteModal').modal('hide');
-            alert(data.message);
+            // $('.alert-success').delay(3000).fadeOut('slow');
+            document.getElementById("row_" + $("#deleteID").val()).remove();
+                 swal({
+                    title: "",
+                    text: data.message,
+                    icon: "success",
+                });
+                $('#deleteModal').modal('hide');
         },
         error: function (error) {
             alert(error);
@@ -411,14 +408,23 @@ function deleteUser(id) {
 }
 
 function openEditModal(user) {
-    document.getElementById('edit_name').value = user.name;
+
+    document.getElementById('edit_fist_name').value = user.fist_name;
+    document.getElementById('edit_last_name').value = user.last_name;
+    document.getElementById('edit_mobile_no').value = user.mobile_no;
+    document.getElementById('edit_address').value = user.address;
+    document.getElementById('edit_city').value = user.city;
+    document.getElementById('edit_region').value = user.region;
+    document.getElementById('edit_email').value = user.email;
     document.getElementById('user_id').value = user.id;
+
+
 
     var image;
     if (user.image_url) {
         image = user.image_url;
     } else {
-        image = base_url + '/storage/profile/default_image.png';
+        image = base_url + '/storage/profile/62a7764c8bf14.jpg';
     }
     // document.getElementById('edit_profile').value = user.image_name;
     $('#edit_image_preview').attr('src', image)
@@ -448,18 +454,24 @@ function openViewModal(user){
     $("#viewModalUser").modal()
 }
 function editUser() {
+
     var form = $('#edit-user-form')[0];
+    var spinner = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
+    $("#btnsave").html(spinner);
     user_id = form.user_id.value;
-    console.log('user id ', user_id.value);
+    console.log('user_id ', user_id);
+
+
     const myFormData = new FormData(form);
     const formDataObj = {};
     myFormData.forEach((value, key) => (formDataObj[key] = value));
     console.log(formDataObj);
+
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
         },
-        url: "/users/" + user_id, // the endpoint
+        url: "/admin/users/" + user_id, // the endpoint
         type: "POST", // http method
         processData: false,
         contentType: false,
@@ -470,7 +482,8 @@ function editUser() {
                 .prop("disabled", true);
         },
         success: function (data) {
-            alert(data);
+            console.log(data)
+
             $(form)
                 .find('[type="button"]')
                 .prop("disabled", false);
@@ -479,6 +492,18 @@ function editUser() {
                     text: data.message,
                     icon: "success",
                   });
+                  $(form)
+                .find('[type="button"]')
+                .prop("disabled", false);
+
+
+             $("#row_"+data.sub_user.id).remove();
+             var string = '<tr id="row_'+data.sub_user.id + '" ><td>'+data.sub_user.fist_name+'</td><td>'+data.sub_user.last_name+'</td><td>'+data.sub_user.email+'</td><td>'+data.sub_user.email_verified_at+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.sub_user+')">View</a> <a class="dropdown-item"  onclick="openEditModal('+data.sub_user+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.sub_user.id+');">Delete</a></div></div></div></div></td></tr>';
+            $("#table_id").append(string);
+
+
+            $('#editModalUser').modal('hide');
+
         },
         error: function (error) {
             $(form)
@@ -502,8 +527,11 @@ function editUser() {
 }
 
 function submitUser() {
+
     var form = $('#user-form')[0];
     console.log('form ', form);
+    var spinner = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
+    $("#btnsave").html(spinner);
 
     const myFormData = new FormData(form);
     const formDataObj = {};
@@ -513,7 +541,7 @@ function submitUser() {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
         },
-        url: "/users", // the endpoint
+        url: "/admin/users", // the endpoint
         type: "POST", // http method
         processData: false,
         contentType: false,
@@ -524,6 +552,7 @@ function submitUser() {
                 .prop("disabled", true);
         },
         success: function (data) {
+            $("#btnsave").text("Addd User");
             console.log('data',data);
             swal({
                 title: "",
@@ -534,7 +563,7 @@ function submitUser() {
                 .find('[type="button"]')
                 .prop("disabled", false);
             document.getElementById("user-form").reset();
-            var string = '<tr id="row_'+data.user.id + '" ><td>'+data.user.name+'</td><td>'+data.user.email+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.user+')">View</a> <a class="dropdown-item" onclick="openEditModal('+data.user+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.user.id+');">Delete</a></div></div></div></div></td></tr>';
+            var string = '<tr id="row_'+data.user.id + '" ><td>'+data.user.fist_name+'</td><td>'+data.user.last_name+'</td><td>'+data.user.email+'</td><td>'+data.user.email_verified_at+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.user+')">View</a> <a class="dropdown-item"  onclick="openEditModal('+data.user+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.user.id+');">Delete</a></div></div></div></div></td></tr>';
             $("#table_id").append(string);
 
 
@@ -558,6 +587,8 @@ function submitUser() {
               });
             // toastr.error(errorMessage, "Error");
             // hideLoader();
+
+
         },
     });
 }
@@ -578,8 +609,10 @@ function handleValidationErrors(error, type = 'create') {
         if (type == 'edit') {
             console.log('edit',element);
             $(`#edit_${element}_text`).text(item[0])
+
         } else if (type == 'create') {
             $(`#${element}_text`).text(item[0])
+
         }
     });
 

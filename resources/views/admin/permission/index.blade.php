@@ -145,7 +145,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" onclick="submitPermission(this)" class="btn btn-primary">Add Permission</button>
+                        <button type="button" id="btnsave" onclick="submitPermission(this)" class="btn btn-primary">Add Permission</button>
                     </div>
                 </form>
 
@@ -220,6 +220,8 @@
   function submitPermission() {
     var form = $('#permission-form')[0];
     console.log('form ', form);
+    var spinner = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
+    $("#btnsave").html(spinner);
 
     const myFormData = new FormData(form);
     const formDataObj = {};
@@ -229,7 +231,7 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
         },
-        url: "/permissions", // the endpoint
+        url: "/admin/permissions", // the endpoint
         type: "POST", // http method
         processData: false,
         contentType: false,
@@ -240,6 +242,7 @@
                 .prop("disabled", true);
         },
         success: function (data) {
+            $("#btnsave").text("Add Permission");
             console.log('data',data);
             swal({
                 title: "",
@@ -288,9 +291,9 @@ function openDeleteDialog(id) {
 function deletePermission() {
     $.ajax({
         headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
-        url: "/permissions/" + $("#deleteID").val(), // the endpoint
+        url: "/admin/permissions/" + $("#deleteID").val(), // the endpoint
         type: "DELETE", // http method
         processData: false,
         contentType: false,
@@ -312,7 +315,7 @@ function deletePermission() {
 }
 
 function openEditModal(permission) {
-    console.log(permission.id);
+
     document.getElementById('edit_name').value = permission.name;
     document.getElementById('edit_display_name').value = permission.display_name;
     document.getElementById('edit_module_name').value = permission.module_name;
@@ -335,7 +338,7 @@ function editPermission() {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
         },
-        url: "/permissions/" + permission_id, // the endpoint
+        url: "/admin/permissions/" + permission_id, // the endpoint
         type:"POST", // salahuyddin changed
         processData: false,
         contentType: false,
@@ -348,7 +351,6 @@ function editPermission() {
         },
         success: function (data) {
 
-            alert(data);
             $(form)
                 .find('[type="button"]')
                 .prop("disabled", false);
@@ -360,12 +362,11 @@ function editPermission() {
                 $(form)
                 .find('[type="button"]')
                 .prop("disabled", false);
-            document.getElementById("edit-permission-form").reset();
-
-                  var string = '<tr id="row_'+data.Permission.id + '" ><td>'+data.Permission.name+'</td><td>'+data.Permission.display_name+'</td><td>'+data.Permission.module_name+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.Permission+')">View</a> <a class="dropdown-item" href="javascript:openEditModal('+data.Permission+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.Permission.id+');">Delete</a></div></div></div></div></td></tr>';
+             $("#row_"+data.permission.id).remove();
+              var string = '<tr id="row_'+data.permission.id + '" ><td>'+data.permission.name+'</td><td>'+data.permission.display_name+'</td><td>'+data.permission.module_name+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.permission+')">View</a> <a class="dropdown-item" href="javascript:openEditModal('+data.permission+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.permission.id+');">Delete</a></div></div></div></div></td></tr>';
               $("#table_id").append(string);
 
-            $('#openEditModal').modal('hide');
+            $('#editModalPermission').modal('hide');
 
 
         },
@@ -405,9 +406,16 @@ function handleValidationErrors(error, type = 'create') {
         // $(`.step-${dataAttr}`).addClass('backend-error')
         if (type == 'edit') {
             console.log('edit',element);
-            $(`#edit_${element}_text`).text(item[0])
+            $(`#edit_${element}_text`).text(item[0]);
+            setTimeout(() => {
+                $(`#edit_${element}_text`).text('');
+
+            }, 3000);
         } else if (type == 'create') {
-            $(`#${element}_text`).text(item[0])
+            $(`#${element}_text`).text(item[0]);
+            setTimeout(() => {
+                $(`#${element}_text`).text('');
+            }, 3000);
         }
     });
 

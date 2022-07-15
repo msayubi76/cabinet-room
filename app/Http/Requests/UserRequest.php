@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Http\FormRequest;
 
 class UserRequest extends FormRequest
 {
@@ -25,18 +27,33 @@ class UserRequest extends FormRequest
      */
     public function rules(Request $request)
     {
-        $id = $request->route('user');
-        return [
+        $route_id = $request->route('user');
+        if(empty($route_id)):
+            $route_id = auth()->user()->id;
+        endif;
+        $rules =  [
             'fist_name' => ['required', 'alpha', 'max:255'],
             'last_name' => ['required', 'alpha', 'max:255'],
             'mobile_no' => ['required',  'max:11'],
             'address' => ['required'],
             'city' => ['required'],
             'region' => ['required'],
-            'email' => ['required', 'email:rfc,dns',Rule::unique('users')->ignore($id)],
-            'password' => ['required', 'confirmed'],
+            'email' => ['required',Rule::unique('users')->ignore($route_id)],
+            // 'password' => ['required', 'confirmed'],
             'profile' => ['nullable', 'mimes:jpg,bmp,png'],
 
         ];
+
+
+        if(!empty($request->route('user') && !$request->isMethod('put') ) )    :
+
+            $rules['password'] = ['required', 'confirmed'];
+
+        endif;
+
+
+
+        return $rules;
+
     }
 }

@@ -18,7 +18,12 @@ class DefaultUserSeeder extends Seeder
     {
         //
         $data = [
-            'name' => 'admin',
+            'fist_name' => 'admin',
+            'last_name' => 'admin',
+            'mobile_no' => '03015913636',
+            'city' => 'islamabad',
+            'address' => 'islamabad',
+            'region' => 'islam',
             'type' =>'super-admin',
             'email' => 'admin@gmail.com',
             'password' => Hash::make(12345678)

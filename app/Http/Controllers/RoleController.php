@@ -8,11 +8,15 @@ use App\Services\RoleService;
 use App\Http\Requests\RoleRequest;
 
 
+use Spatie\Permission\Models\Permission;
+
 class RoleController extends Controller
 {
     public function index(){
         $roles = RoleService::getRoles();
         return view('admin.role.index',compact('roles'));
+
+
     }
 
     public function store(RoleRequest $request){
@@ -44,7 +48,11 @@ class RoleController extends Controller
      }
 
      public function attach($role){
-        $roles =Role::find('role');
+        $roles =Role::find($role);
         return view('admin.role.attachpermission',compact('roles'));
+        $role = Role::FindById($role);
+        $permission = Permission::FindById(1);
+        $role->givePermissionTo($permission);
+
      }
 }

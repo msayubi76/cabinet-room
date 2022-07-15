@@ -20,7 +20,7 @@
                             <i class="icon-user menu-icon"></i><span class="nav-text">Users</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="{{ url('/users')}}">Sub-Users</a></li>
+                            <li><a href="{{ url('admin/users')}}">Sub-Users</a></li>
                             {{-- <li><a href="{{ url('/users')}}">Sub-Users</a></li> --}}
                             <!-- <li><a href="./index-2.html">Home 2</a></li> -->
                         </ul>
@@ -30,7 +30,7 @@
                             <i class="icon-badge menu-icon"></i><span class="nav-text">Roles</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="{{ url('/roles')}}">Role List</a></li>
+                            <li><a href="{{ url('admin/roles')}}">Role List</a></li>
                         </ul>
                     </li>
                     <li>
@@ -38,7 +38,15 @@
                             <i class="icon-badge menu-icon"></i><span class="nav-text">Permissions</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="{{ url('/permissions')}}">permission List</a></li>
+                            <li><a href="{{ url('admin/permissions')}}">permission List</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" href="{{ url('/category')}}" aria-expanded="false">
+                            <i class="icon-badge menu-icon"></i><span class="nav-text">Category</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ url('admin/category')}}">Category List</a></li>
                         </ul>
                     </li>
                     <li class="mega-menu mega-menu-sm">

@@ -11,12 +11,10 @@ use Illuminate\Support\Facades\Hash;
 class RoleService
 {
     public static function getRoles(){
-        try {
-            $roles = Role::all();
+
+            $roles = Role::orderBy('id', 'DESC')->paginate(30);
             return $roles;
-        } catch (\Throwable $th) {
-            return $th;
-        }
+
     }
 
     public function store(RoleRequest $request)
