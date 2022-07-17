@@ -21,8 +21,8 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Display_name</th>
-                                        <th>Module_name</th>
+                                        <th>Display Name</th>
+                                        <th>Module Name</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -59,8 +59,8 @@
                                 <tfoot>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Display_name</th>
-                                        <th>Module_name</th>
+                                        <th>Display Name</th>
+                                        <th>Module Name</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
@@ -92,7 +92,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"
                         data-dismiss="modal">No</button>
-                    <button type="button" class="btn btn-primary"
+                    <button type="button" id="btndelete" class="btn btn-primary"
                         onclick="deletePermission()">Yes</button>
                 </div>
             </div>
@@ -118,7 +118,7 @@
                             </label>
                             <div class="col-lg-6">
                                 <input type="text" class="form-control" id="name" name="name"
-                                    placeholder="Enter a name.." :value="old('name')">
+                                    placeholder="Enter a Name" :value="old('name')">
                                 <div id="name_text" class="text-danger"></div>
                             </div>
                         </div>
@@ -127,7 +127,7 @@
                             </label>
                             <div class="col-lg-6">
                                 <input type="text" class="form-control" id="display_name" name="display_name"
-                                    placeholder="Enter a display_name.." :value="old('display_name')">
+                                    placeholder="Enter a Display Name" :value="old('display_name')">
                                 <div id="display_name_text" class="text-danger"></div>
                             </div>
                         </div>
@@ -136,7 +136,7 @@
                             </label>
                             <div class="col-lg-6">
                                 <input type="text" class="form-control" id="module_name" name="module_name"
-                                    placeholder="Enter a module_name.." :value="old('module_name')">
+                                    placeholder="Enter a Module Name.." :value="old('module_name')">
                                 <div id="module_name_text" class="text-danger"></div>
                             </div>
                         </div>
@@ -255,7 +255,7 @@
                 .prop("disabled", false);
             document.getElementById("permission-form").reset();
               $(".odd").hide();
-            var string = '<tr id="row_'+data.Permission.id + '" ><td>'+data.Permission.name+'</td><td>'+data.Permission.display_name+'</td><td>'+data.Permission.module_name+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.Permission+')">View</a> <a class="dropdown-item"  href="javascript:openEditModal('+data.Permission+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.Permission.id+');">Delete</a></div></div></div></div></td></tr>';
+            var string = '<tr id="row_'+data.Permission.id + '" ><td>'+data.Permission.name+'</td><td>'+data.Permission.display_name+'</td><td>'+data.Permission.module_name+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.Permission+')">View</a> <a class="dropdown-item"  href="javascript:openEditModal('+data.Permission+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.Permission+');">Delete</a></div></div></div></div></td></tr>';
             $("#table_id").append(string);
 
             $('#addpermissionmodal').modal('hide');
@@ -289,6 +289,8 @@ function openDeleteDialog(id) {
  }
 
 function deletePermission() {
+    var spinner = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
+    $("#btndelete").html(spinner);
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -298,6 +300,7 @@ function deletePermission() {
         processData: false,
         contentType: false,
         success: function (data) {
+            $("#btndelete").text("Yes");
             $('.alert-success').html(data.success).fadeIn('slow');
             // $('.alert-success').delay(3000).fadeOut('slow');
             document.getElementById("row_" + $("#deleteID").val()).remove();

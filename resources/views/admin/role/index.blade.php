@@ -255,7 +255,7 @@
                 .prop("disabled", true);
         },
         success: function (data) {
-            $("#btnsave").text("Addd Role");
+            $("#btnsave").text("Add Role");
             console.log('data',data);
             swal({
                 title: "",
@@ -266,7 +266,7 @@
                 .find('[type="button"]')
                 .prop("disabled", false);
             document.getElementById("role-form").reset();
-            var string = '<tr id="row_'+data.role.id + '" ><td style="width: 70%">'+data.role.name+'</td> <td><a href="{{url('attach-permission->id')}}" class="btn btn-secondary">Attach Permission</a></td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.role+')">View</a> <a class="dropdown-item" onclick="openEditModal('+data.role+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.role.id+');">Delete</a></div></div></div></div></td></tr>';
+            var string = '<tr id="row_'+data.role.id + '" ><td style="width: 70%">'+data.role.name+'</td> <td><a href="{{url('attach-permission->id')}}" class="btn btn-secondary">Attach Permission</a></td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.role+')">View</a> <a class="dropdown-item" onclick="openEditModal('+data.role+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.role+');">Delete</a></div></div></div></div></td></tr>';
             $("#table_id").append(string);
 
 
@@ -300,6 +300,8 @@
 
     });
 }
+
+
 
 function editRole() {
     var form = $('#edit-role-form')[0];
@@ -369,6 +371,7 @@ function editRole() {
 function openDeleteDialog(id) {
     $("#deleteID").val(id);
     $("#deleteModal").modal('show');
+
  }
 
 function deleteRole() {
@@ -383,9 +386,13 @@ function deleteRole() {
         processData: false,
         contentType: false,
         success: function (data) {
+            $("#btndelete").text("Yes");
+
             $('.alert-success').html(data.success).fadeIn('slow');
+
             // $('.alert-success').delay(3000).fadeOut('slow');
             document.getElementById("row_" + $("#deleteID").val()).remove();
+
 
 
                 swal({
@@ -393,6 +400,8 @@ function deleteRole() {
                     text: data.message,
                     icon: "success",
                 });
+
+
                 $('#deleteModal').modal('hide');
         },
         error: function (error) {

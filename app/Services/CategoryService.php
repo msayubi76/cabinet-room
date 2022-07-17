@@ -23,12 +23,12 @@ class CategoryService
     {
         DB::beginTransaction();
         $data = $request->validated();
-        // if ($request->hasFile('image')) :
-        //     $image_name = $this->fileUpload($request->image, 'image');
-        //     $data['folder_name'] = 'image';
-        //     $data['image_name'] =  $image_name;
-        //     $data['image_url'] = url('/storage/image/' . $image_name);
-        // endif;
+        if ($request->has('profile')) :
+            $image_name = $this->fileUpload($request->profile, 'profile');
+            $data['folder_name'] = 'profile';
+            $data['image_name'] =  $image_name;
+            $data['image_url'] = url('/storage/profile/' . $image_name);
+        endif;
         $data['is_active'] = $request->is_active == true ? '1':'0';
 
         $category = Category::create($data);

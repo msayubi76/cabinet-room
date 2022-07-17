@@ -2,10 +2,11 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserRequest extends FormRequest
@@ -32,7 +33,7 @@ class UserRequest extends FormRequest
             $route_id = auth()->user()->id;
         endif;
         $rules =  [
-            'fist_name' => ['required', 'alpha', 'max:255'],
+            'fist_name' => [ 'required', 'alpha', 'max:255'],
             'last_name' => ['required', 'alpha', 'max:255'],
             'mobile_no' => ['required',  'max:11'],
             'address' => ['required'],

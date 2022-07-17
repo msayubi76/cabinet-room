@@ -63,15 +63,7 @@
 
                                     @endforeach
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>Fist Name</th>
-                                        <th>Last Name</th>
-                                        <th>Email</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </tfoot>
+
                             </table>
                         </div>
                     </div>
@@ -98,8 +90,8 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"
                         data-dismiss="modal">No</button>
-                    <button type="button" class="btn btn-primary"
-                        onclick="deleteUser({{ $user->id }})">Yes</button>
+                    <button type="button" id="btndelete" class="btn btn-primary"
+                        onclick="deleteUser()">Yes</button>
                 </div>
             </div>
         </div>
@@ -128,12 +120,12 @@
 
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="fist_name" name="fist_name"
-                                        placeholder="Fist name.." :value="old('fist_name')">
+                                        placeholder="Fist Name" :value="old('fist_name')">
                                     <div id="fist_name_text  err" class="text-danger"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="last_name" name="last_name"
-                                        placeholder="last_name.." :value="old('last_name')">
+                                        placeholder="last Name" :value="old('last_name')">
                                     <div id="last_name_text" class="text-danger"></div>
                                 </div>
                             </div>
@@ -141,12 +133,12 @@
 
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="mobile_no" name="mobile_no"
-                                        placeholder="mobile_no.." :value="old('mobile_no')">
+                                        placeholder="Mobile No" :value="old('mobile_no')">
                                     <div id="mobile_no_text" class="text-danger"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="address" name="address"
-                                        placeholder="address.." :value="old('address')">
+                                        placeholder="Address" :value="old('address')">
                                     <div id="address_text" class="text-danger"></div>
                                 </div>
                             </div>
@@ -154,12 +146,12 @@
 
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="city" name="city"
-                                        placeholder="city .." :value="old('city')">
+                                        placeholder="City" :value="old('city')">
                                     <div id="city_text" class="text-danger"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="region" name="region"
-                                        placeholder="region.." :value="old('region')">
+                                        placeholder="Region" :value="old('region')">
                                     <div id="region_text" class="text-danger"></div>
                                 </div>
                             </div>
@@ -167,12 +159,12 @@
 
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="email" name="email"
-                                        placeholder="email .." :value="old('email')">
+                                        placeholder="Email" :value="old('email')">
                                     <div id="email_text" class="text-danger"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="file" class="form-control" id="profile" name="profile"
-                                        placeholder="profile.." :value="old('profile')">
+                                        placeholder="profile" :value="old('profile')">
                                     <div id="profile_text" class="text-danger"></div>
                                 </div>
                             </div>
@@ -180,7 +172,7 @@
 
                                 <div class="col-md-6">
                                     <input type="password" class="form-control" id="password" name="password"
-                                        placeholder="password .." :value="old('password')">
+                                        placeholder="password " :value="old('password')">
                                     <div id="password_text" class="text-danger"></div>
                                     @error('password')
                                         <span class="text-danger" role="alert">
@@ -190,7 +182,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <input type="password" class="form-control" id="password" name="password_confirmation"
-                                        placeholder="..and confirm it!">
+                                        placeholder=" confirm it!">
                                     <div id="confirmed_text" class="text-danger"></div>
                                 </div>
                             </div>
@@ -285,19 +277,7 @@
                                 </div>
                             </div>
 
-                            {{-- <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" for="email">Email
-                                    <span class="text-danger">*</span>
-                                </label>
-                                <div class="col-lg-6">
-                                    <input type="text" class="form-control" id="mail" name="email"
-                                        placeholder="Your valid email.." value="">
-                                    <div id="mail_text" class="text-danger"></div>
-                                </div>
-                            </div> --}}
-
-
-                            <div class="form-group row">
+                           <div class="form-group row">
 
                                 <div class="col-lg-6">
 
@@ -379,6 +359,8 @@ function openDeleteDialog(id) {
  }
 
 function deleteUser() {
+    var spinner = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
+    $("#btndelete").html(spinner);
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -388,6 +370,7 @@ function deleteUser() {
         processData: false,
         contentType: false,
         success: function (data) {
+            $("#btndelete").text("Yes");
             $('.alert-success').html(data.success).fadeIn('slow');
             // $('.alert-success').delay(3000).fadeOut('slow');
             document.getElementById("row_" + $("#deleteID").val()).remove();
@@ -482,6 +465,7 @@ function editUser() {
                 .prop("disabled", true);
         },
         success: function (data) {
+            $("#btnsave").text("Edit Role");
             console.log(data)
 
             $(form)
@@ -498,7 +482,7 @@ function editUser() {
 
 
              $("#row_"+data.sub_user.id).remove();
-             var string = '<tr id="row_'+data.sub_user.id + '" ><td>'+data.sub_user.fist_name+'</td><td>'+data.sub_user.last_name+'</td><td>'+data.sub_user.email+'</td><td>'+data.sub_user.email_verified_at+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.sub_user+')">View</a> <a class="dropdown-item"  onclick="openEditModal('+data.sub_user+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.sub_user.id+');">Delete</a></div></div></div></div></td></tr>';
+             var string = '<tr id="row_'+data.sub_user.id + '" ><td>'+data.sub_user.fist_name+'</td><td>'+data.sub_user.last_name+'</td><td>'+data.sub_user.email+'</td><td>'+data.sub_user.email_verified_at+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.sub_user+')">View</a> <a class="dropdown-item"  onclick="openEditModal('+data.sub_user+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.sub_user+');">Delete</a></div></div></div></div></td></tr>';
             $("#table_id").append(string);
 
 

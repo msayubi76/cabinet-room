@@ -17,7 +17,7 @@ class UserService
     public static function getUsers()
     {
 
-            $users = User::orderBy('id', 'DESC')->paginate(30);
+            $users = User::whereNotIn('type',['super-admin'])->orderBy('id', 'DESC')->paginate(30);
             return $users;
 
     }
@@ -35,7 +35,7 @@ class UserService
         $data['type'] = 'admin';
         $user = User::create($data);
         DB::commit();
-        $response = ['status' => true, 'message' => 'Sub user added successfully.', 'user' => $user];
+        $response = ['status' => true, 'message' => 'Sub User Added Successfully.', 'user' => $user];
 
         return $response;
     }
@@ -47,7 +47,7 @@ class UserService
 
 
         DB::commit();
-        $response = ['status' => true, 'message' => 'Sub user updated.', 'sub_user' => $user];
+        $response = ['status' => true, 'message' => 'Sub User Updated Successfully.', 'sub_user' => $user];
         return $response;
     }
     public static function destroy($id)
@@ -56,7 +56,7 @@ class UserService
         $user = User::findorFail($id);
         $user->delete();
         DB::commit();
-        $response = ['status' => true, 'message' => 'Sub user removed successfully.'];
+        $response = ['status' => true, 'message' => 'Sub User removed successfully.'];
         return $response;
     }
 

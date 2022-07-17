@@ -129,9 +129,9 @@
                         <div class="form-group ">
                            <label class="col-lg-4 col-form-label" for="name">Image <span class="text-danger">*</span>
                             </label>
-                                <input type="file" class="form-control" id="image" name="image"
-                                    placeholder="image.." :value="old('image')">
-                                <div id="image_text" class="text-danger"></div>
+                            <input type="file" class="form-control" id="profile" name="profile"
+                            placeholder="profile" :value="old('profile')">
+                        <div id="profile_text" class="text-danger"></div>
 
                         </div>
                         <div class="form-group ">
