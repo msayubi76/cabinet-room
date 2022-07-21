@@ -121,7 +121,7 @@
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="fist_name" name="fist_name"
                                         placeholder="Fist Name" :value="old('fist_name')">
-                                    <div id="fist_name_text  err" class="text-danger"></div>
+                                    <div id="fist_name_text" class="text-danger"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="last_name" name="last_name"
@@ -287,7 +287,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" id="btnsave" onclick="editUser(this)" class="btn btn-primary">Edit User</button>
+                            <button type="button" id="btnupdate" onclick="editUser(this)" class="btn btn-primary">Edit User</button>
                         </div>
                     </form>
                 </div>
@@ -440,7 +440,7 @@ function editUser() {
 
     var form = $('#edit-user-form')[0];
     var spinner = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
-    $("#btnsave").html(spinner);
+    $("#btnupdate").html(spinner);
     user_id = form.user_id.value;
     console.log('user_id ', user_id);
 
@@ -465,7 +465,7 @@ function editUser() {
                 .prop("disabled", true);
         },
         success: function (data) {
-            $("#btnsave").text("Edit Role");
+            $("#btnupdate").text("Edit User");
             console.log(data)
 
             $(form)
@@ -482,7 +482,7 @@ function editUser() {
 
 
              $("#row_"+data.sub_user.id).remove();
-             var string = '<tr id="row_'+data.sub_user.id + '" ><td>'+data.sub_user.fist_name+'</td><td>'+data.sub_user.last_name+'</td><td>'+data.sub_user.email+'</td><td>'+data.sub_user.email_verified_at+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.sub_user+')">View</a> <a class="dropdown-item"  onclick="openEditModal('+data.sub_user+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.sub_user+');">Delete</a></div></div></div></div></td></tr>';
+             var string = '<tr id="row_'+data.sub_user.id + '" ><td>'+data.sub_user.fist_name+'</td><td>'+data.sub_user.last_name+'</td><td>'+data.sub_user.email+'</td><td>'+data.sub_user.email_verified_at+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.sub_user+')">View</a> <a class="dropdown-item"  onclick="openEditModal('+data.sub_user.id+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.sub_user.id+');">Delete</a></div></div></div></div></td></tr>';
             $("#table_id").append(string);
 
 
@@ -504,6 +504,19 @@ function editUser() {
                 text: sweetMessage,
                 icon: "error",
               });
+              setTimeout(() => {
+
+            $("#edit_fist_name_text").html("");
+            $("#edit_last_name_text").html("");
+            $("#edit_mobile_no_text").html("");
+            $("#edit_address_text").html("");
+            $("#edit_city_text").html("");
+            $("#edit_region_text").html("");
+            $("#edit_email_text").html("");
+            $("#edit_profile_text").html("");
+
+            $("#btnupdate").text("Edit User");
+            }, 6000);
             // toastr.error(errorMessage, "Error");
             // hideLoader();
         },
@@ -536,7 +549,7 @@ function submitUser() {
                 .prop("disabled", true);
         },
         success: function (data) {
-            $("#btnsave").text("Addd User");
+            $("#btnsave").text("Add User");
             console.log('data',data);
             swal({
                 title: "",
@@ -546,8 +559,8 @@ function submitUser() {
             $(form)
                 .find('[type="button"]')
                 .prop("disabled", false);
-            document.getElementById("user-form").reset();
-            var string = '<tr id="row_'+data.user.id + '" ><td>'+data.user.fist_name+'</td><td>'+data.user.last_name+'</td><td>'+data.user.email+'</td><td>'+data.user.email_verified_at+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.user+')">View</a> <a class="dropdown-item"  onclick="openEditModal('+data.user+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.user.id+');">Delete</a></div></div></div></div></td></tr>';
+            // document.getElementById("user-form").reset();
+            var string = '<tr id="row_'+data.user.id + '" ><td>'+data.user.fist_name+'</td><td>'+data.user.last_name+'</td><td>'+data.user.email+'</td><td>'+data.user.email_verified_at+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.user+')">View</a> <a class="dropdown-item"   href="javascript:openEditModal('+data.user+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.user.id+');">Delete</a></div></div></div></div></td></tr>';
             $("#table_id").append(string);
 
 
@@ -569,6 +582,21 @@ function submitUser() {
                 text: sweetMessage,
                 icon: "error",
               });
+
+              setTimeout(() => {
+
+                $("#fist_name_text").html("");
+                   $("#last_name_text").html("");
+                   $("#mobile_no_text").html("");
+                   $("#address_text").html("");
+                   $("#city_text").html("");
+                   $("#region_text").html("");
+                   $("#email_text").html("");
+                   $("#profile_text").html("");
+                   $("#password").html("");
+                   $("#confirmed_text").html("");
+                   $("#btnsave").text("Add User");
+              }, 6000);
             // toastr.error(errorMessage, "Error");
             // hideLoader();
 

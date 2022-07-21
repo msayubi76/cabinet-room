@@ -41,14 +41,15 @@ class UserRequest extends FormRequest
             'region' => ['required'],
             'email' => ['required',Rule::unique('users')->ignore($route_id)],
             // 'password' => ['required', 'confirmed'],
-            'profile' => ['nullable', 'mimes:jpg,bmp,png'],
+            'profile' => ['required', 'mimes:jpg,bmp,png'],
 
         ];
 
 
-        if(!empty($request->route('user') && !$request->isMethod('put') ) )    :
+        if((!empty($request->route('user') || !$request->isMethod('put') ) ) &&   !$request->isMethod('put') )  :
 
             $rules['password'] = ['required', 'confirmed'];
+
 
         endif;
 

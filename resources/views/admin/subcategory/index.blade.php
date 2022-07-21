@@ -8,11 +8,11 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-8 col-md-6 col-sm-8 text-left">
-                                <h4 class="card-title">Permission Table</h4>
+                                <h4 class="card-title">SubCategories Table</h4>
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-4 text-right">
-                                <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addpermissionmodal">Add
-                                    Permission</button>
+                                <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addcategory">Add
+                                    SubCategory</button>
 
                             </div>
                         </div>
@@ -20,18 +20,23 @@
                             <table class="table table-striped table-bordered zero-configuration" id="table">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Display Name</th>
-                                        <th>Module Name</th>
+                                        <th>SubCategory Name</th>
+                                        <th>Category Name</th>
+                                        <th>Image</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="table_id">
-                                    @foreach ($permissions as $permission)
-                                        <tr id='row_{{ $permission->id }}'>
-                                            <td>{{ $permission->name }}</td>
-                                            <td>{{ $permission->display_name }}</td>
-                                            <td>{{ $permission->module_name }}</td>
+                                    @foreach ($categories as $category)
+                                        <tr id='row_{{ $category->id }}'>
+                                            <td>{{ $category->name }}</td>
+                                            <td>{{$category->category->name}}</td>
+                                            <td><img src="{{asset('/storage/subcategory/' . $category->profile)}}" alt=""></td>
+
+                                           <td> {{$category->is_active == '1' ? 'Hidden':'Show' }}</td>
+
+
 
                                             <td>
                                                 <div class="button-group">
@@ -42,10 +47,10 @@
                                                                 data-toggle="dropdown"></button>
                                                             <div class="dropdown-menu">
                                                                 <a class="dropdown-item"
-                                                                    onclick="openViewModal({{ $permission }})">View</a>
+                                                                    onclick="openViewModal({{ $category }})">View</a>
                                                                 <a class="dropdown-item"
-                                                                    href="javascript:openEditModal({{ json_encode($permission) }})">Edit</a>
-                                                                <a class="dropdown-item" href="javascript:openDeleteDialog({{ $permission->id }})">Delete</a>
+                                                                    href="javascript:openEditModal({{ json_encode($category) }})">Edit</a>
+                                                                <a class="dropdown-item" href="javascript:openDeleteDialog({{ $category->id }})">Delete</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -58,9 +63,10 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Display Name</th>
-                                        <th>Module Name</th>
+                                        <th>SubCategory Name</th>
+                                        <th>Category Name</th>
+                                        <th>Image</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
@@ -79,7 +85,7 @@
                 <div class="modal-header">
                     <input type="hidden" value="-1" id="deleteID">
 
-                    <h5 class="modal-title" id="exampleModalLongTitle">Delete permission
+                    <h5 class="modal-title" id="exampleModalLongTitle">Delete Sub Category
                     </h5>
                     <button type="button" class="close" data-dismiss="modal"
                         aria-label="Close">
@@ -87,65 +93,82 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    Are you sure you want to delete this permission?
+                    Are you sure you want to delete this SubCategory?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"
                         data-dismiss="modal">No</button>
                     <button type="button" id="btndelete" class="btn btn-primary"
-                        onclick="deletePermission()">Yes</button>
+                        onclick="deleteSubCategory()">Yes</button>
                 </div>
             </div>
         </div>
     </div>
  {{-- add --}}
- <div class="modal fade" id="addpermissionmodal">
+ <div class="modal fade" id="addcategory">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add Permission</h5>
+                <h5 class="modal-title">Add SubCategory</h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
 
             <div class="modal-body">
-                <form class="form-valide" id="permission-form" method="post" enctype="multipart/form-data">
+                <form class="form-valide" id="subcategory-form" method="post" enctype="multipart/form-data">
                     @csrf
-
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
+                            <img id="image_preview" src="{{ url('images/profile/default_image.png') }}" alt=""
+                                width="120" class="rounded-circle border border-dark" />
+                        </div>
+                    </div>
                     <div class="form-validation">
-                        <div class="form-group row">
+                        <div class="form-group ">
+                        <label for=""> Cateogry</label>
+
+                        <select name="category" class="form-control" id="">
+                            <option value="">-- Select Category --</option>
+                            @foreach ($category as $catitem )
+
+
+                            {{-- <option value="{{$catitem->id}}">{{$catitem->name}}</option> --}}
+                            @endforeach
+                        </select>
+                        </div>
+                        <div class="form-group ">
+
                             <label class="col-lg-4 col-form-label" for="name">Name <span class="text-danger">*</span>
                             </label>
-                            <div class="col-lg-6">
                                 <input type="text" class="form-control" id="name" name="name"
-                                    placeholder="Enter a Name" :value="old('name')">
+                                    placeholder="Category name.." :value="old('name')">
                                 <div id="name_text" class="text-danger"></div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-4 col-form-label" for="display_name">Display Name <span class="text-danger">*</span>
+                           </div>
+
+                        <div class="form-group ">
+                           <label class="col-lg-4 col-form-label" for="name">Image <span class="text-danger">*</span>
                             </label>
-                            <div class="col-lg-6">
-                                <input type="text" class="form-control" id="display_name" name="display_name"
-                                    placeholder="Enter a Display Name" :value="old('display_name')">
-                                <div id="display_name_text" class="text-danger"></div>
-                            </div>
+                            <input type="file" class="form-control" id="profile" name="profile"
+                            placeholder="profile" :value="old('profile')">
+                        <div id="profile_text" class="text-danger"></div>
+
                         </div>
-                        <div class="form-group row">
-                            <label class="col-lg-4 col-form-label" for="module_name">Module Name <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-lg-6">
-                                <input type="text" class="form-control" id="module_name" name="module_name"
-                                    placeholder="Enter a Module Name " :value="old('module_name')">
-                                <div id="module_name_text" class="text-danger"></div>
-                            </div>
+                        <div class="form-group ">
+
+
+                            <label class="col-lg-4 col-form-label form-check-label" for="name">
+
+                                <input type="checkbox" class="form-check-input" name="is_active" value="">status </label>
+                                <div id="image_text" class="text-danger"></div>
+
                         </div>
+
 
 
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" id="btnsave" onclick="submitPermission(this)" class="btn btn-primary">Add Permission</button>
+                        <button type="button"  id="btnsave" onclick="submitSubCategory(this)" class="btn btn-primary">Add SubCategory</button>
                     </div>
                 </form>
 
@@ -157,23 +180,43 @@
 </div>
 
  {{-- edit --}}
- <div class="modal fade" id="editModalPermission">
+ <div class="modal fade" id="editsubcategory">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Edit Permission</h5>
+                <h5 class="modal-title">Edit Sub Category</h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form class="form-valide" id="edit-permission-form" method="post" enctype="multipart/form-data">
+                <form class="form-valide" id="edit-subcategory-form" method="post" enctype="multipart/form-data">
                     @csrf
 
                     <div class="form-validation">
-                        <div class="form-group row">
-                            <input type="hidden" value="-1" id="permission_id">
-                            <input type="hidden" value="PUT" name="_method"> {{-- salahuddin added --}}
 
+                            <input type="hidden" value="-1" id="subcategory_id">
+                            <input type="hidden" value="PUT" name="_method">
+                            <div class="row">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
+
+                                    <img id="edit_image_preview" src="{{ url('images/profile/62a7764c8bf14.jpg') }}" alt=""
+                                        width="120" class="rounded-circle border border-dark" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                            <label for=""> Cateogry</label>
+
+                    <select name="category_id" class="form-control" id="">
+                        @foreach ($category as $catitem )
+
+
+                        {{-- <option value="{{$catitem->id}}" {{$post->category_id == $catitem->id ? 'selected' : ''}}>{{$catitem->name}}</option> --}}
+
+                        @endforeach
+                    </select>
+                            </div>
+
+                            <div class="form-group row">
                             <label class="col-lg-4 col-form-label" for="name">Name <span class="text-danger">*</span>
                             </label>
                             <div class="col-lg-6">
@@ -183,27 +226,28 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-lg-4 col-form-label" for="display_name">Display Name <span class="text-danger">*</span>
+                            <label class="col-lg-4 col-form-label" for="name">Name <span class="text-danger">*</span>
                             </label>
                             <div class="col-lg-6">
-                                <input type="text" class="form-control" id="edit_display_name" name="display_name"
-                                    placeholder="Enter a display_name.." value="">
-                                <div id="edit_display_name_text" class="text-danger"></div>
-                            </div>
+                        <input type="file" class="form-control" id="edit_profile" name="profile"
+                        placeholder="Enter a name.." value="">
+                    <div id="edit_profile_text" class="text-danger"></div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-lg-4 col-form-label" for="module_name">Module Name <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-lg-6">
-                                <input type="text" class="form-control" id="edit_module_name" name="module_name"
-                                    placeholder="Enter a module_name.." value="">
-                                <div id="edit_module_name_text" class="text-danger"></div>
-                            </div>
-                        </div>
+                    </div>
+                    <div class="form-group ">
+
+
+                        <label class="col-lg-4 col-form-label" for="name">staus <span class="text-danger">*</span>
+                        </label>
+
+                            <input type="checkbox" id="edit_is_active" name="is_active"  value="">
+                            <div id="edit_is_active" class="text-danger"></div>
+
+                    </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" id="btnupdate" onclick="editPermission(this)"  class="btn btn-primary">Edit Permission</button>
+                        <button type="button" id="btnupdate" onclick="editSubCategory(this)"  class="btn btn-primary">Edit Sub Category</button>
                     </div>
                 </form>
             </div>
@@ -214,11 +258,23 @@
 @endsection
 @section('scripts')
 <script>
+    profile.onchange = evt => {
+    const [file] = profile.files
+    console.log('file', file);
+    if (file) {
+        image_preview.src = URL.createObjectURL(file)
+    }
+}
+edit_profile.onchange = evt => {
+    const [file] = edit_profile.files
+    if (file) {
+        edit_image_preview.src = URL.createObjectURL(file)
+    }
+}
 
 
-
-  function submitPermission() {
-    var form = $('#permission-form')[0];
+  function submitSubCategory() {
+    var form = $('#subcategory-form')[0];
     console.log('form ', form);
     var spinner = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
     $("#btnsave").html(spinner);
@@ -231,7 +287,7 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
         },
-        url: "/admin/permissions", // the endpoint
+        url: "/admin/subcategory", // the endpoint
         type: "POST", // http method
         processData: false,
         contentType: false,
@@ -242,7 +298,9 @@
                 .prop("disabled", true);
         },
         success: function (data) {
-            $("#btnsave").text("Add Permission");
+            console.log(data)
+            $("#btnsave").text("Addd subCategory");
+
             console.log('data',data);
             swal({
                 title: "",
@@ -253,12 +311,12 @@
             $(form)
                 .find('[type="button"]')
                 .prop("disabled", false);
-            document.getElementById("permission-form").reset();
-              $(".odd").hide();
-            var string = '<tr id="row_'+data.Permission.id + '" ><td>'+data.Permission.name+'</td><td>'+data.Permission.display_name+'</td><td>'+data.Permission.module_name+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.Permission+')">View</a> <a class="dropdown-item"  href="javascript:openEditModal('+data.Permission+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.Permission+');">Delete</a></div></div></div></div></td></tr>';
-            $("#table_id").append(string);
+            // document.getElementById("category-form").reset();
+            //   $(".odd").hide();
+            // var string = '<tr id="row_'+data.category.id + '" ><td>'+data.category.name+'</td><td><img src="'+data.category.profile+'" alt=""></td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.category+')">View</a> <a class="dropdown-item"  href="javascript:openEditModal('+data.category+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.category.id+');">Delete</a></div></div></div></div></td></tr>';
+            // $("#table_id").append(string);
 
-            $('#addpermissionmodal').modal('hide');
+            $('#addcategory').modal('hide');
 
 
         },
@@ -279,12 +337,12 @@
               });
               setTimeout(() => {
 
-                $("#name_text").html("");
-                $("#display_name_text").html("");
-                $("#module_name_text").html("");
+            $("#name_text").html("");
+            $("#profile_text").html("");
 
-                $("#btnsave").text("Add Permission");
-                }, 6000);
+
+            $("#btnsave").text("Add SubCategory");
+            }, 6000);
 
         },
     });
@@ -295,14 +353,14 @@ function openDeleteDialog(id) {
     $("#deleteModal").modal('show');
  }
 
-function deletePermission() {
+function deleteSubCategory() {
     var spinner = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
     $("#btndelete").html(spinner);
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
-        url: "/admin/permissions/" + $("#deleteID").val(), // the endpoint
+        url: "/admin/subcategory/" + $("#deleteID").val(), // the endpoint
         type: "DELETE", // http method
         processData: false,
         contentType: false,
@@ -324,23 +382,22 @@ function deletePermission() {
     });
 }
 
-function openEditModal(permission) {
+function openEditModal(category) {
 
-    document.getElementById('edit_name').value = permission.name;
-    document.getElementById('edit_display_name').value = permission.display_name;
-    document.getElementById('edit_module_name').value = permission.module_name;
-    document.getElementById('permission_id').value = permission.id;
+    document.getElementById('edit_name').value = category.name;
+    document.getElementById('edit_is_active').value = category.is_active == '1' ? 'checked':'';
 
+    document.getElementById('subcategory_id').value = subcategory.id;
 
-    $("#editModalPermission").modal()
+    $("#editsubcategory").modal()
 }
 
-function editPermission() {
-    var form = $('#edit-permission-form')[0];
+function editSubCategory() {
+    var form = $('#edit-subcategory-form')[0];
     var spinner = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
     $("#btnupdate").html(spinner);
-    permission_id = form.permission_id.value;
-    console.log('permission_id', permission_id);
+    subcategory_id = form.subcategory_id.value;
+    console.log('subcategory_id', subcategory_id);
 
     const myFormData = new FormData(form);
     const formDataObj = {};
@@ -350,8 +407,8 @@ function editPermission() {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
         },
-        url: "/admin/permissions/" + permission_id, // the endpoint
-        type:"POST", // salahuyddin changed
+        url: "/admin/subcategory/" + subcategory_id, // the endpoint
+        type:"POST",
         processData: false,
         contentType: false,
         data: myFormData,
@@ -362,7 +419,9 @@ function editPermission() {
 
         },
         success: function (data) {
-            $("#btnupdate").text("Editttt Permission");
+            $("#btnupdate").text("Edit Sub Category");
+
+            console.log(data)
 
             $(form)
                 .find('[type="button"]')
@@ -375,11 +434,11 @@ function editPermission() {
                 $(form)
                 .find('[type="button"]')
                 .prop("disabled", false);
-             $("#row_"+data.permission.id).remove();
-              var string = '<tr id="row_'+data.permission.id + '" ><td>'+data.permission.name+'</td><td>'+data.permission.display_name+'</td><td>'+data.permission.module_name+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.permission+')">View</a> <a class="dropdown-item" href="javascript:openEditModal('+data.permission+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.permission.id+');">Delete</a></div></div></div></div></td></tr>';
-              $("#table_id").append(string);
+            //  $("#row_"+data.category.id).remove();
+            //   var string = '<tr id="row_'+data.category.id + '" ><td>'+data.category.name+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.category+')">View</a> <a class="dropdown-item" href="javascript:openEditModal('+data.category+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.category.id+');">Delete</a></div></div></div></div></td></tr>';
+            //   $("#table_id").append(string);
 
-            $('#editModalPermission').modal('hide');
+            $('#editsubcategory').modal('hide');
 
 
         },
@@ -402,10 +461,9 @@ function editPermission() {
               setTimeout(() => {
 
                 $("#edit_name_text").html("");
-                $("#edit_display_name_text").html("");
-                $("#edit_module_name_text").html("");
+                $("#edit_is_active_text").html("");
 
-                $("#btnupdate").text("Edit Permission");
+                $("#btnupdate").text("Edit Sub category");
                 }, 6000);
 
         },
@@ -427,16 +485,9 @@ function handleValidationErrors(error, type = 'create') {
         // $(`.step-${dataAttr}`).addClass('backend-error')
         if (type == 'edit') {
             console.log('edit',element);
-            $(`#edit_${element}_text`).text(item[0]);
-            setTimeout(() => {
-                $(`#edit_${element}_text`).text('');
-
-            }, 3000);
+            $(`#edit_${element}_text`).text(item[0])
         } else if (type == 'create') {
-            $(`#${element}_text`).text(item[0]);
-            setTimeout(() => {
-                $(`#${element}_text`).text('');
-            }, 3000);
+            $(`#${element}_text`).text(item[0])
         }
     });
 

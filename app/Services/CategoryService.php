@@ -23,13 +23,14 @@ class CategoryService
     {
         DB::beginTransaction();
         $data = $request->validated();
-        if ($request->has('profile')) :
-            $image_name = $this->fileUpload($request->profile, 'profile');
+        if ($request->hasFile('profile')) :
+            $image_name = FileUploadTrait::fileUpload($request->profile, 'profile');
+
             $data['folder_name'] = 'profile';
             $data['image_name'] =  $image_name;
-            $data['image_url'] = url('/storage/profile/' . $image_name);
+            $data['image_url'] = url('/storage/category/' . $image_name);
         endif;
-        $data['is_active'] = $request->is_active == true ? '1':'0';
+        $data['is_active'] =  $request->is_active == true ? '1' : '0';
 
         $category = Category::create($data);
         DB::commit();
@@ -46,7 +47,7 @@ class CategoryService
 
 
         DB::commit();
-        $response = ['status' => true, 'message' => ' category updated.', 'category' => $category];
+        $response = ['status' => true, 'message' => ' category updated successfully.', 'category' => $category];
         return $response;
     }
 
@@ -54,10 +55,14 @@ class CategoryService
     {
         DB::beginTransaction();
         $category = Category::findorFail($id);
+        $category->subcategories()->delete();
+
         $category->delete();
         DB::commit();
-        $response = ['status' => true, 'message' => 'category removed successfully.'];
+        $response = ['status' => true, 'message' => 'category removed With Subcategory successfully.'];
         return $response;
     }
+
+
 
 }

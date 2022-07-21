@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\PermissionController;
 use PHPUnit\TextUI\XmlConfiguration\Group;
 use PHPUnit\TextUI\XmlConfiguration\Groups;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\SubCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function ()
     Route::get('attach-permission/{role}',[RoleController::class,'attach']);
 
     Route::resource('category',CategoryController::class);
+    Route::resource('subcategory',SubCategoryController::class);
+
 
 });
 

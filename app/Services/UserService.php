@@ -17,7 +17,9 @@ class UserService
     public static function getUsers()
     {
 
-            $users = User::whereNotIn('type',['super-admin'])->orderBy('id', 'DESC')->paginate(30);
+            // $users = User::whereNotIn('type',['super-admin'])->orderBy('id', 'DESC')->paginate(30);
+            $users = User::orderBy('id', 'DESC')->whereNotIn('type',['super-admin'])->paginate(30);
+
             return $users;
 
     }

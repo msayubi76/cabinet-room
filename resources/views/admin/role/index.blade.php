@@ -174,7 +174,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button"  onclick="editRole(this)"  class="btn btn-primary">Edit User</button>
+                        <button type="button" id="btupdate" onclick="editRole(this)"  class="btn btn-primary">Edit User</button>
                     </div>
                 </form>
             </div>
@@ -291,8 +291,13 @@
                 text: sweetMessage,
                 icon: "error",
               });
-              toastr.error(errorMessage, "Error");
-            hideLoader()
+              setTimeout(() => {
+
+                $("#name_text").html("");
+
+                $("#btnsave").text("Add Role");
+                }, 6000);
+
 
 
 
@@ -305,6 +310,8 @@
 
 function editRole() {
     var form = $('#edit-role-form')[0];
+    var spinner = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
+    $("#btnupdate").html(spinner);
     role_id = form.role_id.value;
     console.log('role id ', role_id);
     const myFormData = new FormData(form);
@@ -327,6 +334,7 @@ function editRole() {
 
         },
         success: function (data) {
+            $("#btnupdate").text("Edit Role");
 
             $(form)
                 .find('[type="button"]')
@@ -361,8 +369,12 @@ function editRole() {
                 text: sweetMessage,
                 icon: "error",
               });
-            toastr.error(errorMessage, "Error");
-            hideLoader();
+              setTimeout(() => {
+
+            $("#edit_name_text").html("");
+
+            $("#btnupdate").text("Edit Role");
+            }, 6000);
         },
     });
 }
