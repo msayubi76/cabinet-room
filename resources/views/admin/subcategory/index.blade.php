@@ -132,7 +132,7 @@
                             @foreach ($category as $catitem )
 
 
-                            {{-- <option value="{{$catitem->id}}">{{$catitem->name}}</option> --}}
+                            <option value="{{$catitem->id}}">{{$catitem->name}}</option>
                             @endforeach
                         </select>
                         </div>
