@@ -127,7 +127,7 @@
                         <div class="form-group ">
                         <label for=""> Cateogry</label>
 
-                        <select name="category" class="form-control" id="">
+                        <select name="category_id" class="form-control" id="">
                             <option value="">-- Select Category --</option>
                             @foreach ($category as $catitem )
 
