@@ -141,7 +141,7 @@
                             <label class="col-lg-4 col-form-label" for="name">Name <span class="text-danger">*</span>
                             </label>
                                 <input type="text" class="form-control" id="name" name="name"
-                                    placeholder="Category name.." :value="old('name')">
+                                    placeholder="Category Name" :value="old('name')">
                                 <div id="name_text" class="text-danger"></div>
                            </div>
 
@@ -159,7 +159,7 @@
                             <label class="col-lg-4 col-form-label form-check-label" for="name">
 
                                 <input type="checkbox" class="form-check-input" name="is_active" value="">status </label>
-                                <div id="image_text" class="text-danger"></div>
+                                <div id="is_active_text" class="text-danger"></div>
 
                         </div>
 
@@ -221,7 +221,7 @@
                             </label>
                             <div class="col-lg-6">
                                 <input type="text" class="form-control" id="edit_name" name="name"
-                                    placeholder="Enter a name.." value="">
+                                    placeholder="Enter a Name" value="">
                                 <div id="edit_name_text" class="text-danger"></div>
                             </div>
                         </div>

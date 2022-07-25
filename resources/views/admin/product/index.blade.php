@@ -8,11 +8,11 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-8 col-md-6 col-sm-8 text-left">
-                                <h4 class="card-title">Permission Table</h4>
+                                <h4 class="card-title">Products Table</h4>
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-4 text-right">
-                                <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addpermissionmodal">Add
-                                    Permission</button>
+                              <a href="{{url('admin/products/create')}}" class="btn btn-sm btn-primary">Add
+                                    Products</a>
 
                             </div>
                         </div>
@@ -21,14 +21,16 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Display Name</th>
-                                        <th>Module Name</th>
+                                        <th>Category </th>
+                                        <th>Sub Category</th>
+                                        <th>Image</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="table_id">
 
                                         <tr id='row_'>
+                                            <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -44,7 +46,7 @@
                                                                 <a class="dropdown-item"
                                                                     onclick="openViewModal( )">View</a>
                                                                 <a class="dropdown-item"
-                                                                    href="javascript:openEditModal({{ json_encode() }})">Edit</a>
+                                                                    href="javascript:openEditModal()">Edit</a>
                                                                 <a class="dropdown-item" href="javascript:openDeleteDialog()">Delete</a>
                                                             </div>
                                                         </div>
@@ -54,13 +56,14 @@
                                         </tr>
 
 
-                                    @endforeach
+
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Display Name</th>
-                                        <th>Module Name</th>
+                                        <th>Category </th>
+                                        <th>Sub Category</th>
+                                        <th>Image</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
