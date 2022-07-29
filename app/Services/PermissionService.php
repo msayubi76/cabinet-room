@@ -18,7 +18,7 @@ class PermissionService
 
     }
 
-    public function store(PermissionRequest $request)
+    public static function store(PermissionRequest $request)
     {
         DB::beginTransaction();
         $data = $request->validated();
@@ -31,7 +31,7 @@ class PermissionService
         return $response;
     }
 
-    public function update(PermissionRequest $request, Permission $permission){
+    public static function update(PermissionRequest $request, Permission $permission){
         DB::beginTransaction();
         $data = $request->validated();
 
@@ -52,6 +52,10 @@ class PermissionService
         return $response;
     }
 
+    public function moduleWisePermissions()
+    {
+        return Permission::all()->groupBy('module_name');
+    }
 
-
+ 
 }
