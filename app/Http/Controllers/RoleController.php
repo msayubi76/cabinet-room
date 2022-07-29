@@ -6,8 +6,7 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Services\RoleService;
 use App\Http\Requests\RoleRequest;
-
-
+use App\Services\PermissionService;
 use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
@@ -48,9 +47,10 @@ class RoleController extends Controller
      }
 
      public function attach($role){
-        $roles =Role::find($role);
-        $permission = Permission::all();
-        return view('admin.role.attachpermission',compact('roles','permission'));
+        $permissions = PermissionService::moduleWisePermissions();
+        $roles =Role::find($role); 
+        dd($permissions);
+        return view('admin.role.attachpermission',compact('roles','permissions'));
 
 
      }

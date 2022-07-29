@@ -52,7 +52,7 @@ class PermissionService
         return $response;
     }
 
-    public function moduleWisePermissions()
+    public static function moduleWisePermissions()
     {
         return Permission::all()->groupBy('module_name');
     }
