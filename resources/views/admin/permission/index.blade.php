@@ -85,7 +85,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"
                         data-dismiss="modal">No</button>
-                    <button type="button" id="btndelete" class="btn btn-primary"
+                    <button type="button" id="button-delete" class="btn btn-primary"
                         onclick="deletePermission()">Yes</button>
                 </div>
             </div>
@@ -112,7 +112,7 @@
                             <div class="col-lg-6">
                                 <input type="text" class="form-control" id="name" name="name"
                                     placeholder="Enter a Name" :value="old('name')">
-                                <div id="name_text" class="text-danger"></div>
+                                <div id="name_text" class="text-danger backend-error-text"></div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -121,7 +121,7 @@
                             <div class="col-lg-6">
                                 <input type="text" class="form-control" id="display_name" name="display_name"
                                     placeholder="Enter a Display Name" :value="old('display_name')">
-                                <div id="display_name_text" class="text-danger"></div>
+                                <div id="display_name_text" class="text-danger backend-error-text"></div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -130,7 +130,7 @@
                             <div class="col-lg-6">
                                 <input type="text" class="form-control" id="module_name" name="module_name"
                                     placeholder="Enter a Module Name " :value="old('module_name')">
-                                <div id="module_name_text" class="text-danger"></div>
+                                <div id="module_name_text" class="text-danger backend-error-text"></div>
                             </div>
                         </div>
 
@@ -138,7 +138,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" id="btnsave" onclick="submitPermission(this)" class="btn btn-primary">Add Permission</button>
+                        <button type="button" id="button-save" onclick="submitPermission(this)" class="btn btn-primary">Add Permission</button>
                     </div>
                 </form>
 
@@ -172,7 +172,7 @@
                             <div class="col-lg-6">
                                 <input type="text" class="form-control" id="edit_name" name="name"
                                     placeholder="Enter a name.." value="">
-                                <div id="edit_name_text" class="text-danger"></div>
+                                <div id="edit_name_text" class="text-danger backend-error-text"></div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -181,7 +181,7 @@
                             <div class="col-lg-6">
                                 <input type="text" class="form-control" id="edit_display_name" name="display_name"
                                     placeholder="Enter a display_name.." value="">
-                                <div id="edit_display_name_text" class="text-danger"></div>
+                                <div id="edit_display_name_text" class="text-danger backend-error-text"></div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -190,13 +190,13 @@
                             <div class="col-lg-6">
                                 <input type="text" class="form-control" id="edit_module_name" name="module_name"
                                     placeholder="Enter a module_name.." value="">
-                                <div id="edit_module_name_text" class="text-danger"></div>
+                                <div id="edit_module_name_text" class="text-danger backend-error-text"></div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" id="btnupdate" onclick="editPermission(this)"  class="btn btn-primary">Edit Permission</button>
+                        <button type="button" id="button-update" onclick="editPermission(this)"  class="btn btn-primary">Edit Permission</button>
                     </div>
                 </form>
             </div>
@@ -212,9 +212,9 @@
 var dataarray =[];
   function submitPermission() {
     var form = $('#permission-form')[0];
+    $("#button-save").text('Loading...');
     console.log('form ', form);
-    var spinner = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
-    $("#btnsave").html(spinner);
+
 
     const myFormData = new FormData(form);
     const formDataObj = {};
@@ -231,11 +231,12 @@ var dataarray =[];
         data: myFormData,
         beforeSend: function () {
             $(form)
-                .find('[type="button"]')
-                .prop("disabled", true);
+            $('.backend-error-text').text('')
+            $("#button-save").prop("disabled", true);
         },
         success: function (data) {
-            $("#btnsave").text("Add Permission");
+            $("#button-save").prop("disabled", false);
+            $("#button-save").text("Add Permission");
             console.log('data',data);
             swal({
                 title: "",
@@ -246,11 +247,28 @@ var dataarray =[];
             $(form)
                 .find('[type="button"]')
                 .prop("disabled", false);
-            // document.getElementById("permission-form").reset();
+            document.getElementById("permission-form").reset();
             dataarray.push(data);
             var index = (dataarray.length)-1;
-              $(".odd").hide();
-            var string = '<tr id="row_'+data.permission.id + '" ><td>'+data.permission.name+'</td><td>'+data.permission.display_name+'</td><td>'+data.permission.module_name+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.permission+')">View</a> <a class="dropdown-item"   href="javascript:openEditIndexModal('+ index +')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.permission.id+');">Delete</a></div></div></div></div></td></tr>';
+            var string =
+            `<tr id="row_${data.permission.id}">
+                <td>${data.permission.name}</td>
+                <td>${data.permission.display_name}</td>
+                <td>${data.permission.module_name}</td>
+
+                <td>
+                    <div class="button-group">
+                        <div class="btn-group">
+                            <div class="btn-group"><button id="btnGroupDrop${data.permission.id}" type="button"
+                                    class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button>
+                                <div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal(${data.permission})">View</a>
+                                    <a class="dropdown-item" href="javascript:openEditIndexModal(${index})">Edit</a><a
+                                        class="dropdown-item" href="javascript:openDeleteDialog(${data.permission.id});">Delete</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>`
             $("#table_id").append(string);
 
             $('#addpermissionmodal').modal('hide');
@@ -259,8 +277,8 @@ var dataarray =[];
         },
         error: function (error) {
             $(form)
-                .find('[type="button"]')
-                .prop("disabled", false);
+            $("#button-save").prop("disabled", false);
+            $("#button-save").text("Add Permission");
             var errorMessage = error.statusText;
             var sweetMessage = error.statusText;
             if (error.status == 422) {
@@ -272,14 +290,6 @@ var dataarray =[];
                 text: sweetMessage,
                 icon: "error",
               });
-              setTimeout(() => {
-
-                $("#name_text").html("");
-                $("#display_name_text").html("");
-                $("#module_name_text").html("");
-
-                $("#btnsave").text("Add Permission");
-                }, 6000);
 
         },
     });
@@ -290,9 +300,8 @@ function openDeleteDialog(id) {
     $("#deleteModal").modal('show');
  }
 
-function deletePermission() {
-    var spinner = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
-    $("#btndelete").html(spinner);
+ function deletePermission() {
+    $("#button-delete").text('Loading...');
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -302,7 +311,8 @@ function deletePermission() {
         processData: false,
         contentType: false,
         success: function (data) {
-            $("#btndelete").text("Yes");
+            $("#button-delete").prop("disabled", false);
+            $("#button-delete").text("Yes");
             $('.alert-success').html(data.success).fadeIn('slow');
             // $('.alert-success').delay(3000).fadeOut('slow');
             document.getElementById("row_" + $("#deleteID").val()).remove();
@@ -314,7 +324,11 @@ function deletePermission() {
                 $('#deleteModal').modal('hide');
         },
         error: function (error) {
-            alert(error.message);
+            $("#button-delete").prop("disabled", false);
+            $("#button-delete").text("Yes");
+            alert(error);
+
+
         },
     });
 }
@@ -341,8 +355,7 @@ function openEditModal(permission) {
 
 function editPermission() {
     var form = $('#edit-permission-form')[0];
-    var spinner = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
-    $("#btnupdate").html(spinner);
+    $("#button-update").text('Loading...');
     permission_id = form.permission_id.value;
     console.log('permission_id', permission_id);
 
@@ -361,12 +374,13 @@ function editPermission() {
         data: myFormData,
         beforeSend: function () {
             $(form)
-                .find('[type="button"]')
-                .prop("disabled", true);
+            $('.backend-error-text').text('')
+            $("#button-update").prop("disabled", true);
 
         },
         success: function (data) {
-            $("#btnupdate").text("Editttt Permission");
+            $("#button-update").prop("disabled", false);
+            $("#button-update").text("Edit Permission");
 
             $(form)
                 .find('[type="button"]')
@@ -382,8 +396,26 @@ function editPermission() {
                 dataarray.push(data);
                 var index = (dataarray.length)-1;
              $("#row_"+data.permission.id).remove();
-              var string = '<tr id="row_'+data.permission.id + '" ><td>'+data.permission.name+'</td><td>'+data.permission.display_name+'</td><td>'+data.permission.module_name+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.permission+')">View</a> <a class="dropdown-item" href="javascript:openEditIndexModal('+index+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.permission.id+');">Delete</a></div></div></div></div></td></tr>';
-              $("#table_id").append(string);
+             var string =
+            `<tr id="row_${data.permission.id}">
+                <td>${data.permission.name}</td>
+                <td>${data.permission.display_name}</td>
+                <td>${data.permission.module_name}</td>
+
+                <td>
+                    <div class="button-group">
+                        <div class="btn-group">
+                            <div class="btn-group"><button id="btnGroupDrop${data.permission.id}" type="button"
+                                    class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button>
+                                <div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal(${data.permission})">View</a>
+                                    <a class="dropdown-item" href="javascript:openEditIndexModal(${index})">Edit</a><a
+                                        class="dropdown-item" href="javascript:openDeleteDialog(${data.permission.id});">Delete</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>`
+            $("#table_id").append(string);
 
             $('#editModalPermission').modal('hide');
 
@@ -391,8 +423,8 @@ function editPermission() {
         },
         error: function (error) {
             $(form)
-                .find('[type="button"]')
-                .prop("disabled", false);
+            $("#button-update").prop("disabled", false);
+            $("#button-update").text("Edit Permission");
             var errorMessage = error.statusText;
             var sweetMessage = error.statusText;
 
@@ -405,14 +437,6 @@ function editPermission() {
                 text: sweetMessage,
                 icon: "error",
               });
-              setTimeout(() => {
-
-                $("#edit_name_text").html("");
-                $("#edit_display_name_text").html("");
-                $("#edit_module_name_text").html("");
-
-                $("#btnupdate").text("Edit Permission");
-                }, 6000);
 
         },
     });
@@ -433,16 +457,11 @@ function handleValidationErrors(error, type = 'create') {
         // $(`.step-${dataAttr}`).addClass('backend-error')
         if (type == 'edit') {
             console.log('edit',element);
-            $(`#edit_${element}_text`).text(item[0]);
-            setTimeout(() => {
-                $(`#edit_${element}_text`).text('');
+            $(`#edit_${element}_text`).text(item[0])
 
-            }, 3000);
         } else if (type == 'create') {
-            $(`#${element}_text`).text(item[0]);
-            setTimeout(() => {
-                $(`#${element}_text`).text('');
-            }, 3000);
+            $(`#${element}_text`).text(item[0])
+
         }
     });
 

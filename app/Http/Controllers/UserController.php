@@ -84,8 +84,8 @@ class UserController extends Controller
     }
     public function update(UserRequest $request, User $user){
         try {
-           $user_obj = new UserService;
-           $user_response = $user_obj->update($request,$user);
+
+           $user_response = UserService::update($request,$user);
            return $user_response;
         } catch (\Throwable $th) {
            return $th;
@@ -102,8 +102,8 @@ class UserController extends Controller
 
     public function updateinfo(UserRequest $request){
         try {
-           $user_obj = new UserService;
-           $user_response = $user_obj->update($request,auth()->user());
+
+           $user_response = UserService::update($request,auth()->user());
            return $user_response;
         } catch (\Throwable $th) {
            return $th;

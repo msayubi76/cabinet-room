@@ -88,7 +88,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"
                         data-dismiss="modal">No</button>
-                    <button type="button" id="btndelete" class="btn btn-primary"
+                    <button type="button" id="button-delete" class="btn btn-primary"
                         onclick="deleteCategory()">Yes</button>
                 </div>
             </div>
@@ -120,7 +120,7 @@
                             </label>
                                 <input type="text" class="form-control" id="name" name="name"
                                     placeholder="Category name.." :value="old('name')">
-                                <div id="name_text" class="text-danger"></div>
+                                <div id="name_text" class="text-danger backend-error-text"></div>
                            </div>
 
                         <div class="form-group ">
@@ -128,7 +128,7 @@
                             </label>
                             <input type="file" class="form-control" id="profile" name="profile"
                             placeholder="profile" :value="old('profile')">
-                        <div id="profile_text" class="text-danger"></div>
+                        <div id="profile_text" class="text-danger backend-error-text"></div>
 
                         </div>
                         <div class="form-group ">
@@ -137,7 +137,7 @@
                             <label class="col-lg-4 col-form-label form-check-label" for="name">
 
                                 <input type="checkbox" class="form-check-input" name="is_active" value="">status </label>
-                                <div id="image_text" class="text-danger"></div>
+                                <div id="image_text" class="text-danger backend-error-text"></div>
 
                         </div>
 
@@ -146,7 +146,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button"  id="btnsave" onclick="submitCategory(this)" class="btn btn-primary">Add Category</button>
+                        <button type="button"  id="button-save" onclick="submitCategory(this)" class="btn btn-primary">Add Category</button>
                     </div>
                 </form>
 
@@ -188,7 +188,7 @@
                             <div class="col-lg-6">
                                 <input type="text" class="form-control" id="edit_name" name="name"
                                     placeholder="Enter a name.." value="">
-                                <div id="edit_name_text" class="text-danger"></div>
+                                <div id="edit_name_text" class="text-danger backend-error-text"></div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -197,7 +197,7 @@
                             <div class="col-lg-6">
                         <input type="file" class="form-control" id="edit_profile" name="profile"
                         placeholder="Enter a name.." value="">
-                    <div id="edit_profile_text" class="text-danger"></div>
+                    <div id="edit_profile_text" class="text-danger backend-error-text"></div>
                         </div>
                     </div>
                     <div class="form-group ">
@@ -207,13 +207,13 @@
                         </label>
 
                             <input type="checkbox" id="edit_is_active" name="is_active"  value="">
-                            <div id="edit_is_active" class="text-danger"></div>
+                            <div id="edit_is_active" class="text-danger backend-error-text"></div>
 
                     </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" id="btnupdate" onclick="editCategory(this)"  class="btn btn-primary">Edit Category</button>
+                        <button type="button" id="button-update" onclick="editCategory(this)"  class="btn btn-primary">Edit Category</button>
                     </div>
                 </form>
             </div>
@@ -241,9 +241,9 @@ edit_profile.onchange = evt => {
 
   function submitCategory() {
     var form = $('#category-form')[0];
+    $("#button-save").text('Loading...');
     console.log('form ', form);
-    var spinner = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
-    $("#btnsave").html(spinner);
+
 
     const myFormData = new FormData(form);
     const formDataObj = {};
@@ -260,12 +260,13 @@ edit_profile.onchange = evt => {
         data: myFormData,
         beforeSend: function () {
             $(form)
-                .find('[type="button"]')
-                .prop("disabled", true);
+            $('.backend-error-text').text('')
+            $("#button-save").prop("disabled", true);
         },
         success: function (data) {
             console.log(data)
-            $("#btnsave").text("Addd Category");
+            $("#button-save").prop("disabled", false);
+            $("#button-save").text("Add Category");
 
             console.log('data',data);
             swal({
@@ -277,12 +278,31 @@ edit_profile.onchange = evt => {
             $(form)
                 .find('[type="button"]')
                 .prop("disabled", false);
-            // document.getElementById("category-form").reset();
+            document.getElementById("category-form").reset();
             dataarray.push(data);
             var index = (dataarray.length)-1;
-              $(".odd").hide();
-            var string = '<tr id="row_'+data.category.id + '" ><td>'+data.category.name+'</td><td><img src="'+data.category.profile+'" alt=""></td><td>'+(data.category.is_active == '1' ? "Hidden" : "Show") +'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.category+')">View</a> <a class="dropdown-item"  href="javascript:openEditIndexModal('+index+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.category.id+');">Delete</a></div></div></div></div></td></tr>';
+
+            var string =
+            `<tr id="row_${data.category.id}">
+                <td>${data.category.name}</td>
+                <td><img src="'${data.category.profile}'" alt=""></td>
+                <td>${(data.category.is_active == '1' ? "Hidden" : "Show")}</td>
+
+                <td>
+                    <div class="button-group">
+                        <div class="btn-group">
+                            <div class="btn-group"><button id="btnGroupDrop${data.category.id}" type="button"
+                                    class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button>
+                                <div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal(${data.category})">View</a>
+                                    <a class="dropdown-item" href="javascript:openEditIndexModal(${index})">Edit</a><a
+                                        class="dropdown-item" href="javascript:openDeleteDialog(${data.category.id});">Delete</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>`
             $("#table_id").append(string);
+
 
             $('#addcategory').modal('hide');
 
@@ -290,8 +310,8 @@ edit_profile.onchange = evt => {
         },
         error: function (error) {
             $(form)
-                .find('[type="button"]')
-                .prop("disabled", false);
+            $("#button-save").prop("disabled", false);
+            $("#button-save").text("Add Category");
             var errorMessage = error.statusText;
             var sweetMessage = error.statusText;
             if (error.status == 422) {
@@ -303,14 +323,6 @@ edit_profile.onchange = evt => {
                 text: sweetMessage,
                 icon: "error",
               });
-              setTimeout(() => {
-
-            $("#name_text").html("");
-            $("#profile_text").html("");
-
-
-            $("#btnsave").text("Add Category");
-            }, 6000);
 
         },
     });
@@ -321,9 +333,8 @@ function openDeleteDialog(id) {
     $("#deleteModal").modal('show');
  }
 
-function deleteCategory() {
-    var spinner = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
-    $("#btndelete").html(spinner);
+ function deleteCategory() {
+    $("#button-delete").text('Loading... ');
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -333,7 +344,8 @@ function deleteCategory() {
         processData: false,
         contentType: false,
         success: function (data) {
-            $("#btndelete").text("Yes");
+            $("#button-delete").prop("disabled", false);
+            $("#button-delete").text("Yes");
             $('.alert-success').html(data.success).fadeIn('slow');
             // $('.alert-success').delay(3000).fadeOut('slow');
             document.getElementById("row_" + $("#deleteID").val()).remove();
@@ -345,7 +357,11 @@ function deleteCategory() {
                 $('#deleteModal').modal('hide');
         },
         error: function (error) {
-            alert(error.message);
+            $("#button-delete").prop("disabled", false);
+            $("#button-delete").text("Yes");
+            alert(error);
+
+
         },
     });
 }
@@ -371,8 +387,7 @@ function openEditModal(category) {
 
 function editCategory() {
     var form = $('#edit-category-form')[0];
-    var spinner = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
-    $("#btnupdate").html(spinner);
+    $("#button-update").text('Loading...');
     category_id = form.category_id.value;
     console.log('category_id', category_id);
 
@@ -391,12 +406,13 @@ function editCategory() {
         data: myFormData,
         beforeSend: function () {
             $(form)
-                .find('[type="button"]')
-                .prop("disabled", true);
+            $('.backend-error-text').text('')
+            $("#button-update").prop("disabled", true)
 
         },
         success: function (data) {
-            $("#btnupdate").text("Edit Category");
+            $("#button-update").prop("disabled", false);
+            $("#button-update").text("Edit Category");
 
             console.log(data)
 
@@ -414,8 +430,27 @@ function editCategory() {
                 dataarray.push(data);
                 var index =(dataarray.length)-1;
              $("#row_"+data.category.id).remove();
-              var string = '<tr id="row_'+data.category.id + '" ><td>'+data.category.name+'</td><td><img src="'+data.category.profile+'" alt=""></td><td>'+(data.category.is_active == '1' ? "Hidden" : "Show") +'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.category+')">View</a> <a class="dropdown-item" href="javascript:openEditIndexModal('+index+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.category.id+');">Delete</a></div></div></div></div></td></tr>';
-              $("#table_id").append(string);
+             var string =
+            `<tr id="row_${data.category.id}">
+                <td>${data.category.name}</td>
+                <td><img src="'${data.category.profile}'" alt=""></td>
+                <td>${(data.category.is_active == '1' ? "Hidden" : "Show")}</td>
+
+                <td>
+                    <div class="button-group">
+                        <div class="btn-group">
+                            <div class="btn-group"><button id="btnGroupDrop${data.category.id}" type="button"
+                                    class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button>
+                                <div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal(${data.category})">View</a>
+                                    <a class="dropdown-item" href="javascript:openEditIndexModal(${index})">Edit</a><a
+                                        class="dropdown-item" href="javascript:openDeleteDialog(${data.category.id});">Delete</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>`
+            $("#table_id").append(string);
+
 
             $('#editcategory').modal('hide');
 
@@ -423,8 +458,8 @@ function editCategory() {
         },
         error: function (error) {
             $(form)
-                .find('[type="button"]')
-                .prop("disabled", false);
+            $("#button-update").prop("disabled", false);
+            $("#button-update").text("Edit Category");
             var errorMessage = error.statusText;
             var sweetMessage = error.statusText;
 
@@ -437,13 +472,7 @@ function editCategory() {
                 text: sweetMessage,
                 icon: "error",
               });
-              setTimeout(() => {
 
-                $("#edit_name_text").html("");
-                $("#edit_is_active_text").html("");
-
-                $("#btnupdate").text("Edit category");
-                }, 6000);
 
         },
     });

@@ -17,7 +17,7 @@ class RoleService
 
     }
 
-    public function store(RoleRequest $request)
+    public  static function store(RoleRequest $request)
     {
         DB::beginTransaction();
         $data = $request->validated();
@@ -30,7 +30,7 @@ class RoleService
         return $response;
     }
 
-    public function update(RoleRequest $request, Role $role){
+    public static function update(RoleRequest $request, Role $role){
         DB::beginTransaction();
         $data = $request->validated();
 

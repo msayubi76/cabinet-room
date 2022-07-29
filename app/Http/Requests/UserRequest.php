@@ -29,9 +29,11 @@ class UserRequest extends FormRequest
     public function rules(Request $request)
     {
         $route_id = $request->route('user');
-        // if(empty($route_id)):
-        //     $route_id = auth()->user()->id;
-        // endif;
+        if(empty($route_id) ):
+            $route_id = auth()->user()->id;
+
+
+        endif;
         $rules =  [
             'fist_name' => [ 'required', 'alpha', 'max:255'],
             'last_name' => ['required', 'alpha', 'max:255'],

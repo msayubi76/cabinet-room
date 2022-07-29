@@ -20,18 +20,15 @@ class RoleController extends Controller
 
     public function store(RoleRequest $request){
         try {
-            $role_obj = new RoleService;
-            $role_response = $role_obj->store($request);
+           $role_response =RoleService::store($request);
             return $role_response;
-
         } catch (\Throwable $th) {
             return $th;
         }
     }
     public function update(RoleRequest $request, Role $role){
         try {
-           $role_obj = new RoleService;
-           $role_response = $role_obj->update($request,$role);
+           $role_response = RoleService::update($request,$role);
            return $role_response;
         } catch (\Throwable $th) {
            return $th;
@@ -48,7 +45,7 @@ class RoleController extends Controller
 
      public function attach($role){
         $permissions = PermissionService::moduleWisePermissions();
-        $roles =Role::find($role); 
+        $roles =Role::find($role);
         dd($permissions);
         return view('admin.role.attachpermission',compact('roles','permissions'));
 

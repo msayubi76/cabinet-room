@@ -87,7 +87,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"
                         data-dismiss="modal">No</button>
-                    <button type="button" id="btndelete" class="btn btn-primary"
+                    <button type="button" id="button-delete" class="btn btn-primary"
                         onclick="deleteRole()">Yes</button>
                 </div>
             </div>
@@ -127,7 +127,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             {{-- <a href="" id="btnsave" onclick="submitRole(this)" class="btn btn-primary">Add Role</a> --}}
-                             <button type="submit"  id="btnsave" onclick="submitRole(this)" class="btn btn-primary">Add User</button>
+                             <button type="button"  id="button-save" onclick="submitRole(this)" class="btn btn-primary">Add Role</button>
                             </div>
                     </form>
 
@@ -168,7 +168,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                       <button type="button" id="btupdate" onclick="editRole(this)"  class="btn btn-primary">Edit User</button>
+                       <button type="button" id="button-update" onclick="editRole(this)"  class="btn btn-primary">Edit User</button>
                     </div>
                 </form>
             </div>
@@ -226,8 +226,7 @@ function submitRole() {
 
 var form = $('#role-form')[0];
 console.log('form ', form);
-var spinner = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
-$("#btnsave").html(spinner);
+$("#button-save").text('Loading...');
 
 
 const myFormData = new FormData(form);
@@ -246,14 +245,15 @@ $.ajax({
     data: myFormData,
     beforeSend: function () {
         $(form)
-            .find('[type="button"]')
-            .prop("disabled", true);
+        $('.backend-error-text').text('')
+            $("#button-save").prop("disabled", true);
 
     },
     success: function (data) {
 
 
-        $("#btnsave").text("Add Role");
+        $("#button-save").prop("disabled", false);
+            $("#button-save").text("Add Role");
         console.log('data',data);
         swal({
             title: "",
@@ -263,20 +263,40 @@ $.ajax({
         $(form)
             .find('[type="button"]')
             .prop("disabled", false);
-        // document.getElementById("role-form").reset();
+        document.getElementById("role-form").reset();
+        dataarray.push(data);
+            var index = (dataarray.length)-1;
+        var string =
+            `<tr id="row_${data.role.id}">
+                <td>${data.role.name}</td>
+                <td><a href="${'attach-permission->id'}" class="btn btn-secondary">Attach Permission</a></td>
 
-        var string = '<tr id="row_'+data.role.id + '" ><td style="width: 70%">'+data.role.name+'</td> <td><a href="{{url('attach-permission->id')}}" class="btn btn-secondary">Attach Permission</a></td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.role+')">View</a> <a class="dropdown-item" onclick="openEditModal('+data.role+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.role+');">Delete</a></div></div></div></div></td></tr>';
+                <td>
+                    <div class="button-group">
+                        <div class="btn-group">
+                            <div class="btn-group"><button id="btnGroupDrop${data.role.id}" type="button"
+                                    class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button>
+                                <div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal(${data.role})">View</a>
+                                    <a class="dropdown-item" href="javascript:openEditIndexModal(${index})">Edit</a><a
+                                        class="dropdown-item" href="javascript:openDeleteDialog(${data.role.id});">Delete</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>`
             $("#table_id").append(string);
-
-
             $('#addRoleModal').modal('hide');
+
+
+
+
 
 
     },
     error: function (error) {
         $(form)
-            .find('[type="button"]')
-            .prop("disabled", false);
+        $("#button-save").prop("disabled", false);
+            $("#button-save").text("Add Rollllllll");
         var errorMessage = error.statusText;
         var sweetMessage = error.statusText;
         if (error.status == 422) {
@@ -289,17 +309,6 @@ $.ajax({
             icon: "error",
           });
 
-
-          setTimeout(() => {
-
-            $("#name_text").html("");
-
-               $("#btnsave").text("Add Role");
-          }, 6000);
-        // toastr.error(errorMessage, "Error");
-        // hideLoader();
-
-
     },
 });
 }
@@ -310,8 +319,7 @@ $.ajax({
 
 function editRole() {
     var form = $('#edit-role-form')[0];
-    var spinner = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
-    $("#btnupdate").html(spinner);
+    $("#button-update").text('Loading...');
     role_id = form.role_id.value;
     console.log('role id ', role_id);
     const myFormData = new FormData(form);
@@ -329,12 +337,13 @@ function editRole() {
         data: myFormData,
         beforeSend: function () {
             $(form)
-                .find('[type="button"]')
-                .prop("disabled", true);
+            $('.backend-error-text').text('')
+            $("#button-update").prop("disabled", true);
 
         },
         success: function (data) {
-            $("#btnupdate").text("Edit Role");
+            $("#button-update").prop("disabled", false);
+            $("#button-update").text("Edit Role");
 
             $(form)
                 .find('[type="button"]')
@@ -347,8 +356,27 @@ function editRole() {
                   $(form)
                 .find('[type="button"]')
                 .prop("disabled", false);
+                dataarray.push(data);
+                var index =(dataarray.length)-1;
              $("#row_"+data.role.id).remove();
-             var string = '<tr id="row_'+data.role.id + '" ><td style="width: 70%">'+data.role.name+'</td> <td><a href="{{url('attach-permission->id')}}" class="btn btn-secondary">Attach Permission</a></td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.role+')">View</a> <a class="dropdown-item" onclick="openEditModal('+data.role+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.role.id+');">Delete</a></div></div></div></div></td></tr>';
+             var string =
+            `<tr id="row_${data.role.id}">
+                <td>${data.role.name}</td>
+                <td><a href="${'attach-permission->id'}" class="btn btn-secondary">Attach Permission</a></td>
+
+                <td>
+                    <div class="button-group">
+                        <div class="btn-group">
+                            <div class="btn-group"><button id="btnGroupDrop${data.role.id}" type="button"
+                                    class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button>
+                                <div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal(${data.role})">View</a>
+                                    <a class="dropdown-item" href="javascript:openEditIndexModal(${index})">Edit</a><a
+                                        class="dropdown-item" href="javascript:openDeleteDialog(${data.role.id});">Delete</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>`
             $("#table_id").append(string);
             $('#editModalRole').modal('hide');
 
@@ -356,8 +384,8 @@ function editRole() {
         },
         error: function (error) {
             $(form)
-                .find('[type="button"]')
-                .prop("disabled", false);
+            $("#button-update").prop("disabled", false);
+            $("#button-update").text("Edit Role");
             var errorMessage = error.statusText;
             var sweetMessage = error.statusText;
             if (error.status == 422) {
@@ -369,12 +397,7 @@ function editRole() {
                 text: sweetMessage,
                 icon: "error",
               });
-              setTimeout(() => {
 
-            $("#edit_name_text").html("");
-
-            $("#btnupdate").text("Edit Role");
-            }, 6000);
         },
     });
 }
@@ -383,12 +406,10 @@ function editRole() {
 function openDeleteDialog(id) {
     $("#deleteID").val(id);
     $("#deleteModal").modal('show');
-
  }
 
-function deleteRole() {
-    var spinner = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
-    $("#btndelete").html(spinner);
+ function deleteRole() {
+    $("#button-delete").text('Loading...');
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -398,28 +419,36 @@ function deleteRole() {
         processData: false,
         contentType: false,
         success: function (data) {
-            $("#btndelete").text("Yes");
-
+            $("#button-delete").prop("disabled", false);
+            $("#button-delete").text("Yes");
             $('.alert-success').html(data.success).fadeIn('slow');
-
             // $('.alert-success').delay(3000).fadeOut('slow');
             document.getElementById("row_" + $("#deleteID").val()).remove();
-
-
-
-                swal({
+                 swal({
                     title: "",
                     text: data.message,
                     icon: "success",
                 });
-
-
                 $('#deleteModal').modal('hide');
         },
         error: function (error) {
-            alert(error.message);
+            $("#button-delete").prop("disabled", false);
+            $("#button-delete").text("Yes");
+            alert(error);
+
+            // toastr.error(errorMessage, "Error");
+            // hideLoader();
         },
     });
+}
+dataarray=[];
+function openEditIndexModal(index) {
+    document.getElementById('edit_name').value = dataarray[index].role.name;
+
+    document.getElementById('role_id').value = dataarray[index].role.id;
+
+
+    $("#editModalRole").modal()
 }
 function openEditModal(role) {
     document.getElementById('edit_name').value = role.name;

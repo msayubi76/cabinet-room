@@ -90,7 +90,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"
                         data-dismiss="modal">No</button>
-                    <button type="button" id="btndelete" class="btn btn-primary"
+                    <button type="button" id="button-delete" class="btn btn-primary"
                         onclick="deleteUser()">Yes</button>
                 </div>
             </div>
@@ -134,12 +134,12 @@
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="mobile_no" name="mobile_no"
                                         placeholder="Mobile No" :value="old('mobile_no')">
-                                    <div id="mobile_no_text" class="text-danger"></div>
+                                    <div id="mobile_no_text" class="text-danger backend-error-text"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="address" name="address"
                                         placeholder="Address" :value="old('address')">
-                                    <div id="address_text" class="text-danger"></div>
+                                    <div id="address_text" class="text-danger backend-error-text"></div>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -147,12 +147,12 @@
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="city" name="city"
                                         placeholder="City" :value="old('city')">
-                                    <div id="city_text" class="text-danger"></div>
+                                    <div id="city_text" class="text-danger backend-error-text"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="region" name="region"
                                         placeholder="Region" :value="old('region')">
-                                    <div id="region_text" class="text-danger"></div>
+                                    <div id="region_text" class="text-danger backend-error-text"></div>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -160,12 +160,12 @@
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="email" name="email"
                                         placeholder="Email" :value="old('email')">
-                                    <div id="email_text" class="text-danger"></div>
+                                    <div id="email_text" class="text-danger backend-error-text"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="file" class="form-control" id="profile" name="profile"
                                         placeholder="profile" :value="old('profile')">
-                                    <div id="profile_text" class="text-danger"></div>
+                                    <div id="profile_text" class="text-danger backend-error-text"></div>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -173,7 +173,7 @@
                                 <div class="col-md-6">
                                     <input type="password" class="form-control" id="password" name="password"
                                         placeholder="password " :value="old('password')">
-                                    <div id="password_text" class="text-danger"></div>
+                                    <div id="password_text" class="text-danger backend-error-text"></div>
                                     @error('password')
                                         <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -229,12 +229,12 @@
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="edit_fist_name" name="fist_name"
                                         placeholder="Enter a name.." value="">
-                                    <div id="edit_fist_name_text" class="text-danger"></div>
+                                    <div id="edit_fist_name_text" class="text-danger backend-error-text"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="edit_last_name" name="last_name"
                                         placeholder="Enter a name.." value="">
-                                    <div id="edit_last_name_text" class="text-danger"></div>
+                                    <div id="edit_last_name_text" class="text-danger backend-error-text"></div>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -242,12 +242,12 @@
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="edit_mobile_no" name="mobile_no"
                                         placeholder="Enter a name.." value="">
-                                    <div id="edit_mobile_no_text" class="text-danger"></div>
+                                    <div id="edit_mobile_no_text" class="text-danger backend-error-text"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="edit_address" name="address"
                                         placeholder="Enter a name.." value="">
-                                    <div id="edit_address_text" class="text-danger"></div>
+                                    <div id="edit_address_text" class="text-danger backend-error-text"></div>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -255,12 +255,12 @@
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="edit_city" name="city"
                                         placeholder="Enter a name.." value="">
-                                    <div id="edit_city_text" class="text-danger"></div>
+                                    <div id="edit_city_text" class="text-danger backend-error-text"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="edit_region" name="region"
                                         placeholder="Enter a name.." value="">
-                                    <div id="edit_region_text" class="text-danger"></div>
+                                    <div id="edit_region_text" class="text-danger backend-error-text"></div>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -268,12 +268,12 @@
                                 <div class="col-md-6">
                                     <input type="email" class="form-control" id="edit_email" name="email"
                                         placeholder="Enter a name.." value="">
-                                    <div id="edit_email_text" class="text-danger"></div>
+                                    <div id="edit_email_text" class="text-danger backend-error-text"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="file" class="form-control" id="edit_profile" name="profile"
                                         placeholder="Enter a name.." value="">
-                                    <div id="edit_profile_text" class="text-danger"></div>
+                                    <div id="edit_profile_text" class="text-danger backend-error-text"></div>
                                 </div>
                             </div>
 
@@ -287,7 +287,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" id="btnupdate" onclick="editUser(this)" class="btn btn-primary">Edit User</button>
+                            <button type="button" id="button-update" onclick="editUser(this)" class="btn btn-primary">Edit User</button>
                         </div>
                     </form>
                 </div>
@@ -353,41 +353,186 @@ edit_profile.onchange = evt => {
     }
 }
 
-function openDeleteDialog(id) {
-    $("#deleteID").val(id);
-    $("#deleteModal").modal('show');
- }
 
-function deleteUser() {
-    var spinner = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
-    $("#btndelete").html(spinner);
+
+
+
+function submitUser() {
+
+    var form = $('#user-form')[0];
+    $("#button-save").text('Loading...');
+
+    const myFormData = new FormData(form);
+    const formDataObj = {};
+    myFormData.forEach((value, key) => (formDataObj[key] = value));
+    console.log(formDataObj);
     $.ajax({
         headers: {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
         },
-        url: "/admin/users/" + $("#deleteID").val(), // the endpoint
-        type: "DELETE", // http method
+        url: "/admin/users", // the endpoint
+        type: "POST", // http method
         processData: false,
         contentType: false,
+        data: myFormData,
+        beforeSend: function () {
+            $('.backend-error-text').text('')
+            $("#button-save").prop("disabled", true);
+        },
         success: function (data) {
-            $("#btndelete").text("Yes");
-            $('.alert-success').html(data.success).fadeIn('slow');
-            // $('.alert-success').delay(3000).fadeOut('slow');
-            document.getElementById("row_" + $("#deleteID").val()).remove();
-                 swal({
-                    title: "",
-                    text: data.message,
-                    icon: "success",
-                });
-                $('#deleteModal').modal('hide');
+
+            $("#button-save").prop("disabled", false);
+            $("#button-save").text("Add User");
+            console.log('data',data);
+            swal({
+                title: "",
+                text: data.message,
+                icon: "success",
+              });
+              $(form)
+            .find('[type="button"]')
+            .prop("disabled", false);
+            document.getElementById("user-form").reset();
+
+            console.log(data);
+            dataarray.push(data);
+            var index = (dataarray.length)-1;
+
+            var string =
+            `<tr id="row_${data.user.id}">
+                <td>${data.user.fist_name}</td>
+                <td>${data.user.last_name}</td>
+                <td>${data.user.email}</td>
+                <td>${data.user.email_verified_at == undefined ? "Not Approved" : "Approved"}</td>
+                <td>
+                    <div class="button-group">
+                        <div class="btn-group">
+                            <div class="btn-group"><button id="btnGroupDrop${data.user.id}" type="button"
+                                    class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button>
+                                <div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal(${data.user})">View</a>
+                                    <a class="dropdown-item" href="javascript:openEditIndexModal(${index})">Edit</a><a
+                                        class="dropdown-item" href="javascript:openDeleteDialog(${data.user.id});">Delete</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>`
+            $("#table_id").append(string);
+
+            $('#addUserModal').modal('hide');
+
         },
         error: function (error) {
-            alert(error);
+            $("#button-save").prop("disabled", false);
+            $("#button-save").text("Add User");
 
-            // toastr.error(errorMessage, "Error");
-            // hideLoader();
+            var errorMessage = error.statusText;
+            var sweetMessage = error.statusText;
+            if (error.status == 422) {
+                errorMessage = handleValidationErrors(error)
+                sweetMessage ='Invalid Data'
+            }
+            swal({
+                title: "Error",
+                text: sweetMessage,
+                icon: "error",
+              });
+
+
         },
     });
+}
+
+function editUser() {
+
+var form = $('#edit-user-form')[0];
+$("#button-update").text('Loading...');
+user_id = form.user_id.value;
+console.log('user_id ', user_id);
+
+
+const myFormData = new FormData(form);
+const formDataObj = {};
+myFormData.forEach((value, key) => (formDataObj[key] = value));
+console.log(formDataObj);
+
+$.ajax({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
+    },
+    url: "/admin/users/" + user_id, // the endpoint
+    type: "POST", // http method
+    processData: false,
+    contentType: false,
+    data: myFormData,
+    beforeSend: function () {
+        $(form)
+        $('.backend-error-text').text('')
+        $("#button-update").prop("disabled", true);
+    },
+    success: function (data) {
+        $("#button-update").prop("disabled", false);
+        $("#button-update").text("Edit User");
+
+        $(form)
+            .find('[type="button"]')
+            .prop("disabled", false);
+            swal({
+                title: "",
+                text: data.message,
+                icon: "success",
+              });
+              $(form)
+            .find('[type="button"]')
+            .prop("disabled", false);
+
+            dataarray.push(data);
+        var index = (dataarray.length)-1;
+         $("#row_"+data.user.id).remove();
+         var string =
+        `<tr id="row_${data.user.id}">
+            <td>${data.user.fist_name}</td>
+            <td>${data.user.last_name}</td>
+            <td>${data.user.email}</td>
+            <td>${data.user.email_verified_at == undefined ? "Not Approved" : "Approved"}</td>
+            <td>
+                <div class="button-group">
+                    <div class="btn-group">
+                        <div class="btn-group"><button id="btnGroupDrop${data.user.id}" type="button"
+                                class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button>
+                            <div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal(${data.user})">View</a>
+                                <a class="dropdown-item" href="javascript:openEditIndexModal(${index})">Edit</a><a
+                                    class="dropdown-item" href="javascript:openDeleteDialog(${data.user.id});">Delete</a></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>`
+        $("#table_id").append(string);
+
+
+        $('#editModalUser').modal('hide');
+
+    },
+    error: function (error) {
+        $("#button-update").prop("disabled", false);
+        $("#button-update").text("Edit User");
+        var errorMessage = error.statusText;
+        var sweetMessage = error.statusText;
+        if (error.status == 422) {
+            errorMessage = handleValidationErrors(error, 'edit')
+            sweetMessage = 'Invalid Data'
+        }
+        swal({
+            title: "Error",
+            text: sweetMessage,
+            icon: "error",
+          });
+
+
+
+    },
+});
 }
 var dataarray =[];
 function openEditIndexModal(index) {
@@ -460,173 +605,42 @@ function openViewModal(user){
     $('#view_image_preview').attr('src', image)
     $("#viewModalUser").modal()
 }
-function editUser() {
 
-    var form = $('#edit-user-form')[0];
-    var spinner = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
-    $("#btnupdate").html(spinner);
-    user_id = form.user_id.value;
-    console.log('user_id ', user_id);
+function openDeleteDialog(id) {
+    $("#deleteID").val(id);
+    $("#deleteModal").modal('show');
+ }
 
-
-    const myFormData = new FormData(form);
-    const formDataObj = {};
-    myFormData.forEach((value, key) => (formDataObj[key] = value));
-    console.log(formDataObj);
-
+function deleteUser() {
+    $("#button-delete").text('Loading...');
     $.ajax({
         headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
-        url: "/admin/users/" + user_id, // the endpoint
-        type: "POST", // http method
+        url: "/admin/users/" + $("#deleteID").val(), // the endpoint
+        type: "DELETE", // http method
         processData: false,
         contentType: false,
-        data: myFormData,
-        beforeSend: function () {
-            $(form)
-                .find('[type="button"]')
-                .prop("disabled", true);
-        },
         success: function (data) {
-            $("#btnupdate").text("Edit User");
-            console.log(data)
-
-            $(form)
-                .find('[type="button"]')
-                .prop("disabled", false);
-                swal({
+            $("#button-delete").prop("disabled", false);
+            $("#button-delete").text("Yes");
+            $('.alert-success').html(data.success).fadeIn('slow');
+            // $('.alert-success').delay(3000).fadeOut('slow');
+            document.getElementById("row_" + $("#deleteID").val()).remove();
+                 swal({
                     title: "",
                     text: data.message,
                     icon: "success",
-                  });
-                  $(form)
-                .find('[type="button"]')
-                .prop("disabled", false);
-
-                dataarray.push(data);
-            var index = (dataarray.length)-1;
-             $("#row_"+data.user.id).remove();
-             var string = '<tr id="row_'+data.user.id + '" ><td>'+data.user.fist_name+'</td><td>'+data.user.last_name+'</td><td>'+data.user.email+'</td><td>'+(data.user.email_verified_at == undefined ? "Not Approved" : "Approved") +'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.user+')">View</a> <a class="dropdown-item" href="javascript:openEditIndexDialog('+index+');">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.user.id+');">Delete</a></div></div></div></div></td></tr>';
-            $("#table_id").append(string);
-
-
-            $('#editModalUser').modal('hide');
-
+                });
+                $('#deleteModal').modal('hide');
         },
         error: function (error) {
-            $(form)
-                .find('[type="button"]')
-                .prop("disabled", false);
-            var errorMessage = error.statusText;
-            var sweetMessage = error.statusText;
-            if (error.status == 422) {
-                errorMessage = handleValidationErrors(error, 'edit')
-                sweetMessage = 'Invalid Data'
-            }
-            swal({
-                title: "Error",
-                text: sweetMessage,
-                icon: "error",
-              });
+            $("#button-delete").prop("disabled", false);
+            $("#button-delete").text("Yes");
+            alert(error);
 
-              setTimeout(() => {
-
-            $("#edit_fist_name_text").html("");
-            $("#edit_last_name_text").html("");
-            $("#edit_mobile_no_text").html("");
-            $("#edit_address_text").html("");
-            $("#edit_city_text").html("");
-            $("#edit_region_text").html("");
-            $("#edit_email_text").html("");
-            $("#edit_profile_text").html("");
-
-            $("#btnupdate").text("Edit User");
-            }, 6000);
             // toastr.error(errorMessage, "Error");
             // hideLoader();
-        },
-    });
-}
-
-function submitUser() {
-
-    var form = $('#user-form')[0]; 
-    $("#button-save").text('Loading...');
-
-    const myFormData = new FormData(form);
-    const formDataObj = {};
-    myFormData.forEach((value, key) => (formDataObj[key] = value));
-    console.log(formDataObj);
-    $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
-        },
-        url: "/admin/users", // the endpoint
-        type: "POST", // http method
-        processData: false,
-        contentType: false,
-        data: myFormData,
-        beforeSend: function () {
-            $('.backend-error-text').text('')
-            $("#button-save").prop("disabled", true); 
-        },
-        success: function (data) {
-
-            $("#button-save").prop("disabled", false); 
-            $("#button-save").text("Add User");
-            console.log('data',data);
-            swal({
-                title: "",
-                text: data.message,
-                icon: "success",
-              });
-            
-            console.log(data);
-            dataarray.push(data);
-            var index = (dataarray.length)-1;
- 
-            var string =   
-            `<tr id="row_${data.user.id}">
-                <td>${data.user.fist_name}</td>
-                <td>${data.user.last_name}</td>
-                <td>${data.user.email}</td>
-                <td>${data.user.email_verified_at == undefined ? "Not Approved" : "Approved"}</td>
-                <td>
-                    <div class="button-group">
-                        <div class="btn-group">
-                            <div class="btn-group"><button id="btnGroupDrop${data.user.id}" type="button"
-                                    class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button>
-                                <div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal(${data.user})">View</a>
-                                    <a class="dropdown-item" href="javascript:openEditIndexModal(${index})">Edit</a><a
-                                        class="dropdown-item" href="javascript:openDeleteDialog(${data.user.id});">Delete</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>`
-            $("#table_id").append(string);
-
-            $('#addUserModal').modal('hide');
-
-        },
-        error: function (error) {
-            $("#button-save").prop("disabled", false); 
-            $("#button-save").text("Add User");
-             
-            var errorMessage = error.statusText;
-            var sweetMessage = error.statusText;
-            if (error.status == 422) {
-                errorMessage = handleValidationErrors(error)
-                sweetMessage ='Invalid Data'
-            }
-            swal({
-                title: "Error",
-                text: sweetMessage,
-                icon: "error",
-              });
-
-  
         },
     });
 }

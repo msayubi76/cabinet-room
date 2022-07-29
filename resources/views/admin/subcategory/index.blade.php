@@ -90,7 +90,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"
                         data-dismiss="modal">No</button>
-                    <button type="button" id="btndelete" class="btn btn-primary"
+                    <button type="button" id="button-delete" class="btn btn-primary"
                         onclick="deleteSubCategory()">Yes</button>
                 </div>
             </div>
@@ -128,6 +128,7 @@
                             @endif
                             @endforeach
                         </select>
+                        <div id="category_id_text" class="text-danger backend-error-text"></div>
                         </div>
                         <div class="form-group ">
 
@@ -135,7 +136,7 @@
                             </label>
                                 <input type="text" class="form-control" id="name" name="name"
                                     placeholder="Category Name" :value="old('name')">
-                                <div id="name_text" class="text-danger"></div>
+                                <div id="name_text" class="text-danger backend-error-text"></div>
                            </div>
 
                         <div class="form-group ">
@@ -143,7 +144,7 @@
                             </label>
                             <input type="file" class="form-control" id="profile" name="profile"
                             placeholder="profile" :value="old('profile')">
-                        <div id="profile_text" class="text-danger"></div>
+                        <div id="profile_text" class="text-danger backend-error-text"></div>
 
                         </div>
                         <div class="form-group ">
@@ -152,7 +153,7 @@
                             <label class="col-lg-4 col-form-label form-check-label" for="name">
 
                                 <input type="checkbox" class="form-check-input" name="is_active" value="">status </label>
-                                <div id="is_active_text" class="text-danger"></div>
+                                <div id="is_active_text" class="text-danger backend-error-text"></div>
 
                         </div>
 
@@ -161,7 +162,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button"  id="btnsave" onclick="submitSubCategory(this)" class="btn btn-primary">Add SubCategory</button>
+                        <button type="button"  id="button-save" onclick="submitSubCategory(this)" class="btn btn-primary">Add SubCategory</button>
                     </div>
                 </form>
 
@@ -206,6 +207,7 @@
                             @endif
                             @endforeach
                         </select>
+                        <div id="edit_category_id_text" class="text-danger backend-error-text"></div>
                         </div>
                         <div class="form-group ">
 
@@ -213,7 +215,7 @@
                             </label>
                             <input type="text" class="form-control" id="edit_name" name="name"
                             placeholder="Enter a Name" value="">
-                        <div id="edit_name_text" class="text-danger"></div>
+                        <div id="edit_name_text" class="text-danger backend-error-text"></div>
                            </div>
 
                         <div class="form-group ">
@@ -221,7 +223,7 @@
                             </label>
                             <input type="file" class="form-control" id="edit_profile" name="profile"
                             placeholder="Enter a name.." value="">
-                        <div id="edit_profile_text" class="text-danger"></div>
+                        <div id="edit_profile_text" class="text-danger backend-error-text"></div>
 
                         </div>
                         <div class="form-group ">
@@ -230,7 +232,7 @@
                             <label class="col-lg-4 col-form-label form-check-label" for="name">
 
                                 <input type="checkbox" id="edit_is_active" name="is_active"  value="">
-                            <div id="edit_is_active" class="text-danger"></div>
+                            <div id="edit_is_active" class="text-danger backend-error-text"></div>
 
                         </div>
 
@@ -239,7 +241,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" id="btnupdate" onclick="editSubCategory(this)"  class="btn btn-primary">Edit Sub Category</button>
+                        <button type="button" id="button-update" onclick="editSubCategory(this)"  class="btn btn-primary">Edit Sub Category</button>
                     </div>
                 </form>
             </div>
@@ -267,9 +269,9 @@ edit_profile.onchange = evt => {
 
   function submitSubCategory() {
     var form = $('#subcategory-form')[0];
+    $("#button-save").text('Loading...');
     console.log('form ', form);
-    var spinner = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
-    $("#btnsave").html(spinner);
+
 
     const myFormData = new FormData(form);
     const formDataObj = {};
@@ -286,12 +288,13 @@ edit_profile.onchange = evt => {
         data: myFormData,
         beforeSend: function () {
             $(form)
-                .find('[type="button"]')
-                .prop("disabled", true);
+            $('.backend-error-text').text('')
+            $("#button-save").prop("disabled", true);
         },
         success: function (data) {
             console.log(data)
-            $("#btnsave").text("Add subCategory");
+            $("#button-save").prop("disabled", false);
+            $("#button-save").text("Add SubCategory");
 
             console.log('data',data);
             swal({
@@ -303,13 +306,32 @@ edit_profile.onchange = evt => {
             $(form)
                 .find('[type="button"]')
                 .prop("disabled", false);
-            // document.getElementById("category-form").reset();
+            document.getElementById("subcategory-form").reset();
             //   $(".odd").hide();
             dataarray.push(data);
             var index = (dataarray.length)-1;
-            var string = '<tr id="row_'+data.subcategory.id + '" ><td>'+data.subcategory.name+'</td><td>'+data.subcategory.category_id+'</td><td><img src="'+data.subcategory.profile+'" alt=""></td><td>'+(data.subcategory.is_active == '1' ? "Hidden" : "Show") +'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.subcategory+')">View</a> <a class="dropdown-item"  href="javascript:openEditIndexModal('+index+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.subcategory.id+');">Delete</a></div></div></div></div></td></tr>';
+            var string =
+            `<tr id="row_${data.subcategory.id}">
+                <td>${data.subcategory.name}</td>
+                <td>${data.subcategory.category_id}</td>
+                <td><img src="'${data.subcategory.profile}'" alt=""></td>
+                <td>${(data.subcategory.is_active == '1' ? "Hidden" : "Show")}</td>
 
+                <td>
+                    <div class="button-group">
+                        <div class="btn-group">
+                            <div class="btn-group"><button id="btnGroupDrop${data.subcategory.id}" type="button"
+                                    class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button>
+                                <div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal(${data.subcategory})">View</a>
+                                    <a class="dropdown-item" href="javascript:openEditIndexModal(${index})">Edit</a><a
+                                        class="dropdown-item" href="javascript:openDeleteDialog(${data.subcategory.id});">Delete</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>`
             $("#table_id").append(string);
+
 
             $('#addcategory').modal('hide');
 
@@ -317,8 +339,8 @@ edit_profile.onchange = evt => {
         },
         error: function (error) {
             $(form)
-                .find('[type="button"]')
-                .prop("disabled", false);
+            $("#button-save").prop("disabled", false);
+            $("#button-save").text("Add SubCategory")
             var errorMessage = error.statusText;
             var sweetMessage = error.statusText;
             if (error.status == 422) {
@@ -330,14 +352,7 @@ edit_profile.onchange = evt => {
                 text: sweetMessage,
                 icon: "error",
               });
-              setTimeout(() => {
 
-            $("#name_text").html("");
-            $("#profile_text").html("");
-
-
-            $("#btnsave").text("Add SubCategory");
-            }, 6000);
 
         },
     });
@@ -348,9 +363,8 @@ function openDeleteDialog(id) {
     $("#deleteModal").modal('show');
  }
 
-function deleteSubCategory() {
-    var spinner = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
-    $("#btndelete").html(spinner);
+ function deleteSubCategory() {
+    $("#button-delete").text('Loading... ');
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -360,7 +374,8 @@ function deleteSubCategory() {
         processData: false,
         contentType: false,
         success: function (data) {
-            $("#btndelete").text("Yes");
+            $("#button-delete").prop("disabled", false);
+            $("#button-delete").text("Yes");
             $('.alert-success').html(data.success).fadeIn('slow');
             // $('.alert-success').delay(3000).fadeOut('slow');
             document.getElementById("row_" + $("#deleteID").val()).remove();
@@ -372,7 +387,11 @@ function deleteSubCategory() {
                 $('#deleteModal').modal('hide');
         },
         error: function (error) {
-            alert(error.message);
+            $("#button-delete").prop("disabled", false);
+            $("#button-delete").text("Yes");
+            alert(error);
+
+
         },
     });
 }
@@ -398,8 +417,7 @@ function openEditModal(subcategory) {
 
 function editSubCategory() {
     var form = $('#edit-subcategory-form')[0];
-    var spinner = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
-    $("#btnupdate").html(spinner);
+    $("#button-update").text('Loading...');
     subcategory_id = form.subcategory_id.value;
     console.log('subcategory_id', subcategory_id);
 
@@ -418,12 +436,13 @@ function editSubCategory() {
         data: myFormData,
         beforeSend: function () {
             $(form)
-                .find('[type="button"]')
-                .prop("disabled", true);
+            $('.backend-error-text').text('')
+            $("#button-update").prop("disabled", true)
 
         },
         success: function (data) {
-            $("#btnupdate").text("Edit Sub Category");
+            $("#button-update").prop("disabled", false);
+            $("#button-update").text("Edit SubCategory");
 
             console.log(data)
 
@@ -442,7 +461,26 @@ function editSubCategory() {
             var index = (dataarray.length)-1;
              $("#row_"+data.subcategory.id).remove();
 
-            var string = '<tr id="row_'+data.subcategory.id + '" ><td>'+data.subcategory.name+'</td><td>'+data.subcategory.category_id+'</td><td><img src="'+data.subcategory.profile+'" alt=""></td><td>'+(data.subcategory.is_active == '1' ? "Hidden" : "Show") +'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.subcategory+')">View</a> <a class="dropdown-item"  href="javascript:openEditIndexModal('+index+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.subcategory.id+');">Delete</a></div></div></div></div></td></tr>';
+             var string =
+            `<tr id="row_${data.subcategory.id}">
+                <td>${data.subcategory.name}</td>
+                <td>${data.subcategory.category_id}</td>
+                <td><img src="'${data.subcategory.profile}'" alt=""></td>
+                <td>${(data.subcategory.is_active == '1' ? "Hidden" : "Show")}</td>
+
+                <td>
+                    <div class="button-group">
+                        <div class="btn-group">
+                            <div class="btn-group"><button id="btnGroupDrop${data.subcategory.id}" type="button"
+                                    class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button>
+                                <div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal(${data.subcategory})">View</a>
+                                    <a class="dropdown-item" href="javascript:openEditIndexModal(${index})">Edit</a><a
+                                        class="dropdown-item" href="javascript:openDeleteDialog(${data.subcategory.id});">Delete</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>`
             $("#table_id").append(string);
 
             $('#editsubcategory').modal('hide');
@@ -451,8 +489,8 @@ function editSubCategory() {
         },
         error: function (error) {
             $(form)
-                .find('[type="button"]')
-                .prop("disabled", false);
+            $("#button-update").prop("disabled", false);
+            $("#button-update").text("Edit SubCategory");
             var errorMessage = error.statusText;
             var sweetMessage = error.statusText;
 
@@ -465,13 +503,7 @@ function editSubCategory() {
                 text: sweetMessage,
                 icon: "error",
               });
-              setTimeout(() => {
 
-                $("#edit_name_text").html("");
-                $("#edit_is_active_text").html("");
-
-                $("#btnupdate").text("Edit Sub category");
-                }, 6000);
 
         },
     });

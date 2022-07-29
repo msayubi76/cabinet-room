@@ -21,7 +21,7 @@ class UserService
             return $users;
 
     }
-    public function store(UserRequest $request)
+    public  function store(UserRequest $request)
     {
         DB::beginTransaction();
         $data = $request->validated();
@@ -39,7 +39,7 @@ class UserService
 
         return $response;
     }
-    public function update(UserRequest $request, User $user){
+    public  static function update(UserRequest $request, User $user){
         DB::beginTransaction();
         $data = $request->validated();
         $user->update($data);

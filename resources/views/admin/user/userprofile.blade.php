@@ -105,12 +105,12 @@
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" id="edit_fist_name" name="fist_name"
                                         placeholder="Enter a name.." value="{{ Auth::user()->fist_name }}">
-                                        <div id="edit_fist_name_text" class="text-danger"></div>
+                                        <div id="edit_fist_name_text" class="text-danger backend-error-text"></div>
                                      </div>
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" id="edit_last_name" name="last_name"
                                         placeholder="Enter a name.." value="{{ Auth::user()->last_name }}">
-                                        <div id="edit_last_name_text" class="text-danger"></div>
+                                        <div id="edit_last_name_text" class="text-danger backend-error-text"></div>
                                     </div>
 
                                      </div>
@@ -118,24 +118,24 @@
                                         <div class="col-md-6">
                                             <input type="text" class="form-control" id="edit_address" name="address"
                                             placeholder="Enter a Address.." value="{{ Auth::user()->address }}">
-                                            <div id="edit_address_text" class="text-danger"></div>
+                                            <div id="edit_address_text" class="text-danger backend-error-text"></div>
                                         </div>
                                         <div class="col-md-6">
                                             <input type="text" class="form-control" id="edit_city" name="city"
                                             placeholder="Enter a city.." value="{{ Auth::user()->city }}">
-                                            <div id="edit_city_text" class="text-danger"></div> </div>
+                                            <div id="edit_city_text" class="text-danger backend-error-text"></div> </div>
 
                                          </div>
                                          <div class="form-group row">
                                             <div class="col-md-6">
                                                 <input type="text" class="form-control" id="edit_region" name="region"
                                                 placeholder="Enter a region.." value="{{ Auth::user()->region }}">
-                                                <div id="edit_region_text" class="text-danger"></div>
+                                                <div id="edit_region_text" class="text-danger backend-error-text"></div>
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="text" class="form-control" id="edit_mobile_no" name="mobile_no"
                                                 placeholder="Enter a mobile_no.." value="{{ Auth::user()->mobile_no }}">
-                                                <div id="edit_mobile_no_text" class="text-danger"></div>
+                                                <div id="edit_mobile_no_text" class="text-danger backend-error-text"></div>
                                             </div>
 
                                              </div>
@@ -143,12 +143,13 @@
 
                                      <input type="file" class="form-control" id="edit_profile" name="profile"
                                     placeholder="Choose File" value="">
-                                    <div id="edit_fist_profile_text" class="text-danger"></div>
+                                    <div id="edit_fist_profile_text" class="text-danger backend-error-text"></div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control" id="mail" name="email"
-                                        placeholder="Your valid email.." value="{{ Auth::user()->email }}">
-                                        <div id="edit_email_text" class="text-danger"></div>
+                                    <input type="email" class="form-control" id="edit_email" name="email"
+                                        placeholder="Enter a name.." value="{{ Auth::user()->email }}">
+                                    <div id="edit_email_text" class="text-danger backend-error-text"></div>
+
                                     </div>
                               <button type="submit" name="submit"  class="btn btn-dark">save</button>
                                 </div>
@@ -219,7 +220,7 @@ $('#adminIninfo').on('submit', function(e){
        contentType:false,
        beforeSend: function () {
             $('#adminIninfo')
-                .find('[type="button"]')
+            $('.backend-error-text').text('')
                 .prop("disabled", true);
         },
         success: function (data) {
