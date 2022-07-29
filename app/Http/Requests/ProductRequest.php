@@ -25,17 +25,17 @@ class ProductRequest extends FormRequest
     {
         return [
             'name' => ['required','max:255'],
-            'category_id' => ['nullable'],
-            'subcategory_id' => ['nullable'],
-            'dsecription' => ['nullable'],
-            'actual_price' => ['nullable'],
-            'discount' => ['nullable'],
-            'shipping_charge' => ['nullable'],
-            'colour' => ['nullable'],
-            'feature_image' => ['nullable'],
-            'images' => ['nullable'],
-            'length' => ['nullable'],
-            'width' => ['nullable'],
+            'category_id' => ['required'],
+            'subcategory_id' => ['required'],
+            'description' => ['required'],
+            'actual_price' => ['required'],
+            'discount' => ['required'],
+            'shipping_charge' => ['required'],
+            'colour' => ['required'],
+            'feature_image' => ['required'],
+            'images' => ['required'],
+            'length' => ['required'],
+            'width' => ['required'],
 
         ];
     }

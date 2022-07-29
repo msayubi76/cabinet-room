@@ -112,7 +112,7 @@
                         <div class="row">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
                                 <img id="image_preview" src="{{ url('images/profile/default_image.png') }}" alt=""
-                                    width="120" class="rounded-circle border border-dark" />
+                                style="max-width: 120Px;"  class="rounded-circle border border-dark" />
                             </div>
                         </div>
                         <div class="form-validation">
@@ -121,11 +121,11 @@
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="fist_name" name="fist_name"
                                         placeholder="Fist Name" :value="old('fist_name')">
-                                    <div id="fist_name_text" class="text-danger"></div>
+                                    <div id="fist_name_text"  class="text-danger error_text"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="last_name" name="last_name"
-                                        placeholder="last Name" :value="old('last_name')">
+                                        placeholder="Last Name" :value="old('last_name')">
                                     <div id="last_name_text" class="text-danger"></div>
                                 </div>
                             </div>
@@ -182,7 +182,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <input type="password" class="form-control" id="password" name="password_confirmation"
-                                        placeholder=" confirm it!">
+                                        placeholder=" Confirm it!">
                                     <div id="confirmed_text" class="text-danger"></div>
                                 </div>
                             </div>
@@ -389,23 +389,23 @@ function deleteUser() {
         },
     });
 }
-
-function openEditModal(user) {
-
-    document.getElementById('edit_fist_name').value = user.fist_name;
-    document.getElementById('edit_last_name').value = user.last_name;
-    document.getElementById('edit_mobile_no').value = user.mobile_no;
-    document.getElementById('edit_address').value = user.address;
-    document.getElementById('edit_city').value = user.city;
-    document.getElementById('edit_region').value = user.region;
-    document.getElementById('edit_email').value = user.email;
-    document.getElementById('user_id').value = user.id;
+var dataarray =[];
+function openEditIndexModal(index) {
+    console.log(dataarray)
+    document.getElementById('edit_fist_name').value = dataarray[index].user.fist_name;
+    document.getElementById('edit_last_name').value = dataarray[index].user.last_name;
+    document.getElementById('edit_mobile_no').value = dataarray[index].user.mobile_no;
+    document.getElementById('edit_address').value = dataarray[index].user.address;
+    document.getElementById('edit_city').value = dataarray[index].user.city;
+    document.getElementById('edit_region').value = dataarray[index].user.region;
+    document.getElementById('edit_email').value = dataarray[index].user.email;
+    document.getElementById('user_id').value = dataarray[index].user.id;
 
 
 
     var image;
-    if (user.image_url) {
-        image = user.image_url;
+    if (dataarray[index].user.image_url) {
+        image = dataarray[index].user.image_url;
     } else {
         image = base_url + '/storage/profile/62a7764c8bf14.jpg';
     }
@@ -413,6 +413,30 @@ function openEditModal(user) {
     $('#edit_image_preview').attr('src', image)
     // document.getElementById('edit_image_preview').src = user.image_url;
     $("#editModalUser").modal()
+}
+function openEditModal(user) {
+
+document.getElementById('edit_fist_name').value = user.fist_name;
+document.getElementById('edit_last_name').value = user.last_name;
+document.getElementById('edit_mobile_no').value = user.mobile_no;
+document.getElementById('edit_address').value = user.address;
+document.getElementById('edit_city').value = user.city;
+document.getElementById('edit_region').value = user.region;
+document.getElementById('edit_email').value = user.email;
+document.getElementById('user_id').value = user.id;
+
+
+
+var image;
+if (user.image_url) {
+    image = user.image_url;
+} else {
+    image = base_url + '/storage/profile/62a7764c8bf14.jpg';
+}
+// document.getElementById('edit_profile').value = user.image_name;
+$('#edit_image_preview').attr('src', image)
+// document.getElementById('edit_image_preview').src = user.image_url;
+$("#editModalUser").modal()
 }
 function openViewModal(user){
     // document.getElementById('view_name').value = user.name;
@@ -480,9 +504,10 @@ function editUser() {
                 .find('[type="button"]')
                 .prop("disabled", false);
 
-
-             $("#row_"+data.sub_user.id).remove();
-             var string = '<tr id="row_'+data.sub_user.id + '" ><td>'+data.sub_user.fist_name+'</td><td>'+data.sub_user.last_name+'</td><td>'+data.sub_user.email+'</td><td>'+data.sub_user.email_verified_at+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.sub_user+')">View</a> <a class="dropdown-item"  onclick="openEditModal('+data.sub_user.id+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.sub_user.id+');">Delete</a></div></div></div></div></td></tr>';
+                dataarray.push(data);
+            var index = (dataarray.length)-1;
+             $("#row_"+data.user.id).remove();
+             var string = '<tr id="row_'+data.user.id + '" ><td>'+data.user.fist_name+'</td><td>'+data.user.last_name+'</td><td>'+data.user.email+'</td><td>'+(data.user.email_verified_at == undefined ? "Not Approved" : "Approved") +'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.user+')">View</a> <a class="dropdown-item" href="javascript:openEditIndexDialog('+index+');">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.user.id+');">Delete</a></div></div></div></div></td></tr>';
             $("#table_id").append(string);
 
 
@@ -504,6 +529,7 @@ function editUser() {
                 text: sweetMessage,
                 icon: "error",
               });
+
               setTimeout(() => {
 
             $("#edit_fist_name_text").html("");
@@ -549,6 +575,8 @@ function submitUser() {
                 .prop("disabled", true);
         },
         success: function (data) {
+
+
             $("#btnsave").text("Add User");
             console.log('data',data);
             swal({
@@ -560,7 +588,11 @@ function submitUser() {
                 .find('[type="button"]')
                 .prop("disabled", false);
             // document.getElementById("user-form").reset();
-            var string = '<tr id="row_'+data.user.id + '" ><td>'+data.user.fist_name+'</td><td>'+data.user.last_name+'</td><td>'+data.user.email+'</td><td>'+data.user.email_verified_at+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.user+')">View</a> <a class="dropdown-item"   href="javascript:openEditModal('+data.user+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.user.id+');">Delete</a></div></div></div></div></td></tr>';
+            console.log(data);
+            dataarray.push(data);
+            var index = (dataarray.length)-1;
+
+            var string = '<tr id="row_'+data.user.id + '" ><td>'+data.user.fist_name+'</td><td>'+data.user.last_name+'</td><td>'+data.user.email+'</td><td>'+(data.user.email_verified_at == undefined ? "Not Approved" : "Approved") +'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.user+')">View</a> <a class="dropdown-item"   href="javascript:openEditIndexModal('+ index +')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.user.id+');">Delete</a></div></div></div></div></td></tr>';
             $("#table_id").append(string);
 
 
@@ -582,6 +614,7 @@ function submitUser() {
                 text: sweetMessage,
                 icon: "error",
               });
+
 
               setTimeout(() => {
 

@@ -26,7 +26,7 @@ class PermissionService
 
         $permission = Permission::create($data);
         DB::commit();
-        $response = ['status' => true, 'message' => 'Sub Permission added successfully.', 'Permission' => $permission];
+        $response = ['status' => true, 'message' => 'Permission added successfully.', 'permission' => $permission];
 
         return $response;
     }
@@ -38,7 +38,7 @@ class PermissionService
         $permission->update($data);
 
         DB::commit();
-        $response = ['status' => true, 'message' => 'Sub user updated.', 'permission' => $permission];
+        $response = ['status' => true, 'message' => 'Permission updated successfully.', 'permission' => $permission];
         return $response;
     }
 

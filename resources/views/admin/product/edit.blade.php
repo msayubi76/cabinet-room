@@ -17,13 +17,13 @@
                 </ul> --}}
             </div>
                 @endif
-                    <h4 class="card-title">Add Product</h4>
+                    <h4 class="card-title">Update Product</h4>
 
                     <div class="basic-form">
-                        <form action="{{route('products/store')}}"  method="post" enctype="multipart/form-data">
+                        <form action=""  method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group mb-8">
-                                <input type="text" class="form-control input-default" placeholder="Product Name" :value="old('name')" name="name">
+                                <input type="text" class="form-control input-default" placeholder="Product Name" value="{{$product->name}}" name="name">
                                 @error('name')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -35,7 +35,8 @@
                                         @foreach ($category as $catitem )
 
 
-                                        <option value="{{$catitem->id}}">{{$catitem->name}}</option>
+                                         <option value="{{$catitem->id}}" {{$product->category_id == $catitem->id ? 'selected' : ''}}>{{$catitem->name}}</option>
+
                                         @endforeach
                                     </select> @error('category_id')
                                     <div class="alert alert-danger">{{ $message }}</div>
@@ -51,21 +52,20 @@
                             </div>
                                </div>
                             <div class="form-group mb-8">
-                                <textarea class="form-control h-150px" id="description" name="description" rows="6" placeholder="Write here.......">
-                                   </textarea>
+                                <textarea class="form-control h-150px" id="description" name="description" rows="6" placeholder="Write here.......">{{$product->description}}</textarea>
                                    @error('description')
                                    <div class="alert alert-danger">{{ $message }}</div>
                                @enderror
                             </div>
                                    <div class="form-group row ">
                                     <div class="col-md-6 mb-8">
-                                        <input type="text" class="form-control input-default" placeholder="Actual Price" :value="old('actual_price')" name="actual_price">
+                                        <input type="text" class="form-control input-default" placeholder="Actual Price" value="{{$product->actual_price}}" name="actual_price">
                                         @error('actual_price')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                     </div>
                                     <div class="col-md-6 mb-8">
-                                        <input type="text" class="form-control input-default" placeholder="Discount" :value="old('discount')" name="discount">
+                                        <input type="text" class="form-control input-default" placeholder="Discount" value="{{$product->discount}}" name="discount">
                                         @error('discount')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
@@ -73,19 +73,22 @@
                                    </div>
                                    <div class="form-group row ">
                                     <div class="col-md-6 mb-8">
-                                        <input type="text" class="form-control input-default" placeholder="Shipping Charge" :value="old('shipping_charge')" name="shipping_charge">
+                                        <input type="text" class="form-control input-default" placeholder="Shipping Charge" value="{{$product->shipping_charge}}" name="shipping_charge">
                                         @error('shipping_charge')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                     </div>
                                     <div class="col-md-6 mb-8">
-                                        <input type="text" class="form-control input-default" placeholder="colour" :value="old('colour')" name="colour">
+                                        <input type="text" class="form-control input-default" placeholder="colour" value="{{$product->colour}}" name="colour">
                                         @error('colour')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                     </div>
                                    </div>
                             <div class="form-group mb-8">
+                                <div class="mb-8">
+                                <img src="{{asset('uploads/product/'.$product->feature_image)}}" width="50px" height="50px" alt="img">
+                            </div>
                                 <input type="file" class="form-control" id="feature_image" name="feature_image"
                             placeholder="feature image" :value="old('feature_image')">
                             @error('feature_image')
@@ -93,6 +96,7 @@
                         @enderror
                             </div>
                             <div class="form-group mb-8">
+
                                 <input type="file" class="form-control" id="image" name="images[]"
                             placeholder="images" :value="old('images')">
                             @error('images')
@@ -101,13 +105,13 @@
                     </div>
                             <div class="form-group row ">
                                 <div class="col-md-6 mb-8">
-                                    <input type="text" class="form-control input-default" placeholder="length" :value="old('images')" name="length">
+                                    <input type="text" class="form-control input-default" placeholder="length" value="{{$product->length}}"name="length">
                                     @error('length')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                                 </div>
                                 <div class="col-md-6 mb-8">
-                                    <input type="text" class="form-control input-default" placeholder="width" :value="old('images')" name="width">
+                                    <input type="text" class="form-control input-default" placeholder="width" value="{{$product->width}}"name="width">
                                     @error('width')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror

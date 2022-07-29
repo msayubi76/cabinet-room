@@ -31,7 +31,7 @@
                                     @foreach ($roles as $role)
                                         <tr id='row_{{ $role->id }}'>
                                             <td style="width: 70%">{{ $role->name }}</td>
-                                            <td><a href="{{url('attach-permission/'.$role->id)}}" class="btn btn-secondary">Attach Permission</a></td>
+                                            <td><a href="{{url('admin/attach-permission/'.$role->id)}}" class="btn btn-secondary">Attach Permission</a></td>
 
 
 
@@ -60,14 +60,7 @@
 
                                     @endforeach
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Assighn Permiision</th>
 
-                                        <th>Action</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -133,8 +126,9 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" id="btnsave" onclick="submitRole(this)" class="btn btn-primary ">Add Role</button>
-                        </div>
+                            {{-- <a href="" id="btnsave" onclick="submitRole(this)" class="btn btn-primary">Add Role</a> --}}
+                             <button type="submit"  id="btnsave" onclick="submitRole(this)" class="btn btn-primary">Add User</button>
+                            </div>
                     </form>
 
                 </div>
@@ -174,7 +168,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" id="btupdate" onclick="editRole(this)"  class="btn btn-primary">Edit User</button>
+                       <button type="button" id="btupdate" onclick="editRole(this)"  class="btn btn-primary">Edit User</button>
                     </div>
                 </form>
             </div>
@@ -191,7 +185,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="form-valide" id="view-user-form" method="post" enctype="multipart/form-data">
+                <form class="form-valide" id="view-role-form" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
@@ -228,83 +222,89 @@
     @section('scripts')
     <script>
 
+function submitRole() {
+
+var form = $('#role-form')[0];
+console.log('form ', form);
+var spinner = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
+$("#btnsave").html(spinner);
 
 
-    function submitRole() {
-    var form = $('#role-form')[0];
-    console.log('form ', form);
-    var spinner = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
-    $("#btnsave").html(spinner);
+const myFormData = new FormData(form);
+const formDataObj = {};
 
-    const myFormData = new FormData(form);
-    const formDataObj = {};
-    myFormData.forEach((value, key) => (formDataObj[key] = value));
-    console.log(formDataObj);
-    $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
-        },
-        url: "/admin/roles", // the endpoint
-        type: "POST", // http method
-        processData: false,
-        contentType: false,
-        data: myFormData,
-        beforeSend: function () {
-            $(form)
-                .find('[type="button"]')
-                .prop("disabled", true);
-        },
-        success: function (data) {
-            $("#btnsave").text("Add Role");
-            console.log('data',data);
-            swal({
-                title: "",
-                text: data.message,
-                icon: "success",
-              });
-            $(form)
-                .find('[type="button"]')
-                .prop("disabled", false);
-            document.getElementById("role-form").reset();
-            var string = '<tr id="row_'+data.role.id + '" ><td style="width: 70%">'+data.role.name+'</td> <td><a href="{{url('attach-permission->id')}}" class="btn btn-secondary">Attach Permission</a></td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.role+')">View</a> <a class="dropdown-item" onclick="openEditModal('+data.role+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.role+');">Delete</a></div></div></div></div></td></tr>';
+myFormData.forEach((value, key) => (formDataObj[key] = value));
+console.log(formDataObj);
+$.ajax({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
+    },
+    url: "/admin/roles", // the endpoint
+    type: "POST", // http method
+    processData: false,
+    contentType: false,
+    data: myFormData,
+    beforeSend: function () {
+        $(form)
+            .find('[type="button"]')
+            .prop("disabled", true);
+
+    },
+    success: function (data) {
+
+
+        $("#btnsave").text("Add Role");
+        console.log('data',data);
+        swal({
+            title: "",
+            text: data.message,
+            icon: "success",
+          });
+        $(form)
+            .find('[type="button"]')
+            .prop("disabled", false);
+        // document.getElementById("role-form").reset();
+
+        var string = '<tr id="row_'+data.role.id + '" ><td style="width: 70%">'+data.role.name+'</td> <td><a href="{{url('attach-permission->id')}}" class="btn btn-secondary">Attach Permission</a></td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.role+')">View</a> <a class="dropdown-item" onclick="openEditModal('+data.role+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.role+');">Delete</a></div></div></div></div></td></tr>';
             $("#table_id").append(string);
 
 
             $('#addRoleModal').modal('hide');
 
 
-        },
-        error: function (error) {
-            $(form)
-                .find('[type="button"]')
-                .prop("disabled", false);
-            var errorMessage = error.statusText;
-            var sweetMessage = error.statusText;
-
-            if (error.status == 422) {
-                errorMessage = handleValidationErrors(error)
-                sweetMessage ='Invalid Data'
-               }
-
-            swal({
-                title: "Error",
-                text: sweetMessage,
-                icon: "error",
-              });
-              setTimeout(() => {
-
-                $("#name_text").html("");
-
-                $("#btnsave").text("Add Role");
-                }, 6000);
+    },
+    error: function (error) {
+        $(form)
+            .find('[type="button"]')
+            .prop("disabled", false);
+        var errorMessage = error.statusText;
+        var sweetMessage = error.statusText;
+        if (error.status == 422) {
+            errorMessage = handleValidationErrors(error)
+            sweetMessage ='Invalid Data'
+        }
+        swal({
+            title: "Error",
+            text: sweetMessage,
+            icon: "error",
+          });
 
 
+          setTimeout(() => {
+
+            $("#name_text").html("");
+
+               $("#btnsave").text("Add Role");
+          }, 6000);
+        // toastr.error(errorMessage, "Error");
+        // hideLoader();
 
 
-        },
-
-    });
+    },
+});
 }
+
+
 
 
 

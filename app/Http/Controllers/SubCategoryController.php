@@ -18,7 +18,8 @@ class SubCategoryController extends Controller
     public function index()
     {
             $categories = SubCategoryService::getSubCategory();
-            $category = Category::where('is_active','0')->get();
+            $category = Category::get();
+
             return view('admin.subcategory.index',compact('categories','category'));
 
 

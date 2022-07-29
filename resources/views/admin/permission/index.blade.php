@@ -56,14 +56,7 @@
 
                                     @endforeach
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Display Name</th>
-                                        <th>Module Name</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </tfoot>
+
                             </table>
                         </div>
                     </div>
@@ -216,7 +209,7 @@
 <script>
 
 
-
+var dataarray =[];
   function submitPermission() {
     var form = $('#permission-form')[0];
     console.log('form ', form);
@@ -253,9 +246,11 @@
             $(form)
                 .find('[type="button"]')
                 .prop("disabled", false);
-            document.getElementById("permission-form").reset();
+            // document.getElementById("permission-form").reset();
+            dataarray.push(data);
+            var index = (dataarray.length)-1;
               $(".odd").hide();
-            var string = '<tr id="row_'+data.Permission.id + '" ><td>'+data.Permission.name+'</td><td>'+data.Permission.display_name+'</td><td>'+data.Permission.module_name+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.Permission+')">View</a> <a class="dropdown-item"  href="javascript:openEditModal('+data.Permission+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.Permission+');">Delete</a></div></div></div></div></td></tr>';
+            var string = '<tr id="row_'+data.permission.id + '" ><td>'+data.permission.name+'</td><td>'+data.permission.display_name+'</td><td>'+data.permission.module_name+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.permission+')">View</a> <a class="dropdown-item"   href="javascript:openEditIndexModal('+ index +')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.permission.id+');">Delete</a></div></div></div></div></td></tr>';
             $("#table_id").append(string);
 
             $('#addpermissionmodal').modal('hide');
@@ -323,7 +318,16 @@ function deletePermission() {
         },
     });
 }
+dataarray =[];
+function openEditIndexModal(index) {
 
+document.getElementById('edit_name').value = dataarray[index].permission.name;
+    document.getElementById('edit_display_name').value = dataarray[index].permission.display_name;
+    document.getElementById('edit_module_name').value = dataarray[index].permission.module_name;
+    document.getElementById('permission_id').value = dataarray[index].permission.id;
+   $("#editModalPermission").modal()
+
+}
 function openEditModal(permission) {
 
     document.getElementById('edit_name').value = permission.name;
@@ -375,8 +379,10 @@ function editPermission() {
                 $(form)
                 .find('[type="button"]')
                 .prop("disabled", false);
+                dataarray.push(data);
+                var index = (dataarray.length)-1;
              $("#row_"+data.permission.id).remove();
-              var string = '<tr id="row_'+data.permission.id + '" ><td>'+data.permission.name+'</td><td>'+data.permission.display_name+'</td><td>'+data.permission.module_name+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.permission+')">View</a> <a class="dropdown-item" href="javascript:openEditModal('+data.permission+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.permission.id+');">Delete</a></div></div></div></div></td></tr>';
+              var string = '<tr id="row_'+data.permission.id + '" ><td>'+data.permission.name+'</td><td>'+data.permission.display_name+'</td><td>'+data.permission.module_name+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.permission+')">View</a> <a class="dropdown-item" href="javascript:openEditIndexModal('+index+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.permission.id+');">Delete</a></div></div></div></div></td></tr>';
               $("#table_id").append(string);
 
             $('#editModalPermission').modal('hide');

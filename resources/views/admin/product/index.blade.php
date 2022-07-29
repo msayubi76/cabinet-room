@@ -6,6 +6,9 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        @if(session('message'))
+                        <div class="alert alert-success"> {{ session('message') }}</div>
+                        @endif
                         <div class="row">
                             <div class="col-lg-8 col-md-6 col-sm-8 text-left">
                                 <h4 class="card-title">Products Table</h4>
@@ -23,17 +26,21 @@
                                         <th>Name</th>
                                         <th>Category </th>
                                         <th>Sub Category</th>
-                                        <th>Image</th>
+                                        <th>Feature Image</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody id="table_id">
 
-                                        <tr id='row_'>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+
+
+                                <tbody id="table_id">
+                                    @foreach ($product as $list)
+                                        <tr id='row_{{$list->id}}'>
+                                            <td>{{$list->name}}</td>
+                                            <td>{{$list->category->name}}</td>
+                                            <td>{{$list->subcategory->name}}</td>
+                                            <td><img src="{{asset('uploads/product/'.$list->feature_image)}}" width="50px" height="50px" alt="img">
+                                            </td>
 
                                             <td>
                                                 <div class="button-group">
@@ -46,7 +53,7 @@
                                                                 <a class="dropdown-item"
                                                                     onclick="openViewModal( )">View</a>
                                                                 <a class="dropdown-item"
-                                                                    href="javascript:openEditModal()">Edit</a>
+                                                                    href="{{url('admin/products/update/'.$list->id)}}">Edit</a>
                                                                 <a class="dropdown-item" href="javascript:openDeleteDialog()">Delete</a>
                                                             </div>
                                                         </div>
@@ -56,17 +63,9 @@
                                         </tr>
 
 
-
+                                        @endforeach
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Category </th>
-                                        <th>Sub Category</th>
-                                        <th>Image</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </tfoot>
+
                             </table>
                         </div>
                     </div>

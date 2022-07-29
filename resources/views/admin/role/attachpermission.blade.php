@@ -9,7 +9,8 @@
                     <h4 class="card-title">Assign Permission</h4>
                     <p class="text-muted m-b-15 f-s-12">Assign Permission for selected user </p>
                     <div class="basic-form">
-                        <form>
+                        <form method="POST" action="">
+                            @csrf
                             <div class="form-group mb-8">
                                 <input type="text" class="form-control input-default" placeholder="Input Default" value="{!!$roles->name!!}">
                             </div><br>
@@ -17,7 +18,7 @@
                                 <h4 class="card-title">User</h4>
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" value="">Create User </label>
+                                            <input type="checkbox" class="form-check-input" value=""> </label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
@@ -70,7 +71,10 @@
                                             <input type="checkbox" class="form-check-input" value="" disabled="disabled">Disabled</label>
                                     </div>
                               </div>
-
+                              <div class="modal-footer">
+                                <a href="{{url('admin/roles')}}"  class="btn btn-secondary"> Close </a>
+                             <a href=""  class="btn btn-primary"> Add Permission </a>
+                            </div>
 
                         </form>
                     </div>

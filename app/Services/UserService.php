@@ -16,10 +16,8 @@ class UserService
 
     public static function getUsers()
     {
-
             // $users = User::whereNotIn('type',['super-admin'])->orderBy('id', 'DESC')->paginate(30);
             $users = User::orderBy('id', 'DESC')->whereNotIn('type',['super-admin'])->paginate(30);
-
             return $users;
 
     }
@@ -44,12 +42,10 @@ class UserService
     public function update(UserRequest $request, User $user){
         DB::beginTransaction();
         $data = $request->validated();
-
         $user->update($data);
 
-
         DB::commit();
-        $response = ['status' => true, 'message' => 'Sub User Updated Successfully.', 'sub_user' => $user];
+        $response = ['status' => true, 'message' => 'Sub User Updated Successfully.', 'user' => $user];
         return $response;
     }
     public static function destroy($id)

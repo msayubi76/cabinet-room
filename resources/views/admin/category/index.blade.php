@@ -59,14 +59,7 @@
 
                                     @endforeach
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Image</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </tfoot>
+
                             </table>
                         </div>
                     </div>
@@ -285,8 +278,10 @@ edit_profile.onchange = evt => {
                 .find('[type="button"]')
                 .prop("disabled", false);
             // document.getElementById("category-form").reset();
+            dataarray.push(data);
+            var index = (dataarray.length)-1;
               $(".odd").hide();
-            var string = '<tr id="row_'+data.category.id + '" ><td>'+data.category.name+'</td><td><img src="'+data.category.profile+'" alt=""></td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.category+')">View</a> <a class="dropdown-item"  href="javascript:openEditModal('+data.category+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.category.id+');">Delete</a></div></div></div></div></td></tr>';
+            var string = '<tr id="row_'+data.category.id + '" ><td>'+data.category.name+'</td><td><img src="'+data.category.profile+'" alt=""></td><td>'+(data.category.is_active == '1' ? "Hidden" : "Show") +'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.category+')">View</a> <a class="dropdown-item"  href="javascript:openEditIndexModal('+index+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.category.id+');">Delete</a></div></div></div></div></td></tr>';
             $("#table_id").append(string);
 
             $('#addcategory').modal('hide');
@@ -354,7 +349,16 @@ function deleteCategory() {
         },
     });
 }
+dataarray=[];
+function openEditIndexModal(index) {
 
+document.getElementById('edit_name').value = dataarray[index].category.name;
+document.getElementById('edit_is_active').value = dataarray[index].category.is_active == '1' ? 'checked':'';
+
+document.getElementById('category_id').value = dataarray[index].category.id;
+
+$("#editcategory").modal()
+}
 function openEditModal(category) {
 
     document.getElementById('edit_name').value = category.name;
@@ -407,8 +411,10 @@ function editCategory() {
                 $(form)
                 .find('[type="button"]')
                 .prop("disabled", false);
+                dataarray.push(data);
+                var index =(dataarray.length)-1;
              $("#row_"+data.category.id).remove();
-              var string = '<tr id="row_'+data.category.id + '" ><td>'+data.category.name+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.category+')">View</a> <a class="dropdown-item" href="javascript:openEditModal('+data.category+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.category.id+');">Delete</a></div></div></div></div></td></tr>';
+              var string = '<tr id="row_'+data.category.id + '" ><td>'+data.category.name+'</td><td><img src="'+data.category.profile+'" alt=""></td><td>'+(data.category.is_active == '1' ? "Hidden" : "Show") +'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.category+')">View</a> <a class="dropdown-item" href="javascript:openEditIndexModal('+index+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.category.id+');">Delete</a></div></div></div></div></td></tr>';
               $("#table_id").append(string);
 
             $('#editcategory').modal('hide');

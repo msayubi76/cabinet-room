@@ -49,10 +49,23 @@ class RoleController extends Controller
 
      public function attach($role){
         $roles =Role::find($role);
-        return view('admin.role.attachpermission',compact('roles'));
-        $role = Role::FindById($role);
-        $permission = Permission::FindById(1);
-        $role->givePermissionTo($permission);
+        $permission = Permission::all();
+        return view('admin.role.attachpermission',compact('roles','permission'));
+
+
+     }
+     public function permissionassign(Request $request){
+        $this->validate($request, [
+            'name' => 'required|unique:roles,name',
+            'permission' => 'required',
+        ]);
+
+        $role = Role::create(['name' => $request->get('name')]);
+        $role->syncPermissions($request->get('permission'));
+
+        return redirect()->route('roles.index')
+                        ->with('success','Role created successfully');
+
 
      }
 }

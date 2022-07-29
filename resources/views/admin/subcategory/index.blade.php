@@ -28,13 +28,13 @@
                                     </tr>
                                 </thead>
                                 <tbody id="table_id">
-                                    @foreach ($categories as $category)
-                                        <tr id='row_{{ $category->id }}'>
-                                            <td>{{ $category->name }}</td>
-                                            <td>{{$category->category->name}}</td>
-                                            <td><img src="{{asset('/storage/subcategory/' . $category->profile)}}" alt=""></td>
+                                    @foreach ($categories as $cate)
+                                        <tr id='row_{{ $cate->id }}'>
+                                            <td>{{ $cate->name }}</td>
+                                            <td>{{$cate->category->name}}</td>
+                                            <td><img src="{{asset('/storage/subcategory/' . $cate->profile)}}" alt=""></td>
 
-                                           <td> {{$category->is_active == '1' ? 'Hidden':'Show' }}</td>
+                                           <td> {{$cate->is_active == '1' ? 'Hidden':'Show' }}</td>
 
 
 
@@ -47,10 +47,10 @@
                                                                 data-toggle="dropdown"></button>
                                                             <div class="dropdown-menu">
                                                                 <a class="dropdown-item"
-                                                                    onclick="openViewModal({{ $category }})">View</a>
+                                                                    onclick="openViewModal({{ $cate }})">View</a>
                                                                 <a class="dropdown-item"
-                                                                    href="javascript:openEditModal({{ json_encode($category) }})">Edit</a>
-                                                                <a class="dropdown-item" href="javascript:openDeleteDialog({{ $category->id }})">Delete</a>
+                                                                    href="javascript:openEditModal({{ json_encode($cate) }})">Edit</a>
+                                                                <a class="dropdown-item" href="javascript:openDeleteDialog({{ $cate->id }})">Delete</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -61,15 +61,7 @@
 
                                     @endforeach
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>SubCategory Name</th>
-                                        <th>Category Name</th>
-                                        <th>Image</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </tfoot>
+
                             </table>
                         </div>
                     </div>
@@ -131,8 +123,9 @@
                             <option value="">-- Select Category --</option>
                             @foreach ($category as $catitem )
 
-
-                            <option value="{{$catitem->id}}">{{$catitem->name}}</option>
+                            @if($catitem)
+                                <option value="{{$catitem->id}}">{{($catitem->name)}}</option>
+                            @endif
                             @endforeach
                         </select>
                         </div>
@@ -189,61 +182,60 @@
                 </button>
             </div>
             <div class="modal-body">
+
                 <form class="form-valide" id="edit-subcategory-form" method="post" enctype="multipart/form-data">
                     @csrf
-
-                    <div class="form-validation">
-
-                            <input type="hidden" value="-1" id="subcategory_id">
+                    <input type="hidden" value="-1" id="subcategory_id">
                             <input type="hidden" value="PUT" name="_method">
-                            <div class="row">
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
-
-                                    <img id="edit_image_preview" src="{{ url('images/profile/62a7764c8bf14.jpg') }}" alt=""
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
+                            <img id="edit_image_preview" src="{{ url('images/profile/62a7764c8bf14.jpg') }}" alt=""
                                         width="120" class="rounded-circle border border-dark" />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                            <label for=""> Cateogry</label>
-
-                    <select name="category_id" class="form-control" id="">
-                        @foreach ($category as $catitem )
-
-
-                        {{-- <option value="{{$catitem->id}}" {{$post->category_id == $catitem->id ? 'selected' : ''}}>{{$catitem->name}}</option> --}}
-
-                        @endforeach
-                    </select>
-                            </div>
-
-                            <div class="form-group row">
-                            <label class="col-lg-4 col-form-label" for="name">Name <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-lg-6">
-                                <input type="text" class="form-control" id="edit_name" name="name"
-                                    placeholder="Enter a Name" value="">
-                                <div id="edit_name_text" class="text-danger"></div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-4 col-form-label" for="name">Name <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-lg-6">
-                        <input type="file" class="form-control" id="edit_profile" name="profile"
-                        placeholder="Enter a name.." value="">
-                    <div id="edit_profile_text" class="text-danger"></div>
                         </div>
                     </div>
-                    <div class="form-group ">
+                    <div class="form-validation">
+                        <div class="form-group ">
+                        <label for=""> Cateogry</label>
+
+                        <select name="category_id" class="form-control" id="">
+                            <option value="">-- Select Category --</option>
+                            @foreach ($category as $catitem )
+
+                            @if($catitem)
+                                <option value="{{$catitem->id}}">{{($catitem->name)}}</option>
+                            @endif
+                            @endforeach
+                        </select>
+                        </div>
+                        <div class="form-group ">
+
+                            <label class="col-lg-4 col-form-label" for="name">Name <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" id="edit_name" name="name"
+                            placeholder="Enter a Name" value="">
+                        <div id="edit_name_text" class="text-danger"></div>
+                           </div>
+
+                        <div class="form-group ">
+                           <label class="col-lg-4 col-form-label" for="name">Image <span class="text-danger">*</span>
+                            </label>
+                            <input type="file" class="form-control" id="edit_profile" name="profile"
+                            placeholder="Enter a name.." value="">
+                        <div id="edit_profile_text" class="text-danger"></div>
+
+                        </div>
+                        <div class="form-group ">
 
 
-                        <label class="col-lg-4 col-form-label" for="name">staus <span class="text-danger">*</span>
-                        </label>
+                            <label class="col-lg-4 col-form-label form-check-label" for="name">
 
-                            <input type="checkbox" id="edit_is_active" name="is_active"  value="">
+                                <input type="checkbox" id="edit_is_active" name="is_active"  value="">
                             <div id="edit_is_active" class="text-danger"></div>
 
-                    </div>
+                        </div>
+
+
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -299,7 +291,7 @@ edit_profile.onchange = evt => {
         },
         success: function (data) {
             console.log(data)
-            $("#btnsave").text("Addd subCategory");
+            $("#btnsave").text("Add subCategory");
 
             console.log('data',data);
             swal({
@@ -313,8 +305,11 @@ edit_profile.onchange = evt => {
                 .prop("disabled", false);
             // document.getElementById("category-form").reset();
             //   $(".odd").hide();
-            // var string = '<tr id="row_'+data.category.id + '" ><td>'+data.category.name+'</td><td><img src="'+data.category.profile+'" alt=""></td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.category+')">View</a> <a class="dropdown-item"  href="javascript:openEditModal('+data.category+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.category.id+');">Delete</a></div></div></div></div></td></tr>';
-            // $("#table_id").append(string);
+            dataarray.push(data);
+            var index = (dataarray.length)-1;
+            var string = '<tr id="row_'+data.subcategory.id + '" ><td>'+data.subcategory.name+'</td><td>'+data.subcategory.category_id+'</td><td><img src="'+data.subcategory.profile+'" alt=""></td><td>'+(data.subcategory.is_active == '1' ? "Hidden" : "Show") +'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.subcategory+')">View</a> <a class="dropdown-item"  href="javascript:openEditIndexModal('+index+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.subcategory.id+');">Delete</a></div></div></div></div></td></tr>';
+
+            $("#table_id").append(string);
 
             $('#addcategory').modal('hide');
 
@@ -381,11 +376,20 @@ function deleteSubCategory() {
         },
     });
 }
+dataarray = [];
+function openEditIndexModal(index) {
 
-function openEditModal(category) {
+document.getElementById('edit_name').value = dataarray[index].subcategory.name;
+document.getElementById('edit_is_active').value =dataarray[index].subcategory.is_active == '1' ? 'checked':'';
 
-    document.getElementById('edit_name').value = category.name;
-    document.getElementById('edit_is_active').value = category.is_active == '1' ? 'checked':'';
+document.getElementById('subcategory_id').value = dataarray[index].subcategory.id;
+
+$("#editsubcategory").modal()
+}
+function openEditModal(subcategory) {
+
+    document.getElementById('edit_name').value = subcategory.name;
+    document.getElementById('edit_is_active').value = subcategory.is_active == '1' ? 'checked':'';
 
     document.getElementById('subcategory_id').value = subcategory.id;
 
@@ -434,9 +438,12 @@ function editSubCategory() {
                 $(form)
                 .find('[type="button"]')
                 .prop("disabled", false);
-            //  $("#row_"+data.category.id).remove();
-            //   var string = '<tr id="row_'+data.category.id + '" ><td>'+data.category.name+'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.category+')">View</a> <a class="dropdown-item" href="javascript:openEditModal('+data.category+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.category.id+');">Delete</a></div></div></div></div></td></tr>';
-            //   $("#table_id").append(string);
+                dataarray.push(data);
+            var index = (dataarray.length)-1;
+             $("#row_"+data.subcategory.id).remove();
+
+            var string = '<tr id="row_'+data.subcategory.id + '" ><td>'+data.subcategory.name+'</td><td>'+data.subcategory.category_id+'</td><td><img src="'+data.subcategory.profile+'" alt=""></td><td>'+(data.subcategory.is_active == '1' ? "Hidden" : "Show") +'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.subcategory+')">View</a> <a class="dropdown-item"  href="javascript:openEditIndexModal('+index+')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.subcategory.id+');">Delete</a></div></div></div></div></td></tr>';
+            $("#table_id").append(string);
 
             $('#editsubcategory').modal('hide');
 

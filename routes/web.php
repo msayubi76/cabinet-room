@@ -49,12 +49,14 @@ Route::prefix('admin')->middleware(['auth'])->group(function ()
     Route::resource('roles',RoleController::class);
     Route::resource('permissions',PermissionController::class);//->except('update');  salahuddin changed
     Route::get('attach-permission/{role}',[RoleController::class,'attach']);
+    Route::post('attach-permission',[RoleController::class,'permissionassign']);
 
     Route::resource('category',CategoryController::class);
     Route::resource('subcategory',SubCategoryController::class);
     Route::get('products',[ProductController::class,'index']);
     Route::get('products/create',[ProductController::class,'create']);
     Route::post('products/store',[ProductController::class,'store'])->name('products/store');
+    Route::get('products/update/{product_id}',[ProductController::class,'edit']);
     Route::any('getSubCategory',[ProductController::class,'getSubCategory'])->name('getSubCategory');
 
 

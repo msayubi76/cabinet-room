@@ -25,7 +25,7 @@ class PermissionRequest extends FormRequest
     public function rules(Request $request)
     {
 
-        $id = $request->route('permissions');
+
         return [
             'name' => ['required', 'max:255'],
             'display_name' => ['required', 'max:255'],

@@ -18,7 +18,8 @@ class SubCategoryService
     public static function getSubCategory(){
 
             $subcategory = SubCategory::orderBy('id', 'DESC')->paginate(30);
-            return $subcategory;
+
+            return $subcategory  ;
 
     }
 
@@ -35,6 +36,7 @@ class SubCategoryService
             $data['image_url'] = url('/storage/subcategory/' . $image_name);
         endif;
         $data['is_active'] =  $request->is_active == true ? '1' : '0';
+        $data['category_d'] = $request->category_id;
 
         $subcategory = SubCategory::create($data);
         DB::commit();
@@ -58,9 +60,9 @@ class SubCategoryService
     public static function destroy($id)
     {
         DB::beginTransaction();
-        $category = SubCategory::findorFail($id);
-        $category->subcategories()->delete();
-        $category->delete();
+        $subcategory = SubCategory::findorFail($id);
+
+        $subcategory->delete();
         DB::commit();
         $response = ['status' => true, 'message' => 'Subcategory removed successfully.'];
         return $response;
