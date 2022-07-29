@@ -121,12 +121,12 @@
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="fist_name" name="fist_name"
                                         placeholder="Fist Name" :value="old('fist_name')">
-                                    <div id="fist_name_text"  class="text-danger error_text"></div>
+                                    <div id="fist_name_text"  class="text-danger backend-error-text"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="last_name" name="last_name"
                                         placeholder="Last Name" :value="old('last_name')">
-                                    <div id="last_name_text" class="text-danger"></div>
+                                    <div id="last_name_text" class="text-danger backend-error-text"></div>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -191,7 +191,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button"  id="btnsave" onclick="submitUser(this)" class="btn btn-primary">Add User</button>
+                            <button type="button"  id="button-save" onclick="submitUser(this)" class="btn btn-primary">Add User</button>
                         </div>
                     </form>
 
@@ -551,10 +551,8 @@ function editUser() {
 
 function submitUser() {
 
-    var form = $('#user-form')[0];
-    console.log('form ', form);
-    var spinner = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
-    $("#btnsave").html(spinner);
+    var form = $('#user-form')[0]; 
+    $("#button-save").text('Loading...');
 
     const myFormData = new FormData(form);
     const formDataObj = {};
@@ -570,39 +568,52 @@ function submitUser() {
         contentType: false,
         data: myFormData,
         beforeSend: function () {
-            $(form)
-                .find('[type="button"]')
-                .prop("disabled", true);
+            $('.backend-error-text').text('')
+            $("#button-save").prop("disabled", true); 
         },
         success: function (data) {
 
-
-            $("#btnsave").text("Add User");
+            $("#button-save").prop("disabled", false); 
+            $("#button-save").text("Add User");
             console.log('data',data);
             swal({
                 title: "",
                 text: data.message,
                 icon: "success",
               });
-            $(form)
-                .find('[type="button"]')
-                .prop("disabled", false);
-            // document.getElementById("user-form").reset();
+            
             console.log(data);
             dataarray.push(data);
             var index = (dataarray.length)-1;
-
-            var string = '<tr id="row_'+data.user.id + '" ><td>'+data.user.fist_name+'</td><td>'+data.user.last_name+'</td><td>'+data.user.email+'</td><td>'+(data.user.email_verified_at == undefined ? "Not Approved" : "Approved") +'</td><td><div class="button-group"><div class="btn-group"> <div class="btn-group"><button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button><div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal('+data.user+')">View</a> <a class="dropdown-item"   href="javascript:openEditIndexModal('+ index +')">Edit</a><a class="dropdown-item" href="javascript:openDeleteDialog('+data.user.id+');">Delete</a></div></div></div></div></td></tr>';
+ 
+            var string =   
+            `<tr id="row_${data.user.id}">
+                <td>${data.user.fist_name}</td>
+                <td>${data.user.last_name}</td>
+                <td>${data.user.email}</td>
+                <td>${data.user.email_verified_at == undefined ? "Not Approved" : "Approved"}</td>
+                <td>
+                    <div class="button-group">
+                        <div class="btn-group">
+                            <div class="btn-group"><button id="btnGroupDrop${data.user.id}" type="button"
+                                    class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button>
+                                <div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal(${data.user})">View</a>
+                                    <a class="dropdown-item" href="javascript:openEditIndexModal(${index})">Edit</a><a
+                                        class="dropdown-item" href="javascript:openDeleteDialog(${data.user.id});">Delete</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>`
             $("#table_id").append(string);
-
 
             $('#addUserModal').modal('hide');
 
         },
         error: function (error) {
-            $(form)
-                .find('[type="button"]')
-                .prop("disabled", false);
+            $("#button-save").prop("disabled", false); 
+            $("#button-save").text("Add User");
+             
             var errorMessage = error.statusText;
             var sweetMessage = error.statusText;
             if (error.status == 422) {
@@ -615,25 +626,7 @@ function submitUser() {
                 icon: "error",
               });
 
-
-              setTimeout(() => {
-
-                $("#fist_name_text").html("");
-                   $("#last_name_text").html("");
-                   $("#mobile_no_text").html("");
-                   $("#address_text").html("");
-                   $("#city_text").html("");
-                   $("#region_text").html("");
-                   $("#email_text").html("");
-                   $("#profile_text").html("");
-                   $("#password").html("");
-                   $("#confirmed_text").html("");
-                   $("#btnsave").text("Add User");
-              }, 6000);
-            // toastr.error(errorMessage, "Error");
-            // hideLoader();
-
-
+  
         },
     });
 }
