@@ -27,8 +27,7 @@ class SubCategoryController extends Controller
 
     public function store(SubCategoryRequest $request){
         try {
-            $subcategory_obj = new SubCategoryService;
-            $subcategory_response = $subcategory_obj->store($request);
+            $subcategory_response = SubCategoryService::store($request);
             return $subcategory_response;
 
         } catch (\Throwable $th) {
@@ -40,8 +39,7 @@ class SubCategoryController extends Controller
 
     public function update(SubCategoryRequest $request, SubCategory $subcategory){
         try {
-           $subcategory_obj = new SubCategoryService;
-           $subcategory_response = $subcategory_obj->update($request,$subcategory);
+           $subcategory_response = SubCategoryService::update($request,$subcategory);
            return $subcategory_response;
         } catch (\Throwable $th) {
            return $th;

@@ -54,7 +54,7 @@
                                                                     onclick="openViewModal( )">View</a>
                                                                 <a class="dropdown-item"
                                                                     href="{{url('admin/products/update/'.$list->id)}}">Edit</a>
-                                                                <a class="dropdown-item" href="javascript:openDeleteDialog()">Delete</a>
+                                                                <a class="dropdown-item" href="javascript:openDeleteDialog({{$list->id}})">Delete</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -71,6 +71,136 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
+    <div class="modal fade" id="deleteModal" tabindex="-1"
+    role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input type="hidden" value="-1" id="deleteID">
+
+                <h5 class="modal-title" id="exampleModalLongTitle">Delete Product
+                </h5>
+                <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this product?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                    data-dismiss="modal">No</button>
+                <button type="button" id="button-delete" class="btn btn-primary"
+                    onclick="deleteProduct()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+    @endsection
+    @section('scripts')
+    <script>
+       function submitProduct() {
+    var form = $('#product-form')[0];
+    $("#button-save").text('Loading...');
+    console.log('form ', form);
+
+
+    const myFormData = new FormData(form);
+    const formDataObj = {};
+    myFormData.forEach((value, key) => (formDataObj[key] = value));
+    console.log(formDataObj);
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
+        },
+        url: "/admin/products/store", // the endpoint
+        type: "Post", // http method
+        processData: false,
+        contentType: false,
+        data: myFormData,
+        beforeSend: function () {
+            $(form)
+            $('.backend-error-text').text('')
+            $("#button-save").prop("disabled", true);
+        },
+        success: function (data) {
+            $("#button-save").prop("disabled", false);
+            $("#button-save").text("Add Product");
+            console.log('data',data);
+            swal({
+                title: "",
+                text: data.message,
+                icon: "success",
+
+              });
+            $(form)
+                .find('[type="button"]')
+                .prop("disabled", false);
+            document.getElementById("product-form").reset();
+
+
+
+        },
+        error: function (error) {
+            $(form)
+            $("#button-save").prop("disabled", false);
+            $("#button-save").text("Add Product");
+            var errorMessage = error.statusText;
+            var sweetMessage = error.statusText;
+            if (error.status == 422) {
+                errorMessage = handleValidationErrors(error)
+                sweetMessage ='Invalid Data'
+            }
+            swal({
+                title: "Error",
+                text: sweetMessage,
+                icon: "error",
+              });
+
+        },
+    });
+}
+
+function openDeleteDialog(id) {
+    $("#deleteID").val(id);
+    $("#deleteModal").modal('show');
+ }
+
+ function deleteProduct() {
+    $("#button-delete").text('Loading... ');
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        url: "/admin/products/" + $("#deleteID").val(), // the endpoint
+        type: "Get", // http method
+        processData: false,
+        contentType: false,
+        success: function (data) {
+            $("#button-delete").prop("disabled", false);
+            $("#button-delete").text("Yes");
+            $('.alert-success').html(data.success).fadeIn('slow');
+            // $('.alert-success').delay(3000).fadeOut('slow');
+            document.getElementById("row_" + $("#deleteID").val()).remove();
+                 swal({
+                    title: "",
+                    text: data.message,
+                    icon: "success",
+                });
+                $('#deleteModal').modal('hide');
+        },
+        error: function (error) {
+            $("#button-delete").prop("disabled", false);
+            $("#button-delete").text("Yes");
+            alert(error);
+
+
+        },
+    });
+}
+    </script>
     @endsection

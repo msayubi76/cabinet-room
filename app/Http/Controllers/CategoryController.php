@@ -24,8 +24,8 @@ class CategoryController extends Controller
 
     public function store(CategoryRequest $request){
         try {
-            $category_obj = new CategoryService;
-            $category_response = $category_obj->store($request);
+
+            $category_response = CategoryService::store($request);
             return $category_response;
 
         } catch (\Throwable $th) {
@@ -37,8 +37,8 @@ class CategoryController extends Controller
 
     public function update(CategoryRequest $request, Category $category){
         try {
-           $category_obj = new CategoryService;
-           $category_response = $category_obj->update($request,$category);
+
+           $category_response = CategoryService::update($request,$category);
            return $category_response;
         } catch (\Throwable $th) {
            return $th;

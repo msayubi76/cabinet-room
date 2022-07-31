@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\RoleService;
 use App\Http\Requests\RoleRequest;
 use App\Services\PermissionService;
+use App\Http\Requests\AssignRoleRequest;
 use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
@@ -43,26 +44,25 @@ class RoleController extends Controller
         }
      }
 
-     public function attach($role){
+     public function attachRole($role){
         $permissions = PermissionService::moduleWisePermissions();
+        $modules = PermissionService::moduleWisePermissions();
         $roles =Role::find($role);
-        dd($permissions);
-        return view('admin.role.attachpermission',compact('roles','permissions'));
+        // dd($permissions);
+        return view('admin.role.attachpermission',compact('roles','permissions','modules'));
 
 
      }
-     public function permissionassign(Request $request){
-        $this->validate($request, [
-            'name' => 'required|unique:roles,name',
-            'permission' => 'required',
-        ]);
+     public function assignRole(AssignRoleRequest $request){
 
-        $role = Role::create(['name' => $request->get('name')]);
-        $role->syncPermissions($request->get('permission'));
 
-        return redirect()->route('roles.index')
-                        ->with('success','Role created successfully');
-
+        try {
+            $role_response =RoleService::store($request);
+            dd($role_response);
+             return $role_response;
+         } catch (\Throwable $th) {
+             return $th;
+         }
 
      }
 }

@@ -23,7 +23,7 @@ class SubCategoryService
 
     }
 
-    public function store(SubCategoryRequest $request)
+    public static function store(SubCategoryRequest $request)
     {
         DB::beginTransaction();
         $data = $request->validated();
@@ -45,13 +45,10 @@ class SubCategoryService
         return $response;
     }
 
-    public function update(SubCategoryRequest $request, SubCategory $subcategory){
+    public static function update(SubCategoryRequest $request, SubCategory $subcategory){
         DB::beginTransaction();
         $data = $request->validated();
-
         $subcategory->update($data);
-
-
         DB::commit();
         $response = ['status' => true, 'message' => ' SubCategory updated successfully.', 'subcategory' => $subcategory];
         return $response;
@@ -61,7 +58,6 @@ class SubCategoryService
     {
         DB::beginTransaction();
         $subcategory = SubCategory::findorFail($id);
-
         $subcategory->delete();
         DB::commit();
         $response = ['status' => true, 'message' => 'Subcategory removed successfully.'];

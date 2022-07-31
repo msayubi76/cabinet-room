@@ -20,13 +20,11 @@
                     <h4 class="card-title">Add Product</h4>
 
                     <div class="basic-form">
-                        <form action="{{route('products/store')}}"  method="post" enctype="multipart/form-data">
+                        <form action="{{route('products/store')}}"  method="post" id="product-form" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group mb-8">
                                 <input type="text" class="form-control input-default" placeholder="Product Name" :value="old('name')" name="name">
-                                @error('name')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
+                                <div id="name_text" class="text-danger backend-error-text"></div>
                             </div>
                             <div class="form-group row ">
                                 <div class="col-md-6 mb-8">
@@ -37,85 +35,65 @@
 
                                         <option value="{{$catitem->id}}">{{$catitem->name}}</option>
                                         @endforeach
-                                    </select> @error('category_id')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror </div>
+                                    </select>
+                                    <div id="category_id_text" class="text-danger backend-error-text"></div>
+                                 </div>
                                 <div class="col-md-6 mb-8">
                                     <select name="subcategory_id" id="subcategory" class="form-control" >
                                         <option >-- Select sub Category --</option>
 
                                     </select>
-                                    @error('subcategory_id')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                    <div id="subcategory_id_text" class="text-danger backend-error-text"></div>
                             </div>
                                </div>
                             <div class="form-group mb-8">
                                 <textarea class="form-control h-150px" id="description" name="description" rows="6" placeholder="Write here.......">
                                    </textarea>
-                                   @error('description')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
+                                   <div id="description_text" class="text-danger backend-error-text"></div>
                             </div>
                                    <div class="form-group row ">
                                     <div class="col-md-6 mb-8">
                                         <input type="text" class="form-control input-default" placeholder="Actual Price" :value="old('actual_price')" name="actual_price">
-                                        @error('actual_price')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
+                                        <div id="actual_price_text" class="text-danger backend-error-text"></div>
                                     </div>
                                     <div class="col-md-6 mb-8">
                                         <input type="text" class="form-control input-default" placeholder="Discount" :value="old('discount')" name="discount">
-                                        @error('discount')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
+                                        <div id="discount_text" class="text-danger backend-error-text"></div>
                                     </div>
                                    </div>
                                    <div class="form-group row ">
                                     <div class="col-md-6 mb-8">
                                         <input type="text" class="form-control input-default" placeholder="Shipping Charge" :value="old('shipping_charge')" name="shipping_charge">
-                                        @error('shipping_charge')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
+                                        <div id="shipping_charge_text" class="text-danger backend-error-text"></div>
                                     </div>
                                     <div class="col-md-6 mb-8">
-                                        <input type="text" class="form-control input-default" placeholder="colour" :value="old('colour')" name="colour">
-                                        @error('colour')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
+                                        <input type="text" class="form-control input-default" placeholder="Colour" :value="old('colour')" name="colour">
+                                        <div id="colour_text" class="text-danger backend-error-text"></div>
                                     </div>
                                    </div>
                             <div class="form-group mb-8">
                                 <input type="file" class="form-control" id="feature_image" name="feature_image"
                             placeholder="feature image" :value="old('feature_image')">
-                            @error('feature_image')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                            <div id="feature_image_text" class="text-danger backend-error-text"></div>
                             </div>
                             <div class="form-group mb-8">
-                                <input type="file" class="form-control" id="image" name="images[]"
+                                <input type="file" class="form-control" id="image" name="images"
                             placeholder="images" :value="old('images')">
-                            @error('images')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                            <div id="images_text" class="text-danger backend-error-text"></div>
                     </div>
                             <div class="form-group row ">
                                 <div class="col-md-6 mb-8">
-                                    <input type="text" class="form-control input-default" placeholder="length" :value="old('images')" name="length">
-                                    @error('length')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                    <input type="text" class="form-control input-default" placeholder="Length" :value="old('length')" name="length">
+                                    <div id="length_text" class="text-danger backend-error-text"></div>
                                 </div>
                                 <div class="col-md-6 mb-8">
-                                    <input type="text" class="form-control input-default" placeholder="width" :value="old('images')" name="width">
-                                    @error('width')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                    <input type="text" class="form-control input-default" placeholder="Width" :value="old('Width')" name="width">
+                                    <div id="width_text" class="text-danger backend-error-text"></div>
                                 </div>
                                </div>
                                <div class="modal-footer">
                                <a href="{{url('/admin/products')}}"  type="button" class="btn btn-secondary"> Close </a>
-                               <button type="submit"   class="btn btn-primary">Add Products</button>
+                               <button type="submit"  id="button-save" onclick="submitProduct(this)" class="btn btn-primary">Add Products</button>
                             </div><br>
 
 
@@ -131,13 +109,92 @@
 @endsection
 @section('scripts')
 <script>
-// $(document).ready(function () {
-//     $("#category").change(function () {
+ function submitProduct() {
+    var form = $('#product-form')[0];
+    $("#button-save").text('Loading...');
+    console.log('form ', form);
 
-//        alert('a');
 
-//     });
-// });
+    const myFormData = new FormData(form);
+    const formDataObj = {};
+    myFormData.forEach((value, key) => (formDataObj[key] = value));
+    console.log(formDataObj);
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
+        },
+        url: "/admin/products/store", // the endpoint
+        type: "Post", // http method
+        processData: false,
+        contentType: false,
+        data: myFormData,
+        beforeSend: function () {
+            $(form)
+            $('.backend-error-text').text('')
+            $("#button-save").prop("disabled", true);
+        },
+        success: function (data) {
+            $("#button-save").prop("disabled", false);
+            $("#button-save").text("Add Product");
+            console.log('data',data);
+            swal({
+                title: "",
+                text: data.message,
+                icon: "success",
+
+              });
+            $(form)
+                .find('[type="button"]')
+                .prop("disabled", false);
+            document.getElementById("product-form").reset();
+
+
+
+        },
+        error: function (error) {
+            $(form)
+            $("#button-save").prop("disabled", false);
+            $("#button-save").text("Add Product");
+            var errorMessage = error.statusText;
+            var sweetMessage = error.statusText;
+            if (error.status == 422) {
+                errorMessage = handleValidationErrors(error)
+                sweetMessage ='Invalid Data'
+            }
+            swal({
+                title: "Error",
+                text: sweetMessage,
+                icon: "error",
+              });
+
+        },
+    });
+}
+function handleValidationErrors(error, type = 'create') {
+    let errors = error.responseJSON.errors;
+    var errorMessage = error.responseJSON.message
+    var element = '';
+    $.each(errors, function (key, item) {
+        element = key.split('.')
+        if (element.length > 1) {
+            element = `${element[0]}_${element[1]}`
+        } else {
+            element = `${element}`
+        }
+        // dataAttr = $(element).closest('.tab').data('id')
+        // $(`.step-${dataAttr}`).addClass('backend-error')
+        if (type == 'edit') {
+            console.log('edit',element);
+            $(`#edit_${element}_text`).text(item[0])
+
+        } else if (type == 'create') {
+            $(`#${element}_text`).text(item[0])
+
+        }
+    });
+
+    return errorMessage;
+}
 
 
 

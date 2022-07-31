@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Http\Requests\RoleRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\AssignRoleRequest;
 
 class RoleService
 {
@@ -25,7 +26,7 @@ class RoleService
 
         $role = Role::create($data);
         DB::commit();
-        $response = ['status' => true, 'message' => 'Sub role added successfully.', 'role' => $role];
+        $response = ['status' => true, 'message' => 'Role added successfully.', 'role' => $role];
 
         return $response;
     }
@@ -38,7 +39,7 @@ class RoleService
 
 
         DB::commit();
-        $response = ['status' => true, 'message' => 'Sub role updated.', 'role' => $role];
+        $response = ['status' => true, 'message' => ' Role updated successfully.', 'role' => $role];
         return $response;
     }
 
@@ -48,7 +49,21 @@ class RoleService
         $role = Role::findorFail($id);
         $role->delete();
         DB::commit();
-        $response = ['status' => true, 'message' => 'Sub role removed successfully.'];
+        $response = ['status' => true, 'message' => 'Role removed successfully.'];
+        return $response;
+    }
+    public static function assignRole(AssignRoleRequest $request)
+    {
+        dd($request);
+        DB::beginTransaction();
+        $data = $request->validated();
+        //
+        $roleAssign = Role::create($data);
+
+        $roleAssign->syncPermissions($request->get('permission'));
+        DB::commit();
+        $response = ['status' => true, 'message' => ' role added successfully.', 'roleAssign' => $roleAssign];
+
         return $response;
     }
 

@@ -31,7 +31,7 @@
                                     @foreach ($roles as $role)
                                         <tr id='row_{{ $role->id }}'>
                                             <td style="width: 70%">{{ $role->name }}</td>
-                                            <td><a href="{{url('admin/attach-permission/'.$role->id)}}" class="btn btn-secondary">Attach Permission</a></td>
+                                            <td><a href="{{url('admin/attach-Role/'.$role->id)}}" class="btn btn-secondary">Attach Permission</a></td>
 
 
 
@@ -269,7 +269,7 @@ $.ajax({
         var string =
             `<tr id="row_${data.role.id}">
                 <td>${data.role.name}</td>
-                <td><a href="${'attach-permission->id'}" class="btn btn-secondary">Attach Permission</a></td>
+                <td><a href="${'attach-Role->id'}" class="btn btn-secondary">Attach Permission</a></td>
 
                 <td>
                     <div class="button-group">

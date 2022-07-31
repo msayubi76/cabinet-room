@@ -21,12 +21,13 @@ class UserService
             return $users;
 
     }
-    public  function store(UserRequest $request)
+    public static function store(UserRequest $request)
     {
         DB::beginTransaction();
         $data = $request->validated();
-        if ($request->hasFile('profile')) :
-            $image_name = $this->fileUpload($request->profile, 'profile');
+
+            if ($request->hasFile('profile')) :
+                $image_name = FileUploadTrait::fileUpload($request->profile, 'profile');
             $data['folder_name'] = 'profile';
             $data['image_name'] =  $image_name;
             $data['image_url'] = url('/storage/profile/' . $image_name);

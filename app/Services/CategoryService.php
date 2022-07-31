@@ -19,7 +19,7 @@ class CategoryService
 
     }
 
-    public function store(CategoryRequest $request)
+    public static function store(CategoryRequest $request)
     {
         DB::beginTransaction();
         $data = $request->validated();
@@ -39,7 +39,7 @@ class CategoryService
         return $response;
     }
 
-    public function update(CategoryRequest $request, Category $category){
+    public static function update(CategoryRequest $request, Category $category){
         DB::beginTransaction();
         $data = $request->validated();
 

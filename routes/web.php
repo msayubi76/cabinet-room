@@ -4,11 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use PHPUnit\TextUI\XmlConfiguration\Group;
+use App\Http\Controllers\ProductController;
 use PHPUnit\TextUI\XmlConfiguration\Groups;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\websit\FrontendController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +33,7 @@ Route::get('/', function () {
 
 
 // });
-
+Route::get('/',[FrontendController::class,'index']);
 
 Route::prefix('admin')->middleware(['auth'])->group(function ()
 {
@@ -48,15 +49,17 @@ Route::prefix('admin')->middleware(['auth'])->group(function ()
 
     Route::resource('roles',RoleController::class);
     Route::resource('permissions',PermissionController::class);//->except('update');  salahuddin changed
-    Route::get('attach-permission/{role}',[RoleController::class,'attach']);
-    Route::post('attach-permission',[RoleController::class,'permissionassign']);
+    Route::get('attach-Role/{role}',[RoleController::class,'attachRole']);
+    Route::post('attach-Role',[RoleController::class,'assignRole']);
 
     Route::resource('category',CategoryController::class);
     Route::resource('subcategory',SubCategoryController::class);
-    Route::get('products',[ProductController::class,'index']);
+    Route::get('products',[ProductController::class,'index'])->name('product.index');
     Route::get('products/create',[ProductController::class,'create']);
-    Route::post('products/store',[ProductController::class,'store'])->name('products/store');
+    Route::post('products/store',[ProductController::class,'store'])->name('products.store');
     Route::get('products/update/{product_id}',[ProductController::class,'edit']);
+    Route::post('products/update/{product_id}',[ProductController::class,'update'])->name('products.update');
+    Route::Delete('/products/{id}',[ProductController::class,'destroy']);
     Route::any('getSubCategory',[ProductController::class,'getSubCategory'])->name('getSubCategory');
 
 

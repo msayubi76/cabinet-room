@@ -57,5 +57,5 @@ class PermissionService
         return Permission::all()->groupBy('module_name');
     }
 
- 
+
 }

@@ -9,68 +9,33 @@
                     <h4 class="card-title">Assign Permission</h4>
                     <p class="text-muted m-b-15 f-s-12">Assign Permission for selected user </p>
                     <div class="basic-form">
-                        <form method="POST" action="">
+                        <form method="POST" action="{{route('roles.store')}}">
                             @csrf
+                            <input type="hidden" name="role_id">
                             <div class="form-group mb-8">
                                 <input type="text" class="form-control input-default" placeholder="Input Default" value="{!!$roles->name!!}">
                             </div><br>
+                            @foreach ($modules as $module => $permissions)
+
+
                             <div class="form-group">
-                                <h4 class="card-title">User</h4>
+                                <h4 class="card-title">{!! $module !!}</h4>
+                                @foreach ($permissions as $key => $permission)
+
                                     <div class="form-check form-check-inline">
+
                                         <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" value=""> </label>
+                                            <input type="checkbox" class="form-check-input" name="permission[]" value="{{ $permission->id}}">{{$permission->name}} </label>
                                     </div>
-                                    <div class="form-check form-check-inline">
-                                        <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" value="">Update User </label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" value="">Delete User </label>
-                                    </div>
-                                    <div class="form-check form-check-inline disabled">
-                                        <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" value="" disabled="disabled">Disabled</label>
-                                    </div>
+
+
+
+                                @endforeach
+
+
                               </div><br>
-                              <div class="form-group">
-                                <h4 class="card-title">Permission</h4>
-                                    <div class="form-check form-check-inline">
-                                        <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" value="">Create Permission </label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" value="">Update Permission </label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" value="">Delete Permission </label>
-                                    </div>
-                                    <div class="form-check form-check-inline disabled">
-                                        <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" value="" disabled="disabled">Disabled</label>
-                                    </div>
-                              </div><br>
-                              <div class="form-group">
-                                <h4 class="card-title">Role</h4>
-                                    <div class="form-check form-check-inline">
-                                        <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" value="">Create Role </label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" value="">Update Role </label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" value="">Delete Role </label>
-                                    </div>
-                                    <div class="form-check form-check-inline disabled">
-                                        <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" value="" disabled="disabled">Disabled</label>
-                                    </div>
-                              </div>
+                              @endforeach
+
                               <div class="modal-footer">
                                 <a href="{{url('admin/roles')}}"  class="btn btn-secondary"> Close </a>
                              <a href=""  class="btn btn-primary"> Add Permission </a>
