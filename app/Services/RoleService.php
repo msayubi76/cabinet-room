@@ -8,6 +8,7 @@ use App\Http\Requests\RoleRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\AssignRoleRequest;
+use Spatie\Permission\Models\Role as ModelsRole;
 
 class RoleService
 {
@@ -18,7 +19,7 @@ class RoleService
 
     }
 
-    public  static function store(RoleRequest $request)
+    public  static function store(  $request)
     {
         DB::beginTransaction();
         $data = $request->validated();
@@ -52,17 +53,15 @@ class RoleService
         $response = ['status' => true, 'message' => 'Role removed successfully.'];
         return $response;
     }
-    public static function assignRole(AssignRoleRequest $request)
-    {
-        dd($request);
+    public static function attachPermissions( $request)
+    { 
         DB::beginTransaction();
         $data = $request->validated();
-        //
-        $roleAssign = Role::create($data);
-
-        $roleAssign->syncPermissions($request->get('permission'));
+        $role = ModelsRole::findOrFail($request->role_id); 
+       
+        $role->syncPermissions($request->permissions); 
         DB::commit();
-        $response = ['status' => true, 'message' => ' role added successfully.', 'roleAssign' => $roleAssign];
+        $response = ['status' => true, 'message' => 'Permission attached succesfully.', 'role' => $role];
 
         return $response;
     }

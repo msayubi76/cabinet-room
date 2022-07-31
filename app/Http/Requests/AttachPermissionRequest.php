@@ -4,8 +4,9 @@ namespace App\Http\Requests;
 
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
-class AssignRoleRequest extends FormRequest
+class AttachPermissionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +23,11 @@ class AssignRoleRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
-    {
+    public function rules(Request $request)
+    { 
         return [
-           'permission[]' => 'required',
-           'role_id' =>'required',
+           'permissions' => ['required', 'array'],
+           'role_id' =>['required', 'integer'],
         ];
     }
 }

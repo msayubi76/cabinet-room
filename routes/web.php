@@ -40,6 +40,9 @@ Route::prefix('admin')->middleware(['auth'])->group(function ()
     Route::get('dashboard', function () {
         return view('home');
     })->name('dashboard');
+    Route::get('/', function () {
+        return view('home');
+    })->name('home');
 
     Route::resource('users',UserController::class); //->except('update');
     Route::post('users/{user}',[UserController::class,'update']);
@@ -50,7 +53,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function ()
     Route::resource('roles',RoleController::class);
     Route::resource('permissions',PermissionController::class);//->except('update');  salahuddin changed
     Route::get('attach-Role/{role}',[RoleController::class,'attachRole']);
-    Route::post('attach-Role',[RoleController::class,'assignRole']);
+    Route::post('attach-permissions',[RoleController::class,'attachPermissions'])->name('attach-permissions');
 
     Route::resource('category',CategoryController::class);
     Route::resource('subcategory',SubCategoryController::class);

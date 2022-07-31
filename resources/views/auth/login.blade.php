@@ -8,9 +8,9 @@
     <title>Cabinet | Login</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url('admin/assets/images/favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url('admin-assets/assets/images/favicon.png') }}">
     <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"> -->
-    <link href="{{ url('admin/css/style.css') }}" rel="stylesheet">
+    <link href="{{ url('admin-assets/css/style.css') }}" rel="stylesheet">
 
 </head>
 
@@ -102,11 +102,11 @@
     <!--**********************************
         Scripts
     ***********************************-->
-    <script src="{{ url('admin/plugins/common/common.min.js') }}"></script>
-    <script src="{{ url('admin/js/custom.min.js') }}"></script>
-    <script src="{{ url('admin/js/settings.js') }}"></script>
-    <script src="{{ url('admin/js/gleek.js') }}"></script>
-    <script src="{{ url('admin/js/styleSwitcher.js') }}"></script>
+    <script src="{{ url('admin-assets/plugins/common/common.min.js') }}"></script>
+    <script src="{{ url('admin-assets/js/custom.min.js') }}"></script>
+    <script src="{{ url('admin-assets/js/settings.js') }}"></script>
+    <script src="{{ url('admin-assets/js/gleek.js') }}"></script>
+    <script src="{{ url('admin-assets/js/styleSwitcher.js') }}"></script>
 </body>
 
 </html>
