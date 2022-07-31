@@ -136,7 +136,7 @@
 
                             <label class="col-lg-4 col-form-label form-check-label" for="name">
 
-                                <input type="checkbox" class="form-check-input" name="is_active" value="">status </label>
+                                <input type="checkbox" class="form-check-input" name="is_active" value="1">status </label>
                                 <div id="image_text" class="text-danger backend-error-text"></div>
 
                         </div>
@@ -206,7 +206,7 @@
                         <label class="col-lg-4 col-form-label" for="name">staus <span class="text-danger">*</span>
                         </label>
 
-                            <input type="checkbox" id="edit_is_active" name="is_active"  value="">
+                            <input type="checkbox" id="edit_is_active" name="is_active"  value="1">
                             <div id="edit_is_active" class="text-danger backend-error-text"></div>
 
                     </div>

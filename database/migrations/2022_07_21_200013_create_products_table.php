@@ -27,6 +27,8 @@ return new class extends Migration
             $table->string('images');
             $table->integer('length');
             $table->integer('width');
+            $table->boolean('is_feature_product');
+            $table->boolean('is_arrival_product');
 
             $table->timestamps();
         });
