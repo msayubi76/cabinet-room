@@ -6,6 +6,7 @@
 @include('website.inc.head')
 
 <body>
+    {{-- front --}}
     <div class="page-wrapper">
         <div class="top-notice bg-primary text-white">
             <div class="container text-center">
