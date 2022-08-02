@@ -11,16 +11,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\websit\FrontendController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
 
 Route::get('/', function () {
     return view('auth.login');
@@ -34,6 +25,8 @@ Route::get('/', function () {
 
 // });
 Route::get('/',[FrontendController::class,'index']);
+Route::get('/product',[FrontendController::class,'product']);
+Route::get('/singleProduct/{id}',[FrontendController::class,'singleProduct']);
 
 Route::prefix('admin')->middleware(['auth'])->group(function ()
 {
@@ -54,15 +47,18 @@ Route::prefix('admin')->middleware(['auth'])->group(function ()
     Route::resource('permissions',PermissionController::class);//->except('update');  salahuddin changed
     Route::get('attach-Role/{role}',[RoleController::class,'attachRole']);
     Route::post('attach-permissions',[RoleController::class,'attachPermissions'])->name('attach-permissions');
+    Route::get('updatAttachRole/{role}',[RoleController::class,'updateAttachRole']);
+    Route::post('update-attach-permissions',[RoleController::class,'updateAttachPermissions'])->name('update-attach-permissions');
 
     Route::resource('category',CategoryController::class);
     Route::resource('subcategory',SubCategoryController::class);
-    Route::get('products',[ProductController::class,'index'])->name('product.index');
-    Route::get('products/create',[ProductController::class,'create']);
-    Route::post('products/store',[ProductController::class,'store'])->name('products.store');
-    Route::get('products/update/{product_id}',[ProductController::class,'edit']);
-    Route::post('products/update/{product_id}',[ProductController::class,'update'])->name('products.update');
-    Route::Delete('/products/{id}',[ProductController::class,'destroy']);
+    Route::resource('products',ProductController::class);
+    // Route::get('products',[ProductController::class,'index'])->name('product.index');
+    // Route::get('products/create',[ProductController::class,'create']);
+    // Route::post('products/store',[ProductController::class,'store'])->name('products.store');
+    // Route::get('products/update/{product_id}',[ProductController::class,'edit']);
+    // Route::post('products/update/{product_id}',[ProductController::class,'update'])->name('products.update');
+    // Route::Delete('/products/{id}',[ProductController::class,'destroy']);
     Route::any('getSubCategory',[ProductController::class,'getSubCategory'])->name('getSubCategory');
 
 

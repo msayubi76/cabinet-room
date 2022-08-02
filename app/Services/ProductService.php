@@ -31,9 +31,7 @@ class ProductService
         $response = ['status' => true, 'message' => 'product added successfully.', 'product' => $product];
         return $response;
         // return redirect('admin/products')->with('success', 'product added successfully');
-        // redirect('admin/products')->with('message', 'product added successfully', $product);
-
-        // redirect(route('product.index')->with('success', 'product added successfully'));
+        // return redirect()->route('admin/products')->with($response);
 
 
 

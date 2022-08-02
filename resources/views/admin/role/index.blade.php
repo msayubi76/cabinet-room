@@ -21,21 +21,46 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Assign Permiision</th>
+                                        <th> Permissions</th>
+                                        <th>Assign Permission</th>
 
-
-                                        <th>Action</th>
+                                       <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="table_id">
                                     @foreach ($roles as $role)
                                         <tr id='row_{{ $role->id }}'>
-                                            <td style="width: 70%">{{ $role->name }}</td>
-                                            <td><a href="{{url('admin/attach-Role/'.$role->id)}}" class="btn btn-secondary">Attach Permission</a></td>
+                                            <td >{{ $role->name }}</td>
+                                            <td style="width: 70%">
+                                            @foreach ($role->permissions as $permission)
+
+                              <span class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-secondary bg-gray-500 rounded-full">
+                                {{ $permission->name}}
+                              </span>
+
+                                            @endforeach</td>
+                                         {{-- <td><a href="" class="btn btn-secondary">Attach Permission</a></td>
+                                         <td><a href="" class="btn btn-secondary">Update Permission</a></td> --}}
+                                         <td>
 
 
+                                            <div class="button-group">
+                                                <div class="btn-group">
+                                                    <div class="btn-group">
+                                                        <button id="btnGroupDrop1" type="button"
+                                                            class="btn btn-primary dropdown-toggle py-0 px-2"
+                                                            data-toggle="dropdown"></button>
+                                                        <div class="dropdown-menu">
 
-                                            <td>
+                                                            <a class="dropdown-item"
+                                                            href="{{url('admin/attach-Role/'.$role->id)}}">Add Permission</a>
+                                                            <a class="dropdown-item" href="{{url('admin/updatAttachRole/'.$role->id)}}">Update Permission</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                         <td>
 
 
                                                 <div class="button-group">

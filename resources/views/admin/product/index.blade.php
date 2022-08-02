@@ -53,7 +53,7 @@
                                                                 <a class="dropdown-item"
                                                                     onclick="openViewModal( )">View</a>
                                                                 <a class="dropdown-item"
-                                                                    href="{{url('admin/products/update/'.$list->id)}}">Edit</a>
+                                                                    href="{{url('admin/products/'.$list->id.'/edit')}}">Edit</a>
                                                                 <a class="dropdown-item" href="javascript:openDeleteDialog({{$list->id}})">Delete</a>
                                                             </div>
                                                         </div>
@@ -177,7 +177,7 @@ function openDeleteDialog(id) {
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
         url: "/admin/products/" + $("#deleteID").val(), // the endpoint
-        type: "Get", // http method
+        type: "DELETE   ", // http method
         processData: false,
         contentType: false,
         success: function (data) {

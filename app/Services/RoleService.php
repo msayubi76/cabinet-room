@@ -54,14 +54,26 @@ class RoleService
         return $response;
     }
     public static function attachPermissions( $request)
-    { 
+    {
         DB::beginTransaction();
         $data = $request->validated();
-        $role = ModelsRole::findOrFail($request->role_id); 
-       
-        $role->syncPermissions($request->permissions); 
+        $role = ModelsRole::findOrFail($request->role_id);
+
+        $role->syncPermissions($request->permissions);
         DB::commit();
         $response = ['status' => true, 'message' => 'Permission attached succesfully.', 'role' => $role];
+
+        return $response;
+    }
+    public static function updateAttachPermissions($request)
+    {
+        DB::beginTransaction();
+        $data = $request->validated();
+        $role = ModelsRole::findOrFail($request->role_id);
+
+        $role->syncPermissions($request->permissions);
+        DB::commit();
+        $response = ['status' => true, 'message' => 'Update Permission attached succesfully.', 'role' => $role];
 
         return $response;
     }

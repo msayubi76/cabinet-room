@@ -24,6 +24,8 @@ class Product extends Model
       'images',
       'length',
       'width',
+      'is_feature_product',
+      'is_arrival_product',
 
 
   ];

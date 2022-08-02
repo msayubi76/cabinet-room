@@ -59,7 +59,7 @@
         </div>
         <!-- End .top-notice -->
 
-        @include('website.inc.header')
+        @include('website.include.header')
         <!-- End .header -->
 
         <main>
@@ -67,7 +67,7 @@
         </main>
         <!-- End .main -->
 
-        @include('website.inc.footer')
+        @include('website.include.footer')
         <!-- End .footer -->
     </div>
     <!-- End .page-wrapper -->
@@ -83,12 +83,12 @@
     <div class="mobile-menu-overlay"></div>
     <!-- End .mobil-menu-overlay -->
 
-    @include('website.inc.mobile_menu_container')
+    @include('website.include.mobile_menu_container')
     <!-- End .mobile-menu-container -->
 
-    @include('website.inc.sticky_navbar')
+    @include('website.include.sticky_navbar')
 
-    @include('website.inc.newsletter_popup')
+    @include('website.include.newsletter_popup')
     <!-- End .newsletter-popup -->
 
     <a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>

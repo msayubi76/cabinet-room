@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('website.master')
 
 @section('content')
     <div class="home-slider slide-animate owl-carousel owl-theme show-nav-hover nav-big mb-2 text-uppercase" data-owl-options="{
@@ -148,6 +148,9 @@
                 'dots': false,
                 'nav': true
             }">
+
+
+            @foreach ($featured_product as $featuredlist)
                 <div class="product-default appear-animate" data-animation-name="fadeInRightShorter">
                     <figure>
                         <a href="product.html">
@@ -161,10 +164,10 @@
                     </figure>
                     <div class="product-details">
                         <div class="category-list">
-                            <a href="category.html" class="product-category">Category</a>
+                            <a href="category.html" class="product-category">{{$featuredlist->category->name}}</a>
                         </div>
                         <h3 class="product-title">
-                            <a href="product.html">Ultimate 3D Bluetooth Speaker</a>
+                            <a href="product.html">{{$featuredlist->name}}</a>
                         </h3>
                         <div class="ratings-container">
                             <div class="product-ratings">
@@ -174,10 +177,11 @@
                             </div>
                             <!-- End .product-ratings -->
                         </div>
+
                         <!-- End .product-container -->
                         <div class="price-box">
-                            <del class="old-price">$59.00</del>
-                            <span class="product-price">$49.00</span>
+                            <del class="old-price">{{$featuredlist->actual_price}}</del>
+                            <span class="product-price">{{$featuredlist->discount}}</span>
                         </div>
                         <!-- End .price-box -->
                         <div class="product-action">
@@ -190,9 +194,11 @@
                                     class="fas fa-external-link-alt"></i></a>
                         </div>
                     </div>
+
                     <!-- End .product-details -->
                 </div>
-                <div class="product-default appear-animate" data-animation-name="fadeInRightShorter">
+                @endforeach
+                {{-- <div class="product-default appear-animate" data-animation-name="fadeInRightShorter">
                     <figure>
                         <a href="product.html">
                             <img src="{{asset('website/assets/images/products/product-2.jpg')}}" width="280" height="280" alt="product">
@@ -235,133 +241,9 @@
                         </div>
                     </div>
                     <!-- End .product-details -->
-                </div>
-                <div class="product-default appear-animate" data-animation-name="fadeInRightShorter">
-                    <figure>
-                        <a href="product.html">
-                            <img src="{{asset('website/assets/images/products/product-3.jpg')}}" width="280" height="280" alt="product">
-                            <img src="{{asset('website/assets/images/products/product-3-2.jpg')}}" width="280" height="280" alt="product">
-                        </a>
-                    </figure>
-                    <div class="product-details">
-                        <div class="category-list">
-                            <a href="category.html" class="product-category">Category</a>
-                        </div>
-                        <h3 class="product-title">
-                            <a href="product.html">Circled Ultimate 3D Speaker</a>
-                        </h3>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:80%"></span>
-                                <!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div>
-                            <!-- End .product-ratings -->
-                        </div>
-                        <!-- End .product-container -->
-                        <div class="price-box">
-                            <del class="old-price">$59.00</del>
-                            <span class="product-price">$49.00</span>
-                        </div>
-                        <!-- End .price-box -->
-                        <div class="product-action">
-                            <a href="wishlist.html" class="btn-icon-wish" title="wishlist"><i
-                                    class="icon-heart"></i></a>
-                            <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
-                                    class="icon-shopping-cart"></i><span>ADD TO CART</span></a>
-                            <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View"><i
-                                    class="fas fa-external-link-alt"></i></a>
-                        </div>
-                    </div>
-                    <!-- End .product-details -->
-                </div>
-                <div class="product-default appear-animate" data-animation-name="fadeInRightShorter">
-                    <figure>
-                        <a href="product.html">
-                            <img src="{{asset('website/assets/images/products/product-4.jpg')}}" width="280" height="280" alt="product">
-                            <img src="{{asset('website/assets/images/products/product-4-2.jpg')}}" width="280" height="280" alt="product">
-                        </a>
-                        <div class="label-group">
-                            <div class="product-label label-hot">HOT</div>
-                            <div class="product-label label-sale">-40%</div>
-                        </div>
-                    </figure>
-                    <div class="product-details">
-                        <div class="category-list">
-                            <a href="category.html" class="product-category">Category</a>
-                        </div>
-                        <h3 class="product-title">
-                            <a href="product.html">Blue Backpack for the Young - S</a>
-                        </h3>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:80%"></span>
-                                <!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div>
-                            <!-- End .product-ratings -->
-                        </div>
-                        <!-- End .product-container -->
-                        <div class="price-box">
-                            <del class="old-price">$59.00</del>
-                            <span class="product-price">$49.00</span>
-                        </div>
-                        <!-- End .price-box -->
-                        <div class="product-action">
-                            <a href="wishlist.html" class="btn-icon-wish" title="wishlist"><i
-                                    class="icon-heart"></i></a>
-                            <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
-                                    class="icon-shopping-cart"></i><span>ADD TO CART</span></a>
-                            <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View"><i
-                                    class="fas fa-external-link-alt"></i></a>
-                        </div>
-                    </div>
-                    <!-- End .product-details -->
-                </div>
-                <div class="product-default appear-animate" data-animation-name="fadeInRightShorter">
-                    <figure>
-                        <a href="product.html">
-                            <img src="{{asset('website/assets/images/products/product-5.jpg')}}" width="280" height="280" alt="product">
-                            <img src="{{asset('website/assets/images/products/product-5-2.jpg')}}" width="280" height="280" alt="product">
-                        </a>
-                        <div class="label-group">
-                            <div class="product-label label-hot">HOT</div>
-                            <div class="product-label label-sale">-15%</div>
-                        </div>
-                    </figure>
-                    <div class="product-details">
-                        <div class="category-list">
-                            <a href="category.html" class="product-category">Category</a>
-                        </div>
-                        <h3 class="product-title">
-                            <a href="product.html">Casual Spring Blue Shoes</a>
-                        </h3>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:80%"></span>
-                                <!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div>
-                            <!-- End .product-ratings -->
-                        </div>
-                        <!-- End .product-container -->
-                        <div class="price-box">
-                            <del class="old-price">$59.00</del>
-                            <span class="product-price">$49.00</span>
-                        </div>
-                        <!-- End .price-box -->
-                        <div class="product-action">
-                            <a href="wishlist.html" class="btn-icon-wish" title="wishlist"><i
-                                    class="icon-heart"></i></a>
-                            <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
-                                    class="icon-shopping-cart"></i><span>ADD TO CART</span></a>
-                            <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View"><i
-                                    class="fas fa-external-link-alt"></i></a>
-                        </div>
-                    </div>
-                    <!-- End .product-details -->
-                </div>
+                </div> --}}
             </div>
+
             <!-- End .featured-proucts -->
         </div>
     </section>
@@ -382,6 +264,9 @@
                     }
                 }
             }">
+            @foreach ($arrivial_product as $arriviallist)
+
+
                 <div class="product-default appear-animate" data-animation-name="fadeInRightShorter">
                     <figure>
                         <a href="product.html">
@@ -394,10 +279,10 @@
                     </figure>
                     <div class="product-details">
                         <div class="category-list">
-                            <a href="category.html" class="product-category">Category</a>
+                            <a href="category.html" class="product-category">{{$arriviallist->category->name}}</a>
                         </div>
                         <h3 class="product-title">
-                            <a href="product.html">Men Black Gentle Belt</a>
+                            <a href="product.html">{{$arriviallist->name}}</a>
                         </h3>
                         <div class="ratings-container">
                             <div class="product-ratings">
@@ -409,8 +294,8 @@
                         </div>
                         <!-- End .product-container -->
                         <div class="price-box">
-                            <del class="old-price">$59.00</del>
-                            <span class="product-price">$49.00</span>
+                            <del class="old-price">{{$arriviallist->actual_price}}</del>
+                            <span class="product-price">{{$arriviallist->discount}}</span>
                         </div>
                         <!-- End .price-box -->
                         <div class="product-action">
@@ -424,7 +309,9 @@
                     </div>
                     <!-- End .product-details -->
                 </div>
-                <div class="product-default appear-animate" data-animation-name="fadeInRightShorter">
+                @endforeach
+
+                {{-- <div class="product-default appear-animate" data-animation-name="fadeInRightShorter">
                     <figure>
                         <a href="product.html">
                             <img src="{{asset('website/assets/images/products/product-7.jpg')}}" width="220" height="220" alt="product">
@@ -635,7 +522,7 @@
                         </div>
                     </div>
                     <!-- End .product-details -->
-                </div>
+                </div> --}}
             </div>
             <!-- End .featured-proucts -->
 

@@ -46,6 +46,7 @@
                                     <select name="subcategory_id" id="subcategory" class="form-control" >
                                         <option >-- Select sub Category --</option>
 
+
                                     </select>
                                     @error('subcategory_id')
                                     <div class="alert alert-danger">{{ $message }}</div>
@@ -118,6 +119,20 @@
                                     @error('width')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
+                                </div>
+                               </div>
+                               <div class="form-group row ">
+                                <div class="col-md-6 mb-8">
+                                    <label class="col-lg-4 col-form-label form-check-label" for="name">
+
+                                        <input type="checkbox" class="form-check-input" name="is_feature_product" {{$product->is_feature_product == '1' ? 'checked':''}}>Feature Product </label>
+                                        <div id="is_feature_product_text" class="text-danger backend-error-text"></div>
+                                </div>
+                                <div class="col-md-6 mb-8">
+                                    <label class="col-lg-4 col-form-label form-check-label" for="name">
+
+                                        <input type="checkbox" class="form-check-input" name="is_arrival_product" {{$product->is_arrival_product == '1' ? 'checked':''}}>Arrival Product </label>
+                                        <div id="Arrival Product_text" class="text-danger backend-error-text"></div>
                                 </div>
                                </div>
                                <div class="modal-footer">

@@ -86,22 +86,12 @@
                             <div class="select-custom">
                                 <select id="cat" name="cat">
                                     <option value="">All Categories</option>
-                                    <option value="4">Fashion</option>
-                                    <option value="12">- Women</option>
-                                    <option value="13">- Men</option>
-                                    <option value="66">- Jewellery</option>
-                                    <option value="67">- Kids Fashion</option>
-                                    <option value="5">Electronics</option>
-                                    <option value="21">- Smart TVs</option>
-                                    <option value="22">- Cameras</option>
-                                    <option value="63">- Games</option>
-                                    <option value="7">Home &amp; Garden</option>
-                                    <option value="11">Motors</option>
-                                    <option value="31">- Cars and Trucks</option>
-                                    <option value="32">- Motorcycles &amp; Powersports</option>
-                                    <option value="33">- Parts &amp; Accessories</option>
-                                    <option value="34">- Boats</option>
-                                    <option value="57">- Auto Tools &amp; Supplies</option>
+                                    @foreach ($category as $catlist )
+                                    <option value="4">{{$catlist->name}}</option>
+                                    @foreach ($subcategory as $subcatlist )
+                                    <option value="12">- {{$subcatlist->name}}</option>
+                                    @endforeach
+                                    @endforeach
                                 </select>
                             </div>
                             <!-- End .select-custom -->
@@ -235,7 +225,7 @@
             <nav class="main-nav w-100">
                 <ul class="menu">
                     <li class="active">
-                        <a href="demo4.html">Home</a>
+                        <a href="{{url('/')}}">Home</a>
                     </li>
                     <li>
                         <a href="category.html">Categories</a>
@@ -285,7 +275,7 @@
                         <!-- End .megamenu -->
                     </li>
                     <li>
-                        <a href="product.html">Products</a>
+                        <a href="{{url('/product')}}">Products</a>
                         <div class="megamenu megamenu-fixed-width">
                             <div class="row">
                                 <div class="col-lg-4">

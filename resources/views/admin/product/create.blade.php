@@ -20,7 +20,7 @@
                     <h4 class="card-title">Add Product</h4>
 
                     <div class="basic-form">
-                        <form action="{{route('products/store')}}"  method="post" id="product-form" enctype="multipart/form-data">
+                        <form action="{{url('products/store')}}"  method="post" id="product-form" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group mb-8">
                                 <input type="text" class="form-control input-default" placeholder="Product Name" :value="old('name')" name="name">
@@ -72,11 +72,15 @@
                                     </div>
                                    </div>
                             <div class="form-group mb-8">
+                                <label class="col-lg-4 col-form-label" for="name">Featured Image <span class="text-danger">*</span>
+                                </label>
                                 <input type="file" class="form-control" id="feature_image" name="feature_image"
                             placeholder="feature image" :value="old('feature_image')">
                             <div id="feature_image_text" class="text-danger backend-error-text"></div>
                             </div>
                             <div class="form-group mb-8">
+                                <label class="col-lg-4 col-form-label" for="name">Images <span class="text-danger">*</span>
+                                </label>
                                 <input type="file" class="form-control" id="image" name="images"
                             placeholder="images" :value="old('images')">
                             <div id="images_text" class="text-danger backend-error-text"></div>
@@ -91,6 +95,21 @@
                                     <div id="width_text" class="text-danger backend-error-text"></div>
                                 </div>
                                </div>
+                               <div class="form-group row ">
+                                <div class="col-md-6 mb-8">
+                                    <label class="col-lg-4 col-form-label form-check-label" for="name">
+
+                                        <input type="checkbox" class="form-check-input" name="is_feature_product" value="1">Feature Product </label>
+                                        <div id="is_feature_product_text" class="text-danger backend-error-text"></div>
+                                </div>
+                                <div class="col-md-6 mb-8">
+                                    <label class="col-lg-4 col-form-label form-check-label" for="name">
+
+                                        <input type="checkbox" class="form-check-input" name="is_arrival_product" value="1">Arrival Product </label>
+                                        <div id="Arrival Product_text" class="text-danger backend-error-text"></div>
+                                </div>
+                               </div>
+
                                <div class="modal-footer">
                                <a href="{{url('/admin/products')}}"  type="button" class="btn btn-secondary"> Close </a>
                                <button type="submit"  id="button-save" onclick="submitProduct(this)" class="btn btn-primary">Add Products</button>
@@ -123,7 +142,7 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
         },
-        url: "/admin/products/store", // the endpoint
+        url: "/admin/products", // the endpoint
         type: "Post", // http method
         processData: false,
         contentType: false,

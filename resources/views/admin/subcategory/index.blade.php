@@ -202,9 +202,9 @@
                             <option value="">-- Select Category --</option>
                             @foreach ($category as $catitem )
 
-                            @if($catitem)
-                                <option value="{{$catitem->id}}">{{($catitem->name)}}</option>
-                            @endif
+                            {{-- @if($catitem)
+                                <option value="{{$catitem->id}}" @if ($catitem->id == $cat->id) selected @endif>{{($catitem->name)}}</option>
+                            @endif --}}
                             @endforeach
                         </select>
                         <div id="edit_category_id_text" class="text-danger backend-error-text"></div>
