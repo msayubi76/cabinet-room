@@ -15,23 +15,31 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->integer('category_id');
-            $table->integer('subcategory_id');
-            $table->string('name');
-            $table->mediumText('description');
-            $table->integer('actual_price');
-            $table->integer('discount');
-            $table->integer('shipping_charge');
-            $table->string('colour');
-            $table->string('feature_image');
-            $table->string('images');
-            $table->integer('length');
-            $table->integer('width');
-            $table->boolean('is_feature_product')->default('0');
-            $table->boolean('is_arrival_product')->default('0');
-            $table->string('currency');
+            $table->foreignId('category_id')->nullable()->constrained('categories');
+            $table->foreignId('subcategory_id')->nullable()->constrained('sub_categories');
+            $table->string('name')->nullable();
+            $table->mediumText('description')->nullable();
+            $table->decimal('actual_price')->nullable();
+            $table->decimal('discount')->nullable();
+            $table->decimal('shipping_charge')->nullable();
+            $table->string('colour')->nullable();
+            $table->string('feature_image')->nullable();
+            $table->string('images')->nullable();
+            $table->double('length')->nullable();
+            $table->double('width')->nullable();
+            $table->boolean('is_feature_product')->default(0);
+            $table->boolean('is_arrival_product')->default(0);
+            $table->string('currency')->nullable();
+
+            
+            $table->foreignId('created_by')->nullable()->constrained('users')->cascadeOnDelete() ;
+            $table->foreignId('updated_by')->nullable()->constrained('users')->cascadeOnDelete() ;
+            $table->foreignId('deleted_by')->nullable()->constrained('users')->cascadeOnDelete();
 
             $table->timestamps();
+            $table->softDeletes();
+
+
         });
     }
 
