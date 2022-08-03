@@ -24,7 +24,6 @@ return new class extends Migration
             $table->decimal('shipping_charge')->nullable();
             $table->string('colour')->nullable();
             $table->string('feature_image')->nullable();
-            $table->string('images')->nullable();
             $table->double('length')->nullable();
             $table->double('width')->nullable();
             $table->boolean('is_feature_product')->default(0);
