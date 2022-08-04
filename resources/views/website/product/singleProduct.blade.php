@@ -11,7 +11,7 @@
             </ol>
         </nav>
 
-        <div class="product-single-container product-single-default">
+        <div class="product-single-container product-single-default product_data">
             <div class="cart-message d-none">
                 <strong class="single-cart-notice">“{{ $product->name }}”</strong>
                 <span>has been added to your cart.</span>
@@ -152,6 +152,7 @@
                     </ul>
 
                     <div class="product-action">
+                        <input type="hidden" value="{{$product->id}}" class="product_id">
                         <div class="product-single-qty">
                             <input class="horizontal-quantity form-control" type="text">
                         </div>
@@ -213,8 +214,7 @@
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="product-desc-content" role="tabpanel" aria-labelledby="product-tab-desc">
                     <div class="product-desc-content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, nostrud ipsum consectetur sed do, quis nostrud exercitation ullamco laboris
-                            nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat.</p>
+                        <p>{!! $product->description !!}</p>
                         <ul>
                             <li>Any Product types that You want - Simple, Configurable
                             </li>
@@ -303,13 +303,17 @@
                             </tr>
 
                             <tr>
-                                <th>Dimensions</th>
-                                <td>12 × 24 × 35 cm</td>
+                                <th>Width</th>
+                                <td>{!! $product->width!!}</td>
+                            </tr>
+                            <tr>
+                                <th>Length</th>
+                                <td>{!! $product->length!!}</td>
                             </tr>
 
                             <tr>
                                 <th>Color</th>
-                                <td>Black, Green, Indigo</td>
+                                <td>{!! $product->colour!!}</td>
                             </tr>
 
                             <tr>
@@ -1031,4 +1035,36 @@
         <!-- End .row -->
     </div>
     <!-- End .container -->
+@endsection
+@section('scripts')
+<script>
+$(document).ready(function () {
+$('.add-cart').click(function (e) {
+    e.preventDefault();
+    var product_id = $(this).closest('.product_data').find('.product_id').val();
+    var product_quantity = $(this).closest('.product_data').find('.horizontal-quantity').val();
+    // alert(product_id);
+    // alert(product_quantity);
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: "POST",
+        url: "/add-to-cart",
+        data: {
+            'product_id': product_id,
+            'product_quantity': product_quantity,
+        },
+
+        success: function (response) {
+         swal(response.status);
+        }
+    });
+
+});
+});
+</script>
 @endsection

@@ -16,6 +16,10 @@
     <link rel="stylesheet" href="{{ url('admin-assets/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css') }}">
     <link rel="stylesheet" href="{{ url('admin-assets/plugins/highlightjs/styles/darkula.css') }}">
 
+       {{-- -- Summernote link -- --}}
+       <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+       <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+
     <link href="{{ url('admin-assets/plugins/sweetalert/css/sweetalert.css') }}" rel="stylesheet">
     <!-- Custom Stylesheet -->
     <link href="{{ url('admin-assets/css/style.css') }}" rel="stylesheet">
@@ -97,6 +101,16 @@
 
     <script src="{{ url('admin-assets/js/myScript.js') }}"></script>
     <script src="{{ url('admin-assets/js/dashboard/dashboard-1.js') }}"></script>
+
+              {{-- -- SummerNote js -- --}}
+              <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $("#mysummernote").summernote();
+            $('.dropdown-toggle').dropdown();
+        });
+    </script>
     @yield('scripts')
 
 </body>

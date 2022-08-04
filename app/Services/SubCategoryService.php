@@ -59,8 +59,9 @@ class SubCategoryService
         DB::beginTransaction();
         $subcategory = SubCategory::findorFail($id);
         $subcategory->delete();
+        $subcategory->products()->delete();
         DB::commit();
-        $response = ['status' => true, 'message' => 'Subcategory removed successfully.'];
+        $response = ['status' => true, 'message' => 'Subcategory removed with related Products successfully.'];
         return $response;
     }
 

@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'products';
 
@@ -21,11 +23,15 @@ class Product extends Model
       'shipping_charge',
       'colour',
       'feature_image',
-      'images',
+
       'length',
       'width',
       'is_feature_product',
       'is_arrival_product',
+      'currency',
+    //   'created_by',
+    //   'updated_by',
+    //   'deleted_by',
 
 
   ];

@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Porto - Bootstrap eCommerce Template</title>
 
@@ -17,6 +18,8 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('website/assets/images/icons/favicon.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
 
 
     <script>
@@ -102,6 +105,8 @@
 
     <!-- Main JS File -->
     <script src="{{ asset('website/assets/js/main.min.js') }}"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script> --}}
+    @yield('scripts')
 </body>
 
 

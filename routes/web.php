@@ -10,8 +10,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\websit\FrontendController;
-
-
+use App\Http\Controllers\website\CartController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -26,7 +25,10 @@ Route::get('/', function () {
 // });
 Route::get('/',[FrontendController::class,'index']);
 Route::get('/product',[FrontendController::class,'product']);
-Route::get('/singleProduct/{id}',[FrontendController::class,'singleProduct']);
+Route::get('/single_Product/{id}',[FrontendController::class,'single_product']);
+Route::middleware(['auth'])->group(function () {
+Route::post('add-to-cart',[CartController::class,'add_product']);
+});
 
 Route::prefix('admin')->middleware(['auth'])->group(function ()
 {

@@ -47,30 +47,25 @@
                             </div>
                                </div>
                             <div class="form-group mb-8">
-                                <textarea class="form-control h-150px" id="description" name="description" rows="6" placeholder="Write here.......">
+                                <textarea class="form-control h-150px" id="mysummernote" name="description" rows="6" placeholder="Write here.......">
                                    </textarea>
                                    <div id="description_text" class="text-danger backend-error-text"></div>
                             </div>
                                    <div class="form-group row ">
-                                    <div class="col-md-6 mb-8">
+                                    <div class="col-md-4 mb-8">
                                         <input type="text" class="form-control input-default" placeholder="Actual Price" :value="old('actual_price')" name="actual_price">
                                         <div id="actual_price_text" class="text-danger backend-error-text"></div>
                                     </div>
-                                    <div class="col-md-6 mb-8">
+                                    <div class="col-md-4 mb-8">
                                         <input type="text" class="form-control input-default" placeholder="Discount" :value="old('discount')" name="discount">
                                         <div id="discount_text" class="text-danger backend-error-text"></div>
                                     </div>
-                                   </div>
-                                   <div class="form-group row ">
-                                    <div class="col-md-6 mb-8">
+                                    <div class="col-md-4 mb-8">
                                         <input type="text" class="form-control input-default" placeholder="Shipping Charge" :value="old('shipping_charge')" name="shipping_charge">
                                         <div id="shipping_charge_text" class="text-danger backend-error-text"></div>
                                     </div>
-                                    <div class="col-md-6 mb-8">
-                                        <input type="text" class="form-control input-default" placeholder="Colour" :value="old('colour')" name="colour">
-                                        <div id="colour_text" class="text-danger backend-error-text"></div>
-                                    </div>
                                    </div>
+
                             <div class="form-group mb-8">
                                 <label class="col-lg-4 col-form-label" for="name">Featured Image <span class="text-danger">*</span>
                                 </label>
@@ -78,19 +73,23 @@
                             placeholder="feature image" :value="old('feature_image')">
                             <div id="feature_image_text" class="text-danger backend-error-text"></div>
                             </div>
-                            <div class="form-group mb-8">
+                            {{-- <div class="form-group mb-8">
                                 <label class="col-lg-4 col-form-label" for="name">Images <span class="text-danger">*</span>
                                 </label>
                                 <input type="file" class="form-control" id="image" name="images"
                             placeholder="images" :value="old('images')">
                             <div id="images_text" class="text-danger backend-error-text"></div>
-                    </div>
+                    </div> --}}
                             <div class="form-group row ">
-                                <div class="col-md-6 mb-8">
+                                <div class="col-md-4 mb-8">
+                                    <input type="text" class="form-control input-default" placeholder="Colour" :value="old('colour')" name="colour">
+                                    <div id="colour_text" class="text-danger backend-error-text"></div>
+                                </div>
+                                <div class="col-md-4 mb-8">
                                     <input type="text" class="form-control input-default" placeholder="Length" :value="old('length')" name="length">
                                     <div id="length_text" class="text-danger backend-error-text"></div>
                                 </div>
-                                <div class="col-md-6 mb-8">
+                                <div class="col-md-4 mb-8">
                                     <input type="text" class="form-control input-default" placeholder="Width" :value="old('Width')" name="width">
                                     <div id="width_text" class="text-danger backend-error-text"></div>
                                 </div>
@@ -143,7 +142,7 @@
             'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
         },
         url: "/admin/products", // the endpoint
-        type: "Post", // http method
+        type: "POST", // http method
         processData: false,
         contentType: false,
         data: myFormData,

@@ -33,7 +33,7 @@ class ProductRequest extends FormRequest
             'shipping_charge' => ['required'],
             'colour' => ['required'],
             'feature_image' => ['required'],
-            'images' => ['required'],
+            // 'images' => ['required'],
             'length' => ['required'],
             'width' => ['required'],
             'is_feature_product' => ['nullable'],

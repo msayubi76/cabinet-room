@@ -20,10 +20,9 @@
                     <h4 class="card-title">Update Product</h4>
 
                     <div class="basic-form">
-                        <form action="{{url('products/update')}}"  method="post" id="product-form" enctype="multipart/form-data">
+                        <form action="{{url('products/update')}}"  method="post" id="edit-product-form" enctype="multipart/form-data">
                             @csrf
-                            {{-- @method('PUT') --}}
-                            <input type="hidden" value="-1" id="proudct_id">
+                            <input type="hidden" value="-1" id="product_id">
                             <input type="hidden" value="PUT" name="_method">
                             <div class="form-group mb-8">
                                 <input type="text" class="form-control input-default"  id="edit_name" placeholder="Product Name" value="{{$product->name}}" name="name">
@@ -39,86 +38,76 @@
                                          <option value="{{$catitem->id}}" {{$product->category_id == $catitem->id ? 'selected' : ''}}>{{$catitem->name}}</option>
 
                                         @endforeach
-                                    </select> @error('category_id')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror </div>
+                                    </select>
+                                    <div id="edit_category_id_text" class="text-danger backend-error-text"></div>
+                                 </div>
                                 <div class="col-md-6 mb-8">
                                     <select name="subcategory_id" id="subcategory" class="form-control" >
                                         <option >-- Select sub Category --</option>
 
 
                                     </select>
-                                    @error('subcategory_id')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                    <div id="edit_subcategory_id_text" class="text-danger backend-error-text"></div>
+
                             </div>
                                </div>
                             <div class="form-group mb-8">
-                                <textarea class="form-control h-150px" id="description" name="description" rows="6" placeholder="Write here.......">{{$product->description}}</textarea>
-                                   @error('description')
-                                   <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
+                                <textarea class="form-control h-150px" id="edit_description mysummernote" name="description" rows="6" placeholder="Write here.......">{{$product->description}}</textarea>
+                                {{-- <div id="edit_category_id_text" class="text-danger backend-error-text"></div> --}}
+
                             </div>
                                    <div class="form-group row ">
                                     <div class="col-md-6 mb-8">
-                                        <input type="text" class="form-control input-default" placeholder="Actual Price" value="{{$product->actual_price}}" name="actual_price">
-                                        @error('actual_price')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
+                                        <input type="text" class="form-control input-default" id="edit_actual_price"   placeholder="Actual Price" value="{{$product->actual_price}}" name="actual_price">
+                                        {{-- <div id="edit_actual_price_text" class="text-danger backend-error-text"></div> --}}
+
                                     </div>
                                     <div class="col-md-6 mb-8">
-                                        <input type="text" class="form-control input-default" placeholder="Discount" value="{{$product->discount}}" name="discount">
-                                        @error('discount')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
+                                        <input type="text" class="form-control input-default" id="edit_discount" placeholder="Discount" value="{{$product->discount}}" name="discount">
+                                        {{-- <div id="edit_discount_text" class="text-danger backend-error-text"></div> --}}
+
                                     </div>
                                    </div>
                                    <div class="form-group row ">
                                     <div class="col-md-6 mb-8">
-                                        <input type="text" class="form-control input-default" placeholder="Shipping Charge" value="{{$product->shipping_charge}}" name="shipping_charge">
-                                        @error('shipping_charge')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
+                                        <input type="text" class="form-control input-default" id="edit_shipping_charge" placeholder="Shipping Charge" value="{{$product->shipping_charge}}" name="shipping_charge">
+                                        {{-- <div id="edit_shipping_charge_text" class="text-danger backend-error-text"></div> --}}
+
                                     </div>
                                     <div class="col-md-6 mb-8">
-                                        <input type="text" class="form-control input-default" placeholder="colour" value="{{$product->colour}}" name="colour">
-                                        @error('colour')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
+                                        <input type="text" class="form-control input-default" id="edit_colour" placeholder="colour" value="{{$product->colour}}" name="colour">
+                                        {{-- <div id="edit_colour_text" class="text-danger backend-error-text"></div> --}}
+
                                     </div>
                                    </div>
                             <div class="form-group mb-8">
                                 <div class="mb-8">
                                 <img src="{{asset('uploads/product/'.$product->feature_image)}}" width="50px" height="50px" alt="img">
                             </div>
-                                <input type="file" class="form-control" id="feature_image" name="feature_image"
+                                <input type="file" class="form-control" id="edit_feature_image" name="feature_image"
                             placeholder="feature image" :value="old('feature_image')">
-                            @error('feature_image')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                            {{-- <div id="edit_feature_image_text" class="text-danger backend-error-text"></div> --}}
+
                             </div>
                             <div class="form-group mb-8">
                                 <div class="mb-8">
                                     <img src="{{asset('uploads/multiimages/'.$product->images)}}" width="50px" height="50px" alt="img">
                                 </div>
-                                <input type="file" class="form-control" id="image" name="images"
+                                <input type="file" class="form-control" id="edit_images" name="images"
                             placeholder="images" :value="old('images')">
-                            @error('images')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                            {{-- <div id="edit_images_text" class="text-danger backend-error-text"></div> --}}
+
                     </div>
                             <div class="form-group row ">
                                 <div class="col-md-6 mb-8">
-                                    <input type="text" class="form-control input-default" placeholder="length" value="{{$product->length}}"name="length">
-                                    @error('length')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                    <input type="text" class="form-control input-default" id="edit-length" placeholder="length" value="{{$product->length}}"name="length">
+                                    {{-- <div id="edit_length_text" class="text-danger backend-error-text"></div> --}}
+
                                 </div>
                                 <div class="col-md-6 mb-8">
-                                    <input type="text" class="form-control input-default" placeholder="width" value="{{$product->width}}"name="width">
-                                    @error('width')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                    <input type="text" class="form-control input-default" id="edit_width" placeholder="width" value="{{$product->width}}"name="width">
+                                    {{-- <div id="edit_width_text" class="text-danger backend-error-text"></div> --}}
+
                                 </div>
                                </div>
                                <div class="form-group row ">
@@ -126,13 +115,13 @@
                                     <label class="col-lg-4 col-form-label form-check-label" for="name">
 
                                         <input type="checkbox" class="form-check-input" name="is_feature_product" {{$product->is_feature_product == '1' ? 'checked':''}}>Feature Product </label>
-                                        <div id="is_feature_product_text" class="text-danger backend-error-text"></div>
+                                        {{-- <div id="edit_is_feature_product_text" class="text-danger backend-error-text"></div> --}}
                                 </div>
                                 <div class="col-md-6 mb-8">
                                     <label class="col-lg-4 col-form-label form-check-label" for="name">
 
                                         <input type="checkbox" class="form-check-input" name="is_arrival_product" {{$product->is_arrival_product == '1' ? 'checked':''}}>Arrival Product </label>
-                                        <div id="Arrival Product_text" class="text-danger backend-error-text"></div>
+                                        {{-- <div id="edit_is_Arrival_Product_text" class="text-danger backend-error-text"></div> --}}
                                 </div>
                                </div>
                                <div class="modal-footer">
@@ -154,9 +143,10 @@
 @section('scripts')
 <script>
 function updateProduct() {
-    var form = $('#product-form')[0];
+    var form = $('#edit-product-form')[0];
     $("#button-update").text('Loading...');
     proudct_id = form.proudct_id.value;
+    console.log(proudct_id);
     console.log('proudct_id', proudct_id);
 
     const myFormData = new FormData(form);
@@ -167,7 +157,7 @@ function updateProduct() {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
         },
-        url: "/admin/products/update/" + proudct_id, // the endpoint
+        url: "/admin/products/" + proudct_id, // the endpoint
         type:"POST", // salahuyddin changed
         processData: false,
         contentType: false,

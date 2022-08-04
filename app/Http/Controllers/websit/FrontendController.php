@@ -26,7 +26,8 @@ class FrontendController extends Controller
     return view('website.product.shop',compact('category','subcategory','product'));
 
    }
-   public function singleProduct($id){
+   public function single_Product($id){
+
     $product = Product::find($id);
     $category = Category::where('is_active','0')->get();
     $subcategory = SubCategory::where('is_active','0')->get();
