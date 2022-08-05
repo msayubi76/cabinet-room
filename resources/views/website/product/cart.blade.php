@@ -16,9 +16,9 @@
         </ul>
 
         <div class="row">
-            <div class="col-lg-8">
-                <div class="cart-table-container">
-                    <table class="table table-cart">
+            <div class="col-lg-8 ">
+                <div class="cart-table-container ">
+                    <table class="table table-cart product_data">
                         <thead>
                             <tr>
                                 <th class="thumbnail-col"></th>
@@ -28,12 +28,12 @@
                                 <th class="text-right">Subtotal</th>
                             </tr>
                         </thead>
-                        <tbody>
-
+                        <tbody >
+                            @php $total = 0; @endphp
+                            @php $alltotal = 0; @endphp
                             @foreach ($cart as  $cartlist)
+                            <tr class="product-row ">
 
-
-                            <tr class="product-row product_data">
                                 <td>
                                     <figure class="product-image-container">
                                         <a href="product.html" class="product-image">
@@ -50,14 +50,19 @@
                                 </td>
                                 <td>{{$cartlist->product->discount}}</td>
                                 <td>
-                                    <input type="hidden" class="product_id" value={{$cartlist->product_id}} >
+
                                     <div class="product-single-qty">
-                                        <input class="horizontal-quantity form-control" type="text" value="{{$cartlist->product->quantity}}">
+                                        <input type="hidden" class="product_id" value={{$cartlist->product_id}} >
+                                        <input class="horizontal-quantity form-control" type="text" value="{{$cartlist->quantity}}">
                                     </div><!-- End .product-single-qty -->
                                 </td>
-                                <td class="text-right"><span class="subtotal-price">{{$cartlist->product->discount}}</span></td>
+                                @php $total =$cartlist->product->discount * $cartlist->quantity ; @endphp
+                                <td class="text-right"><span class="subtotal-price"></span>{{ $total }}</td>
                             </tr>
+                            @php $alltotal +=$cartlist->product->discount * $cartlist->quantity ; @endphp
                             @endforeach
+
+
                             {{-- <tr class="product-row">
                                 <td>
                                     <figure class="product-image-container">
@@ -127,7 +132,7 @@
                                     </div><!-- End .float-left -->
 
                                     <div class="float-right">
-                                        <button type="submit" class="btn btn-shop btn-update-cart">
+                                        <button type="submit" class="btn btn-shop update-cart">
                                             Update Cart
                                         </button>
                                     </div><!-- End .float-right -->
@@ -146,7 +151,7 @@
                         <tbody>
                             <tr>
                                 <td>Subtotal</td>
-                                <td>$17.90</td>
+                                <td>{{$alltotal}}</td>
                             </tr>
 
                             <tr>
@@ -218,7 +223,7 @@
                     </table>
 
                     <div class="checkout-methods">
-                        <a href="cart.html" class="btn btn-block btn-dark">Proceed to Checkout
+                        <a href="cart.html" class="btn btn-block btn-dark ">Proceed to Checkout
                             <i class="fa fa-arrow-right"></i></a>
                     </div>
                 </div><!-- End .cart-summary -->
@@ -242,7 +247,7 @@ $(document).ready(function () {
         }
     });
         $.ajax({
-            type: "GET",
+            method: "GET",
             url: "delete",
             data: {
                 'product_id':product_id,
@@ -255,7 +260,38 @@ $(document).ready(function () {
             }
         });
 
+
     });
+    $('.update-cart').click(function (e) {
+    e.preventDefault();
+    var product_id = $(this).closest('.product_data').find('.product_id').val();
+    var quantity = $(this).closest('.product_data').find('.horizontal-quantity').val();
+    alert(product_id);
+    alert(quantity);
+
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        method: "POST",
+        url: "update",
+        data: {
+        'product_id':product_id,
+        'quantity' :quantity,
+    },
+
+        success: function (response) {
+            // window.location.reload();
+            swal("",response.status,"success");
+        }
+    });
+
+
+
+});
 });
 </script>
 @endsection

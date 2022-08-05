@@ -127,6 +127,8 @@
                             <!-- End .dropdown-cart-header -->
 
                             <div class="dropdown-cart-products">
+                                @php $total = 0; @endphp
+
                                 @foreach ($cart as $cartlist)
                                 <div class="product">
 
@@ -138,7 +140,7 @@
                                         </h4>
 
                                         <span class="cart-product-info">
-                                            <span class="cart-product-qty">{{$cartlist->quantity}}</span> × $99.00
+                                            <span class="cart-product-qty">{{$cartlist->quantity}}</span> × {{$cartlist->product->discount}}
                                         </span>
                                     </div>
 
@@ -152,6 +154,7 @@
                                         <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
                                     </figure>
                                 </div>
+                                @php $total += $cartlist->product->discount * $cartlist->quantity; @endphp
                                 @endforeach
                                 <!-- End .product -->
 
@@ -203,12 +206,12 @@
                             <div class="dropdown-cart-total">
                                 <span>SUBTOTAL:</span>
 
-                                <span class="cart-total-price float-right">$134.00</span>
+                                <span class="cart-total-price float-right">{{$total}}</span>
                             </div>
                             <!-- End .dropdown-cart-total -->
 
                             <div class="dropdown-cart-action">
-                                <a href="cart.html" class="btn btn-gray btn-block view-cart">View
+                                <a href="{{url('cart')}}" class="btn btn-gray btn-block view-cart">View
                                     Cart</a>
                                 <a href="checkout.html" class="btn btn-dark btn-block">Checkout</a>
                             </div>

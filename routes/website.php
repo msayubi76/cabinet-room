@@ -16,5 +16,6 @@ Route::get('/singleproduct/{id}', [FrontendController::class, 'singleproduct']);
 Route::middleware(['auth'])->group(function () {
     Route::post('add-to-cart', [CartController::class, 'addproduct']);
     Route::get('cart', [CartController::class, 'viewcart']);
+    Route::post('update', [CartController::class, 'update']);
     Route::get('delete', [CartController::class, 'delete']);
 });
