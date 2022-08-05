@@ -41,10 +41,12 @@
 
     <!-- Plugins CSS File -->
     <link rel="stylesheet" href="{{ asset('website/assets/css/bootstrap.min.css') }}">
+    <!--  CSS File -->
+    <link rel="stylesheet" href="{{ asset('website/assets/css/style.css') }}">
 
     <!-- Main CSS File -->
     <link rel="stylesheet" href="{{ asset('website/assets/css/demo4.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('website/assets/vendor/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('website/assets/vendor/fontawesome-free/css/all.min.css')}}">
 </head>
 
 <body>

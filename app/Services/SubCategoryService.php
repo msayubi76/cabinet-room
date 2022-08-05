@@ -7,7 +7,7 @@ namespace App\Services;
 
 use App\Models\Category;
 
-use App\Models\SubCategory;
+use App\Models\Sub_Category;
 use App\Traits\FileUploadTrait;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SubCategoryRequest;
@@ -17,9 +17,9 @@ class SubCategoryService
 {
     public static function getSubCategory(){
 
-            $subcategory = SubCategory::orderBy('id', 'DESC')->paginate(30);
+            $sub_category = Sub_Category::orderBy('id', 'DESC')->paginate(30);
 
-            return $subcategory  ;
+            return $sub_category  ;
 
     }
 
@@ -38,14 +38,14 @@ class SubCategoryService
         $data['is_active'] =  $request->is_active == true ? '1' : '0';
         $data['category_d'] = $request->category_id;
 
-        $subcategory = SubCategory::create($data);
+        $subcategory = Sub_Category::create($data);
         DB::commit();
         $response = ['status' => true, 'message' => 'SubCategory added successfully.', 'subcategory' => $subcategory];
 
         return $response;
     }
 
-    public static function update(SubCategoryRequest $request, SubCategory $subcategory){
+    public static function update(SubCategoryRequest $request, Sub_Category $subcategory){
         DB::beginTransaction();
         $data = $request->validated();
         $subcategory->update($data);
@@ -57,7 +57,7 @@ class SubCategoryService
     public static function destroy($id)
     {
         DB::beginTransaction();
-        $subcategory = SubCategory::findorFail($id);
+        $subcategory = Sub_Category::findorFail($id);
         $subcategory->delete();
         $subcategory->products()->delete();
         DB::commit();

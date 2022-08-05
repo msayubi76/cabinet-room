@@ -161,7 +161,7 @@
                         <a href="javascript:;" class="btn btn-dark add-cart mr-2" title="Add to Cart">Add to
                             Cart</a>
 
-                        <a href="cart.html" class="btn btn-gray view-cart d-none">View cart</a>
+                        <a href="{{url('cart')}}" class="btn btn-gray view-cart d-none">View cart</a>
                     </div>
                     <!-- End .product-action -->
 
@@ -1042,7 +1042,7 @@ $(document).ready(function () {
 $('.add-cart').click(function (e) {
     e.preventDefault();
     var product_id = $(this).closest('.product_data').find('.product_id').val();
-    var product_quantity = $(this).closest('.product_data').find('.horizontal-quantity').val();
+    var quantity = $(this).closest('.product_data').find('.horizontal-quantity').val();
     // alert(product_id);
     // alert(product_quantity);
 
@@ -1056,11 +1056,12 @@ $('.add-cart').click(function (e) {
         url: "/add-to-cart",
         data: {
             'product_id': product_id,
-            'product_quantity': product_quantity,
+            'quantity': quantity,
         },
 
         success: function (response) {
-         swal(response.status);
+
+         swal("",response.status,"success");
         }
     });
 

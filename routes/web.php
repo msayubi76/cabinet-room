@@ -9,8 +9,7 @@ use PHPUnit\TextUI\XmlConfiguration\Groups;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SubCategoryController;
-use App\Http\Controllers\websit\FrontendController;
-use App\Http\Controllers\website\CartController;
+
 
 Route::get('/', function () {
     return view('auth.login');

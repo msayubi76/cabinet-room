@@ -52,34 +52,28 @@
                             </div>
                                </div>
                             <div class="form-group mb-8">
-                                <textarea class="form-control h-150px" id="edit_description mysummernote" name="description" rows="6" placeholder="Write here.......">{{$product->description}}</textarea>
+                                <textarea class="form-control h-150px mysummernote" id="edit_description mysummernote" name="description" rows="6" placeholder="Write here.......">{{$product->description}}</textarea>
                                 {{-- <div id="edit_category_id_text" class="text-danger backend-error-text"></div> --}}
 
                             </div>
                                    <div class="form-group row ">
-                                    <div class="col-md-6 mb-8">
+                                    <div class="col-md-4 mb-8">
                                         <input type="text" class="form-control input-default" id="edit_actual_price"   placeholder="Actual Price" value="{{$product->actual_price}}" name="actual_price">
                                         {{-- <div id="edit_actual_price_text" class="text-danger backend-error-text"></div> --}}
 
                                     </div>
-                                    <div class="col-md-6 mb-8">
+                                    <div class="col-md-4 mb-8">
                                         <input type="text" class="form-control input-default" id="edit_discount" placeholder="Discount" value="{{$product->discount}}" name="discount">
                                         {{-- <div id="edit_discount_text" class="text-danger backend-error-text"></div> --}}
 
                                     </div>
-                                   </div>
-                                   <div class="form-group row ">
-                                    <div class="col-md-6 mb-8">
+                                    <div class="col-md-4 mb-8">
                                         <input type="text" class="form-control input-default" id="edit_shipping_charge" placeholder="Shipping Charge" value="{{$product->shipping_charge}}" name="shipping_charge">
                                         {{-- <div id="edit_shipping_charge_text" class="text-danger backend-error-text"></div> --}}
 
                                     </div>
-                                    <div class="col-md-6 mb-8">
-                                        <input type="text" class="form-control input-default" id="edit_colour" placeholder="colour" value="{{$product->colour}}" name="colour">
-                                        {{-- <div id="edit_colour_text" class="text-danger backend-error-text"></div> --}}
-
-                                    </div>
                                    </div>
+
                             <div class="form-group mb-8">
                                 <div class="mb-8">
                                 <img src="{{asset('uploads/product/'.$product->feature_image)}}" width="50px" height="50px" alt="img">
@@ -89,22 +83,19 @@
                             {{-- <div id="edit_feature_image_text" class="text-danger backend-error-text"></div> --}}
 
                             </div>
-                            <div class="form-group mb-8">
-                                <div class="mb-8">
-                                    <img src="{{asset('uploads/multiimages/'.$product->images)}}" width="50px" height="50px" alt="img">
-                                </div>
-                                <input type="file" class="form-control" id="edit_images" name="images"
-                            placeholder="images" :value="old('images')">
-                            {{-- <div id="edit_images_text" class="text-danger backend-error-text"></div> --}}
 
-                    </div>
                             <div class="form-group row ">
-                                <div class="col-md-6 mb-8">
+                                <div class="col-md-4 mb-8">
+                                    <input type="text" class="form-control input-default" id="edit_colour" placeholder="colour" value="{{$product->colour}}" name="colour">
+                                    {{-- <div id="edit_colour_text" class="text-danger backend-error-text"></div> --}}
+
+                                </div>
+                                <div class="col-md-4 mb-8">
                                     <input type="text" class="form-control input-default" id="edit-length" placeholder="length" value="{{$product->length}}"name="length">
                                     {{-- <div id="edit_length_text" class="text-danger backend-error-text"></div> --}}
 
                                 </div>
-                                <div class="col-md-6 mb-8">
+                                <div class="col-md-4 mb-8">
                                     <input type="text" class="form-control input-default" id="edit_width" placeholder="width" value="{{$product->width}}"name="width">
                                     {{-- <div id="edit_width_text" class="text-danger backend-error-text"></div> --}}
 
@@ -142,94 +133,94 @@
 @endsection
 @section('scripts')
 <script>
-function updateProduct() {
-    var form = $('#edit-product-form')[0];
-    $("#button-update").text('Loading...');
-    proudct_id = form.proudct_id.value;
-    console.log(proudct_id);
-    console.log('proudct_id', proudct_id);
+// function updateProduct() {
+//     var form = $('#edit-product-form')[0];
+//     $("#button-update").text('Loading...');
+//     proudct_id = form.proudct_id.value;
+//     console.log(proudct_id);
+//     console.log('proudct_id', proudct_id);
 
-    const myFormData = new FormData(form);
-    const formDataObj = {};
-    myFormData.forEach((value, key) => (formDataObj[key] = value));
-    console.log(formDataObj);
-    $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
-        },
-        url: "/admin/products/" + proudct_id, // the endpoint
-        type:"POST", // salahuyddin changed
-        processData: false,
-        contentType: false,
-        data: myFormData,
-        beforeSend: function () {
-            $(form)
-            $('.backend-error-text').text('')
-            $("#button-update").prop("disabled", true);
+//     const myFormData = new FormData(form);
+//     const formDataObj = {};
+//     myFormData.forEach((value, key) => (formDataObj[key] = value));
+//     console.log(formDataObj);
+//     $.ajax({
+//         headers: {
+//             'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
+//         },
+//         url: "/admin/products/" + proudct_id, // the endpoint
+//         type:"POST", // salahuyddin changed
+//         processData: false,
+//         contentType: false,
+//         data: myFormData,
+//         beforeSend: function () {
+//             $(form)
+//             $('.backend-error-text').text('')
+//             $("#button-update").prop("disabled", true);
 
-        },
-        success: function (data) {
-            $("#button-update").prop("disabled", false);
-            $("#button-update").text("Update Product");
+//         },
+//         success: function (data) {
+//             $("#button-update").prop("disabled", false);
+//             $("#button-update").text("Update Product");
 
-            $(form)
-                .find('[type="button"]')
-                .prop("disabled", false);
-                swal({
-                    title: "",
-                    text: data.message,
-                    icon: "success",
-                });
-                $(form)
-                .find('[type="button"]')
-                .prop("disabled", false);
+//             $(form)
+//                 .find('[type="button"]')
+//                 .prop("disabled", false);
+//                 swal({
+//                     title: "",
+//                     text: data.message,
+//                     icon: "success",
+//                 });
+//                 $(form)
+//                 .find('[type="button"]')
+//                 .prop("disabled", false);
 
-        },
-        error: function (error) {
-            $(form)
-            $("#button-update").prop("disabled", false);
-            $("#button-update").text("Update Product");
-            var errorMessage = error.statusText;
-            var sweetMessage = error.statusText;
+//         },
+//         error: function (error) {
+//             $(form)
+//             $("#button-update").prop("disabled", false);
+//             $("#button-update").text("Update Product");
+//             var errorMessage = error.statusText;
+//             var sweetMessage = error.statusText;
 
-            if (error.status == 422) {
-                errorMessage = handleValidationErrors(error, 'edit')
-                sweetMessage = 'Invalid Data'
-            }
-            swal({
-                title: "Error",
-                text: sweetMessage,
-                icon: "error",
-              });
+//             if (error.status == 422) {
+//                 errorMessage = handleValidationErrors(error, 'edit')
+//                 sweetMessage = 'Invalid Data'
+//             }
+//             swal({
+//                 title: "Error",
+//                 text: sweetMessage,
+//                 icon: "error",
+//               });
 
-        },
-    });
-}
-function handleValidationErrors(error, type = 'create') {
-    let errors = error.responseJSON.errors;
-    var errorMessage = error.responseJSON.message
-    var element = '';
-    $.each(errors, function (key, item) {
-        element = key.split('.')
-        if (element.length > 1) {
-            element = `${element[0]}_${element[1]}`
-        } else {
-            element = `${element}`
-        }
-        // dataAttr = $(element).closest('.tab').data('id')
-        // $(`.step-${dataAttr}`).addClass('backend-error')
-        if (type == 'edit') {
-            console.log('edit',element);
-            $(`#edit_${element}_text`).text(item[0])
+//         },
+//     });
+// }
+// function handleValidationErrors(error, type = 'create') {
+//     let errors = error.responseJSON.errors;
+//     var errorMessage = error.responseJSON.message
+//     var element = '';
+//     $.each(errors, function (key, item) {
+//         element = key.split('.')
+//         if (element.length > 1) {
+//             element = `${element[0]}_${element[1]}`
+//         } else {
+//             element = `${element}`
+//         }
+//         // dataAttr = $(element).closest('.tab').data('id')
+//         // $(`.step-${dataAttr}`).addClass('backend-error')
+//         if (type == 'edit') {
+//             console.log('edit',element);
+//             $(`#edit_${element}_text`).text(item[0])
 
-        } else if (type == 'create') {
-            $(`#${element}_text`).text(item[0])
+//         } else if (type == 'create') {
+//             $(`#${element}_text`).text(item[0])
 
-        }
-    });
+//         }
+//     });
 
-    return errorMessage;
-}
+//     return errorMessage;
+// }
 
 
 

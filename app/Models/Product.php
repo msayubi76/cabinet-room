@@ -16,7 +16,7 @@ class Product extends Model
     protected $fillable = [
       'name',
       'category_id',
-      'subcategory_id',
+      'sub_category_id',
       'description',
       'actual_price',
       'discount',
@@ -29,9 +29,9 @@ class Product extends Model
       'is_feature_product',
       'is_arrival_product',
       'currency',
-    //   'created_by',
-    //   'updated_by',
-    //   'deleted_by',
+      'created_by',
+      'updated_by',
+      'deleted_by',
 
 
   ];
@@ -39,6 +39,9 @@ class Product extends Model
     return $this->belongsTo(Category::class, 'category_id','id');
 }
 public function subcategory(){
-    return $this->belongsTo(SubCategory::class, 'subcategory_id','id');
+    return $this->belongsTo(Sub_Category::class, 'sub_category_id','id');
+}
+public function cart(){
+    return $this->hasMany(Cart::class, 'cart_id','id');
 }
 }

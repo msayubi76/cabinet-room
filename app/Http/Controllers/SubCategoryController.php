@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\SubCategory;
+use App\Models\Sub_Category;
 use Illuminate\Http\Request;
 use App\Services\SubCategoryService;
 use App\Http\Requests\SubCategoryRequest;
@@ -27,8 +27,8 @@ class SubCategoryController extends Controller
 
     public function store(SubCategoryRequest $request){
         try {
-            $subcategory_response = SubCategoryService::store($request);
-            return $subcategory_response;
+            $sub_category_response = SubCategoryService::store($request);
+            return $sub_category_response;
 
         } catch (\Throwable $th) {
             return $th;
@@ -37,18 +37,18 @@ class SubCategoryController extends Controller
 
 
 
-    public function update(SubCategoryRequest $request, SubCategory $subcategory){
+    public function update(SubCategoryRequest $request,Sub_Category $subcategory){
         try {
-           $subcategory_response = SubCategoryService::update($request,$subcategory);
-           return $subcategory_response;
+           $sub_category_response = SubCategoryService::update($request,$subcategory);
+           return $sub_category_response;
         } catch (\Throwable $th) {
            return $th;
         }
     }
     public function destroy($id){
        try {
-            $subcategory_response = SubCategoryService::destroy($id);
-            return $subcategory_response;
+            $sub_category_response = SubCategoryService::destroy($id);
+            return $sub_category_response;
        } catch (\Throwable $th) {
            return $th;
        }

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')->nullable()->constrained('categories');
-            $table->foreignId('subcategory_id')->nullable()->constrained('subcategories');
+            $table->foreignId('sub_category_id')->nullable()->constrained('sub_categories');
             $table->string('name')->nullable();
             $table->mediumText('description')->nullable();
             $table->decimal('actual_price')->nullable();
@@ -34,11 +34,8 @@ return new class extends Migration
             $table->foreignId('created_by')->nullable()->constrained('users')->cascadeOnDelete() ;
             $table->foreignId('updated_by')->nullable()->constrained('users')->cascadeOnDelete() ;
             $table->foreignId('deleted_by')->nullable()->constrained('users')->cascadeOnDelete();
-
             $table->timestamps();
             $table->softDeletes();
-
-
         });
     }
 

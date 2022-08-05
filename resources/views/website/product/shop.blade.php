@@ -108,7 +108,7 @@
             <div class="col-6 col-sm-4 col-md-3 col-xl-2">
                 <div class="product-default">
                     <figure>
-                        <a href="{{url('single_Product/'.$productlist->id)}}">
+                        <a href="{{url('singleproduct/'.$productlist->id)}}">
                             <img src="{{asset('website/assets/images/products/product-2.jpg')}}" width="180" height="180" alt="product" />
                             <img src="{{asset('website/assets/images/products/product-2-2.jpg')}}" width="180" height="180" alt="product" />
                         </a>

@@ -107,7 +107,7 @@
 
     <script>
         $(document).ready(function() {
-            $("#mysummernote").summernote();
+            $(".mysummernote").summernote();
             $('.dropdown-toggle').dropdown();
         });
     </script>

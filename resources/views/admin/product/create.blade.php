@@ -39,15 +39,15 @@
                                     <div id="category_id_text" class="text-danger backend-error-text"></div>
                                  </div>
                                 <div class="col-md-6 mb-8">
-                                    <select name="subcategory_id" id="subcategory" class="form-control" >
+                                    <select name="sub_category_id" id="subcategory" class="form-control" >
                                         <option >-- Select sub Category --</option>
 
                                     </select>
-                                    <div id="subcategory_id_text" class="text-danger backend-error-text"></div>
+                                    <div id="sub_category_id_text" class="text-danger backend-error-text"></div>
                             </div>
                                </div>
                             <div class="form-group mb-8">
-                                <textarea class="form-control h-150px" id="mysummernote" name="description" rows="6" placeholder="Write here.......">
+                                <textarea class="form-control h-150px mysummernote" id="" name="description" rows="6" placeholder="Write here.......">
                                    </textarea>
                                    <div id="description_text" class="text-danger backend-error-text"></div>
                             </div>

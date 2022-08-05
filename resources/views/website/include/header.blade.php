@@ -112,8 +112,8 @@
                 <a href="wishlist.html" class="header-icon" title="wishlist"><i class="icon-wishlist-2"></i></a>
 
                 <div class="dropdown cart-dropdown">
-                    <a href="#" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
-                        <i class="minicart-icon"></i>
+                    <a href="{{url('cart')}}" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                        <i  class="minicart-icon"></i>
                         <span class="cart-count badge-circle">3</span>
                     </a>
 
@@ -127,16 +127,21 @@
                             <!-- End .dropdown-cart-header -->
 
                             <div class="dropdown-cart-products">
+                                @foreach ($cart as $cartlist)
                                 <div class="product">
+
+
+
                                     <div class="product-details">
                                         <h4 class="product-title">
-                                            <a href="product.html">Ultimate 3D Bluetooth Speaker</a>
+                                            <a href="product.html">{{$cartlist->product->name}}</a>
                                         </h4>
 
                                         <span class="cart-product-info">
-                                            <span class="cart-product-qty">1</span> × $99.00
+                                            <span class="cart-product-qty">{{$cartlist->quantity}}</span> × $99.00
                                         </span>
                                     </div>
+
                                     <!-- End .product-details -->
 
                                     <figure class="product-image-container">
@@ -147,9 +152,10 @@
                                         <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
                                     </figure>
                                 </div>
+                                @endforeach
                                 <!-- End .product -->
 
-                                <div class="product">
+                                {{-- <div class="product">
                                     <div class="product-details">
                                         <h4 class="product-title">
                                             <a href="product.html">Brown Women Casual HandBag</a>
@@ -189,7 +195,7 @@
                                         </a>
                                         <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
                                     </figure>
-                                </div>
+                                </div> --}}
                                 <!-- End .product -->
                             </div>
                             <!-- End .cart-product -->
@@ -275,7 +281,7 @@
                         <!-- End .megamenu -->
                     </li>
                     <li>
-                        <a href="{{url('/product')}}">Products</a>
+                        <a href="{{url('/products')}}">Products</a>
                         <div class="megamenu megamenu-fixed-width">
                             <div class="row">
                                 <div class="col-lg-4">

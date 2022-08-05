@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\SubCategory;
+use App\Models\Sub_Category;
 use Illuminate\Http\Request;
 use App\Services\ProductService;
 use App\Http\Requests\ProductRequest;
@@ -102,7 +102,7 @@ class ProductController extends Controller
     //    }
        public function getSubCategory(Request $request){
         // return $request;
-         return SubCategory::where('category_id',$request->id)->get();
+         return Sub_Category::where('category_id',$request->id)->get();
      }
 
 }
