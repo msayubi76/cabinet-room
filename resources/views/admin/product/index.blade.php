@@ -39,7 +39,7 @@
                                             <td>{{$list->name}}</td>
                                             <td>{{$list->category->name}}</td>
                                             <td>{{$list->subcategory->name}}</td>
-                                            <td><img src="{{asset('uploads/product/'.$list->feature_image)}}" width="50px" height="50px" alt="img">
+                                            <td><img src="{{asset($list->feature_image)}}" width="50px" height="50px" alt="img">
                                             </td>
 
                                             <td>

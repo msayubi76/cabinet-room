@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FrontendController::class, 'index']);
 Route::get('/products', [FrontendController::class, 'products']);
-Route::get('/singleproduct/{id}', [FrontendController::class, 'singleproduct'])->name('website.single-product');
+Route::get('/products/{id}', [FrontendController::class, 'singleproduct'])->name('website.single-product');
 
 
 

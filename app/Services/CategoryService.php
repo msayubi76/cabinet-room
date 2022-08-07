@@ -28,7 +28,7 @@ class CategoryService
             $data['image_name'] =  $image_name;
             $data['image_url'] = url('/storage/categories/' . $image_name);
         endif;
-        $data['is_active'] =  $request->is_active == true ? '1' : '0';
+
 
         $category = Category::create($data);
         DB::commit();

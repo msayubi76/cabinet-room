@@ -27,10 +27,9 @@ class UserFactory extends Factory
             'mobile_no' => $this->faker->phoneNumber(),
             'address' => $this->faker->address(),
             'city' => $this->faker->city(),
-            'region' => $this->faker->text(),
-            'image_url' => $this->profile('public/storage/profile',640,480, null, false),
-            'image_folder' => $this->profile('public/storage/profile'),
-            'image_name' => $this->faker->profile( null, false),
+            'region' => $this->faker->text(15),
+            'image_url' => $this->faker->imageUrl(),
+
 
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),

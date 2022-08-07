@@ -39,10 +39,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class); //->except('update');  salahuddin changed
-    Route::get('attach-Role/{role}', [RoleController::class, 'attachRole']);
-    Route::post('attach-permissions', [RoleController::class, 'attachPermissions'])->name('attach-permissions');
-    Route::get('updatAttachRole/{role}', [RoleController::class, 'updateAttachRole']);
-    Route::post('update-attach-permissions', [RoleController::class, 'updateAttachPermissions'])->name('update-attach-permissions');
+    Route::get('attach-permission/{role}', [RoleController::class, 'attachPermission']);
+    Route::post('attach-permissions', [RoleController::class, 'storeAttachPermissions'])->name('attach-permissions');
 
     Route::resource('category', CategoryController::class);
     Route::resource('subcategory', SubCategoryController::class);

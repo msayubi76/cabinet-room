@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             [
                 DefaultUserSeeder::class,
                 UserSeeder::class,
+                CategorySeeder::class,
             ]
         );
     }

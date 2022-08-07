@@ -45,41 +45,27 @@ class RoleController extends Controller
         }
     }
 
-    public function attachRole($role)
+    public function attachPermission($role)
     {
-        $permissions = PermissionService::moduleWisePermissions();
+       try{
+         $permissions = PermissionService::moduleWisePermissions();
         $modules = PermissionService::moduleWisePermissions();
         $role = Role::find($role);
-        // dd($permissions);
+
         return view('admin.role.attachpermission', compact('role', 'permissions', 'modules'));
+       }catch (\Throwable $th) {
+          return $th;
     }
-    public function updateAttachRole($role)
-    {
-        $permissions = PermissionService::moduleWisePermissions();
-        $modules = PermissionService::moduleWisePermissions();
-        $role = Role::find($role);
-        // dd($permissions);
-        return view('admin.role.updateAttachPermission', compact('role', 'permissions', 'modules'));
     }
-    public function attachPermissions(AttachPermissionRequest $request)
+    public function storeAttachPermissions(AttachPermissionRequest $request)
     {
         try {
-            $role_response = RoleService::attachPermissions($request);
+            $role_response = RoleService::storeAttachPermissions($request);
             return $role_response;
         } catch (\Throwable $th) {
-            dd($th);
-            return $th;
+           return $th;
         }
     }
 
-    public function updateAttachPermissions(AttachPermissionRequest $request)
-    {
-        try {
-            $role_response = RoleService::updateAttachPermissions($request);
-            return $role_response;
-        } catch (\Throwable $th) {
-            dd($th);
-            return $th;
-        }
-    }
+
 }

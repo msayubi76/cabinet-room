@@ -24,7 +24,9 @@
 
                                                 <label class="form-check-label">
                                                     <input type="checkbox" class="form-check-input" name="permissions[]"
-                                                        value="{{ $permission->id }}">{{ $permission->name }} </label>
+                                                    value="{{$permission->id}}"  @if(count($role->permissions->where('id',$permission->id)))
+                                                    checked
+                                                  @endif>{{ $permission->name }} </label>
                                             </div>
                                         @endforeach
 
@@ -34,7 +36,7 @@
 
                                 <div class="modal-footer">
                                     <a href="{{ url('admin/roles') }}" class="btn btn-secondary"> Close </a>
-                                    <button type="submit" class="btn btn-primary"> Add Permission </button>
+                                    <button type="button" class="btn btn-primary"> Save Permission </button>
                                 </div>
 
                             </form>

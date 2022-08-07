@@ -6,7 +6,8 @@ use App\Models\Role;
 use App\Http\Requests\RoleRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\AssignRoleRequest;
+
+use App\Http\Requests\AttachPermissionRequest;
 use Spatie\Permission\Models\Role as ModelsRole;
 
 class RoleService
@@ -22,8 +23,6 @@ class RoleService
     {
         DB::beginTransaction();
         $data = $request->validated();
-
-
         $role = Role::create($data);
         DB::commit();
         $response = ['status' => true, 'message' => 'Role added successfully.', 'role' => $role];
@@ -31,6 +30,16 @@ class RoleService
         return $response;
     }
 
+
+    public static function update(RoleRequest $request, Role $role)
+    {
+        DB::beginTransaction();
+        $data = $request->validated();
+        $role->update($data);
+        DB::commit();
+        $response = ['status' => true, 'message' => ' Role updated successfully.', 'role' => $role];
+        return $response;
+    }
     public static function destroy($id)
     {
         DB::beginTransaction();
@@ -40,7 +49,9 @@ class RoleService
         $response = ['status' => true, 'message' => 'Role removed successfully.'];
         return $response;
     }
-    public static function attachPermissions($request)
+
+
+    public static function storeAttachPermissions($request)
     {
         DB::beginTransaction();
         $data = $request->validated();
@@ -52,37 +63,6 @@ class RoleService
 
         return $response;
     }
-    public static function updateAttachPermissions($request)
-    {
-        DB::beginTransaction();
-        $data = $request->validated();
-        $role = ModelsRole::findOrFail($request->role_id);
 
-        $role->syncPermissions($request->permissions);
-        DB::commit();
-        $response = ['status' => true, 'message' => 'Update Permission attached succesfully.', 'role' => $role];
-    }
 
-    public static function update(RoleRequest $request, Role $role)
-    {
-        DB::beginTransaction();
-        $data = $request->validated();
-        $role->update($data);
-        DB::commit();
-        $response = ['status' => true, 'message' => ' Role updated successfully.', 'role' => $role];
-        return $response;
-    }
-
-    public static function assignRole(AssignRoleRequest $request)
-    {
-        dd($request);
-        DB::beginTransaction();
-        $data = $request->validated();
-        //
-        $roleAssign = Role::create($data);
-        $roleAssign->syncPermissions($request->get('permission'));
-        DB::commit();
-        $response = ['status' => true, 'message' => ' role added successfully.', 'roleAssign' => $roleAssign];
-        return $response;
-    }
 }

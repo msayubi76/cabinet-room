@@ -32,7 +32,7 @@
                                         <tr id='row_{{ $cate->id }}'>
                                             <td>{{ $cate->name }}</td>
                                             <td>{{$cate->category->name}}</td>
-                                            <td><img src="{{asset('/storage/subcategory/' . $cate->profile)}}" alt=""></td>
+                                            <td><img src="{{$cate->image_url}}" height="50px" width="50px" alt=""></td>
 
                                            <td> {{$cate->is_active == '1' ? 'Hidden':'Show' }}</td>
 
@@ -142,9 +142,9 @@
                         <div class="form-group ">
                            <label class="col-lg-4 col-form-label" for="name">Image <span class="text-danger">*</span>
                             </label>
-                            <input type="file" class="form-control" id="profile" name="profile"
-                            placeholder="profile" :value="old('profile')">
-                        <div id="profile_text" class="text-danger backend-error-text"></div>
+                            <input type="file" class="form-control" id="sub_category_image" name="sub_category_image"
+                            placeholder="sub_category_image" :value="old('sub_category_image')">
+                        <div id="sub_category_image_text" class="text-danger backend-error-text"></div>
 
                         </div>
                         <div class="form-group ">
@@ -308,13 +308,13 @@ edit_profile.onchange = evt => {
                 .prop("disabled", false);
             document.getElementById("subcategory-form").reset();
             //   $(".odd").hide();
-            dataarray.push(data);
-            var index = (dataarray.length)-1;
+            // dataarray.push(data);
+            // var index = (dataarray.length)-1;
             var string =
             `<tr id="row_${data.subcategory.id}">
                 <td>${data.subcategory.name}</td>
                 <td>${data.subcategory.category_id}</td>
-                <td><img src="'${data.subcategory.profile}'" alt=""></td>
+                <td><img src="'${data.subcategory.image_name.image_url}'" alt=""></td>
                 <td>${(data.subcategory.is_active == '1' ? "Hidden" : "Show")}</td>
 
                 <td>
@@ -323,7 +323,7 @@ edit_profile.onchange = evt => {
                             <div class="btn-group"><button id="btnGroupDrop${data.subcategory.id}" type="button"
                                     class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button>
                                 <div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal(${data.subcategory})">View</a>
-                                    <a class="dropdown-item" href="javascript:openEditIndexModal(${index})">Edit</a><a
+                                    <a class="dropdown-item" href="javascript:openEditIndexModal()">Edit</a><a
                                         class="dropdown-item" href="javascript:openDeleteDialog(${data.subcategory.id});">Delete</a></div>
                             </div>
                         </div>
