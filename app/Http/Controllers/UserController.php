@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -9,81 +8,67 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\ChangePasswordRequest;
-
-
-
-
-
 class UserController extends Controller
 {
 
-    public function index(){
+public function index(){
+$users = UserService::getUsers();
+return view('admin.user.index',compact('users'));
+}
 
-        $users = UserService::getUsers();
-        return view('admin.user.index',compact('users'));
+public function profile(){
+return view('admin.user.userprofile');
+}
 
-    }
-    public function profile(){
+public function store(UserRequest $request){
+try {
+$user_response =UserService::store($request);
+return $user_response;
+} catch (\Throwable $th) {
+return $th;
+}
+}
 
-        return view('admin.user.userprofile');
-    }
+public function update(UserRequest $request, User $user){
+try {
+$user_response = UserService::update($request,$user);
+return $user_response;
+} catch (\Throwable $th) {
+return $th;
+}
+}
 
-   public function store(UserRequest $request){
-        try {
-            $user_response =UserService::store($request);
-            return $user_response;
-        } catch (\Throwable $th) {
-            return $th;
-        }
-    }
-    public function update(UserRequest $request, User $user){
-        try {
+public function destroy($id){
+try {
+$user_response = UserService::destroy($id);
+return $user_response;
+} catch (\Throwable $th) {
+return $th;
+}
+}
 
-           $user_response = UserService::update($request,$user);
-           return $user_response;
-        } catch (\Throwable $th) {
-           return $th;
-        }
-    }
-    public function destroy($id){
-       try {
-            $user_response = UserService::destroy($id);
-            return $user_response;
-       } catch (\Throwable $th) {
-           return $th;
-       }
-    }
-
-    public function updateinfo(UserRequest $request){
-        try {
-
-           $user_response = UserService::update($request,auth()->user());
-           return $user_response;
-        } catch (\Throwable $th) {
-           return $th;
-        }
-    }
-
-
+public function updateinfo(UserRequest $request){
+try {
+$user_response = UserService::update($request,auth()->user());
+return $user_response;
+} catch (\Throwable $th) {
+return $th;
+}
+}
 
 function changePassword(Request  $request){
-
-    $request->validate([
-        'oldpassword'=>'required',
-        'password' => 'required|confirmed',
-
-
-    ]);
-     #Match The Old Password
-     if(!Hash::check($request->oldpassword, auth()->user()->password)){
-        return response()->json(['status'=>0,'msg'=> 'Old Password Doesnt match!']);
-
-    }
- #Update the new Password
- User::whereId(auth()->user()->id)->update([
-    'password' => Hash::make($request->password)
+$request->validate([
+'oldpassword'=>'required',
+'password' => 'required|confirmed',
 ]);
-
+#Match The Old Password
+if(!Hash::check($request->oldpassword, auth()->user()->password)){
+return response()->json(['status'=>0,'msg'=> 'Old Password Doesnt match!']);
+}
+#Update the new Password
+User::whereId(auth()->user()->id)->update([
+'password' => Hash::make($request->password)
+]);
 return response()->json(['status'=>1,'msg'=> "Password changed successfully!"]);
 }
 }

@@ -14,8 +14,6 @@ class RoleController extends Controller
     public function index()
     {
         $roles = RoleService::getRoles();
-
-
         return view('admin.role.index', compact('roles'));
     }
 

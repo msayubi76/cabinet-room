@@ -1,14 +1,9 @@
 <?php
-
 namespace App\Services;
-
-
-
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\ProductRequest;
-
 class ProductService
 {
     public static function getProducts(){
@@ -42,20 +37,5 @@ class ProductService
         $data = $request->validated();
 
         $product->update($data);
-
-        DB::commit();
-        $response = ['status' => true, 'message' => 'Product updated successfully.', 'product' => $product];
-        return $response;
     }
-
-    public static function destroy($id)
-    {
-        DB::beginTransaction();
-        $product = Product::findorFail($id);
-        $product->delete();
-        DB::commit();
-        $response = ['status' => true, 'message' => ' product removed successfully.'];
-        return $response;
-    }
-
 }

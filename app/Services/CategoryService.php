@@ -2,44 +2,22 @@
 
 namespace App\Services;
 
-
-
 use App\Models\Category;
 use Illuminate\Support\Facades\DB;
-
 use App\Traits\FileUploadTrait;
 use App\Http\Requests\CategoryRequest;
 
 class CategoryService
 {
-    public static function getCategory(){
 
-            $category = Category::orderBy('id', 'DESC')->paginate(30);
-            return $category;
-
-    }
-
-    public static function store(CategoryRequest $request)
+    public static function getCategory()
     {
-        DB::beginTransaction();
-        $data = $request->validated();
-        if ($request->hasFile('profile')) :
-            $image_name = FileUploadTrait::fileUpload($request->profile, 'profile');
-
-            $data['folder_name'] = 'profile';
-            $data['image_name'] =  $image_name;
-            $data['image_url'] = url('/storage/category/' . $image_name);
-        endif;
-        $data['is_active'] =  $request->is_active == true ? '1' : '0';
-
-        $category = Category::create($data);
-        DB::commit();
-        $response = ['status' => true, 'message' => 'category added successfully.', 'category' => $category];
-
-        return $response;
+        $category = Category::orderBy('id', 'DESC')->paginate(30);
+        return $category;
     }
 
-    public static function update(CategoryRequest $request, Category $category){
+    public static function update(CategoryRequest $request, Category $category)
+    {
         DB::beginTransaction();
         $data = $request->validated();
 
@@ -51,18 +29,24 @@ class CategoryService
         return $response;
     }
 
-    public static function destroy($id)
+
+    public static function store(CategoryRequest $request)
     {
         DB::beginTransaction();
-        $category = Category::findorFail($id);
-        $category->subcategories()->delete();
-        $category->products()->delete();
-
-        $category->delete();
+        $data = $request->validated();
+        if ($request->hasFile('profile')) :
+            $image_name = FileUploadTrait::fileUpload($request->profile, 'profile');
+            $data['folder_name'] = 'profile';
+            $data['image_name'] =  $image_name;
+            $data['image_url'] = url('/storage/category/' . $image_name);
+        endif;
+        // $data['is_active'] =  $request->is_active == true ? '1' : '0';
+        $category = Category::create($data);
         DB::commit();
-        $response = ['status' => true, 'message' => 'category removed With Subcategory and realted Products successfully.'];
+        $response = ['status' => true, 'message' => 'category added successfully.', 'category' => $category];
         return $response;
     }
+
 
 
 

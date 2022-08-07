@@ -1,20 +1,13 @@
 <?php
-
 namespace App\Services;
-
-
-
-
 use App\Models\Category;
 
 use App\Models\Sub_Category;
+use App\Models\SubCategory;
 use App\Traits\FileUploadTrait;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SubCategoryRequest;
-
-
-class SubCategoryService
-{
+class SubCategoryService {
     public static function getSubCategory(){
 
             $sub_category = Sub_Category::orderBy('id', 'DESC')->paginate(30);
@@ -40,7 +33,7 @@ class SubCategoryService
 
         $subcategory = Sub_Category::create($data);
         DB::commit();
-        $response = ['status' => true, 'message' => 'SubCategory added successfully.', 'subcategory' => $subcategory];
+        $response = ['status' => true, 'message' => 'Sub category added successfully.', 'subcategory' => $subcategory];
 
         return $response;
     }
@@ -50,7 +43,7 @@ class SubCategoryService
         $data = $request->validated();
         $subcategory->update($data);
         DB::commit();
-        $response = ['status' => true, 'message' => ' SubCategory updated successfully.', 'subcategory' => $subcategory];
+        $response = ['status' => true, 'message' => ' Sub category updated successfully.', 'subcategory' => $subcategory];
         return $response;
     }
 
@@ -64,7 +57,6 @@ class SubCategoryService
         $response = ['status' => true, 'message' => 'Subcategory removed with related Products successfully.'];
         return $response;
     }
-
 
 
 }

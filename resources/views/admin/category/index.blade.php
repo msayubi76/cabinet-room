@@ -137,7 +137,8 @@
                             <label class="col-lg-4 col-form-label form-check-label" for="name">
 
                                 <input type="checkbox" class="form-check-input" name="is_active" value="1">status </label>
-                                <div id="image_text" class="text-danger backend-error-text"></div>
+                                <div id="is_active_text" class="text-danger backend-error-text"></div>
+
 
                         </div>
 
@@ -167,7 +168,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="form-valide" id="edit-category-form" method="post" enctype="multipart/form-data">
+                {{-- <form class="form-valide" id="edit-category-form" method="post" enctype="multipart/form-data">
                     @csrf
 
                     <div class="form-validation">
@@ -215,7 +216,58 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="button" id="button-update" onclick="editCategory(this)"  class="btn btn-primary">Edit Category</button>
                     </div>
+                </form> --}}
+                <form class="form-valide" id="edit-category-form" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" value="-1" id="category_id">
+                            <input type="hidden" value="PUT" name="_method">
+
+                            <div class="form-validation">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
+                            <img id="edit_image_preview" src="{{ url('images/profile/62a7764c8bf14.jpg') }}" alt=""
+                                        width="120" class="rounded-circle border border-dark" />
+                               </div>
+                    </div>
+
+                        <div class="form-group ">
+
+                            <label class="col-lg-4 col-form-label" for="name">Name <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" id="edit_name" name="name"
+                            placeholder="Enter a name.." value="">
+                        <div id="edit_name_text" class="text-danger backend-error-text"></div>
+                    </div>
+
+                        <div class="form-group ">
+                           <label class="col-lg-4 col-form-label" for="name">Image <span class="text-danger">*</span>
+                            </label>
+                            <input type="file" class="form-control" id="edit_profile" name="profile"
+                            placeholder="Enter a name.." value="">
+                        <div id="edit_profile_text" class="text-danger backend-error-text"></div>
+
+                        </div>
+                        <div class="form-group ">
+
+
+                            <label class="col-lg-4 col-form-label form-check-label" for="name">
+
+                                <input type="checkbox" id="edit_is_active" name="is_active"  value=""> Status </label>
+                                <div id="edit_is_active" class="text-danger backend-error-text"></div>
+
+                        </div>
+
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" id="button-update" onclick="editCategory(this)"  class="btn btn-primary">Edit Category</button>
+                    </div>
                 </form>
+
+
+
             </div>
         </div>
     </div>
