@@ -154,7 +154,7 @@
                     <div class="product-action">
                         <input type="hidden" value="{{$product->id}}" class="product_id">
                         <div class="product-single-qty">
-                            <input class="horizontal-quantity form-control" type="text">
+                            <input class="horizontal-quantity form-control" name="quantity" type="text">
                         </div>
                         <!-- End .product-single-qty -->
 

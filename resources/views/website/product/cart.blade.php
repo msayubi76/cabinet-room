@@ -28,6 +28,7 @@
                                 <th class="text-right">Subtotal</th>
                             </tr>
                         </thead>
+
                         <tbody >
                             @php $total = 0; @endphp
                             @php $alltotal = 0; @endphp
@@ -50,67 +51,21 @@
                                 </td>
                                 <td>{{$cartlist->product->discount}}</td>
                                 <td>
-
+                                    <input type="hidden" class="product_id" name="product_id[]" value={{$cartlist->product_id}} >
                                     <div class="product-single-qty">
-                                        <input type="hidden" class="product_id" value={{$cartlist->product_id}} >
-                                        <input class="horizontal-quantity form-control" type="text" value="{{$cartlist->quantity}}">
+
+                                        <input class="horizontal-quantity form-control" name="quantity" type="text" value="{{$cartlist->quantity}}">
                                     </div><!-- End .product-single-qty -->
                                 </td>
                                 @php $total =$cartlist->product->discount * $cartlist->quantity ; @endphp
                                 <td class="text-right"><span class="subtotal-price"></span>{{ $total }}</td>
                             </tr>
+
+
                             @php $alltotal +=$cartlist->product->discount * $cartlist->quantity ; @endphp
                             @endforeach
-
-
-                            {{-- <tr class="product-row">
-                                <td>
-                                    <figure class="product-image-container">
-                                        <a href="product.html" class="product-image">
-                                            <img src="assets/images/products/product-3.jpg" alt="product">
-                                        </a>
-
-                                        <a href="#" class="btn-remove icon-cancel" title="Remove Product"></a>
-                                    </figure>
-                                </td>
-                                <td class="product-col">
-                                    <h5 class="product-title">
-                                        <a href="product.html">Men Watch</a>
-                                    </h5>
-                                </td>
-                                <td>$17.90</td>
-                                <td>
-                                    <div class="product-single-qty">
-                                        <input class="horizontal-quantity form-control" type="text">
-                                    </div><!-- End .product-single-qty -->
-                                </td>
-                                <td class="text-right"><span class="subtotal-price">$17.90</span></td>
-                            </tr>
-
-                            <tr class="product-row">
-                                <td>
-                                    <figure class="product-image-container">
-                                        <a href="product.html" class="product-image">
-                                            <img src="assets/images/products/product-6.jpg" alt="product">
-                                        </a>
-
-                                        <a href="#" class="btn-remove icon-cancel" title="Remove Product"></a>
-                                    </figure>
-                                </td>
-                                <td class="product-col">
-                                    <h5 class="product-title">
-                                        <a href="product.html">Men Black Gentle Belt</a>
-                                    </h5>
-                                </td>
-                                <td>$17.90</td>
-                                <td>
-                                    <div class="product-single-qty">
-                                        <input class="horizontal-quantity form-control" type="text">
-                                    </div><!-- End .product-single-qty -->
-                                </td>
-                                <td class="text-right"><span class="subtotal-price">$17.90</span></td>
-                            </tr> --}}
                         </tbody>
+
 
 
                         <tfoot>
@@ -240,6 +195,7 @@ $(document).ready(function () {
     $('.delete-cart-item').click(function (e) {
         e.preventDefault();
         var product_id = $(this).closest('.product_data').find('.product_id').val();
+alert(product_id);
 
         $.ajaxSetup({
         headers: {
@@ -264,24 +220,27 @@ $(document).ready(function () {
     });
     $('.update-cart').click(function (e) {
     e.preventDefault();
-    var product_id = $(this).closest('.product_data').find('.product_id').val();
+
+    var update_product_id = $(this).closest('.product_data').find('.product_id').val();
     var quantity = $(this).closest('.product_data').find('.horizontal-quantity').val();
-    alert(product_id);
+    alert(update_product_id);
     alert(quantity);
+    data = {
+        'product_id':update_product_id,
+        'quantity' :quantity,
+    }
 
 
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
+
     });
     $.ajax({
         method: "POST",
         url: "update",
-        data: {
-        'product_id':product_id,
-        'quantity' :quantity,
-    },
+        data: data,
 
         success: function (response) {
             // window.location.reload();

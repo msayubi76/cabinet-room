@@ -57,7 +57,7 @@ public function update(Request $request){
         $product_id =$request->product_id;
         $quantity =$request->quantity;
 
-        if(Cart::where('product_id',$product_id)->where('user_id',Auth::id())->exists())
+        if(Cart::where('product_id',$product_id)->where('user_id',Auth::id())->first())
         {
         $update_cart = Cart::where('product_id',$product_id)->where('user_id',Auth::id())->first();
 
