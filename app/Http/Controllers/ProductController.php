@@ -28,6 +28,7 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         try {
+
             $product_response = ProductService::store($request);
             return $product_response;
         } catch (\Throwable $th) {
@@ -60,7 +61,6 @@ class ProductController extends Controller
             return $th;
         }
     }
-
 
     public function getSubCategory(Request $request)
     {

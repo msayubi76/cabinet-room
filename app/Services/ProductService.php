@@ -1,9 +1,14 @@
 <?php
+
 namespace App\Services;
+
+
+
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\ProductRequest;
+use App\Traits\FileUploadTrait;
 class ProductService
 {
     public static function getProducts(){
@@ -19,6 +24,12 @@ class ProductService
     {
         DB::beginTransaction();
         $data = $request->validated();
+        if ($request->hasFile('feature_image')) :
+            $image_name = FileUploadTrait::fileUpload($request->feature_image, 'products');
+            $data['folder_name'] = 'products';
+            $data['feature_image_name'] =  $image_name;
+            $data['feature_image'] = url('/storage/products/' . $image_name);
+        endif;
 
         $product = Product::create($data);
         DB::commit();
@@ -37,5 +48,20 @@ class ProductService
         $data = $request->validated();
 
         $product->update($data);
+
+        DB::commit();
+        $response = ['status' => true, 'message' => 'Product updated successfully.', 'product' => $product];
+        return $response;
     }
+
+    public static function destroy($id)
+    {
+        DB::beginTransaction();
+        $product = Product::findorFail($id);
+        $product->delete();
+        DB::commit();
+        $response = ['status' => true, 'message' => ' product removed successfully.'];
+        return $response;
+    }
+
 }

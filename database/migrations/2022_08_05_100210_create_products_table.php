@@ -23,6 +23,8 @@ return new class extends Migration
             $table->decimal('discount')->nullable();
             $table->decimal('shipping_charge')->nullable();
             $table->string('colour')->nullable();
+            $table->string('folder_name')->nullable();
+            $table->string('feature_image_name')->nullable();
             $table->string('feature_image')->nullable();
             $table->double('length')->nullable();
             $table->double('width')->nullable();

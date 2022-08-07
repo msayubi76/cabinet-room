@@ -22,10 +22,10 @@ class Category extends Model
 
     public function subcategories()
     {
-        return $this->hasMany(Sub_Category::class,'category_id','id');
+        return $this->hasMany(Sub_Category::class,'category_id');
     }
     public function products()
     {
-        return $this->hasMany(Product::class,'category_id','id');
+        return $this->hasMany(Product::class,'category_id');
     }
 }

@@ -10,11 +10,16 @@ use App\Http\Requests\SubCategoryRequest;
 
 class SubCategoryController extends Controller
 {
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $categories = SubCategoryService::getSubCategory();
         $category = Category::get();
+
         return view('admin.subcategory.index', compact('categories', 'category'));
     }
 
@@ -27,6 +32,7 @@ class SubCategoryController extends Controller
             return $th;
         }
     }
+
 
 
     public function update(SubCategoryRequest $request, Sub_Category $subcategory)

@@ -9,13 +9,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FrontendController::class, 'index']);
 Route::get('/products', [FrontendController::class, 'products']);
-Route::get('/singleproduct/{id}', [FrontendController::class, 'singleproduct']);
+Route::get('/singleproduct/{id}', [FrontendController::class, 'singleproduct'])->name('website.single-product');
 
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::post('add-to-cart', [CartController::class, 'addproduct']);
-    Route::get('cart', [CartController::class, 'viewcart']);
+    Route::post('add-to-cart', [CartController::class, 'addProduct']);
+    Route::get('cart', [CartController::class, 'viewCart']);
     Route::post('update', [CartController::class, 'update']);
     Route::get('delete', [CartController::class, 'delete']);
 });
