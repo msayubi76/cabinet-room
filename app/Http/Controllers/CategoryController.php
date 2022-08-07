@@ -17,6 +17,7 @@ class CategoryController extends Controller
     public function index()
     {
             $categories = CategoryService::getCategory();
+            
             return view('admin.category.index',compact('categories'));
 
 

@@ -26,7 +26,12 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            
+            $table->foreignId('created_by')->nullable()->constrained('users')->cascadeOnDelete() ;
+            $table->foreignId('updated_by')->nullable()->constrained('users')->cascadeOnDelete() ;
+            $table->foreignId('deleted_by')->nullable()->constrained('users')->cascadeOnDelete();
             $table->timestamps();
+
         });
     }
 

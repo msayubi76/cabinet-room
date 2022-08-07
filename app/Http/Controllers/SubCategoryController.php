@@ -17,19 +17,17 @@ class SubCategoryController extends Controller
      */
     public function index()
     {
-            $categories = SubCategoryService::getSubCategory();
-            $category = Category::get();
+        $categories = SubCategoryService::getSubCategory();
+        $category = Category::get();
 
-            return view('admin.subcategory.index',compact('categories','category'));
-
-
+        return view('admin.subcategory.index', compact('categories', 'category'));
     }
 
-    public function store(SubCategoryRequest $request){
+    public function store(SubCategoryRequest $request)
+    {
         try {
             $sub_category_response = SubCategoryService::store($request);
             return $sub_category_response;
-
         } catch (\Throwable $th) {
             return $th;
         }
@@ -37,20 +35,22 @@ class SubCategoryController extends Controller
 
 
 
-    public function update(SubCategoryRequest $request,Sub_Category $subcategory){
+    public function update(SubCategoryRequest $request, Sub_Category $subcategory)
+    {
         try {
-           $sub_category_response = SubCategoryService::update($request,$subcategory);
-           return $sub_category_response;
+            $sub_category_response = SubCategoryService::update($request, $subcategory);
+            return $sub_category_response;
         } catch (\Throwable $th) {
-           return $th;
+            return $th;
         }
     }
-    public function destroy($id){
-       try {
+    public function destroy($id)
+    {
+        try {
             $sub_category_response = SubCategoryService::destroy($id);
             return $sub_category_response;
-       } catch (\Throwable $th) {
-           return $th;
-       }
+        } catch (\Throwable $th) {
+            return $th;
+        }
     }
 }

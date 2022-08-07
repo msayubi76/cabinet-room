@@ -30,9 +30,9 @@
                                     @foreach ($categories as $category)
                                         <tr id='row_{{ $category->id }}'>
                                             <td>{{ $category->name }}</td>
-                                            <td><img src="{{asset('/storage/category/' . $category->profile)}}" alt=""></td>
+                                            <td><img src="{{$category->image_url}}" alt=""></td>
 
-                                           <td> {{$category->is_active == '1' ? 'Hidden':'Show' }}</td>
+                                           <td> {{$category->is_active == '1' ? 'hidden':'show' }}</td>
 
 
 
@@ -195,9 +195,9 @@
                             <label class="col-lg-4 col-form-label" for="name">Name <span class="text-danger">*</span>
                             </label>
                             <div class="col-lg-6">
-                        <input type="file" class="form-control" id="edit_profile" name="profile"
+                        <input type="file" class="form-control" id="edit_category_image" name="category_image"
                         placeholder="Enter a name.." value="">
-                    <div id="edit_profile_text" class="text-danger backend-error-text"></div>
+                    <div id="edit_category_image_text" class="text-danger backend-error-text"></div>
                         </div>
                     </div>
                     <div class="form-group ">
