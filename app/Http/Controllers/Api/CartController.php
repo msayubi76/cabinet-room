@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers\Api;
+
 use App\Models\Cart;
 use App\Models\Product;
 use App\Models\Category;
@@ -12,80 +14,75 @@ use League\CommonMark\Extension\CommonMark\Node\Inline\Strong;
 class CartController extends Controller
 {
 
-public function addproduct(Request $request){
-try {
-    $product_id =$request->product_id;
-    $quantity =$request->quantity;
-    $product = Product::where('id',$product_id)->first();
-    if($product){
-      if(Cart::where('product_id',$product_id)->where('user_id',Auth::id())->exists())
+    public function addProduct(Request $request)
     {
-    return response()->json(['status'=> $product->name. 'Product is Alredy Added']);
+        try {
+            $product_id = $request->product_id;
+            $quantity = $request->quantity;
+            $product = Product::where('id', $product_id)->first();
+            if ($product) {
+                if (Cart::where('product_id', $product_id)->where('user_id', Auth::id())->exists()) {
+                    return response()->json(['status' => $product->name . 'Product is Alredy Added']);
+                } else {
+                    $cart = new Cart();
+                    $cart->product_id = $product_id;
+                    $cart->user_id = Auth::id();
+                    $cart->quantity = $quantity;
+                    $cart->save();
+                    return response()->json(['status' =>  $product->name . ' has been added to your cart']);
+                }
+            }
+            return response()->json(['status' => 'loggin to continue']);
+        } catch (\Throwable $th) {
+            return $th;
+        }
     }
-    else
+
+    public function viewCart()
     {
-        $cart = new Cart();
-        $cart->product_id = $product_id;
-        $cart->user_id = Auth::id();
-        $cart->quantity = $quantity;
-        $cart->save();
-        return response()->json(['status'=>  $product->name.' has been added to your cart']);
-    }
-    }
-    return response()->json(['status'=>'loggin to continue']);
-    }
-    catch (\Throwable $th) {
-    return $th;
-    }
-}
-
-public function viewcart(){
-try{
-    $category = Category::where('is_active', '0')->get();
-    $subcategory = Sub_Category::where('is_active', '0')->get();
-    $cart = Cart::where('user_id',Auth::id())->get();
-    return view('website.product.cart',compact('category', 'subcategory', 'cart'));
-    }
-    catch (\Throwable $th) {
-    return $th;
-    }
-}
-
-public function update(Request $request){
-
-    try{
-        $product_id =$request->product_id;
-        $quantity =$request->quantity;
-
-        if(Cart::where('product_id',$product_id)->where('user_id',Auth::id())->exists())
-        {
-        $update_cart = Cart::where('product_id',$product_id)->where('user_id',Auth::id())->first();
-
-        $update_cart->quantity = $quantity;
-        $update_cart->update();
-        return response()->json(['status' => 'Cart Iteam updated Successfully.']);
+        try {
+            $category = Category::where('is_active', '0')->get();
+            $subcategory = Sub_Category::where('is_active', '0')->get();
+            $cart = Cart::where('user_id', Auth::id())->get();
+            return view('website.product.cart', compact('category', 'subcategory', 'cart'));
+        } catch (\Throwable $th) {
+            return $th;
+        }
     }
 
-    return response()->json(['status'=>'loggin 22 to continue']);
-}
-catch (\Throwable $th) {
-    return $th;
-    }
-}
+    public function update(Request $request)
+    {
 
-public function delete(Request $request){
-try{
-    $product_id =$request->product_id;
-    if(Cart::where('product_id',$product_id)->where('user_id',Auth::id())->exists())
-   {
-        $cart = Cart::where('product_id',$product_id)->where('user_id',Auth::id())->first();
-        $cart->delete();
-        return response()->json(['status'=>'Product deleted successfully from cart']);
-   }
-      return response()->json(['status'=>'loggin to continue']);
-  }
-    catch (\Throwable $th) {
-    return $th;
-  }
-}
+        try {
+            $product_id = $request->product_id;
+            $quantity = $request->quantity;
+
+            if (Cart::where('product_id', $product_id)->where('user_id', Auth::id())->exists()) {
+                $update_cart = Cart::where('product_id', $product_id)->where('user_id', Auth::id())->first();
+
+                $update_cart->quantity = $quantity;
+                $update_cart->update();
+                return response()->json(['status' => 'Cart Iteam updated successfully.']);
+            }
+
+            return response()->json(['status' => 'loggin 22 to continue']);
+        } catch (\Throwable $th) {
+            return $th;
+        }
+    }
+
+    public function delete(Request $request)
+    {
+        try {
+            $product_id = $request->product_id;
+            if (Cart::where('product_id', $product_id)->where('user_id', Auth::id())->exists()) {
+                $cart = Cart::where('product_id', $product_id)->where('user_id', Auth::id())->first();
+                $cart->delete();
+                return response()->json(['status' => 'Product deleted successfully from cart']);
+            }
+            return response()->json(['status' => 'loggin to continue']);
+        } catch (\Throwable $th) {
+            return $th;
+        }
+    }
 }

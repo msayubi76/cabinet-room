@@ -23,6 +23,8 @@ class Product extends Model
         'shipping_charge',
         'colour',
         'feature_image',
+        'feature_image_name',
+        'folder_name',
 
         'length',
         'width',

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Sub_Category;
@@ -12,47 +13,54 @@ use Illuminate\Auth\Events\Validated;
 
 class ProductController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $product = ProductService::getproducts();
-        return view('admin.product.index',compact('product'));
-       }
+        return view('admin.product.index', compact('product'));
+    }
 
-       public function create(){
+    public function create()
+    {
         $category = Category::all();
-        return view('admin.product.create',compact('category'));
-       }
+        return view('admin.product.create', compact('category'));
+    }
 
-       public function store(ProductRequest $request){
+    public function store(ProductRequest $request)
+    {
         try {
+           
             $product_response = ProductService::store($request);
             return $product_response;
         } catch (\Throwable $th) {
             return $th;
         }
-       }
-       public function edit($id){
+    }
+    public function edit($id)
+    {
         $product = Product::find($id);
         $category = Category::all();
 
-            return view('admin.product.edit',compact('product','category'));
-           }
-
-       public function update(ProductRequest $request, Product $product){
-        try {
-           $product_response = ProductService::update($request,$product);
-           return $product_response;
-        } catch (\Throwable $th) {
-           return $th;
-        }
+        return view('admin.product.edit', compact('product', 'category'));
     }
-    public function destroy($id){
+
+    public function update(ProductRequest $request, Product $product)
+    {
         try {
-             $product_response = ProductService::destroy($id);
-             return $product_response;
+            $product_response = ProductService::update($request, $product);
+            return $product_response;
         } catch (\Throwable $th) {
             return $th;
         }
-     }
+    }
+    public function destroy($id)
+    {
+        try {
+            $product_response = ProductService::destroy($id);
+            return $product_response;
+        } catch (\Throwable $th) {
+            return $th;
+        }
+    }
 
     //    public function store(ProductRequest $request){
     //     $data =$request->Validated();
@@ -100,9 +108,9 @@ class ProductController extends Controller
     //     $product = Product::find($id);
     //     return view('admin.product.update',compact('product'));
     //    }
-       public function getSubCategory(Request $request){
+    public function getSubCategory(Request $request)
+    {
         // return $request;
-         return Sub_Category::where('category_id',$request->id)->get();
-     }
-
+        return Sub_Category::where('category_id', $request->id)->get();
+    }
 }
