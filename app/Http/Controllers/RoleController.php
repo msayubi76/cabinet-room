@@ -61,7 +61,7 @@ class RoleController extends Controller
     {
         try {
             $role_response = RoleService::storeAttachPermissions($request);
-            return $role_response;
+            return redirect(route('roles.index'))->with('success', 'Permission attached succesfully');
         } catch (\Throwable $th) {
            return $th;
         }

@@ -21,8 +21,12 @@ class UserController extends Controller
     public function index()
     {
 
-        $users = UserService::getUsers();
-        return view('admin.user.index', compact('users'));
+        try {
+            $users = UserService::getUsers();
+            return view('admin.user.index', compact('users'));
+        } catch (\Throwable $th) {
+            dd($th);
+        }
     }
     public function profile()
     {
@@ -46,7 +50,7 @@ class UserController extends Controller
             $user_response = UserService::update($request, $user);
             return $user_response;
         } catch (\Throwable $th) {
-            return $th;
+            return response()->json(['status' => false, 'message' => $th->getMessage()]);
         }
     }
     public function destroy($id)
@@ -59,14 +63,14 @@ class UserController extends Controller
         }
     }
 
+
     public function updateinfo(UserRequest $request)
     {
         try {
-
             $user_response = UserService::update($request, auth()->user());
             return $user_response;
         } catch (\Throwable $th) {
-            return $th;
+            return response()->json(['status' => false, 'message' => $th->getMessage()]);
         }
     }
 

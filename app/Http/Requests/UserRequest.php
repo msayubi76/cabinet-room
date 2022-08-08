@@ -29,11 +29,15 @@ class UserRequest extends FormRequest
     public function rules(Request $request)
     {
         $route_id = $request->route('user');
-        if(empty($route_id) ):
+
+
+        if(empty($route_id) && $request->isMethod('put') ):
             $route_id = auth()->user()->id;
-
-
         endif;
+
+
+
+
         $rules =  [
             'fist_name' => [ 'required', 'alpha', 'max:255'],
             'last_name' => ['required', 'alpha', 'max:255'],
@@ -51,7 +55,7 @@ class UserRequest extends FormRequest
 
         if((!empty($request->route('user') || !$request->isMethod('put') ) ) &&   !$request->isMethod('put') )  :
 
-            $rules['password'] = ['required', 'confirmed'];
+            // $rules['password'] = ['required', 'confirmed'];
 
 
 

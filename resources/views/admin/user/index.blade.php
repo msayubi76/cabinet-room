@@ -51,16 +51,15 @@
                                                                 <a class="dropdown-item"
                                                                     onclick="openViewModal({{ $user }})">View</a>
                                                                 <a class="dropdown-item"
-                                                                href="javascript:openEditModal({{ json_encode($user) }})">Edit</a>
-                                                                <a class="dropdown-item" href="javascript:openDeleteDialog({{ $user->id }})">Delete</a>
+                                                                    href="javascript:openEditModal({{ json_encode($user) }})">Edit</a>
+                                                                <a class="dropdown-item"
+                                                                    href="javascript:openDeleteDialog({{ $user->id }})">Delete</a>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </td>
                                         </tr>
-
-
                                     @endforeach
                                 </tbody>
 
@@ -71,16 +70,15 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="deleteModal" tabindex="-1"
-        role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <input type="hidden" value="-1" id="deleteID">
                     <h5 class="modal-title" id="exampleModalLongTitle">Delete User
                     </h5>
-                    <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -88,10 +86,8 @@
                     Are you sure you want to delete this user?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                        data-dismiss="modal">No</button>
-                    <button type="button" id="button-delete" class="btn btn-primary"
-                        onclick="deleteUser()">Yes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button type="button" id="button-delete" class="btn btn-primary" onclick="deleteUser()">Yes</button>
                 </div>
             </div>
         </div>
@@ -112,7 +108,7 @@
                         <div class="row">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
                                 <img id="image_preview" src="{{ url('images/profile/default_image.png') }}" alt=""
-                                style="max-width: 120Px;"  class="rounded-circle border border-dark" />
+                                    style="max-width: 120Px;" class="rounded-circle border border-dark" />
                             </div>
                         </div>
                         <div class="form-validation">
@@ -121,7 +117,7 @@
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="fist_name" name="fist_name"
                                         placeholder="Fist Name" :value="old('fist_name')">
-                                    <div id="fist_name_text"  class="text-danger backend-error-text"></div>
+                                    <div id="fist_name_text" class="text-danger backend-error-text"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="last_name" name="last_name"
@@ -181,8 +177,8 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="password" class="form-control" id="password" name="password_confirmation"
-                                        placeholder=" Confirm it!">
+                                    <input type="password" class="form-control" id="password"
+                                        name="password_confirmation" placeholder=" Confirm it!">
                                     <div id="confirmed_text" class="text-danger"></div>
                                 </div>
                             </div>
@@ -191,7 +187,8 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button"  id="button-save" onclick="submitUser(this)" class="btn btn-primary">Add User</button>
+                            <button type="button" id="button-save" onclick="submitUser(this)"
+                                class="btn btn-primary">Add User</button>
                         </div>
                     </form>
 
@@ -219,8 +216,8 @@
                         <div class="row">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
 
-                                <img id="edit_image_preview" src="{{ url('images/profile/62a7764c8bf14.jpg') }}" alt=""
-                                    width="120" class="rounded-circle border border-dark" />
+                                <img id="edit_image_preview" src="{{ url('images/profile/62a7764c8bf14.jpg') }}"
+                                    alt="" width="120" class="rounded-circle border border-dark" />
                             </div>
                         </div>
                         <div class="form-validation">
@@ -277,7 +274,7 @@
                                 </div>
                             </div>
 
-                           <div class="form-group row">
+                            <div class="form-group row">
 
                                 <div class="col-lg-6">
 
@@ -287,7 +284,8 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" id="button-update" onclick="editUser(this)" class="btn btn-primary">Edit User</button>
+                            <button type="button" id="button-update" onclick="editUser(this)"
+                                class="btn btn-primary">Edit User</button>
                         </div>
                     </form>
                 </div>
@@ -308,8 +306,8 @@
                         @csrf
                         <div class="row">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
-                                <img id="view_image_preview" src="{{ url('images/profile/default_image.png') }}" alt=""
-                                    width="120" class="rounded-circle border border-dark" />
+                                <img id="view_image_preview" src="{{ url('images/profile/default_image.png') }}"
+                                    alt="" width="120" class="rounded-circle border border-dark" />
                             </div>
                         </div>
                         <div class="form-validation">
@@ -338,344 +336,349 @@
     </div>
 @endsection
 @section('scripts')
-<script>
-    profile.onchange = evt => {
-    const [file] = profile.files
-    console.log('file', file);
-    if (file) {
-        image_preview.src = URL.createObjectURL(file)
-    }
-}
-edit_profile.onchange = evt => {
-    const [file] = edit_profile.files
-    if (file) {
-        edit_image_preview.src = URL.createObjectURL(file)
-    }
-}
-
-
-
-
-
-function submitUser() {
-
-    var form = $('#user-form')[0];
-    $("#button-save").text('Loading...');
-
-    const myFormData = new FormData(form);
-    const formDataObj = {};
-    myFormData.forEach((value, key) => (formDataObj[key] = value));
-    console.log(formDataObj);
-    $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
-        },
-        url: "/admin/users", // the endpoint
-        type: "POST", // http method
-        processData: false,
-        contentType: false,
-        data: myFormData,
-        beforeSend: function () {
-            $('.backend-error-text').text('')
-            $("#button-save").prop("disabled", true);
-        },
-        success: function (data) {
-
-            $("#button-save").prop("disabled", false);
-            $("#button-save").text("Add User");
-            console.log('data',data);
-            swal({
-                title: "",
-                text: data.message,
-                icon: "success",
-              });
-              $(form)
-            .find('[type="button"]')
-            .prop("disabled", false);
-            document.getElementById("user-form").reset();
-
-            console.log(data);
-            dataarray.push(data);
-            var index = (dataarray.length)-1;
-
-            var string =
-            `<tr id="row_${data.user.id}">
-                <td>${data.user.fist_name}</td>
-                <td>${data.user.last_name}</td>
-                <td>${data.user.email}</td>
-                <td>${data.user.email_verified_at == undefined ? "Not Approved" : "Approved"}</td>
-                <td>
-                    <div class="button-group">
-                        <div class="btn-group">
-                            <div class="btn-group"><button id="btnGroupDrop${data.user.id}" type="button"
-                                    class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button>
-                                <div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal(${data.user})">View</a>
-                                    <a class="dropdown-item" href="javascript:openEditIndexModal(${index})">Edit</a><a
-                                        class="dropdown-item" href="javascript:openDeleteDialog(${data.user.id});">Delete</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>`
-            $("#table_id").append(string);
-
-            $('#addUserModal').modal('hide');
-
-        },
-        error: function (error) {
-            $("#button-save").prop("disabled", false);
-            $("#button-save").text("Add User");
-
-            var errorMessage = error.statusText;
-            var sweetMessage = error.statusText;
-            if (error.status == 422) {
-                errorMessage = handleValidationErrors(error)
-                sweetMessage ='Invalid Data'
+    <script>
+        profile.onchange = evt => {
+            const [file] = profile.files
+            console.log('file', file);
+            if (file) {
+                image_preview.src = URL.createObjectURL(file)
             }
-            swal({
-                title: "Error",
-                text: sweetMessage,
-                icon: "error",
-              });
-
-
-        },
-    });
-}
-
-function editUser() {
-
-var form = $('#edit-user-form')[0];
-$("#button-update").text('Loading...');
-user_id = form.user_id.value;
-console.log('user_id ', user_id);
-
-
-const myFormData = new FormData(form);
-const formDataObj = {};
-myFormData.forEach((value, key) => (formDataObj[key] = value));
-console.log(formDataObj);
-
-$.ajax({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
-    },
-    url: "/admin/users/" + user_id, // the endpoint
-    type: "POST", // http method
-    processData: false,
-    contentType: false,
-    data: myFormData,
-    beforeSend: function () {
-        $(form)
-        $('.backend-error-text').text('')
-        $("#button-update").prop("disabled", true);
-    },
-    success: function (data) {
-        $("#button-update").prop("disabled", false);
-        $("#button-update").text("Edit User");
-
-        $(form)
-            .find('[type="button"]')
-            .prop("disabled", false);
-            swal({
-                title: "",
-                text: data.message,
-                icon: "success",
-              });
-              $(form)
-            .find('[type="button"]')
-            .prop("disabled", false);
-
-            dataarray.push(data);
-        var index = (dataarray.length)-1;
-         $("#row_"+data.user.id).remove();
-         var string =
-        `<tr id="row_${data.user.id}">
-            <td>${data.user.fist_name}</td>
-            <td>${data.user.last_name}</td>
-            <td>${data.user.email}</td>
-            <td>${data.user.email_verified_at == undefined ? "Not Approved" : "Approved"}</td>
-            <td>
-                <div class="button-group">
-                    <div class="btn-group">
-                        <div class="btn-group"><button id="btnGroupDrop${data.user.id}" type="button"
-                                class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button>
-                            <div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal(${data.user})">View</a>
-                                <a class="dropdown-item" href="javascript:openEditIndexModal(${index})">Edit</a><a
-                                    class="dropdown-item" href="javascript:openDeleteDialog(${data.user.id});">Delete</a></div>
-                        </div>
-                    </div>
-                </div>
-            </td>
-        </tr>`
-        $("#table_id").append(string);
-
-
-        $('#editModalUser').modal('hide');
-
-    },
-    error: function (error) {
-        $("#button-update").prop("disabled", false);
-        $("#button-update").text("Edit User");
-        var errorMessage = error.statusText;
-        var sweetMessage = error.statusText;
-        if (error.status == 422) {
-            errorMessage = handleValidationErrors(error, 'edit')
-            sweetMessage = 'Invalid Data'
         }
-        swal({
-            title: "Error",
-            text: sweetMessage,
-            icon: "error",
-          });
-
-
-
-    },
-});
-}
-var dataarray =[];
-function openEditIndexModal(index) {
-    console.log(dataarray)
-    document.getElementById('edit_fist_name').value = dataarray[index].user.fist_name;
-    document.getElementById('edit_last_name').value = dataarray[index].user.last_name;
-    document.getElementById('edit_mobile_no').value = dataarray[index].user.mobile_no;
-    document.getElementById('edit_address').value = dataarray[index].user.address;
-    document.getElementById('edit_city').value = dataarray[index].user.city;
-    document.getElementById('edit_region').value = dataarray[index].user.region;
-    document.getElementById('edit_email').value = dataarray[index].user.email;
-    document.getElementById('user_id').value = dataarray[index].user.id;
-
-
-
-    var image;
-    if (dataarray[index].user.image_url) {
-        image = dataarray[index].user.image_url;
-    } else {
-        image = base_url + '/storage/profile/62a7764c8bf14.jpg';
-    }
-    // document.getElementById('edit_profile').value = user.image_name;
-    $('#edit_image_preview').attr('src', image)
-    // document.getElementById('edit_image_preview').src = user.image_url;
-    $("#editModalUser").modal()
-}
-function openEditModal(user) {
-
-document.getElementById('edit_fist_name').value = user.fist_name;
-document.getElementById('edit_last_name').value = user.last_name;
-document.getElementById('edit_mobile_no').value = user.mobile_no;
-document.getElementById('edit_address').value = user.address;
-document.getElementById('edit_city').value = user.city;
-document.getElementById('edit_region').value = user.region;
-document.getElementById('edit_email').value = user.email;
-document.getElementById('user_id').value = user.id;
-
-
-
-var image;
-if (user.image_url) {
-    image = user.image_url;
-} else {
-    image = base_url + '/storage/profile/62a7764c8bf14.jpg';
-}
-// document.getElementById('edit_profile').value = user.image_name;
-$('#edit_image_preview').attr('src', image)
-// document.getElementById('edit_image_preview').src = user.image_url;
-$("#editModalUser").modal()
-}
-function openViewModal(user){
-    // document.getElementById('view_name').value = user.name;
-    // document.getElementById('view_email').value = user.email;
-    document.getElementById("view_fist_name").innerHTML = user.fist_name;
-    document.getElementById("view_last_name").innerHTML = user.last_name;
-    document.getElementById("view_mobile_no").innerHTML = user.mobile_no;
-    document.getElementById("view_address").innerHTML = user.address;
-    document.getElementById("view_city").innerHTML = user.city;
-    document.getElementById("view_region").innerHTML = user.region;
-    document.getElementById("view_profile").innerHTML = user.profile;
-
-    document.getElementById("view_email").innerHTML = user.email;
-
-    var image;
-    if (user.image_url) {
-        image = user.image_url;
-    } else {
-        image = base_url + '/storage/profile/default_image.png';
-    }
-    $('#view_image_preview').attr('src', image)
-    $("#viewModalUser").modal()
-}
-
-function openDeleteDialog(id) {
-    $("#deleteID").val(id);
-    $("#deleteModal").modal('show');
- }
-
-function deleteUser() {
-    $("#button-delete").text('Loading...');
-    $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-        },
-        url: "/admin/users/" + $("#deleteID").val(), // the endpoint
-        type: "DELETE", // http method
-        processData: false,
-        contentType: false,
-        success: function (data) {
-            $("#button-delete").prop("disabled", false);
-            $("#button-delete").text("Yes");
-            $('.alert-success').html(data.success).fadeIn('slow');
-            // $('.alert-success').delay(3000).fadeOut('slow');
-            document.getElementById("row_" + $("#deleteID").val()).remove();
-                 swal({
-                    title: "",
-                    text: data.message,
-                    icon: "success",
-                });
-                $('#deleteModal').modal('hide');
-        },
-        error: function (error) {
-            $("#button-delete").prop("disabled", false);
-            $("#button-delete").text("Yes");
-            alert(error);
-
-            // toastr.error(errorMessage, "Error");
-            // hideLoader();
-        },
-    });
-}
-
-function handleValidationErrors(error, type = 'create') {
-    let errors = error.responseJSON.errors;
-    var errorMessage = error.responseJSON.message
-    var element = '';
-    $.each(errors, function (key, item) {
-        element = key.split('.')
-        if (element.length > 1) {
-            element = `${element[0]}_${element[1]}`
-        } else {
-            element = `${element}`
+        edit_profile.onchange = evt => {
+            const [file] = edit_profile.files
+            if (file) {
+                edit_image_preview.src = URL.createObjectURL(file)
+            }
         }
-        // dataAttr = $(element).closest('.tab').data('id')
-        // $(`.step-${dataAttr}`).addClass('backend-error')
-        if (type == 'edit') {
-            console.log('edit',element);
-            $(`#edit_${element}_text`).text(item[0])
 
-        } else if (type == 'create') {
-            $(`#${element}_text`).text(item[0])
 
+
+
+
+        function submitUser() {
+
+            var form = $('#user-form')[0];
+            $("#button-save").text('Loading...');
+
+            const myFormData = new FormData(form);
+            const formDataObj = {};
+            myFormData.forEach((value, key) => (formDataObj[key] = value));
+            console.log(formDataObj);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
+                },
+                url: "/admin/users", // the endpoint
+                type: "POST", // http method
+                processData: false,
+                contentType: false,
+                data: myFormData,
+                beforeSend: function() {
+                    $('.backend-error-text').text('')
+                    $("#button-save").prop("disabled", true);
+                },
+                success: function(data) {
+
+                    $("#button-save").prop("disabled", false);
+                    $("#button-save").text("Add User");
+                    console.log('data', data);
+                    swal({
+                        title: "",
+                        text: data.message,
+                        icon: "success",
+                    });
+                    $(form)
+                        .find('[type="button"]')
+                        .prop("disabled", false);
+                    document.getElementById("user-form").reset();
+
+                    dataarray.push(data);
+                    var index = (dataarray.length) - 1;
+
+                    console.log('INDEX',index);
+                    const USER = JSON.stringify(data.user)
+
+                    var string =
+                        `<tr id="row_${data.user.id}">
+                                <td>${data.user.fist_name}</td>
+                                <td>${data.user.last_name}</td>
+                                <td>${data.user.email}</td>
+                                <td>${data.user.email_verified_at == undefined ? "Not Approved" : "Approved"}</td>
+                                <td>
+                                    <div class="button-group">
+                                        <div class="btn-group">
+                                            <div class="btn-group"><button id="btnGroupDrop${data.user.id}" type="button"
+                                                    class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button>
+                                                <div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal(${data.user})">View</a>
+                                                    <a class="dropdown-item" href="javascript:;" onclick='openEditModal(${USER})' >Edit</a><a
+                                                        class="dropdown-item" href="javascript:;" onclick="openDeleteDialog(${data.user.id})">Delete</a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>`
+                    $("#table_id").append(string);
+
+                    $('#addUserModal').modal('hide');
+
+                },
+                error: function(error) {
+                    $("#button-save").prop("disabled", false);
+                    $("#button-save").text("Add User");
+
+                    var errorMessage = error.statusText;
+                    var sweetMessage = error.statusText;
+                    if (error.status == 422) {
+                        errorMessage = handleValidationErrors(error)
+                        sweetMessage = 'Invalid Data'
+                    }
+                    swal({
+                        title: "Error",
+                        text: sweetMessage,
+                        icon: "error",
+                    });
+
+
+                },
+            });
         }
-    });
 
-    return errorMessage;
-}
-// function showLoader(message, options) {
-//   waitingDialog.show(message, options);
-// }
+        function editUser() {
 
+            var form = $('#edit-user-form')[0];
+            $("#button-update").text('Loading...');
+            user_id = form.user_id.value;
 
 
+            const myFormData = new FormData(form);
 
-</script>
+
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
+                },
+                url: "/admin/users/" + user_id, // the endpoint
+                type: "POST", // http method
+                processData: false,
+                contentType: false,
+                data: myFormData,
+                beforeSend: function() {
+                    $(form)
+                    $('.backend-error-text').text('')
+                    $("#button-update").prop("disabled", true);
+                },
+                success: function(data) {
+
+                    $("#button-update").prop("disabled", false);
+                    $("#button-update").text("Edit User");
+
+                    if (data.status == false) {
+                        swal({
+                            title: "Error",
+                            text: data.message,
+                            icon: "error",
+                        });
+                        return;
+                    }
+
+
+                    swal({
+                        title: "",
+                        text: data.message,
+                        icon: "success",
+                    });
+
+                    dataarray.push(data);
+                    var index = (dataarray.length) - 1;
+                    $("#row_" + data.user.id).remove();
+                    var string =
+                        `<tr id="row_${data.user.id}">
+                            <td>${data.user.fist_name}</td>
+                            <td>${data.user.last_name}</td>
+                            <td>${data.user.email}</td>
+                            <td>${data.user.email_verified_at == undefined ? "Not Approved" : "Approved"}</td>
+                            <td>
+                                <div class="button-group">
+                                    <div class="btn-group">
+                                        <div class="btn-group"><button id="btnGroupDrop${data.user.id}" type="button"
+                                                class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button>
+                                            <div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal(${data.user})">View</a>
+                                                <a class="dropdown-item" href="javascript:;" onclick="openEditModal(${data.user})">Edit</a><a
+                                                    class="dropdown-item" href="javascript:;" onclick="openDeleteDialog(${data.user.id})">Delete</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>`
+                    $("#table_id").append(string);
+
+
+                    $('#editModalUser').modal('hide');
+
+                },
+                error: function(error) {
+                    $("#button-update").prop("disabled", false);
+                    $("#button-update").text("Edit User");
+                    var errorMessage = error.statusText;
+                    var sweetMessage = error.statusText;
+                    if (error.status == 422) {
+                        errorMessage = handleValidationErrors(error, 'edit')
+                        sweetMessage = 'Invalid Data'
+                    }
+                    swal({
+                        title: "Error",
+                        text: sweetMessage,
+                        icon: "error",
+                    });
+
+
+
+                },
+            });
+        }
+        var dataarray = [];
+
+        function openEditIndexModal(index) {
+            document.getElementById('edit_fist_name').value = dataarray[index].user.fist_name;
+            document.getElementById('edit_last_name').value = dataarray[index].user.last_name;
+            document.getElementById('edit_mobile_no').value = dataarray[index].user.mobile_no;
+            document.getElementById('edit_address').value = dataarray[index].user.address;
+            document.getElementById('edit_city').value = dataarray[index].user.city;
+            document.getElementById('edit_region').value = dataarray[index].user.region;
+            document.getElementById('edit_email').value = dataarray[index].user.email;
+            document.getElementById('user_id').value = dataarray[index].user.id;
+
+
+
+            var image;
+            if (dataarray[index].user.image_url) {
+                image = dataarray[index].user.image_url;
+            } else {
+                image = base_url + '/storage/profile/62a7764c8bf14.jpg';
+            }
+            // document.getElementById('edit_profile').value = user.image_name;
+            $('#edit_image_preview').attr('src', image)
+            // document.getElementById('edit_image_preview').src = user.image_url;
+            $("#editModalUser").modal()
+        }
+
+        function openEditModal(user) {
+
+            console.log('openEditModal', user);
+
+            document.getElementById('edit_fist_name').value = user.fist_name;
+            document.getElementById('edit_last_name').value = user.last_name;
+            document.getElementById('edit_mobile_no').value = user.mobile_no;
+            document.getElementById('edit_address').value = user.address;
+            document.getElementById('edit_city').value = user.city;
+            document.getElementById('edit_region').value = user.region;
+            document.getElementById('edit_email').value = user.email;
+            document.getElementById('user_id').value = user.id;
+
+
+
+            var image;
+            if (user.image_url) {
+                image = user.image_url;
+            } else {
+                image = base_url + '/storage/profile/62a7764c8bf14.jpg';
+            }
+            // document.getElementById('edit_profile').value = user.image_name;
+            $('#edit_image_preview').attr('src', image)
+            // document.getElementById('edit_image_preview').src = user.image_url;
+            $("#editModalUser").modal()
+        }
+
+        function openViewModal(user) {
+            // document.getElementById('view_name').value = user.name;
+            // document.getElementById('view_email').value = user.email;
+            document.getElementById("view_fist_name").innerHTML = user.fist_name;
+            document.getElementById("view_last_name").innerHTML = user.last_name;
+            document.getElementById("view_mobile_no").innerHTML = user.mobile_no;
+            document.getElementById("view_address").innerHTML = user.address;
+            document.getElementById("view_city").innerHTML = user.city;
+            document.getElementById("view_region").innerHTML = user.region;
+            document.getElementById("view_profile").innerHTML = user.profile;
+
+            document.getElementById("view_email").innerHTML = user.email;
+
+            var image;
+            if (user.image_url) {
+                image = user.image_url;
+            } else {
+                image = base_url + '/storage/profile/default_image.png';
+            }
+            $('#view_image_preview').attr('src', image)
+            $("#viewModalUser").modal()
+        }
+
+        function openDeleteDialog(id) {
+            $("#deleteID").val(id);
+            $("#deleteModal").modal('show');
+        }
+
+        function deleteUser() {
+            $("#button-delete").text('Loading...');
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                url: "/admin/users/" + $("#deleteID").val(), // the endpoint
+                type: "DELETE", // http method
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    $("#button-delete").prop("disabled", false);
+                    $("#button-delete").text("Yes");
+                    $('.alert-success').html(data.success).fadeIn('slow');
+                    // $('.alert-success').delay(3000).fadeOut('slow');
+                    document.getElementById("row_" + $("#deleteID").val()).remove();
+                    swal({
+                        title: "",
+                        text: data.message,
+                        icon: "success",
+                    });
+                    $('#deleteModal').modal('hide');
+                },
+                error: function(error) {
+                    $("#button-delete").prop("disabled", false);
+                    $("#button-delete").text("Yes");
+                    alert(error);
+
+                    // toastr.error(errorMessage, "Error");
+                    // hideLoader();
+                },
+            });
+        }
+
+        function handleValidationErrors(error, type = 'create') {
+            let errors = error.responseJSON.errors;
+            var errorMessage = error.responseJSON.message
+            var element = '';
+            $.each(errors, function(key, item) {
+                element = key.split('.')
+                if (element.length > 1) {
+                    element = `${element[0]}_${element[1]}`
+                } else {
+                    element = `${element}`
+                }
+                // dataAttr = $(element).closest('.tab').data('id')
+                // $(`.step-${dataAttr}`).addClass('backend-error')
+                if (type == 'edit') {
+                    console.log('edit', element);
+                    $(`#edit_${element}_text`).text(item[0])
+
+                } else if (type == 'create') {
+                    $(`#${element}_text`).text(item[0])
+
+                }
+            });
+
+            return errorMessage;
+        }
+        // function showLoader(message, options) {
+        //   waitingDialog.show(message, options);
+        // }
+    </script>
 @endsection

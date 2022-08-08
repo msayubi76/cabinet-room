@@ -29,7 +29,9 @@ class ProductFactory extends Factory
             'shipping_charge' => $this->faker->randomDigit(),
             'colour' => $this->faker->colorName(),
             'length' => $this->faker->randomDigit(1,50),
-            'width' => $this->faker->randomDigit(),
+            'width' => $this->faker->randomDigit(1,50),
+            'is_feature_product' => $this->faker->boolean(),
+            'is_arrival_product' => $this->faker->boolean(),
         ];
     }
 }

@@ -79,37 +79,37 @@
     "use strict"
 
     var i = new Datamap( {
-        scope: "world", 
-        element: document.getElementById("world-map"), 
-        responsive: !0, 
+        scope: "world",
+        element: document.getElementById("world-map"),
+        responsive: !0,
         geographyConfig: {
-            popupOnHover: !1, 
-            highlightOnHover: !1, 
-            borderColor: "transparent", 
-            borderWidth: 1, 
-            highlightBorderWidth: 3, 
-            highlightFillColor: "rgba(0,123,255,0.5)", 
-            highlightBorderColor: "transparent", 
+            popupOnHover: !1,
+            highlightOnHover: !1,
+            borderColor: "transparent",
+            borderWidth: 1,
+            highlightBorderWidth: 3,
+            highlightFillColor: "rgba(0,123,255,0.5)",
+            highlightBorderColor: "transparent",
             borderWidth: 1
-        }, 
+        },
         bubblesConfig: {
             popupTemplate: function (e, i) {
                 return '<div class="datamap-sales-hover-tooltip">' + i.country + '<span class="ml-2"></span>' + i.sold + "</div>"
-            }, 
-            borderWidth: 0, 
-            highlightBorderWidth: 3, 
-            highlightFillColor: "rgba(0,123,255,0.5)", 
-            highlightBorderColor: "transparent", 
+            },
+            borderWidth: 0,
+            highlightBorderWidth: 3,
+            highlightFillColor: "rgba(0,123,255,0.5)",
+            highlightBorderColor: "transparent",
             fillOpacity: .75
-        }, 
+        },
         fills: {
-            Visited: "#777", 
-            neato: "#777", 
-            white: "#777", 
+            Visited: "#777",
+            neato: "#777",
+            white: "#777",
             defaultFill: "#EBEFF2"
         }
     });
-    
+
     i.bubbles([{
         centered: "USA", fillKey: "white", radius: 5, sold: "$500", country: "United States"
     }, {
@@ -307,7 +307,7 @@
     });
 
 
-    
+
 
 
 })(jQuery);
@@ -390,7 +390,7 @@
     });
 
 
-    
+
 
 
 })(jQuery);
