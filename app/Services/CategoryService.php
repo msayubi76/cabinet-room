@@ -52,9 +52,9 @@ class CategoryService
     public static function destroy($id)
     {
         DB::beginTransaction();
-        $category = Category::findorFail($id);
-        // $category->subcategories()->delete();
-        // $category->products()->delete();
+        $category = Category::FindorFail($id);
+        $category->subcategories()->delete();
+        $category->products()->delete();
 
         $category->delete();
         DB::commit();

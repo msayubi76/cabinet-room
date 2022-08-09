@@ -29,7 +29,9 @@
                                 <div class="form-group mb-8">
                                     <input type="text" class="form-control input-default" id="edit_name"
                                         placeholder="Product Name" value="{{ $product->name }}" name="name">
-                                    <div id="edit_name_text" class="text-danger backend-error-text"></div>
+                                        @error('name')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group row ">
                                     <div class="col-md-6 mb-8">
@@ -41,7 +43,9 @@
                                                     {{ $catitem->name }}</option>
                                             @endforeach
                                         </select>
-                                        <div id="edit_category_id_text" class="text-danger backend-error-text"></div>
+                                        @error('category_id')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="col-md-6 mb-8">
                                         <select name="sub_category_id" id="subcategory" class="form-control">
@@ -53,14 +57,18 @@
 
 
                                         </select>
-                                        <div id="edit_subcategory_id_text" class="text-danger backend-error-text"></div>
+                                        @error('sub_category_id')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
 
                                     </div>
                                 </div>
                                 <div class="form-group mb-8">
                                     <textarea class="form-control h-150px mysummernote" id="edit_description mysummernote" name="description" rows="6"
                                         placeholder="Write here.......">{{ $product->description }}</textarea>
-                                    {{-- <div id="edit_category_id_text" class="text-danger backend-error-text"></div> --}}
+                                        @error('description')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
 
 
                                 </div>
@@ -69,32 +77,40 @@
                                         <input type="text" class="form-control input-default" id="edit_actual_price"
                                             placeholder="Actual Price" value="{{ $product->actual_price }}"
                                             name="actual_price">
-                                        {{-- <div id="edit_actual_price_text" class="text-danger backend-error-text"></div> --}}
+                                            @error('actual_price')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
 
                                     </div>
                                     <div class="col-md-4 mb-8">
                                         <input type="text" class="form-control input-default" id="edit_discount"
                                             placeholder="Discount" value="{{ $product->discount }}" name="discount">
-                                        {{-- <div id="edit_discount_text" class="text-danger backend-error-text"></div> --}}
+                                            @error('discount')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
 
                                     </div>
                                     <div class="col-md-4 mb-8">
                                         <input type="text" class="form-control input-default" id="edit_shipping_charge"
                                             placeholder="Shipping Charge" value="{{ $product->shipping_charge }}"
                                             name="shipping_charge">
-                                        {{-- <div id="edit_shipping_charge_text" class="text-danger backend-error-text"></div> --}}
+                                            @error('shipping_charge')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
 
                                     </div>
                                 </div>
 
                                 <div class="form-group mb-8">
                                     <div class="mb-8">
-                                        <img src="{{ asset('uploads/product/' . $product->feature_image) }}" width="50px"
+                                        <img src="{{ asset( $product->feature_image) }}" width="50px"
                                             height="50px" alt="img">
                                     </div>
                                     <input type="file" class="form-control" id="edit_feature_image" name="feature_image"
                                         placeholder="feature image" :value="old('feature_image')">
-                                    {{-- <div id="edit_feature_image_text" class="text-danger backend-error-text"></div> --}}
+                                        @error('feature_image')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
 
                                 </div>
 
@@ -102,40 +118,63 @@
                                     <div class="col-md-4 mb-8">
                                         <input type="text" class="form-control input-default" id="edit_colour"
                                             placeholder="colour" value="{{ $product->colour }}" name="colour">
-                                        {{-- <div id="edit_colour_text" class="text-danger backend-error-text"></div> --}}
+                                            @error('colour')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
 
                                     </div>
                                     <div class="col-md-4 mb-8">
                                         <input type="text" class="form-control input-default" id="edit-length"
                                             placeholder="length" value="{{ $product->length }}"name="length">
-                                        {{-- <div id="edit_length_text" class="text-danger backend-error-text"></div> --}}
+                                            @error('length')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
 
                                     </div>
                                     <div class="col-md-4 mb-8">
                                         <input type="text" class="form-control input-default" id="edit_width"
                                             placeholder="width" value="{{ $product->width }}"name="width">
-                                        {{-- <div id="edit_width_text" class="text-danger backend-error-text"></div> --}}
+                                            @error('width')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
 
                                     </div>
                                 </div>
                                 <div class="form-group row ">
-                                    <div class="col-md-6 mb-8">
+                                    <div class="col-md-4 mb-8">
+                                    <select name="currency" class="form-control" id="currency">
+                                        <option value="">-- Select currency --</option>
+                                        @foreach ( currencies() as $currency )
+
+
+                                        <option value="{{$currency->code}}" {{ $product->currency == $currency->code?' selected':'' }}>{{$currency->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('code')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4 mb-8">
                                         <label class="col-lg-4 col-form-label form-check-label" for="name">
 
                                             <input type="checkbox" class="form-check-input" value="1"
                                                 name="is_feature_product"
                                                 {{ $product->is_feature_product == '1' ? 'checked' : '' }}>Feature Product
                                         </label>
-                                        {{-- <div id="edit_is_feature_product_text" class="text-danger backend-error-text"></div> --}}
+                                        @error('width')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
-                                    <div class="col-md-6 mb-8">
+                                    <div class="col-md-4 mb-8">
                                         <label class="col-lg-4 col-form-label form-check-label" for="name">
 
                                             <input type="checkbox" class="form-check-input" value="1"
-                                                name="is_arrival_product"
+                                                name="is_feature_product"
                                                 {{ $product->is_arrival_product == '1' ? 'checked' : '' }}>Arrival Product
                                         </label>
-                                        {{-- <div id="edit_is_Arrival_Product_text" class="text-danger backend-error-text"></div> --}}
+                                        @error('is_arrival_product')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="modal-footer">

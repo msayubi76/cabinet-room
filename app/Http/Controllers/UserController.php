@@ -40,7 +40,7 @@ class UserController extends Controller
             $user_response = UserService::store($request);
             return $user_response;
         } catch (\Throwable $th) {
-            return $th;
+            return response()->json(['status' => false, 'message' => $th->getMessage()]);
         }
     }
     public function update(UserRequest $request, User $user)
@@ -59,7 +59,7 @@ class UserController extends Controller
             $user_response = UserService::destroy($id);
             return $user_response;
         } catch (\Throwable $th) {
-            return $th;
+            return response()->json(['status' => false, 'message' => $th->getMessage()]);
         }
     }
 

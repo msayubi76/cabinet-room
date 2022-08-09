@@ -30,7 +30,7 @@ class CategoryController extends Controller
             return $category_response;
 
         } catch (\Throwable $th) {
-            return $th;
+            return response()->json(['status' => false, 'message' => $th->getMessage()]);
         }
     }
 
@@ -42,7 +42,7 @@ class CategoryController extends Controller
            $category_response = CategoryService::update($request,$category);
            return $category_response;
         } catch (\Throwable $th) {
-           return $th;
+           return response()->json(['status' => false, 'message' => $th->getMessage()]);
         }
     }
     public function destroy($id){
@@ -50,7 +50,7 @@ class CategoryController extends Controller
             $user_response = CategoryService::destroy($id);
             return $user_response;
        } catch (\Throwable $th) {
-           return $th;
+           return response()->json(['status' => false, 'message' => $th->getMessage()]);
        }
     }
 

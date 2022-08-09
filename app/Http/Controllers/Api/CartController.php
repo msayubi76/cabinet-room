@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Cart;
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\Sub_Category;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -42,7 +42,7 @@ class CartController extends Controller
     {
         try {
             $category = Category::where('is_active', '0')->get();
-            $subcategory = Sub_Category::where('is_active', '0')->get();
+            $subcategory = SubCategory::where('is_active', '0')->get();
             $cart = Cart::where('user_id', Auth::id())->get();
             return view('website.product.cart', compact('category', 'subcategory', 'cart'));
         } catch (\Throwable $th) {

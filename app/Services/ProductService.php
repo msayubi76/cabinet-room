@@ -8,7 +8,7 @@ use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\ProductRequest;
-use App\Models\Sub_Category;
+use App\Models\SubCategory;
 use App\Traits\FileUploadTrait;
 class ProductService
 {
@@ -23,6 +23,7 @@ class ProductService
 
     public static function store(ProductRequest $request)
     {
+
         DB::beginTransaction();
         $data = $request->validated();
         if ($request->hasFile('feature_image')) :
@@ -37,13 +38,18 @@ class ProductService
 
         $response = ['status' => true, 'message' => 'product added successfully.', 'product' => $product];
         return $response;
-        // return redirect('admin/products')->with('success', 'product added successfully');
-        // return redirect()->route('admin/products')->with($response);
+
     }
 
     public static function update(ProductRequest $request, Product $product){
         DB::beginTransaction();
         $data = $request->validated();
+        if ($request->hasFile('feature_image')) :
+            $image_name = FileUploadTrait::fileUpload($request->feature_image, 'products');
+            $data['folder_name'] = 'products';
+            $data['feature_image_name'] =  $image_name;
+            $data['feature_image'] = url('/storage/products/' . $image_name);
+        endif;
         $product->update($data);
 
         DB::commit();
@@ -67,7 +73,7 @@ class ProductService
     {
         $product = Product::findOrFail($id);
 
-        $sub_categories = Sub_Category::where('category_id',$product->category_id)->cursor();
+        $sub_categories = SubCategory::where('category_id',$product->category_id)->cursor();
 
 
         return ['product' => $product, 'sub_categories' => $sub_categories];

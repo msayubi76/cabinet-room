@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\Sub_Category;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use App\Services\ProductService;
 use App\Http\Requests\ProductRequest;
@@ -28,12 +28,14 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request)
     {
+
         try {
 
             $product_response = ProductService::store($request);
-            return $product_response;
+            return redirect(route('products.index'))->with('success', 'Product added successfully.');
         } catch (\Throwable $th) {
-            return $th;
+            return redirect(route('products.index'))->with('error', $th->getMessage());
+
         }
     }
     public function edit($id)
@@ -42,7 +44,7 @@ class ProductController extends Controller
         $product_data = ProductService::detail($id);
         $category = CategoryService::getCategory();
         $product_data['category'] = $category;
- 
+
 
 
         return view('admin.product.edit', $product_data);
@@ -52,7 +54,7 @@ class ProductController extends Controller
     {
         try {
             $product_response = ProductService::update($request, $product);
-            return $product_response;
+            return redirect(route('products.index'))->with('success', 'Product updated successfully.');
         } catch (\Throwable $th) {
             return $th;
         }
@@ -70,6 +72,6 @@ class ProductController extends Controller
     public function getSubCategory(Request $request)
     {
         // return $request;
-        return Sub_Category::where('category_id', $request->id)->get();
+        return SubCategory::where('category_id', $request->id)->get();
     }
 }

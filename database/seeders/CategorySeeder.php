@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
-use App\Models\Sub_Category;
+use App\Models\SubCategory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -18,7 +18,7 @@ class CategorySeeder extends Seeder
     {
         Category::factory()
             ->has(
-                Sub_Category::factory()->count(5)
+                SubCategory::factory()->count(5)
                     ->state(function (array $attributes, Category $category) {
                         return ['category_id' => $category->id];
                     }),

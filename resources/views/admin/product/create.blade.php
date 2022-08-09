@@ -20,7 +20,7 @@
                     <h4 class="card-title">Add Product</h4>
 
                     <div class="basic-form">
-                        <form action="{{url('products/store')}}"  method="post" id="product-form" enctype="multipart/form-data">
+                        <form action="{{route('products.store')}}"  method="Post" id="product-form" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group mb-8">
                                 <input type="text" class="form-control input-default" placeholder="Product Name" :value="old('name')" name="name">
@@ -95,18 +95,29 @@
                                 </div>
                                </div>
                                <div class="form-group row ">
-                                <div class="col-md-6 mb-8">
+                                <div class="col-md-4 mb-8">
+                                    <select name="currency" class="form-control" id="currency">
+                                        <option value="">-- Select currency --</option>
+                                        @foreach ( currencies() as $currency )
+
+
+                                        <option value="{{$currency->code}}">{{$currency->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-8">
                                     <label class="col-lg-4 col-form-label form-check-label" for="name">
 
                                         <input type="checkbox" class="form-check-input" name="is_feature_product" value="1">Feature Product </label>
                                         <div id="is_feature_product_text" class="text-danger backend-error-text"></div>
                                 </div>
-                                <div class="col-md-6 mb-8">
+                                <div class="col-md-4 mb-8">
                                     <label class="col-lg-4 col-form-label form-check-label" for="name">
 
                                         <input type="checkbox" class="form-check-input" name="is_arrival_product" value="1">Arrival Product </label>
                                         <div id="Arrival Product_text" class="text-danger backend-error-text"></div>
                                 </div>
+
                                </div>
 
                                <div class="modal-footer">
@@ -127,92 +138,92 @@
 @endsection
 @section('scripts')
 <script>
- function submitProduct() {
-    var form = $('#product-form')[0];
-    $("#button-save").text('Loading...');
-    console.log('form ', form);
+//  function submitProduct() {
+//     var form = $('#product-form')[0];
+//     $("#button-save").text('Loading...');
+//     console.log('form ', form);
 
 
-    const myFormData = new FormData(form);
-    const formDataObj = {};
-    myFormData.forEach((value, key) => (formDataObj[key] = value));
-    console.log(formDataObj);
-    $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
-        },
-        url: "/admin/products", // the endpoint
-        type: "POST", // http method
-        processData: false,
-        contentType: false,
-        data: myFormData,
-        beforeSend: function () {
-            $(form)
-            $('.backend-error-text').text('')
-            $("#button-save").prop("disabled", true);
-        },
-        success: function (data) {
-            $("#button-save").prop("disabled", false);
-            $("#button-save").text("Add Product");
-            console.log('data',data);
-            swal({
-                title: "",
-                text: data.message,
-                icon: "success",
+//     const myFormData = new FormData(form);
+//     const formDataObj = {};
+//     myFormData.forEach((value, key) => (formDataObj[key] = value));
+//     console.log(formDataObj);
+//     $.ajax({
+//         headers: {
+//             'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
+//         },
+//         url: "/admin/products", // the endpoint
+//         type: "POST", // http method
+//         processData: false,
+//         contentType: false,
+//         data: myFormData,
+//         beforeSend: function () {
+//             $(form)
+//             $('.backend-error-text').text('')
+//             $("#button-save").prop("disabled", true);
+//         },
+//         success: function (data) {
+//             $("#button-save").prop("disabled", false);
+//             $("#button-save").text("Add Product");
+//             console.log('data',data);
+//             swal({
+//                 title: "",
+//                 text: data.message,
+//                 icon: "success",
 
-              });
-            $(form)
-                .find('[type="button"]')
-                .prop("disabled", false);
-            document.getElementById("product-form").reset();
+//               });
+//             $(form)
+//                 .find('[type="button"]')
+//                 .prop("disabled", false);
+//             document.getElementById("product-form").reset();
 
 
 
-        },
-        error: function (error) {
-            $(form)
-            $("#button-save").prop("disabled", false);
-            $("#button-save").text("Add Product");
-            var errorMessage = error.statusText;
-            var sweetMessage = error.statusText;
-            if (error.status == 422) {
-                errorMessage = handleValidationErrors(error)
-                sweetMessage ='Invalid Data'
-            }
-            swal({
-                title: "Error",
-                text: sweetMessage,
-                icon: "error",
-              });
+//         },
+//         error: function (error) {
+//             $(form)
+//             $("#button-save").prop("disabled", false);
+//             $("#button-save").text("Add Product");
+//             var errorMessage = error.statusText;
+//             var sweetMessage = error.statusText;
+//             if (error.status == 422) {
+//                 errorMessage = handleValidationErrors(error)
+//                 sweetMessage ='Invalid Data'
+//             }
+//             swal({
+//                 title: "Error",
+//                 text: sweetMessage,
+//                 icon: "error",
+//               });
 
-        },
-    });
-}
-function handleValidationErrors(error, type = 'create') {
-    let errors = error.responseJSON.errors;
-    var errorMessage = error.responseJSON.message
-    var element = '';
-    $.each(errors, function (key, item) {
-        element = key.split('.')
-        if (element.length > 1) {
-            element = `${element[0]}_${element[1]}`
-        } else {
-            element = `${element}`
-        }
-        // dataAttr = $(element).closest('.tab').data('id')
-        // $(`.step-${dataAttr}`).addClass('backend-error')
-        if (type == 'edit') {
-            console.log('edit',element);
-            $(`#edit_${element}_text`).text(item[0])
+//         },
+//     });
+// }
+// function handleValidationErrors(error, type = 'create') {
+//     let errors = error.responseJSON.errors;
+//     var errorMessage = error.responseJSON.message
+//     var element = '';
+//     $.each(errors, function (key, item) {
+//         element = key.split('.')
+//         if (element.length > 1) {
+//             element = `${element[0]}_${element[1]}`
+//         } else {
+//             element = `${element}`
+//         }
+//         // dataAttr = $(element).closest('.tab').data('id')
+//         // $(`.step-${dataAttr}`).addClass('backend-error')
+//         if (type == 'edit') {
+//             console.log('edit',element);
+//             $(`#edit_${element}_text`).text(item[0])
 
-        } else if (type == 'create') {
-            $(`#${element}_text`).text(item[0])
+//         } else if (type == 'create') {
+//             $(`#${element}_text`).text(item[0])
 
-        }
-    });
+//         }
+//     });
 
-    return errorMessage;
-}
+//     return errorMessage;
+// }
 
 
 

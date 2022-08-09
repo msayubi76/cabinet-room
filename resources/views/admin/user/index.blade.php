@@ -361,9 +361,7 @@
             $("#button-save").text('Loading...');
 
             const myFormData = new FormData(form);
-            const formDataObj = {};
-            myFormData.forEach((value, key) => (formDataObj[key] = value));
-            console.log(formDataObj);
+
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
@@ -382,20 +380,24 @@
                     $("#button-save").prop("disabled", false);
                     $("#button-save").text("Add User");
                     console.log('data', data);
+                    if (data.status == false) {
+                        swal({
+                            title: "Error",
+                            text: data.message,
+                            icon: "error",
+                        });
+                        return;
+                    }
+
                     swal({
                         title: "",
                         text: data.message,
                         icon: "success",
                     });
-                    $(form)
-                        .find('[type="button"]')
-                        .prop("disabled", false);
+
                     document.getElementById("user-form").reset();
 
-                    dataarray.push(data);
-                    var index = (dataarray.length) - 1;
 
-                    console.log('INDEX',index);
                     const USER = JSON.stringify(data.user)
 
                     var string =
@@ -489,8 +491,7 @@
                         icon: "success",
                     });
 
-                    dataarray.push(data);
-                    var index = (dataarray.length) - 1;
+                    const USER = JSON.stringify(data.user)
                     $("#row_" + data.user.id).remove();
                     var string =
                         `<tr id="row_${data.user.id}">
@@ -504,7 +505,7 @@
                                         <div class="btn-group"><button id="btnGroupDrop${data.user.id}" type="button"
                                                 class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button>
                                             <div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal(${data.user})">View</a>
-                                                <a class="dropdown-item" href="javascript:;" onclick="openEditModal(${data.user})">Edit</a><a
+                                                <a class="dropdown-item" href="javascript:;" onclick='openEditModal(${USER})'>Edit</a><a
                                                     class="dropdown-item" href="javascript:;" onclick="openDeleteDialog(${data.user.id})">Delete</a></div>
                                         </div>
                                     </div>
@@ -537,31 +538,7 @@
                 },
             });
         }
-        var dataarray = [];
 
-        function openEditIndexModal(index) {
-            document.getElementById('edit_fist_name').value = dataarray[index].user.fist_name;
-            document.getElementById('edit_last_name').value = dataarray[index].user.last_name;
-            document.getElementById('edit_mobile_no').value = dataarray[index].user.mobile_no;
-            document.getElementById('edit_address').value = dataarray[index].user.address;
-            document.getElementById('edit_city').value = dataarray[index].user.city;
-            document.getElementById('edit_region').value = dataarray[index].user.region;
-            document.getElementById('edit_email').value = dataarray[index].user.email;
-            document.getElementById('user_id').value = dataarray[index].user.id;
-
-
-
-            var image;
-            if (dataarray[index].user.image_url) {
-                image = dataarray[index].user.image_url;
-            } else {
-                image = base_url + '/storage/profile/62a7764c8bf14.jpg';
-            }
-            // document.getElementById('edit_profile').value = user.image_name;
-            $('#edit_image_preview').attr('src', image)
-            // document.getElementById('edit_image_preview').src = user.image_url;
-            $("#editModalUser").modal()
-        }
 
         function openEditModal(user) {
 
@@ -631,6 +608,14 @@
                 success: function(data) {
                     $("#button-delete").prop("disabled", false);
                     $("#button-delete").text("Yes");
+                    if (data.status == false) {
+                        swal({
+                            title: "Error",
+                            text: data.message,
+                            icon: "error",
+                        });
+                        return;
+                    }
                     $('.alert-success').html(data.success).fadeIn('slow');
                     // $('.alert-success').delay(3000).fadeOut('slow');
                     document.getElementById("row_" + $("#deleteID").val()).remove();
@@ -644,7 +629,11 @@
                 error: function(error) {
                     $("#button-delete").prop("disabled", false);
                     $("#button-delete").text("Yes");
-                    alert(error);
+                    swal({
+                        title: "Error",
+                        text: sweetMessage,
+                        icon: "error",
+                    });
 
                     // toastr.error(errorMessage, "Error");
                     // hideLoader();

@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Sub_Category;
+use App\Models\SubCategory;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class Sub_CategorySeeder extends Seeder
+class SubCategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class Sub_CategorySeeder extends Seeder
      */
     public function run()
     {
-        Sub_Category::factory()
+        SubCategory::factory()
         ->count(5)
         ->create();
     }

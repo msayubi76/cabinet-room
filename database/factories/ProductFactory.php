@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Category;
-use App\Models\Sub_Category;
+use App\Models\SubCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,7 +21,7 @@ class ProductFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'category_id' =>  Category::factory(),
-            'sub_category_id' =>  Sub_Category::factory(),
+            'sub_category_id' =>  SubCategory::factory(),
             'feature_image' => $this->faker->imageUrl(),
             'description' => $this->faker->paragraph(),
             'actual_price' => $this->faker->randomDigit(),
