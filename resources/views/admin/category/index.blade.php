@@ -31,10 +31,11 @@
                                             <td>{{ $category->name }}</td>
                                             <td><img src="{{ $category->image_url }}" height="50px" width="50px"
                                                     alt=""></td>
-                                                    <td class="text-center">
-                                                        <span class="badge badge-{{ $category->is_active == '1' ? 'success' : 'warning' }}">
-                                                            {{ $category->is_active == '1' ? 'active' : 'not-active' }}</span>
-                                                    </td>
+                                            <td class="text-center">
+                                                <span
+                                                    class="badge badge-{{ $category->is_active == '1' ? 'success' : 'warning' }}">
+                                                    {{ $category->is_active == '1' ? 'active' : 'not-active' }}</span>
+                                            </td>
 
                                             <td>
                                                 <div class="button-group">
@@ -125,7 +126,7 @@
                             </div>
                             <div class="form-group ">
                                 <label class="col-lg-4 col-form-label form-check-label" for="name">
-                                    <input type="checkbox" class="form-check-input" checked  name="is_active"
+                                    <input type="checkbox" class="form-check-input" checked name="is_active"
                                         value="1">status </label>
                                 <div id="is_active_text" class="text-danger backend-error-text"></div>
                             </div>

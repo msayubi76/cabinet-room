@@ -9,12 +9,7 @@
                   @if ($errors->any())
             <div class="alert alert-danger">
                 <strong>Whoops!</strong><br> There were some<strong> problems</strong> with your input.<br><br>
-                {{-- <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{$error}}</li>
 
-                @endforeach
-                </ul> --}}
             </div>
                 @endif
                     <h4 class="card-title">Add Product</h4>
@@ -22,77 +17,110 @@
                     <div class="basic-form">
                         <form action="{{route('products.store')}}"  method="Post" id="product-form" enctype="multipart/form-data">
                             @csrf
-                            <div class="form-group mb-8">
-                                <input type="text" class="form-control input-default" placeholder="Product Name" :value="old('name')" name="name">
-                                <div id="name_text" class="text-danger backend-error-text"></div>
+                            <div class="form-group  row mb-8">
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control input-default" placeholder="Product Name" :value="old('name')" name="name">
+                                    @error('name')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
-                            <div class="form-group row ">
-                                <div class="col-md-6 mb-8">
-                                    <select name="category_id" class="form-control" id="category">
-                                        <option value="">-- Select Category --</option>
-                                        @foreach ($category as $catitem )
+                            <div class="col-md-4">
+                                <select name="category_id" class="form-control" id="category">
+                                    <option value="">-- Select Category --</option>
+                                    @foreach ($category as $catitem )
 
 
-                                        <option value="{{$catitem->id}}">{{$catitem->name}}</option>
-                                        @endforeach
-                                    </select>
-                                    <div id="category_id_text" class="text-danger backend-error-text"></div>
-                                 </div>
-                                <div class="col-md-6 mb-8">
-                                    <select name="sub_category_id" id="subcategory" class="form-control" >
-                                        <option >-- Select sub Category --</option>
-
-                                    </select>
-                                    <div id="sub_category_id_text" class="text-danger backend-error-text"></div>
+                                    <option value="{{$catitem->id}}">{{$catitem->name}}</option>
+                                    @endforeach
+                                </select>
+                                @error('category_id')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                             </div>
-                               </div>
+                            <div class="col-md-4">
+                                <select name="sub_category_id" id="subcategory" class="form-control" >
+                                    <option >-- Select sub Category --</option>
+
+                                </select>
+                                @error('sub_category_id')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                            </div>
+
+                            </div>
+
                             <div class="form-group mb-8">
                                 <textarea class="form-control h-150px mysummernote" id="" name="description" rows="6" placeholder="Write here.......">
                                    </textarea>
-                                   <div id="description_text" class="text-danger backend-error-text"></div>
+                                   @error('description')
+                                   <div class="alert alert-danger">{{ $message }}</div>
+                               @enderror
                             </div>
-                                   <div class="form-group row ">
-                                    <div class="col-md-4 mb-8">
-                                        <input type="text" class="form-control input-default" placeholder="Actual Price" :value="old('actual_price')" name="actual_price">
-                                        <div id="actual_price_text" class="text-danger backend-error-text"></div>
-                                    </div>
-                                    <div class="col-md-4 mb-8">
-                                        <input type="text" class="form-control input-default" placeholder="Discount" :value="old('discount')" name="discount">
-                                        <div id="discount_text" class="text-danger backend-error-text"></div>
-                                    </div>
-                                    <div class="col-md-4 mb-8">
-                                        <input type="text" class="form-control input-default" placeholder="Shipping Charge" :value="old('shipping_charge')" name="shipping_charge">
-                                        <div id="shipping_charge_text" class="text-danger backend-error-text"></div>
-                                    </div>
-                                   </div>
 
-                            <div class="form-group mb-8">
-                                <label class="col-lg-4 col-form-label" for="name">Featured Image <span class="text-danger">*</span>
-                                </label>
-                                <input type="file" class="form-control" id="feature_image" name="feature_image"
-                            placeholder="feature image" :value="old('feature_image')">
-                            <div id="feature_image_text" class="text-danger backend-error-text"></div>
+
+                            <div class="form-group row mb-8">
+                                <div class="col-md-6">
+                                    <label class="col-lg-4 col-form-label" for="name">Featured Image <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="file" class="form-control" id="feature_image" name="feature_image"
+                                placeholder="feature image" :value="old('feature_image')">
+                                @error('feature_image')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-lg-4 col-form-label" for="name">Multiple Images <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="file" class="form-control" id="images" name="images[]"
+                                placeholder="images" :value="old('images')" multiple>
+                                @error('images')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                                </div>
+
                             </div>
-                            {{-- <div class="form-group mb-8">
-                                <label class="col-lg-4 col-form-label" for="name">Images <span class="text-danger">*</span>
-                                </label>
-                                <input type="file" class="form-control" id="image" name="images"
-                            placeholder="images" :value="old('images')">
-                            <div id="images_text" class="text-danger backend-error-text"></div>
-                    </div> --}}
+                            <div class="form-group row ">
+                                <div class="col-md-4 mb-8">
+                                    <input type="text" class="form-control input-default" placeholder="Actual Price" :value="old('actual_price')" name="actual_price">
+                                    @error('actual_price')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                                </div>
+                                <div class="col-md-4 mb-8">
+                                    <input type="text" class="form-control input-default" placeholder="Discount" :value="old('discount')" name="discount">
+                                    @error('discount')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                                </div>
+                                <div class="col-md-4 mb-8">
+                                    <input type="text" class="form-control input-default" placeholder="Shipping Charge" :value="old('shipping_charge')" name="shipping_charge">
+                                    @error('shipping_charge')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                                </div>
+
+                               </div>
+
                             <div class="form-group row ">
                                 <div class="col-md-4 mb-8">
                                     <input type="text" class="form-control input-default" placeholder="Colour" :value="old('colour')" name="colour">
-                                    <div id="colour_text" class="text-danger backend-error-text"></div>
+                                    @error('colour')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                                 </div>
                                 <div class="col-md-4 mb-8">
                                     <input type="text" class="form-control input-default" placeholder="Length" :value="old('length')" name="length">
-                                    <div id="length_text" class="text-danger backend-error-text"></div>
+                                    @error('length')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                                 </div>
                                 <div class="col-md-4 mb-8">
                                     <input type="text" class="form-control input-default" placeholder="Width" :value="old('Width')" name="width">
-                                    <div id="width_text" class="text-danger backend-error-text"></div>
+                                    @error('Width')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                                 </div>
+
                                </div>
                                <div class="form-group row ">
                                 <div class="col-md-4 mb-8">
@@ -104,21 +132,35 @@
                                         <option value="{{$currency->code}}">{{$currency->name}}</option>
                                         @endforeach
                                     </select>
+                                    @error('code')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                                 </div>
                                 <div class="col-md-4 mb-8">
-                                    <label class="col-lg-4 col-form-label form-check-label" for="name">
+                                    <label class=" col-form-label form-check-label" for="name">
 
                                         <input type="checkbox" class="form-check-input" name="is_feature_product" value="1">Feature Product </label>
-                                        <div id="is_feature_product_text" class="text-danger backend-error-text"></div>
+                                        @error('is_feature_product')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                                 </div>
                                 <div class="col-md-4 mb-8">
-                                    <label class="col-lg-4 col-form-label form-check-label" for="name">
+                                    <label class=" col-form-label form-check-label" for="name">
 
                                         <input type="checkbox" class="form-check-input" name="is_arrival_product" value="1">Arrival Product </label>
-                                        <div id="Arrival Product_text" class="text-danger backend-error-text"></div>
+                                        @error('is_arrival_product')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                </div>
+                               {{-- <div class="form-group mb-8">
+                                <textarea class="form-control h-150px mysummernote" id="" name="short_description" rows="6" placeholder="Describe yourself here...">
+                                   </textarea>
+                                   @error('description')
+                                   <div class="alert alert-danger">{{ $message }}</div>
+                               @enderror
+                            </div> --}}
 
                                <div class="modal-footer">
                                <a href="{{url('/admin/products')}}"  type="button" class="btn btn-secondary"> Close </a>

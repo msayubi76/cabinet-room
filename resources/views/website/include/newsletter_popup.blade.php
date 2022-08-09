@@ -1,4 +1,4 @@
-<div class="newsletter-popup mfp-hide bg-img" id="newsletter-popup-form" style="background: #f1f1f1 no-repeat center/cover url({{asset('website/assets/images/newsletter_popup_bg.jpg')}})">
+{{-- <div class="newsletter-popup mfp-hide bg-img" id="newsletter-popup-form" style="background: #f1f1f1 no-repeat center/cover url({{asset('website/assets/images/newsletter_popup_bg.jpg')}})">
     <div class="newsletter-popup-content">
         <img src="{{asset('website/assets/images/logo.png')}}" width="111" height="44" alt="Logo" class="logo-newsletter">
         <h2>Subscribe to newsletter</h2>
@@ -27,4 +27,4 @@
     <button title="Close (Esc)" type="button" class="mfp-close">
         ×
     </button>
-</div>
+</div> --}}

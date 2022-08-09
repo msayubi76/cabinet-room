@@ -104,67 +104,7 @@
     @endsection
     @section('scripts')
     <script>
-       function submitProduct() {
-    var form = $('#product-form')[0];
-    $("#button-save").text('Loading...');
-    console.log('form ', form);
 
-
-    const myFormData = new FormData(form);
-    const formDataObj = {};
-    myFormData.forEach((value, key) => (formDataObj[key] = value));
-    console.log(formDataObj);
-    $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
-        },
-        url: "/admin/products/store", // the endpoint
-        type: "Post", // http method
-        processData: false,
-        contentType: false,
-        data: myFormData,
-        beforeSend: function () {
-            $(form)
-            $('.backend-error-text').text('')
-            $("#button-save").prop("disabled", true);
-        },
-        success: function (data) {
-            $("#button-save").prop("disabled", false);
-            $("#button-save").text("Add Product");
-            console.log('data',data);
-            swal({
-                title: "",
-                text: data.message,
-                icon: "success",
-
-              });
-            $(form)
-                .find('[type="button"]')
-                .prop("disabled", false);
-            document.getElementById("product-form").reset();
-
-
-
-        },
-        error: function (error) {
-            $(form)
-            $("#button-save").prop("disabled", false);
-            $("#button-save").text("Add Product");
-            var errorMessage = error.statusText;
-            var sweetMessage = error.statusText;
-            if (error.status == 422) {
-                errorMessage = handleValidationErrors(error)
-                sweetMessage ='Invalid Data'
-            }
-            swal({
-                title: "Error",
-                text: sweetMessage,
-                icon: "error",
-              });
-
-        },
-    });
-}
 
 function openDeleteDialog(id) {
     $("#deleteID").val(id);
@@ -172,13 +112,13 @@ function openDeleteDialog(id) {
  }
 
  function deleteProduct() {
-    $("#button-delete").text('Loading... ');
+    $("#button-delete").text('Loading...');
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
         url: "/admin/products/" + $("#deleteID").val(), // the endpoint
-        type: "DELETE   ", // http method
+        type: "DELETE", // http method
         processData: false,
         contentType: false,
         success: function (data) {

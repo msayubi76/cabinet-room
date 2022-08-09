@@ -25,6 +25,7 @@ class Product extends Model
         'feature_image',
         'feature_image_name',
         'folder_name',
+        // 'images',
 
         'length',
         'width',
@@ -57,4 +58,14 @@ class Product extends Model
     {
         return $this->hasMany(Cart::class, 'cart_id');
     }
+
+
+    public function images()
+    {
+        return $this->morphMany(Media::class, 'model');
+    }
+
+
+
+
 }

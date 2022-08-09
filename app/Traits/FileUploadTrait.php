@@ -21,30 +21,42 @@ trait FileUploadTrait {
         }
     }
 
-    public function uploadMultipleFiles($files, $model_id, $model_type, $request_type=null)
+    public static function uploadMultipleFiles($files, $model, $folder_name='uploads')
     {
-        try {
 
             DB::beginTransaction();
+            $array = [];
+
             foreach ( $files as $file ) :
-                    $file_name = $this->fileUpload($file, $model_type);
+
+                    $file_name = self::fileUpload($file, $folder_name);
+
                     $type =   $file->getClientMimeType();
-                    $type = explode('/', $type);
-                    $type = $type[0];
-                    $data['model_type'] = $model_type;
-                    $data['file_type'] = $type;
-                    $data['file'] = $file_name;
-                    $data['transaction_id'] = $model_id;
 
 
-                Media::create($data);
+
+                    $data['model_type'] = get_class($model);
+
+                    $data['name'] = $file_name;
+                    $data['size'] = $file->getSize();
+
+                    $data['folder_name'] = 'products';
+                    $data['url'] =  url('/storage/products/' . $file_name);;
+                    $data['extension'] = $type;
+
+                    $data['model_id'] = $model->id;
+
+
+
+                    $array[] = $data;
+
+
             endforeach;
+
+            $media = Media::insert($array);
             DB::commit();
-            return true;
-        } catch (\Exception $e) {
-            DB::rollback();
-            return $e;
-        }
+            return $media;
+
     }
 
 

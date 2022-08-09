@@ -49,7 +49,7 @@
                                                                 data-toggle="dropdown"></button>
                                                             <div class="dropdown-menu">
                                                                 <a class="dropdown-item"
-                                                                    onclick="openViewModal({{ $user }})">View</a>
+                                                                href="javascript:openViewModal({{ json_encode($user) }})">View</a>
                                                                 <a class="dropdown-item"
                                                                     href="javascript:openEditModal({{ json_encode($user) }})">Edit</a>
                                                                 <a class="dropdown-item"
@@ -313,7 +313,14 @@
                         <div class="form-validation">
                             <div class="form-group row">
                                 <div class="col-12 text-center">
-                                    <label class=" col-form-label" id="view_name" for="">
+                                    <label class=" col-form-label" id="view_fist_name" for="">
+                                    </label>
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-12 text-center">
+                                    <label class=" col-form-label" id="view_last_name" for="">
                                     </label>
                                 </div>
                             </div>
@@ -572,11 +579,11 @@
             // document.getElementById('view_email').value = user.email;
             document.getElementById("view_fist_name").innerHTML = user.fist_name;
             document.getElementById("view_last_name").innerHTML = user.last_name;
-            document.getElementById("view_mobile_no").innerHTML = user.mobile_no;
-            document.getElementById("view_address").innerHTML = user.address;
-            document.getElementById("view_city").innerHTML = user.city;
-            document.getElementById("view_region").innerHTML = user.region;
-            document.getElementById("view_profile").innerHTML = user.profile;
+            // document.getElementById("view_mobile_no").innerHTML = user.mobile_no;
+            // document.getElementById("view_address").innerHTML = user.address;
+            // document.getElementById("view_city").innerHTML = user.city;
+            // document.getElementById("view_region").innerHTML = user.region;
+            // document.getElementById("view_profile").innerHTML = user.profile;
 
             document.getElementById("view_email").innerHTML = user.email;
 

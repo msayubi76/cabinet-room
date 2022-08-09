@@ -37,7 +37,8 @@
 
                                             <td class="text-center">
 
-                                                <span class="badge badge-{{ $cate->is_active == '1' ? 'success' : 'warning' }}">
+                                                <span
+                                                    class="badge badge-{{ $cate->is_active == '1' ? 'success' : 'warning' }}">
                                                     {{ $cate->is_active == '1' ? 'active' : 'not-active' }}
                                                 </span>
 
@@ -159,7 +160,8 @@
 
                                 <label class="col-lg-4 col-form-label form-check-label" for="name">
 
-                                    <input type="checkbox" class="form-check-input" checked name="is_active"  value="1">Active </label>
+                                    <input type="checkbox" class="form-check-input" checked name="is_active"
+                                        value="1">Active </label>
                                 <div id="is_active_text" class="text-danger backend-error-text"></div>
 
                             </div>
@@ -217,8 +219,7 @@
                             </div>
                             <div class="col-md-6  ">
 
-                                <label class="form-label" for="name">Name <span
-                                        class="text-danger">*</span>
+                                <label class="form-label" for="name">Name <span class="text-danger">*</span>
                                 </label>
                                 <input type="text" class="form-control" id="edit_name" name="name"
                                     placeholder="Enter a Name" value="">
@@ -227,8 +228,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6  ">
-                                <label class="form-label" for="name">Image <span
-                                        class="text-danger">*</span>
+                                <label class="form-label" for="name">Image <span class="text-danger">*</span>
                                 </label>
                                 <input type="file" class="form-control" id="edit_sub_category_image"
                                     name="sub_category_image" placeholder="Enter a name.." value="">
@@ -241,8 +241,8 @@
                                 <label class="form-label form-check-label " for="name" style="margin-top: 35px">
                                     Active</label>
 
-                                    <input type="checkbox" id="edit_is_active" name="is_active" value="">
-                                    <div id="edit_is_active" class="text-danger backend-error-text"></div>
+                                <input type="checkbox" id="edit_is_active" name="is_active" value="">
+                                <div id="edit_is_active" class="text-danger backend-error-text"></div>
 
                             </div>
 
@@ -424,7 +424,7 @@
             document.getElementById('edit_name').value = subcategory.name;
 
             $('#edit_is_active').val(subcategory.is_active)
-            $('#edit_is_active').prop('checked', subcategory.is_active == 1?true:false )
+            $('#edit_is_active').prop('checked', subcategory.is_active == 1 ? true : false)
 
             document.getElementById('sub_category_id').value = subcategory.id;
             document.getElementById('categories').value = subcategory.category_id;

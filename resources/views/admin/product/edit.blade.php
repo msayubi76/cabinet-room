@@ -10,12 +10,7 @@
                             <div class="alert alert-danger">
                                 <strong>Whoops!</strong><br> There were some<strong> problems</strong> with your
                                 input.<br><br>
-                                {{-- <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{$error}}</li>
 
-                @endforeach
-                </ul> --}}
                             </div>
                         @endif
                         <h4 class="card-title">Update Product</h4>
@@ -26,15 +21,17 @@
                                 @csrf
                                 <input type="hidden" value="-1" id="product_id">
                                 <input type="hidden" value="PUT" name="_method">
-                                <div class="form-group mb-8">
-                                    <input type="text" class="form-control input-default" id="edit_name"
+                                <div class="form-group row mb-8">
+
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control input-default" id="edit_name"
                                         placeholder="Product Name" value="{{ $product->name }}" name="name">
                                         @error('name')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
-                                </div>
-                                <div class="form-group row ">
-                                    <div class="col-md-6 mb-8">
+                                    </div>
+
+                                    <div class="col-md-4">
                                         <select name="category_id" class="form-control" id="category">
                                             <option value="">-- Select Category --</option>
                                             @foreach ($category as $catitem)
@@ -47,7 +44,8 @@
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="col-md-6 mb-8">
+
+                                    <div class="col-md-4">
                                         <select name="sub_category_id" id="subcategory" class="form-control">
                                             <option>-- Select sub Category --</option>
 
@@ -60,15 +58,47 @@
                                         @error('sub_category_id')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
-
                                     </div>
+
+
                                 </div>
+
                                 <div class="form-group mb-8">
                                     <textarea class="form-control h-150px mysummernote" id="edit_description mysummernote" name="description" rows="6"
                                         placeholder="Write here.......">{{ $product->description }}</textarea>
                                         @error('description')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
+                                </div>
+
+                                <div class="form-group row mb-8">
+                                    <div class="col-md-6">
+                                        <div class="mb-8">
+                                            <img src="{{ asset( $product->feature_image) }}" width="50px"
+                                                height="50px" alt="img">
+                                        </div>
+                                        <input type="file" class="form-control" id="edit_feature_image" name="feature_image"
+                                            placeholder="feature image" :value="old('feature_image')">
+                                            @error('feature_image')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                     <div class="col-md-6">
+                                        <div class="mb-8">
+                                            @foreach ($product->images as $image)
+                                            <i class="fa-solid fa-xmark"></i> <img src="{{ $image->url }}" width="50px"
+                                                height="50px"/>
+
+                                             @endforeach
+                                        </div>
+                                        {{-- <label class="col-lg-4 col-form-label" for="name">Multiple Images <span class="text-danger">*</span>
+                                        </label> --}}
+                                        <input type="file" class="form-control" id="images" name="images[]"
+                                    placeholder="images"  multiple>
+                                    @error('images')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                                    </div>
 
 
                                 </div>
@@ -101,18 +131,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group mb-8">
-                                    <div class="mb-8">
-                                        <img src="{{ asset( $product->feature_image) }}" width="50px"
-                                            height="50px" alt="img">
-                                    </div>
-                                    <input type="file" class="form-control" id="edit_feature_image" name="feature_image"
-                                        placeholder="feature image" :value="old('feature_image')">
-                                        @error('feature_image')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
 
-                                </div>
 
                                 <div class="form-group row ">
                                     <div class="col-md-4 mb-8">

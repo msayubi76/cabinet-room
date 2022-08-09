@@ -1,8 +1,6 @@
-
 @extends('website.master')
 
 @section('content')
-
     <div class="container">
         <nav aria-label="breadcrumb" class="breadcrumb-nav">
             <ol class="breadcrumb">
@@ -29,21 +27,19 @@
                         </div>
 
                         <div class="product-single-carousel owl-carousel owl-theme show-nav-hover">
-                            <div class="product-item">
-                                <img class="product-single-image" src="{{asset('website/assets/images/products/zoom/product-1-big.jpg')}}" data-zoom-image="{{asset('website/assets/images/products/zoom/product-1-big.jpg')}}" width="468" height="468" alt="product" />
-                            </div>
-                            <div class="product-item">
-                                <img class="product-single-image" src="{{asset('website/assets/images/products/zoom/product-2-big.jpg')}}" data-zoom-image="{{asset('website/assets/images/products/zoom/product-2-big.jpg')}}" width="468" height="468" alt="product" />
-                            </div>
-                            <div class="product-item">
-                                <img class="product-single-image" src="{{asset('website/assets/images/products/zoom/product-3-big.jpg')}}" data-zoom-image="{{asset('website/assets/images/products/zoom/product-3-big.jpg')}}" width="468" height="468" alt="product" />
-                            </div>
-                            <div class="product-item">
-                                <img class="product-single-image" src="{{asset('website/assets/images/products/zoom/product-4-big.jpg')}}" data-zoom-image="{{asset('website/assets/images/products/zoom/product-4-big.jpg')}}" width="468" height="468" alt="product" />
-                            </div>
-                            <div class="product-item">
-                                <img class="product-single-image" src="{{asset('website/assets/images/products/zoom/product-5-big.jpg')}}" data-zoom-image="{{asset('website/assets/images/products/zoom/product-5-big.jpg')}}" width="468" height="468" alt="product" />
-                            </div>
+                            @foreach ($product->images as $image)
+                                <div class="product-item">
+
+
+
+
+                                    <img class="product-single-image" src="{{ $image->url }}"
+                                        data-zoom-image="{{ $image->url }}" width="468" height="468"
+                                        alt="product" />
+
+                                </div>
+                            @endforeach
+
                         </div>
                         <!-- End .product-single-carousel -->
                         <span class="prod-full-screen">
@@ -52,21 +48,12 @@
                     </div>
 
                     <div class="prod-thumbnail owl-dots">
-                        <div class="owl-dot">
-                            <img src="{{asset('website/assets/images/products/zoom/product-1.jpg')}}" width="110" height="110" alt="product-thumbnail" />
-                        </div>
-                        <div class="owl-dot">
-                            <img src="{{asset('website/assets/images/products/zoom/product-2.jpg')}}" width="110" height="110" alt="product-thumbnail" />
-                        </div>
-                        <div class="owl-dot">
-                            <img src="{{asset('website/assets/images/products/zoom/product-3.jpg')}}" width="110" height="110" alt="product-thumbnail" />
-                        </div>
-                        <div class="owl-dot">
-                            <img src="{{asset('website/assets/images/products/zoom/product-4.jpg')}}" width="110" height="110" alt="product-thumbnail" />
-                        </div>
-                        <div class="owl-dot">
-                            <img src="{{asset('website/assets/images/products/zoom/product-5.jpg')}}" width="110" height="110" alt="product-thumbnail" />
-                        </div>
+                        @foreach ($product->images as $image)
+                            <div class="owl-dot">
+                                <img src="{{ $image->url }}" width="110" height="110" alt="product-thumbnail" />
+                            </div>
+                        @endforeach
+
                     </div>
                 </div>
                 <!-- End .product-single-gallery -->
@@ -82,11 +69,10 @@
                                 <span class="product-popup">
                                     <span class="box-content">
                                         <img alt="product" width="150" height="150"
-                                            src="assets/images/products/product-3.jpg"
-                                            style="padding-top: 0px;">
+                                            src="assets/images/products/product-3.jpg" style="padding-top: 0px;">
 
                                         <span>Circled Ultimate 3D Speaker</span>
-                                </span>
+                                    </span>
                                 </span>
                             </a>
                         </div>
@@ -98,11 +84,10 @@
                                 <span class="product-popup">
                                     <span class="box-content">
                                         <img alt="product" width="150" height="150"
-                                            src="assets/images/products/product-4.jpg"
-                                            style="padding-top: 0px;">
+                                            src="assets/images/products/product-4.jpg" style="padding-top: 0px;">
 
                                         <span>Blue Backpack for the Young</span>
-                                </span>
+                                    </span>
                                 </span>
                             </a>
                         </div>
@@ -123,14 +108,14 @@
                     <hr class="short-divider">
 
                     <div class="price-box">
-                        <span class="old-price">{!!$product->actual_price !!}</span>
-                        <span class="new-price">{!!$product->discount !!}</span>
+                        <span class="old-price">{!! $product->actual_price !!}</span>
+                        <span class="new-price">{!! $product->discount !!}</span>
                     </div>
                     <!-- End .price-box -->
 
                     <div class="product-desc">
                         <p>
-                            {!!$product->description !!}
+                            {!! $product->description !!}
                         </p>
                     </div>
                     <!-- End .product-desc -->
@@ -142,7 +127,8 @@
                         </li>
 
                         <li>
-                            CATEGORY: <strong><a href="#" class="product-category">{!!$product->category->name !!}</a></strong>
+                            CATEGORY: <strong><a href="#"
+                                    class="product-category">{!! $product->category->name !!}</a></strong>
                         </li>
 
                         <li>
@@ -152,7 +138,7 @@
                     </ul>
 
                     <div class="product-action">
-                        <input type="hidden" value="{{$product->id}}" class="product_id">
+                        <input type="hidden" value="{{ $product->id }}" class="product_id">
                         <div class="product-single-qty">
                             <input class="horizontal-quantity form-control" name="quantity" type="text">
                         </div>
@@ -161,7 +147,7 @@
                         <a href="javascript:;" class="btn btn-dark add-cart mr-2" title="Add to Cart">Add to
                             Cart</a>
 
-                        <a href="{{url('cart')}}" class="btn btn-gray view-cart d-none">View cart</a>
+                        <a href="{{ url('cart') }}" class="btn btn-gray view-cart d-none">View cart</a>
                     </div>
                     <!-- End .product-action -->
 
@@ -171,11 +157,16 @@
                         <label class="sr-only">Share:</label>
 
                         <div class="social-icons mr-2">
-                            <a href="#" class="social-icon social-facebook icon-facebook" target="_blank" title="Facebook"></a>
-                            <a href="#" class="social-icon social-twitter icon-twitter" target="_blank" title="Twitter"></a>
-                            <a href="#" class="social-icon social-linkedin fab fa-linkedin-in" target="_blank" title="Linkedin"></a>
-                            <a href="#" class="social-icon social-gplus fab fa-google-plus-g" target="_blank" title="Google +"></a>
-                            <a href="#" class="social-icon social-mail icon-mail-alt" target="_blank" title="Mail"></a>
+                            <a href="#" class="social-icon social-facebook icon-facebook" target="_blank"
+                                title="Facebook"></a>
+                            <a href="#" class="social-icon social-twitter icon-twitter" target="_blank"
+                                title="Twitter"></a>
+                            <a href="#" class="social-icon social-linkedin fab fa-linkedin-in" target="_blank"
+                                title="Linkedin"></a>
+                            <a href="#" class="social-icon social-gplus fab fa-google-plus-g" target="_blank"
+                                title="Google +"></a>
+                            <a href="#" class="social-icon social-mail icon-mail-alt" target="_blank"
+                                title="Mail"></a>
                         </div>
                         <!-- End .social-icons -->
 
@@ -1037,35 +1028,35 @@
     <!-- End .container -->
 @endsection
 @section('scripts')
-<script>
-$(document).ready(function () {
-$('.add-cart').click(function (e) {
-    e.preventDefault();
-    var product_id = $(this).closest('.product_data').find('.product_id').val();
-    var quantity = $(this).closest('.product_data').find('.horizontal-quantity').val();
-    // alert(product_id);
-    // alert(product_quantity);
+    <script>
+        $(document).ready(function() {
+            $('.add-cart').click(function(e) {
+                e.preventDefault();
+                var product_id = $(this).closest('.product_data').find('.product_id').val();
+                var quantity = $(this).closest('.product_data').find('.horizontal-quantity').val();
+                // alert(product_id);
+                // alert(product_quantity);
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-    $.ajax({
-        type: "POST",
-        url: "/add-to-cart",
-        data: {
-            'product_id': product_id,
-            'quantity': quantity,
-        },
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "/add-to-cart",
+                    data: {
+                        'product_id': product_id,
+                        'quantity': quantity,
+                    },
 
-        success: function (response) {
+                    success: function(response) {
 
-         swal("",response.status,"success");
-        }
-    });
+                        swal("", response.status, "success");
+                    }
+                });
 
-});
-});
-</script>
+            });
+        });
+    </script>
 @endsection

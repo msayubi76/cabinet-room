@@ -24,8 +24,10 @@ class ProductService
     public static function store(ProductRequest $request)
     {
 
+
         DB::beginTransaction();
         $data = $request->validated();
+
         if ($request->hasFile('feature_image')) :
             $image_name = FileUploadTrait::fileUpload($request->feature_image, 'products');
             $data['folder_name'] = 'products';
@@ -34,6 +36,14 @@ class ProductService
         endif;
 
         $product = Product::create($data);
+
+
+        $image_name = FileUploadTrait::uploadMultipleFiles($request->images, $product, 'products');
+
+
+
+
+
         DB::commit();
 
         $response = ['status' => true, 'message' => 'product added successfully.', 'product' => $product];
@@ -51,6 +61,7 @@ class ProductService
             $data['feature_image'] = url('/storage/products/' . $image_name);
         endif;
         $product->update($data);
+        $image_name = FileUploadTrait::uploadMultipleFiles($request->images, $product, 'products');
 
         DB::commit();
         $response = ['status' => true, 'message' => 'Product updated successfully.', 'product' => $product];
@@ -72,6 +83,8 @@ class ProductService
     public static function detail(int $id)
     {
         $product = Product::findOrFail($id);
+        $product->load('images');
+
 
         $sub_categories = SubCategory::where('category_id',$product->category_id)->cursor();
 

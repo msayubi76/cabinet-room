@@ -106,7 +106,10 @@
 
     <script>
         $(document).ready(function() {
-            $(".mysummernote").summernote();
+            $(".mysummernote").summernote({
+                height:150,
+            });
+
             $('.dropdown-toggle').dropdown();
         });
     </script>
