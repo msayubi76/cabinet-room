@@ -1,20 +1,21 @@
 <?php
 
 // use Illuminate\Support\Facades\Facade;
+$currencies = [
+    (object) [
+        'name' => 'Dollar',
+        'code' => '$',
+        'pkr_value' => '150', //1 dollar equal to this pkr value
+    ],
+    (object) [
+        'name' => 'Rupees',
+        'code' => 'Rs',
+        'pkr_value' => '1',
+    ],
+];
 
-// return [
-// 'curencies' => [
-//         [
-//             'name' => 'Dollar',
-//             'code' => '$',
-//             'pkr_value' => '212', //1 dollar equal to this pkr value
-//         ],
-//         [
-//             'name' => 'Euro',
-//             'code' => '€',
-//             'pkr_value' => '241', //1 Euro equal to this pkr value
-//         ],
-//     ],
-//     ];
 
-    ?>
+
+return [
+    'curencies' =>  collect($currencies),
+];

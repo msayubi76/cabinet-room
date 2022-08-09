@@ -19,7 +19,6 @@ class Sub_CategoryFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'category_id' =>  Category::factory(),
             'image_url' => $this->faker->imageUrl(),
             'is_active' => $this->faker->boolean(),
         ];

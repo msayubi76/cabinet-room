@@ -8,6 +8,7 @@ use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\ProductRequest;
+use App\Models\Sub_Category;
 use App\Traits\FileUploadTrait;
 class ProductService
 {
@@ -38,15 +39,11 @@ class ProductService
         return $response;
         // return redirect('admin/products')->with('success', 'product added successfully');
         // return redirect()->route('admin/products')->with($response);
-
-
-
     }
 
     public static function update(ProductRequest $request, Product $product){
         DB::beginTransaction();
         $data = $request->validated();
-
         $product->update($data);
 
         DB::commit();
@@ -62,6 +59,18 @@ class ProductService
         DB::commit();
         $response = ['status' => true, 'message' => ' product removed successfully.'];
         return $response;
+    }
+
+
+
+    public static function detail(int $id)
+    {
+        $product = Product::findOrFail($id);
+
+        $sub_categories = Sub_Category::where('category_id',$product->category_id)->cursor();
+
+
+        return ['product' => $product, 'sub_categories' => $sub_categories];
     }
 
 }

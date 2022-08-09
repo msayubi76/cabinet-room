@@ -36,7 +36,7 @@
 
                                 <div class="modal-footer">
                                     <a href="{{ url('admin/roles') }}" class="btn btn-secondary"> Close </a>
-                                    <button type="button" class="btn btn-primary"> Save Permission </button>
+                                    <button class="btn btn-primary"> Save Permission </button>
                                 </div>
 
                             </form>

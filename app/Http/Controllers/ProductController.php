@@ -8,6 +8,7 @@ use App\Models\Sub_Category;
 use Illuminate\Http\Request;
 use App\Services\ProductService;
 use App\Http\Requests\ProductRequest;
+use App\Services\CategoryService;
 use Illuminate\Auth\Events\Validated;
 
 
@@ -37,10 +38,14 @@ class ProductController extends Controller
     }
     public function edit($id)
     {
-        $product = Product::find($id);
-        $category = Category::all();
 
-        return view('admin.product.edit', compact('product', 'category'));
+        $product_data = ProductService::detail($id);
+        $category = CategoryService::getCategory();
+        $product_data['category'] = $category;
+ 
+
+
+        return view('admin.product.edit', $product_data);
     }
 
     public function update(ProductRequest $request, Product $product)
