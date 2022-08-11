@@ -49,7 +49,7 @@
                                         <a href="product.html">{{$cartlist->product->name}}</a>
                                     </h5>
                                 </td>
-                                <td>{{$cartlist->product->discount}}</td>
+                                <td>{{$cartlist->product->currency}}{{$cartlist->product->discount}}</td>
                                 <td>
                                     <input type="hidden" class="product_id" name="product_id[]" value={{$cartlist->product_id}} >
                                     <div class="product-single-qty">
@@ -58,7 +58,7 @@
                                     </div><!-- End .product-single-qty -->
                                 </td>
                                 @php $total =$cartlist->product->discount * $cartlist->quantity ; @endphp
-                                <td class="text-right"><span class="subtotal-price"></span>{{ $total }}</td>
+                                <td class="text-right"><span class="subtotal-price"></span>{{$cartlist->product->currency}}{{ $total }}</td>
                             </tr>
 
 
@@ -106,7 +106,7 @@
                         <tbody>
                             <tr>
                                 <td>Subtotal</td>
-                                <td>{{$alltotal}}</td>
+                                <td>{{$cartlist->product->currency}}{{$alltotal}}</td>
                             </tr>
 
                             <tr>
@@ -212,7 +212,7 @@ alert(product_id);
             success: function (response) {
                 window.location.reload();
 // alert(response);
-           swal("",response.status,"success");
+           toster.success("",response.status,"success");
             }
         });
 
@@ -244,7 +244,7 @@ alert(product_id);
 
         success: function (response) {
             // window.location.reload();
-            swal("",response.status,"success");
+            toster.success("",response.status,"success");
         }
     });
 

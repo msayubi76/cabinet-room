@@ -108,8 +108,8 @@
                     <hr class="short-divider">
 
                     <div class="price-box">
-                        <span class="old-price">{!! $product->actual_price !!}</span>
-                        <span class="new-price">{!! $product->discount !!}</span>
+                        <span class="old-price">{{$product->currency}}{!! $product->actual_price !!}</span>
+                        <span class="new-price">{{$product->currency}}{!! $product->discount !!}</span>
                     </div>
                     <!-- End .price-box -->
 

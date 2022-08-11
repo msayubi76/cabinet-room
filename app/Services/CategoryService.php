@@ -53,8 +53,8 @@ class CategoryService
     {
         DB::beginTransaction();
         $category = Category::FindorFail($id);
-        $category->subcategories()->delete();
-        $category->products()->delete();
+        // $category->subcategories()->delete();
+        // $category->products()->delete();
 
         $category->delete();
         DB::commit();

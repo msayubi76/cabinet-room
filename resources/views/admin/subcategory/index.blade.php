@@ -118,11 +118,13 @@
                         <div class="row">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
                                 <img id="image_preview" src="{{ url('images/profile/default_image.png') }}" alt=""
-                                    style="max-width: 120Px;" class="rounded-circle border border-dark" />
+                                    width="120" height="90" class="rounded-circle border border-dark" />
                             </div>
                         </div>
-                        <div class="form-validation">
-                            <div class="form-group ">
+
+                        <div class="row">
+
+                            <div class="col-md-6">
                                 <label for=""> Cateogry</label>
 
                                 <select name="category_id" class="form-control" id="">
@@ -135,41 +137,39 @@
                                 </select>
                                 <div id="category_id_text" class="text-danger backend-error-text"></div>
                             </div>
-                            <div class="form-group ">
-
-                                <label class="col-lg-4 col-form-label" for="name">Name <span
-                                        class="text-danger">*</span>
+                            <div class="col-md-6">
+                                <label class="form-label" for="name">Name <span class="text-danger">*</span>
                                 </label>
                                 <input type="text" class="form-control" id="name" name="name"
                                     placeholder="Category Name" :value="old('name')">
                                 <div id="name_text" class="text-danger backend-error-text"></div>
                             </div>
 
-                            <div class="form-group ">
-                                <label class="col-lg-4 col-form-label" for="name">Image <span
-                                        class="text-danger">*</span>
+
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6 my-2">
+                                <label class="form-label form-check-label" for="name"
+                                    style="margin-top: 35px; margin-left:30px;">
+
+                                    <input type="checkbox" class="form-check-input" checked name="is_active"
+                                        value="1">Active </label>
+                                <div id="is_active_text" class="text-danger backend-error-text"></div>
+                            </div>
+                            <div class="col-md-6 my-2">
+                                <label class="form-label" for="name">Image <span class="text-danger">*</span>
                                 </label>
                                 <input type="file" class="form-control" id="sub_category_image"
                                     name="sub_category_image" placeholder="sub_category_image"
                                     :value="old('sub_category_image')">
                                 <div id="sub_category_image_text" class="text-danger backend-error-text"></div>
-
                             </div>
-                            <div class="form-group ">
-
-
-                                <label class="col-lg-4 col-form-label form-check-label" for="name">
-
-                                    <input type="checkbox" class="form-check-input" checked name="is_active"
-                                        value="1">Active </label>
-                                <div id="is_active_text" class="text-danger backend-error-text"></div>
-
-                            </div>
-
 
 
                         </div>
-                        <div class="modal-footer">
+                        <div class="modal-footer my-3">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="button" id="button-save" onclick="submitSubCategory(this)"
                                 class="btn btn-primary">Add SubCategory</button>
@@ -227,17 +227,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6  ">
-                                <label class="form-label" for="name">Image <span class="text-danger">*</span>
-                                </label>
-                                <input type="file" class="form-control" id="edit_sub_category_image"
-                                    name="sub_category_image" placeholder="Enter a name.." value="">
-                                <div id="edit_sub_category_image_text" class="text-danger backend-error-text"></div>
-
-                            </div>
-                            <div class="col-md-6  ">
-
-
+                            <div class="col-md-6  my-2">
                                 <label class="form-label form-check-label " for="name" style="margin-top: 35px">
                                     Active</label>
 
@@ -246,10 +236,20 @@
 
                             </div>
 
+                            <div class="col-md-6 my-2 ">
+                                <label class="form-label" for="name">Image <span class="text-danger">*</span>
+                                </label>
+                                <input type="file" class="form-control" id="edit_sub_category_image"
+                                    name="sub_category_image" placeholder="Enter a name.." value="">
+                                <div id="edit_sub_category_image_text" class="text-danger backend-error-text"></div>
+
+                            </div>
+
+
 
 
                         </div>
-                        <div class="modal-footer">
+                        <div class="modal-footer my-3">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="button" id="button-update" onclick="editSubCategory(this)"
                                 class="btn btn-primary">Edit Sub Category</button>

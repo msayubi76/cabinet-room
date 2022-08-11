@@ -153,9 +153,9 @@
             @foreach ($featured_product as $featuredlist)
                 <div class="product-default appear-animate" data-animation-name="fadeInRightShorter">
                     <figure>
-                        <a href="product.html">
-                            <img src="{{asset('website/assets/images/products/product-1.jpg')}}" width="280" height="280" alt="product">
-                            <img src="{{asset('website/assets/images/products/product-1-2.jpg')}}" width="280" height="280" alt="product">
+                        <a href="{{url('products/'.$featuredlist->id)}}">
+                            <img src="{{ $featuredlist->feature_image }}" width="280" height="280" alt="product">
+                            <img src="{{ $featuredlist->feature_image }}" width="280" height="280" alt="product">
                         </a>
                         <div class="label-group">
                             <div class="product-label label-hot">HOT</div>
@@ -167,7 +167,7 @@
                             <a href="category.html" class="product-category">{{$featuredlist->category->name}}</a>
                         </div>
                         <h3 class="product-title">
-                            <a href="product.html">{{$featuredlist->name}}</a>
+                            <a href="{{url('products/'.$featuredlist->id)}}">{{$featuredlist->name}}</a>
                         </h3>
                         <div class="ratings-container">
                             <div class="product-ratings">
@@ -180,14 +180,14 @@
 
                         <!-- End .product-container -->
                         <div class="price-box">
-                            <del class="old-price">{{$featuredlist->actual_price}}</del>
-                            <span class="product-price">{{$featuredlist->discount}}</span>
+                            <del class="old-price">{{$featuredlist->currency}}{{$featuredlist->actual_price}}</del>
+                            <span class="product-price">{{$featuredlist->currency}}{{$featuredlist->discount}}</span>
                         </div>
                         <!-- End .price-box -->
                         <div class="product-action">
                             <a href="wishlist.html" class="btn-icon-wish" title="wishlist"><i
                                     class="icon-heart"></i></a>
-                            <a href="product.html" class="btn-icon btn-add-cart"><i
+                            <a href="{{url('products/'.$featuredlist->id)}}" class="btn-icon btn-add-cart"><i
                                     class="fa fa-arrow-right"></i><span>SELECT
                                     OPTIONS</span></a>
                             <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View"><i
@@ -269,9 +269,9 @@
 
                 <div class="product-default appear-animate" data-animation-name="fadeInRightShorter">
                     <figure>
-                        <a href="product.html">
-                            <img src="{{asset('website/assets/images/products/product-6.jpg')}}" width="220" height="220" alt="product">
-                            <img src="{{asset('website/assets/images/products/product-6-2.jpg')}}" width="220" height="220" alt="product">
+                        <a href="{{url('products/'.$arriviallist->id)}}">
+                            <img src="{{ $arriviallist->feature_image }}" width="220" height="220" alt="product">
+                            <img src="{{ $arriviallist->feature_image }}" width="220" height="220" alt="product">
                         </a>
                         <div class="label-group">
                             <div class="product-label label-hot">HOT</div>
@@ -282,7 +282,7 @@
                             <a href="category.html" class="product-category">{{$arriviallist->category->name}}</a>
                         </div>
                         <h3 class="product-title">
-                            <a href="product.html">{{$arriviallist->name}}</a>
+                            <a href="{{url('products/'.$arriviallist->id)}}">{{$arriviallist->name}}</a>
                         </h3>
                         <div class="ratings-container">
                             <div class="product-ratings">
@@ -294,8 +294,8 @@
                         </div>
                         <!-- End .product-container -->
                         <div class="price-box">
-                            <del class="old-price">{{$arriviallist->actual_price}}</del>
-                            <span class="product-price">{{$arriviallist->discount}}</span>
+                            <del class="old-price">{{$arriviallist->currency}}{{$arriviallist->actual_price}}</del>
+                            <span class="product-price">{{$arriviallist->currency}}{{$arriviallist->discount}}</span>
                         </div>
                         <!-- End .price-box -->
                         <div class="product-action">
