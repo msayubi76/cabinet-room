@@ -25,7 +25,7 @@ class UserController extends Controller
             $users = UserService::getUsers();
             return view('admin.user.index', compact('users'));
         } catch (\Throwable $th) {
-            dd($th);
+
         }
     }
     public function profile()

@@ -5,10 +5,10 @@
     <div class="container">
         <ul class="checkout-progress-bar d-flex justify-content-center flex-wrap">
             <li class="active">
-                <a href="cart.html">Shopping Cart</a>
+                <a href="{{ url('cart') }}">Shopping Cart</a>
             </li>
             <li>
-                <a href="checkout.html">Checkout</a>
+                <a href="{{ url('check-out') }}">Checkout</a>
             </li>
             <li class="disabled">
                 <a href="cart.html">Order Complete</a>
