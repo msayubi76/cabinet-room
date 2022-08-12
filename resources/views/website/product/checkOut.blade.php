@@ -307,7 +307,7 @@
 
                                     <div class="form-group form-group-custom-control">
                                         <div class="custom-control custom-radio d-flex">
-                                            <input type="radio" class="custom-control-input" name="radio" checked />
+                                            <input type="radio"  class="custom-control-input" name="radio" checked />
                                             <label class="custom-control-label">Local Pickup</label>
                                         </div>
                                         <!-- End .custom-checkbox -->
