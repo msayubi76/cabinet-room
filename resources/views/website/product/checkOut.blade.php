@@ -5,10 +5,10 @@
     <div class="container checkout-container">
         <ul class="checkout-progress-bar d-flex justify-content-center flex-wrap">
             <li>
-                <a href="cart.html">Shopping Cart</a>
+                <a href="{{ url('cart') }}">Shopping Cart</a>
             </li>
             <li class="active">
-                <a href="checkout.html">Checkout</a>
+                <a href="{{ url('check-out') }}">Checkout</a>
             </li>
             <li class="disabled">
                 <a href="#">Order Complete</a>
@@ -94,14 +94,15 @@
                     <li>
                         <h2 class="step-title">Billing details</h2>
 
-                        <form action="#" id="checkout-form">
+                        <form action="{{ url('check-out') }}" method="post" id="checkout-form">
+                            @csrf
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>First name
                                             <abbr class="required" title="required">*</abbr>
                                         </label>
-                                        <input type="text" class="form-control" required />
+                                        <input type="text" name="first_name" class="form-control" required />
                                     </div>
                                 </div>
 
@@ -109,73 +110,51 @@
                                     <div class="form-group">
                                         <label>Last name
                                             <abbr class="required" title="required">*</abbr></label>
-                                        <input type="text" class="form-control" required />
+                                        <input type="text" name="last_name" class="form-control" required />
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label>Company name (optional)</label>
-                                <input type="text" class="form-control" />
-                            </div>
+
 
                             <div class="select-custom">
-                                <label>Country / Region
-                                    <abbr class="required" title="required">*</abbr></label>
-                                <select name="orderby" class="form-control">
-                                    <option value="" selected="selected">Vanuatu
-                                    </option>
-                                    <option value="1">Brunei</option>
-                                    <option value="2">Bulgaria</option>
-                                    <option value="3">Burkina Faso</option>
-                                    <option value="4">Burundi</option>
-                                    <option value="5">Cameroon</option>
-                                </select>
+                                <label>State / County <abbr class="required" title="required">*</abbr></label>
+                                <input type="text" name="country" class="form-control" required />
                             </div>
 
                             <div class="form-group mb-1 pb-2">
                                 <label>Street address
                                     <abbr class="required" title="required">*</abbr></label>
-                                <input type="text" class="form-control" placeholder="House number and street name" required />
+                                <input type="text" name="address" class="form-control" placeholder="House number and street name" required />
                             </div>
 
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Apartment, suite, unite, etc. (optional)" required />
-                            </div>
+                            </div> --}}
 
                             <div class="form-group">
                                 <label>Town / City
                                     <abbr class="required" title="required">*</abbr></label>
-                                <input type="text" class="form-control" required />
+                                <input type="text" name="city" class="form-control" required />
                             </div>
 
-                            <div class="select-custom">
-                                <label>State / County <abbr class="required" title="required">*</abbr></label>
-                                <select name="orderby" class="form-control">
-                                    <option value="" selected="selected">NY</option>
-                                    <option value="1">Brunei</option>
-                                    <option value="2">Bulgaria</option>
-                                    <option value="3">Burkina Faso</option>
-                                    <option value="4">Burundi</option>
-                                    <option value="5">Cameroon</option>
-                                </select>
-                            </div>
+
 
                             <div class="form-group">
                                 <label>Postcode / Zip
                                     <abbr class="required" title="required">*</abbr></label>
-                                <input type="text" class="form-control" required />
+                                <input type="text" name="post_code" class="form-control" required />
                             </div>
 
                             <div class="form-group">
                                 <label>Phone <abbr class="required" title="required">*</abbr></label>
-                                <input type="tel" class="form-control" required />
+                                <input type="tel" name="phone_number" class="form-control" required />
                             </div>
 
                             <div class="form-group">
                                 <label>Email address
                                     <abbr class="required" title="required">*</abbr></label>
-                                <input type="email" class="form-control" required />
+                                <input type="email" name="email" class="form-control" required />
                             </div>
 
                             <div class="form-group mb-1">
@@ -205,14 +184,14 @@
                                 </div>
                             </div>
 
-                            <div id="collapseFour" class="collapse">
+                            {{-- <div id="collapseFour" class="collapse">
                                 <div class="shipping-info">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>First name <abbr class="required"
                                                         title="required">*</abbr></label>
-                                                <input type="text" class="form-control" required />
+                                                <input type="text" name="first_name" class="form-control" required />
                                             </div>
                                         </div>
 
@@ -220,15 +199,12 @@
                                             <div class="form-group">
                                                 <label>Last name <abbr class="required"
                                                         title="required">*</abbr></label>
-                                                <input type="text" class="form-control" required />
+                                                <input type="text" name="first_name" class="form-control" required />
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label>Company name (optional)</label>
-                                        <input type="text" class="form-control">
-                                    </div>
+
 
                                     <div class="select-custom">
                                         <label>Country / Region <span class="required">*</span></label>
@@ -245,7 +221,7 @@
                                     <div class="form-group mb-1 pb-2">
                                         <label>Street address <abbr class="required"
                                                 title="required">*</abbr></label>
-                                        <input type="text" class="form-control" placeholder="House number and street name" required />
+                                        <input type="text" name="first_name" class="form-control" placeholder="House number and street name" required />
                                     </div>
 
                                     <div class="form-group">
@@ -255,33 +231,26 @@
                                     <div class="form-group">
                                         <label>Town / City <abbr class="required"
                                                 title="required">*</abbr></label>
-                                        <input type="text" class="form-control" required />
+                                        <input type="text" name="first_name" class="form-control" required />
                                     </div>
 
                                     <div class="select-custom">
                                         <label>State / County <abbr class="required"
                                                 title="required">*</abbr></label>
-                                        <select name="orderby" class="form-control">
-                                            <option value="" selected="selected">NY</option>
-                                            <option value="1">Brunei</option>
-                                            <option value="2">Bulgaria</option>
-                                            <option value="3">Burkina Faso</option>
-                                            <option value="4">Burundi</option>
-                                            <option value="5">Cameroon</option>
-                                        </select>
+                                                <input type="text" name="first_name" class="form-control" required />
                                     </div>
 
                                     <div class="form-group">
                                         <label>Postcode / ZIP <abbr class="required"
                                                 title="required">*</abbr></label>
-                                        <input type="text" class="form-control" required />
+                                        <input type="text" name="first_name"  class="form-control" required />
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="form-group">
                                 <label class="order-comments">Order notes (optional)</label>
-                                <textarea class="form-control" placeholder="Notes about your order, e.g. special notes for delivery." required></textarea>
+                                <textarea class="form-control" name="notes"  placeholder="Notes about your order, e.g. special notes for delivery." required></textarea>
                             </div>
                         </form>
                     </li>
@@ -300,31 +269,27 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="product-col">
-                                    <h3 class="product-title">
-                                        Circled Ultimate 3D Speaker ×
-                                        <span class="product-qty">4</span>
-                                    </h3>
-                                </td>
+                            @php $total = 0; @endphp
+                            @php $all_item_total = 0; @endphp
+                            @foreach ($cart as $cartitem)
 
-                                <td class="price-col">
-                                    <span>$1,040.00</span>
-                                </td>
-                            </tr>
 
                             <tr>
                                 <td class="product-col">
                                     <h3 class="product-title">
-                                        Fashion Computer Bag ×
-                                        <span class="product-qty">2</span>
+                                        {{ $cartitem->product->name }} ×
+                                        <span class="product-qty">{{ $cartitem->quantity }}</span>
                                     </h3>
                                 </td>
 
                                 <td class="price-col">
-                                    <span>$418.00</span>
+                                    @php $total = $cartitem->product->discount * $cartitem->quantity; @endphp
+                                    <span>{{ $total }}</span>
                                 </td>
                             </tr>
+                            @php $all_item_total += $cartitem->product->discount * $cartitem->quantity; @endphp
+                            @endforeach
+
                         </tbody>
                         <tfoot>
                             <tr class="cart-subtotal">
@@ -333,7 +298,7 @@
                                 </td>
 
                                 <td class="price-col">
-                                    <span>$1,458.00</span>
+                                    <span>{{ $all_item_total }}</span>
                                 </td>
                             </tr>
                             <tr class="order-shipping">
