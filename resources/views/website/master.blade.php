@@ -41,7 +41,7 @@
 
     <!-- Plugins CSS File -->
     <link rel="stylesheet" href="{{ asset('website/assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('website/assets/css/jquerybootstrap.min.css') }}">
+
     <!--  CSS File -->
     <link rel="stylesheet" href="{{ asset('website/assets/css/style.css') }}">
 
@@ -104,7 +104,7 @@
     <script src="{{ asset('website/assets/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('website/assets/js/optional/isotope.pkgd.min.js') }}"></script>
     <script src="{{ asset('website/assets/js/plugins.min.js') }}"></script>
-    <script src="{{ asset('website/assets/js/jquery.toaster.js') }}"></script>
+
     <script src="{{ asset('website/assets/js/jquery.appear.min.js') }}"></script>
 
     <!-- Main JS File -->

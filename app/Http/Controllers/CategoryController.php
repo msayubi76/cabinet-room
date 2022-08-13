@@ -47,8 +47,8 @@ class CategoryController extends Controller
     }
     public function destroy($id){
        try {
-            $user_response = CategoryService::destroy($id);
-            return $user_response;
+            $category_response = CategoryService::destroy($id);
+            return $category_response;
        } catch (\Throwable $th) {
            return response()->json(['status' => false, 'message' => $th->getMessage()]);
        }
