@@ -17,7 +17,7 @@ class OrderDetailService
     public static function store(Request $request)
     {
         DB::beginTransaction();
-        $array = [];
+
 
         $cart = Cart::where('user_id', Auth::id())->get();
         foreach ( $cart as $cartitem ) :
@@ -28,15 +28,15 @@ class OrderDetailService
             $data['quantity'] = $cartitem->quantity;
             $data['price'] = $cartitem->price;
 
+dd($data);
 
 
-                $array[] = $data;
 
 
         endforeach;
 
 
-        $orderdetail = OrderDetail::insert($array);
+        $orderdetail = OrderDetail::insert($data);
         DB::commit();
         return $orderdetail;
     }

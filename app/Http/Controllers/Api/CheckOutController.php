@@ -6,9 +6,12 @@ use App\Models\Cart;
 use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\BillingDetails;
+use App\Services\OrderService;
 use App\Models\ShippingDetails;
+use App\Services\PaymentService;
+use App\Http\Controllers\Controller;
+use App\Services\OrderDetailService;
 use Illuminate\Support\Facades\Auth;
 
 class CheckOutController extends Controller
@@ -40,14 +43,22 @@ class CheckOutController extends Controller
             $billing->notes = $request->notes;
             $billing->save();
 
+
             $cart = Cart::where('user_id', Auth::id())->get();
             foreach ( $cart as $cartitem ) :
 
             ShippingDetails::create([
                     'user_id' =>  $cartitem->user_id,
+
             ]);
             endforeach;
+          $payment = PaymentService::store($request);
+          $order = OrderService::store($request);
+          $orderDetail = OrderDetailService::store($request);
+          $payment =$orderDetail;
+          dd($payment);
 
+          return  $payment;
         } catch (\Throwable $th) {
             return $th;
         }
