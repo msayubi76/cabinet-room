@@ -17,11 +17,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users');
             $table->foreignId('payment_id')->nullable()->constrained('payments');
+            $table->string('order_status')->default('pending');
+            $table->integer('tax')->nullable();
+            $table->integer('delivery_fee')->nullable();
+            $table->dateTime('cancel_at')->nullable();
             $table->foreignId('shipping_detail_id')->nullable()->constrained('shipping_details');
-            $table->boolean('order_status')->default(0);
-            $table->integer('tax');
-            $table->integer('delivery_fee');
-            $table->integer('cancell_at');
             $table->timestamps();
         });
     }

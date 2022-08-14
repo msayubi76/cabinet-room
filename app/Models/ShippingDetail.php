@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ShippingDetails extends Model
+class ShippingDetail extends Model
 {
     use HasFactory;
-    protected $table = 'shipping_details';
+ 
 
     protected $fillable =[
-        'user_id',
+        'first_name', 'last_name', 'address', 'city', 'country', 'post_code', 'phone_number', 'email','notes', 'user_id'
     ];
 }

@@ -15,30 +15,8 @@ class PaymentService
 
 
     public static function store(Request $request)
-    {
-        DB::beginTransaction();
-
-
-        $cart = Cart::where('user_id', Auth::id())->get();
-        foreach ( $cart as $cartitem ) :
-
-
-            $data['user_id'] = $cartitem->user_id;
-            $data['status'] = $cartitem->status;
-            $data['method'] = $cartitem->method;
-
-
-
-
-
-
-        endforeach;
-
-
-        $payment = Payment::insert($data);
-
-        DB::commit();
-        return $payment;
+    { 
+        
 
     }
 

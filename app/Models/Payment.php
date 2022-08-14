@@ -12,7 +12,7 @@ class Payment extends Model
     protected $table = 'payments';
 
     protected $fillable =[
-        'user_id', 'status', 'method',
+        'user_id', 'status', 'method', 'payment',
     ];
 }
 

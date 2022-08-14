@@ -15,9 +15,15 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained('users');
-            $table->boolean('status')->default(0);
+            $table->decimal('payment', 8)->nullable()->index();
+            $table->string('status')->default('pending');
             $table->string('method')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained('users');
+
+            
+
+
+
             $table->timestamps();
         });
     }
