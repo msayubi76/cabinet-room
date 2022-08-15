@@ -1,5 +1,5 @@
 @extends('website.master')
-
+@section('title' , "Shopping Cart")
 @section('content')
 
     <div class="container">
@@ -109,7 +109,7 @@
                                 <td>{{$cartlist->product->currency}}{{$alltotal}}</td>
                             </tr>
 
-                            <tr>
+                            {{-- <tr>
                                 <td colspan="2" class="text-left">
                                     <h4>Shipping</h4>
 
@@ -166,19 +166,19 @@
                                         </button>
                                     </form>
                                 </td>
-                            </tr>
+                            </tr> --}}
                         </tbody>
 
                         <tfoot>
                             <tr>
                                 <td>Total</td>
-                                <td>$17.90</td>
+                                <td>{{$cartlist->product->currency}}{{ $alltotal }}</td>
                             </tr>
                         </tfoot>
                     </table>
 
                     <div class="checkout-methods">
-                        <a href="cart.html" class="btn btn-block btn-dark ">Proceed to Checkout
+                        <a href="{{ url('check-out') }}" class="btn btn-block btn-dark ">Proceed to Checkout
                             <i class="fa fa-arrow-right"></i></a>
                     </div>
                 </div><!-- End .cart-summary -->

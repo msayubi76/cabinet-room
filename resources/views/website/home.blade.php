@@ -1,5 +1,5 @@
 @extends('website.master')
-
+@section('title' , "eCommerce")
 @section('content')
     <div class="home-slider slide-animate owl-carousel owl-theme show-nav-hover nav-big mb-2 text-uppercase" data-owl-options="{
         'loop': false

@@ -4,14 +4,15 @@ namespace App\Services;
 
 use App\Models\Cart;
 use App\Models\Order;
-use App\Models\OrderDetail;
 use App\Models\Payment;
-use App\Models\ShippingDetails;
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
+use App\Models\ShippingDetails;
 
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ShppingRequest;
 
 class OrderService
 {
@@ -32,6 +33,7 @@ class OrderService
         $user = auth()->user();
 
         $shipping_detail = ShippingService::store($request);
+
         $payment = Payment::create(['user_id' => $user->id, 'amount' => 0, 'method' => 'cash_on_delivery']);
 
         $OrderData['shipping_detail_id'] = $shipping_detail->id;
@@ -53,7 +55,7 @@ class OrderService
 
             $OrderDetailData[] = [  'product_id' => $product->id, 'quantity' => $quantity, 'price' => $actual_price, 'order_id' =>$order->id];
         endforeach;
-        
+
         $payment->update(['payment' => $amount]);
 
         OrderDetail::insert($OrderDetailData);

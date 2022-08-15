@@ -11,9 +11,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [FrontendController::class, 'index']);
 Route::get('/products', [FrontendController::class, 'products']);
 Route::get('/products/{id}', [FrontendController::class, 'singleproduct'])->name('website.single-product');
+Route::get('/about-us', [FrontendController::class, 'about']);
+Route::get('/contact-us', [FrontendController::class, 'contact']);
+Route::get('/privacy-and-policy', [FrontendController::class, 'policy']);
+
 
 Route::get('check-out', [CheckOutController::class, 'index']);
-Route::post('check-out', [CheckOutController::class, 'placeOrder']);
+Route::post('check-out', [CheckOutController::class, 'store']);
 
 Route::middleware(['auth'])->group(function () {
     Route::post('add-to-cart', [CartController::class, 'addProduct']);

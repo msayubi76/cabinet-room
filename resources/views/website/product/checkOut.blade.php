@@ -1,5 +1,5 @@
-
 @extends('website.master')
+@section('title', 'Checout')
 
 @section('content')
     <div class="container checkout-container">
@@ -17,7 +17,8 @@
 
         <div class="login-form-container">
             <h4>Returning customer?
-                <button data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="btn btn-link btn-toggle">Login</button>
+                <button data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                    class="btn btn-link btn-toggle">Login</button>
             </h4>
 
             <div id="collapseOne" class="collapse">
@@ -25,22 +26,21 @@
                     <div class="feature-box-content">
                         <form action="#" id="login-form">
                             <p>
-                                If you have shopped with us before, please enter your details below. If you are a new customer, please proceed to the Billing & Shipping section.
+                                If you have shopped with us before, please enter your details below. If you are a new
+                                customer, please proceed to the Billing & Shipping section.
                             </p>
 
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="mb-0 pb-1">Username or email <span
-                                                class="required">*</span></label>
+                                        <label class="mb-0 pb-1">Username or email <span class="required">*</span></label>
                                         <input type="email" class="form-control" required />
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="mb-0 pb-1">Password <span
-                                                class="required">*</span></label>
+                                        <label class="mb-0 pb-1">Password <span class="required">*</span></label>
                                         <input type="password" class="form-control" required />
                                     </div>
                                 </div>
@@ -65,7 +65,8 @@
 
         <div class="checkout-discount">
             <h4>Have a coupon?
-                <button data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne" class="btn btn-link btn-toggle">ENTER YOUR CODE</button>
+                <button data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne"
+                    class="btn btn-link btn-toggle">ENTER YOUR CODE</button>
             </h4>
 
             <div id="collapseTwo" class="collapse">
@@ -75,7 +76,8 @@
 
                         <form action="#">
                             <div class="input-group">
-                                <input type="text" class="form-control form-control-sm w-auto" placeholder="Coupon code" required="" />
+                                <input type="text" class="form-control form-control-sm w-auto" placeholder="Coupon code"
+                                    required="" />
                                 <div class="input-group-append">
                                     <button class="btn btn-sm mt-0" type="submit">
                                         Apply Coupon
@@ -102,7 +104,11 @@
                                         <label>First name
                                             <abbr class="required" title="required">*</abbr>
                                         </label>
-                                        <input type="text" name="first_name" class="form-control" required />
+                                        <input type="text" name="first_name" class="form-control"
+                                            value="{{ old('first_name') }}" />
+                                        @error('first_name')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -110,7 +116,11 @@
                                     <div class="form-group">
                                         <label>Last name
                                             <abbr class="required" title="required">*</abbr></label>
-                                        <input type="text" name="last_name" class="form-control" required />
+                                        <input type="text" name="last_name" class="form-control"
+                                            value="{{ old('last_name') }}" />
+                                        @error('last_name')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -119,13 +129,20 @@
 
                             <div class="select-custom">
                                 <label>State / County <abbr class="required" title="required">*</abbr></label>
-                                <input type="text" name="country" class="form-control" required />
+                                <input type="text" name="country" class="form-control" value="{{ old('country') }}" />
+                                @error('country')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group mb-1 pb-2">
                                 <label>Street address
                                     <abbr class="required" title="required">*</abbr></label>
-                                <input type="text" name="address" class="form-control" placeholder="House number and street name" required />
+                                <input type="text" name="address" class="form-control"
+                                    placeholder="House number and street name" value="{{ old('address') }}" />
+                                @error('address')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             {{-- <div class="form-group">
@@ -135,7 +152,11 @@
                             <div class="form-group">
                                 <label>Town / City
                                     <abbr class="required" title="required">*</abbr></label>
-                                <input type="text" name="city" class="form-control" required />
+                                <input type="text" name="city" class="form-control"
+                                    value="{{ old('city') }}" />
+                                @error('city')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
 
@@ -143,114 +164,44 @@
                             <div class="form-group">
                                 <label>Postcode / Zip
                                     <abbr class="required" title="required">*</abbr></label>
-                                <input type="text" name="post_code" class="form-control" required />
+                                <input type="text" name="post_code" class="form-control"
+                                    value="{{ old('post_code') }}" />
+                                @error('post_code')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
                                 <label>Phone <abbr class="required" title="required">*</abbr></label>
-                                <input type="tel" name="phone_number" class="form-control" required />
+                                <input type="tel" name="phone_number" class="form-control"
+                                    value="{{ old('phone_number') }}" />
+                                @error('phone_number')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
                                 <label>Email address
                                     <abbr class="required" title="required">*</abbr></label>
-                                <input type="email" name="email" class="form-control" required />
+                                <input type="email" name="email" class="form-control"
+                                    value="{{ old('email') }}" />
+                                @error('email')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
-                            <div class="form-group mb-1">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="create-account" />
-                                    <label class="custom-control-label" data-toggle="collapse" data-target="#collapseThree" aria-controls="collapseThree" for="create-account">Create an
-                                        account?</label>
-                                </div>
-                            </div>
-
-                            <div id="collapseThree" class="collapse">
-                                <div class="form-group">
-                                    <label>Create account password
-                                        <abbr class="required" title="required">*</abbr></label>
-                                    <input type="password" placeholder="Password" class="form-control" required />
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="custom-control custom-checkbox mt-0">
-                                    <input type="checkbox" class="custom-control-input" id="different-shipping" />
-                                    <label class="custom-control-label" data-toggle="collapse" data-target="#collapseFour" aria-controls="collapseFour" for="different-shipping">Ship to a
-                                        different
-                                        address?</label>
-
-
-                                </div>
-                            </div>
-
-                            {{-- <div id="collapseFour" class="collapse">
-                                <div class="shipping-info">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>First name <abbr class="required"
-                                                        title="required">*</abbr></label>
-                                                <input type="text" name="first_name" class="form-control" required />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Last name <abbr class="required"
-                                                        title="required">*</abbr></label>
-                                                <input type="text" name="first_name" class="form-control" required />
-                                            </div>
-                                        </div>
-                                    </div>
 
 
 
-                                    <div class="select-custom">
-                                        <label>Country / Region <span class="required">*</span></label>
-                                        <select name="orderby" class="form-control">
-                                            <option value="" selected="selected">Vanuatu</option>
-                                            <option value="1">Brunei</option>
-                                            <option value="2">Bulgaria</option>
-                                            <option value="3">Burkina Faso</option>
-                                            <option value="4">Burundi</option>
-                                            <option value="5">Cameroon</option>
-                                        </select>
-                                    </div>
 
-                                    <div class="form-group mb-1 pb-2">
-                                        <label>Street address <abbr class="required"
-                                                title="required">*</abbr></label>
-                                        <input type="text" name="first_name" class="form-control" placeholder="House number and street name" required />
-                                    </div>
-
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Apartment, suite, unit, etc. (optional)" required />
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Town / City <abbr class="required"
-                                                title="required">*</abbr></label>
-                                        <input type="text" name="first_name" class="form-control" required />
-                                    </div>
-
-                                    <div class="select-custom">
-                                        <label>State / County <abbr class="required"
-                                                title="required">*</abbr></label>
-                                                <input type="text" name="first_name" class="form-control" required />
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Postcode / ZIP <abbr class="required"
-                                                title="required">*</abbr></label>
-                                        <input type="text" name="first_name"  class="form-control" required />
-                                    </div>
-                                </div>
-                            </div> --}}
 
                             <div class="form-group">
                                 <label class="order-comments">Order notes (optional)</label>
-                                <textarea class="form-control" name="notes"  placeholder="Notes about your order, e.g. special notes for delivery." required></textarea>
+                                <textarea class="form-control" name="notes" value="{{ old('notes') }}"
+                                    placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                                @error('notes')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </form>
                     </li>
@@ -272,22 +223,20 @@
                             @php $total = 0; @endphp
                             @php $all_item_total = 0; @endphp
                             @foreach ($cart as $cartitem)
+                                <tr>
+                                    <td class="product-col">
+                                        <h3 class="product-title">
+                                            {{ $cartitem->product->name }} ×
+                                            <span class="product-qty">{{ $cartitem->quantity }}</span>
+                                        </h3>
+                                    </td>
 
-
-                            <tr>
-                                <td class="product-col">
-                                    <h3 class="product-title">
-                                        {{ $cartitem->product->name }} ×
-                                        <span class="product-qty">{{ $cartitem->quantity }}</span>
-                                    </h3>
-                                </td>
-
-                                <td class="price-col">
-                                    @php $total = $cartitem->product->discount * $cartitem->quantity; @endphp
-                                    <span>{{ $total }}</span>
-                                </td>
-                            </tr>
-                            @php $all_item_total += $cartitem->product->discount * $cartitem->quantity; @endphp
+                                    <td class="price-col">
+                                        @php $total = $cartitem->product->discount * $cartitem->quantity; @endphp
+                                        <span> {{$cartitem->product->currency}}{{ $total }}</span>
+                                    </td>
+                                </tr>
+                                @php $all_item_total += $cartitem->product->discount * $cartitem->quantity; @endphp
                             @endforeach
 
                         </tbody>
@@ -298,7 +247,7 @@
                                 </td>
 
                                 <td class="price-col">
-                                    <span>{{ $all_item_total }}</span>
+                                    <span>{{$cartitem->product->currency}}{{ $all_item_total }}</span>
                                 </td>
                             </tr>
                             <tr class="order-shipping">
@@ -307,7 +256,7 @@
 
                                     <div class="form-group form-group-custom-control">
                                         <div class="custom-control custom-radio d-flex">
-                                            <input type="radio"  class="custom-control-input" name="radio" checked />
+                                            <input type="radio" class="custom-control-input" name="radio" checked />
                                             <label class="custom-control-label">Local Pickup</label>
                                         </div>
                                         <!-- End .custom-checkbox -->
@@ -331,7 +280,7 @@
                                     <h4>Total</h4>
                                 </td>
                                 <td>
-                                    <b class="total-price"><span>$1,603.80</span></b>
+                                    <b class="total-price"><span>{{$cartitem->product->currency}}{{ $all_item_total }}</span></b>
                                 </td>
                             </tr>
                         </tfoot>
@@ -341,7 +290,8 @@
                         <h4 class="">Payment methods</h4>
                         <div class="info-box with-icon p-0">
                             <p>
-                                Sorry, it seems that there are no available payment methods for your state. Please contact us if you require assistance or wish to make alternate arrangements.
+                                Sorry, it seems that there are no available payment methods for your state. Please contact
+                                us if you require assistance or wish to make alternate arrangements.
                             </p>
                         </div>
                     </div>

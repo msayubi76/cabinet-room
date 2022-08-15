@@ -1,5 +1,6 @@
 
 @extends('website.master')
+@section('title' , "shop")
 
 @section('content')
 

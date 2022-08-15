@@ -9,11 +9,13 @@ use Illuminate\Http\Request;
 use App\Models\BillingDetails;
 use App\Services\OrderService;
 use App\Models\ShippingDetails;
+use App\Services\BillingService;
 use App\Services\PaymentService;
 use App\Http\Controllers\Controller;
-use App\Services\BillingService;
 use App\Services\OrderDetailService;
 use Illuminate\Support\Facades\Auth;
+
+use App\Http\Requests\ShippingRequest;
 
 class CheckOutController extends Controller
 {
@@ -29,11 +31,13 @@ class CheckOutController extends Controller
         }
     }
 
-    public function placeOrder(Request $request)
+    public function store(ShippingRequest $request)
     {
         try {
             $order = OrderService::store($request);
+
             dd($order);
+
         } catch (\Throwable $th) {
             dd($th);
             return $th;

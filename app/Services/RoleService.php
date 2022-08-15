@@ -21,8 +21,10 @@ class RoleService
 
     public  static function store($request)
     {
+        
         DB::beginTransaction();
         $data = $request->validated();
+
         $role = Role::create($data);
         DB::commit();
         $response = ['status' => true, 'message' => 'Role added successfully.', 'role' => $role];
@@ -35,6 +37,7 @@ class RoleService
     {
         DB::beginTransaction();
         $data = $request->validated();
+
         $role->update($data);
         DB::commit();
         $response = ['status' => true, 'message' => ' Role updated successfully.', 'role' => $role];

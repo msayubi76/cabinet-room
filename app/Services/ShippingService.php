@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Services;
- 
-use App\Models\ShippingDetail;
+
 use Illuminate\Http\Request;
+use App\Models\ShippingDetail;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\ShppingRequest;
 
 class ShippingService
 {
@@ -11,6 +13,7 @@ class ShippingService
 
     public static function store($request)
     {
+
 
         $data = $request->only(
             [
@@ -21,6 +24,6 @@ class ShippingService
         $data['user_id'] = auth()->user()->id;
 
        return ShippingDetail::create($data);
- 
+
     }
 }

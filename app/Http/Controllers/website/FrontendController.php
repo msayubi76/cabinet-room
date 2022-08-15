@@ -42,4 +42,30 @@ class FrontendController extends Controller
       return view('website.product.singleProduct', compact('category', 'subcategory', 'product','cart'));
    }
 
+   public function about()
+   {
+     $category = Category::where('is_active', '0')->get();
+      $subcategory = SubCategory::where('is_active', '0')->get();
+      $cart = Cart::where('user_id',Auth::id())->get();
+      return view('website.pages.about', compact('category', 'subcategory', 'cart'));
+   }
+
+   public function contact()
+   {
+     $category = Category::where('is_active', '0')->get();
+      $subcategory = SubCategory::where('is_active', '0')->get();
+      $cart = Cart::where('user_id',Auth::id())->get();
+      return view('website.pages.contact', compact('category', 'subcategory', 'cart'));
+   }
+
+   public function policy()
+   {
+     $category = Category::where('is_active', '0')->get();
+      $subcategory = SubCategory::where('is_active', '0')->get();
+      $cart = Cart::where('user_id',Auth::id())->get();
+      return view('website.pages.privacy-and-policy', compact('category', 'subcategory', 'cart'));
+   }
+
+
+
 }

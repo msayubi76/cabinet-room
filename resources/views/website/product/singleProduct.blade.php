@@ -1,4 +1,5 @@
 @extends('website.master')
+@section('title' , "Single product")
 
 @section('content')
     <div class="container">
