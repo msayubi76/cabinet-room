@@ -34,26 +34,37 @@ class OrderService
 
         $shipping_detail = ShippingService::store($request);
 
+
         $payment = Payment::create(['user_id' => $user->id, 'amount' => 0, 'method' => 'cash_on_delivery']);
 
         $OrderData['shipping_detail_id'] = $shipping_detail->id;
+
         $OrderData['payment_id'] = $payment->id;
+
         $OrderData['user_id'] = $user->id;
+
         $OrderData['order_status'] = 'pending';
         $OrderData['delivery_fee'] = NULL;
         $OrderData['cancel_at'] = NULL;
+
         $order = Order::create($OrderData);
 
         $amount = 0;
         $OrderDetailData = [];
-        foreach ($user->cartItems as  $item):
-            $product = $item->product;
-            $quantity = $item->quantity;
-            $actual_price = (float) $product->actual_price ;
-            $price = $actual_price * $quantity;
-            $amount =  $amount + round($price, 4);
+        foreach ($user->cartItems as  $item) :
 
-            $OrderDetailData[] = [  'product_id' => $product->id, 'quantity' => $quantity, 'price' => $actual_price, 'order_id' =>$order->id];
+            $product = $item->product;
+
+            $quantity = $item->quantity;
+
+            $actual_price = (float) $product->actual_price;
+
+            $price = $actual_price * $quantity;
+
+            $amount =  $amount + round($price, 4);
+           
+
+            $OrderDetailData[] = ['product_id' => $product->id, 'quantity' => $quantity, 'price' => $actual_price, 'order_id' => $order->id];
         endforeach;
 
         $payment->update(['payment' => $amount]);
@@ -64,10 +75,4 @@ class OrderService
         DB::commit();
         return $order;
     }
-
-
-  }
-
-
-
-
+}

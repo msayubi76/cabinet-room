@@ -95,8 +95,8 @@
                 <ul class="checkout-steps">
                     <li>
                         <h2 class="step-title">Billing details</h2>
-                        @if(session('message'))
-                        <div class="alert alert-success"> {{ session('message') }}</div>
+                        @if (session('message'))
+                            <div class="alert alert-success"> {{ session('message') }}</div>
                         @endif
 
                         <form action="{{ url('check-out') }}" method="post" id="checkout-form">
@@ -236,7 +236,7 @@
 
                                     <td class="price-col">
                                         @php $total = $cartitem->product->discount * $cartitem->quantity; @endphp
-                                        <span> {{$cartitem->product->currency}}{{ $total }}</span>
+                                        <span> {{ $cartitem->product->currency }}{{ $total }}</span>
                                     </td>
                                 </tr>
                                 @php $all_item_total += $cartitem->product->discount * $cartitem->quantity; @endphp
@@ -251,7 +251,7 @@
 
                                 <td class="price-col">
 
-                                    <span>{{$cartitem->product->currency}}{{$all_item_total}}</span>
+                                    <span>{{ $cartitem->product->currency }}{{ $all_item_total }}</span>
                                 </td>
                             </tr>
                             <tr class="order-shipping">
@@ -261,19 +261,13 @@
                                     <div class="form-group form-group-custom-control">
                                         <div class="custom-control custom-radio d-flex">
                                             <input type="radio" class="custom-control-input" name="radio" checked />
-                                            <label class="custom-control-label">Local Pickup</label>
+                                            <label class="custom-control-label">payment Delivery</label>
                                         </div>
                                         <!-- End .custom-checkbox -->
                                     </div>
                                     <!-- End .form-group -->
 
-                                    <div class="form-group form-group-custom-control mb-0">
-                                        <div class="custom-control custom-radio d-flex mb-0">
-                                            <input type="radio" name="radio" class="custom-control-input">
-                                            <label class="custom-control-label">Flat Rate</label>
-                                        </div>
-                                        <!-- End .custom-checkbox -->
-                                    </div>
+
                                     <!-- End .form-group -->
                                 </td>
 
@@ -284,7 +278,8 @@
                                     <h4>Total</h4>
                                 </td>
                                 <td>
-                                    <b class="total-price"><span>{{$cartitem->product->currency}}{{ $all_item_total }}</span></b>
+                                    <b
+                                        class="total-price"><span>{{ $cartitem->product->currency }}{{ $all_item_total }}</span></b>
                                 </td>
                             </tr>
                         </tfoot>

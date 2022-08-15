@@ -17,7 +17,7 @@ Route::get('/privacy-and-policy', [FrontendController::class, 'policy']);
 
 
 Route::get('check-out', [CheckOutController::class, 'index']);
-Route::post('check-out', [CheckOutController::class, 'store']);
+Route::post('check-out', [CheckOutController::class, 'store'])->name('website.checkout');
 
 Route::middleware(['auth'])->group(function () {
     Route::post('add-to-cart', [CartController::class, 'addProduct']);

@@ -129,7 +129,7 @@
                                         @foreach ( currencies() as $currency )
 
 
-                                        <option value="{{$currency->code}}">{{$currency->name}}</option>
+                                        <option value="{{$currency->code}}">{{$currency->code}}</option>
                                         @endforeach
                                     </select>
                                     @error('code')
