@@ -36,10 +36,10 @@ class CheckOutController extends Controller
         try {
             $order = OrderService::store($request);
 
-            dd($order);
+            return redirect(route('website.product.checOut'))->with('success', 'You Shipping  added successfully.');
 
         } catch (\Throwable $th) {
-            dd($th);
+
             return $th;
         }
     }

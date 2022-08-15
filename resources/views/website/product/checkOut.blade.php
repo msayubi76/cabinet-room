@@ -95,6 +95,9 @@
                 <ul class="checkout-steps">
                     <li>
                         <h2 class="step-title">Billing details</h2>
+                        @if(session('message'))
+                        <div class="alert alert-success"> {{ session('message') }}</div>
+                        @endif
 
                         <form action="{{ url('check-out') }}" method="post" id="checkout-form">
                             @csrf
@@ -107,7 +110,7 @@
                                         <input type="text" name="first_name" class="form-control"
                                             value="{{ old('first_name') }}" />
                                         @error('first_name')
-                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -119,7 +122,7 @@
                                         <input type="text" name="last_name" class="form-control"
                                             value="{{ old('last_name') }}" />
                                         @error('last_name')
-                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -131,7 +134,7 @@
                                 <label>State / County <abbr class="required" title="required">*</abbr></label>
                                 <input type="text" name="country" class="form-control" value="{{ old('country') }}" />
                                 @error('country')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
@@ -141,7 +144,7 @@
                                 <input type="text" name="address" class="form-control"
                                     placeholder="House number and street name" value="{{ old('address') }}" />
                                 @error('address')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
@@ -155,7 +158,7 @@
                                 <input type="text" name="city" class="form-control"
                                     value="{{ old('city') }}" />
                                 @error('city')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
@@ -167,7 +170,7 @@
                                 <input type="text" name="post_code" class="form-control"
                                     value="{{ old('post_code') }}" />
                                 @error('post_code')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
@@ -176,7 +179,7 @@
                                 <input type="tel" name="phone_number" class="form-control"
                                     value="{{ old('phone_number') }}" />
                                 @error('phone_number')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
@@ -186,7 +189,7 @@
                                 <input type="email" name="email" class="form-control"
                                     value="{{ old('email') }}" />
                                 @error('email')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
@@ -200,7 +203,7 @@
                                 <textarea class="form-control" name="notes" value="{{ old('notes') }}"
                                     placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
                                 @error('notes')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </form>
@@ -247,7 +250,8 @@
                                 </td>
 
                                 <td class="price-col">
-                                    <span>{{$cartitem->product->currency}}{{ $all_item_total }}</span>
+
+                                    <span>{{$cartitem->product->currency}}{{$all_item_total}}</span>
                                 </td>
                             </tr>
                             <tr class="order-shipping">

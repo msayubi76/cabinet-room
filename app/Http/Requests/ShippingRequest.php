@@ -29,7 +29,7 @@ class ShippingRequest extends FormRequest
             'phone_number' => ['required'],
             'address' => ['required'],
             'city' => ['required'],
-            'region' => ['required'],
+
             'post_code' => ['required'],
             'country' => ['required'],
             'email' => ['required'],

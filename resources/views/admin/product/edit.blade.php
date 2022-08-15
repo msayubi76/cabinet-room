@@ -27,7 +27,7 @@
                                         <input type="text" class="form-control input-default" id="edit_name"
                                         placeholder="Product Name" value="{{ $product->name }}" name="name">
                                         @error('name')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                     </div>
 
@@ -41,7 +41,7 @@
                                             @endforeach
                                         </select>
                                         @error('category_id')
-                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
 
@@ -56,7 +56,7 @@
 
                                         </select>
                                         @error('sub_category_id')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                     </div>
 
@@ -67,7 +67,7 @@
                                     <textarea class="form-control h-150px mysummernote" id="edit_description mysummernote" name="description" rows="6"
                                         placeholder="Write here.......">{{ $product->description }}</textarea>
                                         @error('description')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
 
@@ -80,7 +80,7 @@
                                         <input type="file" class="form-control" id="edit_feature_image" name="feature_image"
                                             placeholder="feature image" :value="old('feature_image')">
                                             @error('feature_image')
-                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                      <div class="col-md-6">
@@ -96,7 +96,7 @@
                                         <input type="file" class="form-control" id="images" name="images[]"
                                     placeholder="images"  multiple>
                                     @error('images')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                 @enderror
                                     </div>
 
@@ -108,7 +108,7 @@
                                             placeholder="Actual Price" value="{{ $product->actual_price }}"
                                             name="actual_price">
                                             @error('actual_price')
-                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            <div class="text-danger">{{ $message }}</div>
                                         @enderror
 
                                     </div>
@@ -116,7 +116,7 @@
                                         <input type="text" class="form-control input-default" id="edit_discount"
                                             placeholder="Discount" value="{{ $product->discount }}" name="discount">
                                             @error('discount')
-                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            <div class="text-danger">{{ $message }}</div>
                                         @enderror
 
                                     </div>
@@ -125,7 +125,7 @@
                                             placeholder="Shipping Charge" value="{{ $product->shipping_charge }}"
                                             name="shipping_charge">
                                             @error('shipping_charge')
-                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            <div class="text-danger">{{ $message }}</div>
                                         @enderror
 
                                     </div>
@@ -138,7 +138,7 @@
                                         <input type="text" class="form-control input-default" id="edit_colour"
                                             placeholder="colour" value="{{ $product->colour }}" name="colour">
                                             @error('colour')
-                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            <div class="text-danger">{{ $message }}</div>
                                         @enderror
 
                                     </div>
@@ -146,7 +146,7 @@
                                         <input type="text" class="form-control input-default" id="edit-length"
                                             placeholder="length" value="{{ $product->length }}"name="length">
                                             @error('length')
-                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            <div class="text-danger">{{ $message }}</div>
                                         @enderror
 
                                     </div>
@@ -154,7 +154,7 @@
                                         <input type="text" class="form-control input-default" id="edit_width"
                                             placeholder="width" value="{{ $product->width }}"name="width">
                                             @error('width')
-                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            <div class="text-danger">{{ $message }}</div>
                                         @enderror
 
                                     </div>
@@ -170,7 +170,7 @@
                                         @endforeach
                                     </select>
                                     @error('code')
-                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-md-4 mb-8">
@@ -181,7 +181,7 @@
                                                 {{ $product->is_feature_product == '1' ? 'checked' : '' }}>Feature Product
                                         </label>
                                         @error('width')
-                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-md-4 mb-8">
@@ -192,7 +192,7 @@
                                                 {{ $product->is_arrival_product == '1' ? 'checked' : '' }}>Arrival Product
                                         </label>
                                         @error('is_arrival_product')
-                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
