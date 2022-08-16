@@ -547,6 +547,10 @@
 /*
  *  Owl Carousel - Core
  */
+ .ui-menu{
+    z-index: 3500 !important;
+    background-color: white;
+ }
 .owl-carousel {
   display: none;
   width: 100%;

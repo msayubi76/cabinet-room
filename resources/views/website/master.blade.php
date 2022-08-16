@@ -44,6 +44,8 @@
 
     <!--  CSS File -->
     <link rel="stylesheet" href="{{ asset('website/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('website/assets/css/jquery.ui.css') }}">
+
 
     <!-- Main CSS File -->
     <link rel="stylesheet" href="{{ asset('website/assets/css/demo4.min.css') }}">
@@ -106,6 +108,28 @@
     <script src="{{ asset('website/assets/js/plugins.min.js') }}"></script>
 
     <script src="{{ asset('website/assets/js/jquery.appear.min.js') }}"></script>
+    <script src="{{ asset('website/assets/js/jquery.ui.js') }}"></script>
+     <script>
+
+          var availableTags = [];
+
+                $.ajax({
+                    method: "GET",
+                    url: "/product-list",
+
+                    success: function (response) {
+                        startAutoComplete(response);
+
+                    }
+                });
+                function startAutoComplete(availableTags){
+                    $( "#search_product" ).autocomplete({
+            source: availableTags
+          });
+                }
+
+
+        </script>
 
     <!-- Main JS File -->
     <script src="{{ asset('website/assets/js/main.min.js') }}"></script>

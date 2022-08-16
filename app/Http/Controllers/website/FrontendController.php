@@ -66,6 +66,56 @@ class FrontendController extends Controller
       return view('website.pages.privacy-and-policy', compact('category', 'subcategory', 'cart'));
    }
 
+   public function category($name){
+
+    $subcategory = SubCategory::where('is_active', '0')->get();
+    $category = Category::where('is_active', '0')->get();
+    $cart = Cart::where('user_id',Auth::id())->get();
+
+    if(Category::where('name',$name)->exists()){
+      $get_category = Category::where('name',$name)->first();
+
+      $product = Product::where('category_id',$get_category->id)->get();
+
+      return view('website.category.product-with-category',compact('get_category','category','subcategory','product','cart'));
+    }
+    else{
+        return redirect('/')->with('status','Category Dosent Exists');
+    }
+   }
+
+   public function productList(){
+    $product = Product::select('name')->get();
+
+    $data =[];
+    foreach($product as $product_list){
+        $data[] = $product_list['name'];
+    }
+
+    return $data;
+   }
+    public function searchProduct(Request $request)
+   {
+
+    $product_search = $request->name;
+
+
+     if( $product_search != "")
+     {
+       $product = Product::where("name","like","%$product_search%")->first();
+
+       if($product)
+       {
+        return redirect('products/'.$product->id);
+       }
+       else{
+        return redirect()->back()->with("status","No product match your search");
+       }
+     }else{
+        return redirect()->back();
+     }
+   }
+
 
 
 }

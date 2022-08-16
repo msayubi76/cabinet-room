@@ -251,7 +251,7 @@
 
                                 <td class="price-col">
 
-                                    <span>{{ $cartitem->product->currency }}{{ $all_item_total }}</span>
+                                    <span>${{ $all_item_total }}</span>
                                 </td>
                             </tr>
                             <tr class="order-shipping">
@@ -279,7 +279,7 @@
                                 </td>
                                 <td>
                                     <b
-                                        class="total-price"><span>{{ $cartitem->product->currency }}{{ $all_item_total }}</span></b>
+                                        class="total-price"><span>${{ $all_item_total }}</span></b>
                                 </td>
                             </tr>
                         </tfoot>

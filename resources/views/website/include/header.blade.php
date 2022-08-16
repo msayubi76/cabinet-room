@@ -80,14 +80,16 @@
             <div class="header-right w-lg-max">
                 <div class="header-icon header-search header-search-inline header-search-category w-lg-max text-right mt-0">
                     <a href="#" class="search-toggle" role="button"><i class="icon-search-3"></i></a>
-                    <form action="#" method="get">
+                    <form action="{{ url('search-product') }}" method="POST">
+                        @csrf
                         <div class="header-search-wrapper">
-                            <input type="search" class="form-control" name="q" id="q" placeholder="Search..." required>
+                            <input type="search" class="form-control" name="name" id="search_product" placeholder="Search..." required>
                             <div class="select-custom">
                                 <select id="cat" name="cat">
                                     <option value="">All Categories</option>
-                                    @foreach ($category as $catlist )
-                                    <option value="">{{$catlist->name}}</option>
+                                    @foreach ($category as $catitem )
+
+                                    <option value="">{{$catitem->name}}</option>
                                     @foreach ($subcategory as $subcatlist )
 
                                     <option value="">-
@@ -246,26 +248,15 @@
                                     <a href="#" class="nolink">VARIATION 1</a>
                                     <ul class="submenu">
                                         @foreach ($category as $catlist )
-                                        <li><a href="category.html">{{$catlist->name}}</a></li>
+
+
+                                        <li><a href="{{url('category=')}}">{{$catlist->name}}</a></li>
                                         @endforeach
 
 
                                     </ul>
                                 </div>
-                                {{-- <div class="col-lg-4">
-                                    <a href="#" class="nolink">VARIATION 2</a>
-                                    <ul class="submenu">
-                                        <li><a href="category-list.html">List Types</a></li>
-                                        <li><a href="category-infinite-scroll.html">Ajax Infinite Scroll</a>
-                                        </li>
-                                        <li><a href="category.html">3 Columns Products</a></li>
-                                        <li><a href="category-4col.html">4 Columns Products</a></li>
-                                        <li><a href="category-5col.html">5 Columns Products</a></li>
-                                        <li><a href="category-6col.html">6 Columns Products</a></li>
-                                        <li><a href="category-7col.html">7 Columns Products</a></li>
-                                        <li><a href="category-8col.html">8 Columns Products</a></li>
-                                    </ul>
-                                </div> --}}
+
                                 <div class="col-lg-6 p-0">
                                     <div class="menu-banner">
                                         <figure>

@@ -19,6 +19,7 @@ class CartController extends Controller
         try {
             $product_id = $request->product_id;
             $quantity = $request->quantity;
+            if(Auth::check()){
             $product = Product::where('id', $product_id)->first();
             if ($product) {
                 if (Cart::where('product_id', $product_id)->where('user_id', Auth::id())->exists()) {
@@ -32,7 +33,11 @@ class CartController extends Controller
                     return response()->json(['status' =>  $product->name . ' has been added to your cart']);
                 }
             }
+        }else{
             return response()->json(['status' => 'loggin to continue']);
+          
+        }
+
         } catch (\Throwable $th) {
             return $th;
         }

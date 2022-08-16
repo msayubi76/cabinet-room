@@ -106,7 +106,7 @@
                         <tbody>
                             <tr>
                                 <td>Subtotal</td>
-                                <td>{{$cartlist->product->currency}}{{$alltotal}}</td>
+                                <td>${{$alltotal}}</td>
                             </tr>
 
                             {{-- <tr>
@@ -172,7 +172,7 @@
                         <tfoot>
                             <tr>
                                 <td>Total</td>
-                                <td>{{$cartlist->product->currency}}{{ $alltotal }}</td>
+                                <td>${{ $alltotal }}</td>
                             </tr>
                         </tfoot>
                     </table>

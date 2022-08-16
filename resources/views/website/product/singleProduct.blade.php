@@ -1,5 +1,5 @@
 @extends('website.master')
-@section('title' , "Single product")
+@section('title', 'Single product')
 
 @section('content')
     <div class="container">
@@ -109,8 +109,8 @@
                     <hr class="short-divider">
 
                     <div class="price-box">
-                        <span class="old-price">{{$product->currency}}{!! $product->actual_price !!}</span>
-                        <span class="new-price">{{$product->currency}}{!! $product->discount !!}</span>
+                        <span class="old-price">{{ $product->currency }}{!! $product->actual_price !!}</span>
+                        <span class="new-price">{{ $product->currency }}{!! $product->discount !!}</span>
                     </div>
                     <!-- End .price-box -->
 
@@ -145,7 +145,8 @@
                         </div>
                         <!-- End .product-single-qty -->
 
-                        <a href="javascript:;" class="btn btn-dark add-cart mr-2" title="Add to Cart">Add to
+                        <a class="btn btn-dark add-cart mr-2" title="Add to Cart" data-toggle="modal"
+                            data-target="#login">Add to
                             Cart</a>
 
                         <a href="{{ url('cart') }}" class="btn btn-gray view-cart d-none">View cart</a>
@@ -186,25 +187,30 @@
         <div class="product-single-tabs">
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="product-tab-desc" data-toggle="tab" href="#product-desc-content" role="tab" aria-controls="product-desc-content" aria-selected="true">Description</a>
+                    <a class="nav-link active" id="product-tab-desc" data-toggle="tab" href="#product-desc-content"
+                        role="tab" aria-controls="product-desc-content" aria-selected="true">Description</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" id="product-tab-size" data-toggle="tab" href="#product-size-content" role="tab" aria-controls="product-size-content" aria-selected="true">Size Guide</a>
+                    <a class="nav-link" id="product-tab-size" data-toggle="tab" href="#product-size-content"
+                        role="tab" aria-controls="product-size-content" aria-selected="true">Size Guide</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" id="product-tab-tags" data-toggle="tab" href="#product-tags-content" role="tab" aria-controls="product-tags-content" aria-selected="false">Additional
+                    <a class="nav-link" id="product-tab-tags" data-toggle="tab" href="#product-tags-content"
+                        role="tab" aria-controls="product-tags-content" aria-selected="false">Additional
                         Information</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" id="product-tab-reviews" data-toggle="tab" href="#product-reviews-content" role="tab" aria-controls="product-reviews-content" aria-selected="false">Reviews (1)</a>
+                    <a class="nav-link" id="product-tab-reviews" data-toggle="tab" href="#product-reviews-content"
+                        role="tab" aria-controls="product-reviews-content" aria-selected="false">Reviews (1)</a>
                 </li>
             </ul>
 
             <div class="tab-content">
-                <div class="tab-pane fade show active" id="product-desc-content" role="tabpanel" aria-labelledby="product-tab-desc">
+                <div class="tab-pane fade show active" id="product-desc-content" role="tabpanel"
+                    aria-labelledby="product-tab-desc">
                     <div class="product-desc-content">
                         <p>{!! $product->description !!}</p>
                         <ul>
@@ -215,7 +221,8 @@
                             <li>Inventory Management with Backordered items
                             </li>
                         </ul>
-                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
                     </div>
                     <!-- End .product-desc-content -->
                 </div>
@@ -225,7 +232,8 @@
                     <div class="product-size-content">
                         <div class="row">
                             <div class="col-md-4">
-                                <img src="assets/images/products/single/body-shape.png" alt="body shape" width="217" height="398">
+                                <img src="assets/images/products/single/body-shape.png" alt="body shape" width="217"
+                                    height="398">
                             </div>
                             <!-- End .col-md-4 -->
 
@@ -296,16 +304,16 @@
 
                             <tr>
                                 <th>Width</th>
-                                <td>{!! $product->width!!}</td>
+                                <td>{!! $product->width !!}</td>
                             </tr>
                             <tr>
                                 <th>Length</th>
-                                <td>{!! $product->length!!}</td>
+                                <td>{!! $product->length !!}</td>
                             </tr>
 
                             <tr>
                                 <th>Color</th>
-                                <td>{!! $product->colour!!}</td>
+                                <td>{!! $product->colour !!}</td>
                             </tr>
 
                             <tr>
@@ -317,14 +325,16 @@
                 </div>
                 <!-- End .tab-pane -->
 
-                <div class="tab-pane fade" id="product-reviews-content" role="tabpanel" aria-labelledby="product-tab-reviews">
+                <div class="tab-pane fade" id="product-reviews-content" role="tabpanel"
+                    aria-labelledby="product-tab-reviews">
                     <div class="product-reviews-content">
                         <h3 class="reviews-title">1 review for Men Black Sports Shoes</h3>
 
                         <div class="comment-list">
                             <div class="comments">
                                 <figure class="img-thumbnail">
-                                    <img src="assets/images/blog/author.jpg" alt="author" width="80" height="80">
+                                    <img src="assets/images/blog/author.jpg" alt="author" width="80"
+                                        height="80">
                                 </figure>
 
                                 <div class="comment-block">
@@ -354,7 +364,7 @@
 
                         <div class="divider"></div>
 
-                        <div class="add-product-review">
+                        {{-- <div class="add-product-review">
                             <h3 class="review-title">Add a review</h3>
 
                             <form action="#" class="comment-form m-0">
@@ -414,7 +424,7 @@
 
                                 <input type="submit" class="btn btn-primary" value="Submit">
                             </form>
-                        </div>
+                        </div> --}}
                         <!-- End .add-product-review -->
                     </div>
                     <!-- End .product-reviews-content -->
@@ -425,15 +435,17 @@
         </div>
         <!-- End .product-single-tabs -->
 
-        <div class="products-section pt-0">
+        {{-- <div class="products-section pt-0">
             <h2 class="section-title">Related Products</h2>
 
             <div class="products-slider owl-carousel owl-theme dots-top dots-small">
                 <div class="product-default">
                     <figure>
                         <a href="product.html">
-                            <img src="assets/images/products/product-1.jpg" width="280" height="280" alt="product">
-                            <img src="assets/images/products/product-1-2.jpg" width="280" height="280" alt="product">
+                            <img src="assets/images/products/product-1.jpg" width="280" height="280"
+                                alt="product">
+                            <img src="assets/images/products/product-1-2.jpg" width="280" height="280"
+                                alt="product">
                         </a>
                         <div class="label-group">
                             <div class="product-label label-hot">HOT</div>
@@ -477,8 +489,10 @@
                 <div class="product-default">
                     <figure>
                         <a href="product.html">
-                            <img src="assets/images/products/product-3.jpg" width="280" height="280" alt="product">
-                            <img src="assets/images/products/product-3-2.jpg" width="280" height="280" alt="product">
+                            <img src="assets/images/products/product-3.jpg" width="280" height="280"
+                                alt="product">
+                            <img src="assets/images/products/product-3-2.jpg" width="280" height="280"
+                                alt="product">
                         </a>
                         <div class="label-group">
                             <div class="product-label label-hot">HOT</div>
@@ -522,8 +536,10 @@
                 <div class="product-default">
                     <figure>
                         <a href="product.html">
-                            <img src="assets/images/products/product-7.jpg" width="280" height="280" alt="product">
-                            <img src="assets/images/products/product-7-2.jpg" width="280" height="280" alt="product">
+                            <img src="assets/images/products/product-7.jpg" width="280" height="280"
+                                alt="product">
+                            <img src="assets/images/products/product-7-2.jpg" width="280" height="280"
+                                alt="product">
                         </a>
                         <div class="label-group">
                             <div class="product-label label-hot">HOT</div>
@@ -567,8 +583,10 @@
                 <div class="product-default">
                     <figure>
                         <a href="product.html">
-                            <img src="assets/images/products/product-6.jpg" width="280" height="280" alt="product">
-                            <img src="assets/images/products/product-6-2.jpg" width="280" height="280" alt="product">
+                            <img src="assets/images/products/product-6.jpg" width="280" height="280"
+                                alt="product">
+                            <img src="assets/images/products/product-6-2.jpg" width="280" height="280"
+                                alt="product">
                         </a>
                         <div class="label-group">
                             <div class="product-label label-hot">HOT</div>
@@ -612,8 +630,10 @@
                 <div class="product-default">
                     <figure>
                         <a href="product.html">
-                            <img src="assets/images/products/product-4.jpg" width="280" height="280" alt="product">
-                            <img src="assets/images/products/product-4-2.jpg" width="280" height="280" alt="product">
+                            <img src="assets/images/products/product-4.jpg" width="280" height="280"
+                                alt="product">
+                            <img src="assets/images/products/product-4-2.jpg" width="280" height="280"
+                                alt="product">
                         </a>
                         <div class="label-group">
                             <div class="product-label label-hot">HOT</div>
@@ -655,19 +675,21 @@
                 </div>
             </div>
             <!-- End .products-slider -->
-        </div>
+        </div> --}}
         <!-- End .products-section -->
 
         <hr class="mt-0 m-b-5" />
 
-        <div class="product-widgets-container row pb-2">
+        {{-- <div class="product-widgets-container row pb-2">
             <div class="col-lg-3 col-sm-6 pb-5 pb-md-0">
                 <h4 class="section-sub-title">Featured Products</h4>
                 <div class="product-default left-details product-widget">
                     <figure>
                         <a href="product.html">
-                            <img src="assets/images/products/small/product-1.jpg" width="74" height="74" alt="product">
-                            <img src="assets/images/products/small/product-1-2.jpg" width="74" height="74" alt="product">
+                            <img src="assets/images/products/small/product-1.jpg" width="74" height="74"
+                                alt="product">
+                            <img src="assets/images/products/small/product-1-2.jpg" width="74" height="74"
+                                alt="product">
                         </a>
                     </figure>
 
@@ -696,8 +718,10 @@
                 <div class="product-default left-details product-widget">
                     <figure>
                         <a href="product.html">
-                            <img src="assets/images/products/small/product-2.jpg" width="74" height="74" alt="product">
-                            <img src="assets/images/products/small/product-2-2.jpg" width="74" height="74" alt="product">
+                            <img src="assets/images/products/small/product-2.jpg" width="74" height="74"
+                                alt="product">
+                            <img src="assets/images/products/small/product-2-2.jpg" width="74" height="74"
+                                alt="product">
                         </a>
                     </figure>
 
@@ -725,8 +749,10 @@
                 <div class="product-default left-details product-widget">
                     <figure>
                         <a href="product.html">
-                            <img src="assets/images/products/small/product-3.jpg" width="74" height="74" alt="product">
-                            <img src="assets/images/products/small/product-3-2.jpg" width="74" height="74" alt="product">
+                            <img src="assets/images/products/small/product-3.jpg" width="74" height="74"
+                                alt="product">
+                            <img src="assets/images/products/small/product-3-2.jpg" width="74" height="74"
+                                alt="product">
                         </a>
                     </figure>
 
@@ -757,8 +783,10 @@
                 <div class="product-default left-details product-widget">
                     <figure>
                         <a href="product.html">
-                            <img src="assets/images/products/small/product-4.jpg" width="74" height="74" alt="product">
-                            <img src="assets/images/products/small/product-4-2.jpg" width="74" height="74" alt="product">
+                            <img src="assets/images/products/small/product-4.jpg" width="74" height="74"
+                                alt="product">
+                            <img src="assets/images/products/small/product-4-2.jpg" width="74" height="74"
+                                alt="product">
                         </a>
                     </figure>
 
@@ -787,8 +815,10 @@
                 <div class="product-default left-details product-widget">
                     <figure>
                         <a href="product.html">
-                            <img src="assets/images/products/small/product-5.jpg" width="74" height="74" alt="product">
-                            <img src="assets/images/products/small/product-5-2.jpg" width="74" height="74" alt="product">
+                            <img src="assets/images/products/small/product-5.jpg" width="74" height="74"
+                                alt="product">
+                            <img src="assets/images/products/small/product-5-2.jpg" width="74" height="74"
+                                alt="product">
                         </a>
                     </figure>
 
@@ -816,8 +846,10 @@
                 <div class="product-default left-details product-widget">
                     <figure>
                         <a href="product.html">
-                            <img src="assets/images/products/small/product-6.jpg" width="74" height="74" alt="product">
-                            <img src="assets/images/products/small/product-6-2.jpg" width="74" height="74" alt="product">
+                            <img src="assets/images/products/small/product-6.jpg" width="74" height="74"
+                                alt="product">
+                            <img src="assets/images/products/small/product-6-2.jpg" width="74" height="74"
+                                alt="product">
                         </a>
                     </figure>
 
@@ -848,8 +880,10 @@
                 <div class="product-default left-details product-widget">
                     <figure>
                         <a href="product.html">
-                            <img src="assets/images/products/small/product-7.jpg" width="74" height="74" alt="product">
-                            <img src="assets/images/products/small/product-7-2.jpg" width="74" height="74" alt="product">
+                            <img src="assets/images/products/small/product-7.jpg" width="74" height="74"
+                                alt="product">
+                            <img src="assets/images/products/small/product-7-2.jpg" width="74" height="74"
+                                alt="product">
                         </a>
                     </figure>
 
@@ -877,8 +911,10 @@
                 <div class="product-default left-details product-widget">
                     <figure>
                         <a href="product.html">
-                            <img src="assets/images/products/small/product-8.jpg" width="74" height="74" alt="product">
-                            <img src="assets/images/products/small/product-8-2.jpg" width="74" height="74" alt="product">
+                            <img src="assets/images/products/small/product-8.jpg" width="74" height="74"
+                                alt="product">
+                            <img src="assets/images/products/small/product-8-2.jpg" width="74" height="74"
+                                alt="product">
                         </a>
                     </figure>
 
@@ -907,8 +943,10 @@
                 <div class="product-default left-details product-widget">
                     <figure>
                         <a href="product.html">
-                            <img src="assets/images/products/small/product-9.jpg" width="74" height="74" alt="product">
-                            <img src="assets/images/products/small/product-9-2.jpg" width="74" height="74" alt="product">
+                            <img src="assets/images/products/small/product-9.jpg" width="74" height="74"
+                                alt="product">
+                            <img src="assets/images/products/small/product-9-2.jpg" width="74" height="74"
+                                alt="product">
                         </a>
                     </figure>
 
@@ -939,8 +977,10 @@
                 <div class="product-default left-details product-widget">
                     <figure>
                         <a href="product.html">
-                            <img src="assets/images/products/small/product-10.jpg" width="74" height="74" alt="product">
-                            <img src="assets/images/products/small/product-10-2.jpg" width="74" height="74" alt="product">
+                            <img src="assets/images/products/small/product-10.jpg" width="74" height="74"
+                                alt="product">
+                            <img src="assets/images/products/small/product-10-2.jpg" width="74" height="74"
+                                alt="product">
                         </a>
                     </figure>
 
@@ -968,8 +1008,10 @@
                 <div class="product-default left-details product-widget">
                     <figure>
                         <a href="product.html">
-                            <img src="assets/images/products/small/product-11.jpg" width="74" height="74" alt="product">
-                            <img src="assets/images/products/small/product-11-2.jpg" width="74" height="74" alt="product">
+                            <img src="assets/images/products/small/product-11.jpg" width="74" height="74"
+                                alt="product">
+                            <img src="assets/images/products/small/product-11-2.jpg" width="74" height="74"
+                                alt="product">
                         </a>
                     </figure>
 
@@ -997,8 +1039,10 @@
                 <div class="product-default left-details product-widget">
                     <figure>
                         <a href="product.html">
-                            <img src="assets/images/products/small/product-12.jpg" width="74" height="74" alt="product">
-                            <img src="assets/images/products/small/product-12-2.jpg" width="74" height="74" alt="product">
+                            <img src="assets/images/products/small/product-12.jpg" width="74" height="74"
+                                alt="product">
+                            <img src="assets/images/products/small/product-12-2.jpg" width="74" height="74"
+                                alt="product">
                         </a>
                     </figure>
 
@@ -1023,10 +1067,138 @@
                     <!-- End .product-details -->
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- End .row -->
     </div>
     <!-- End .container -->
+
+    <div class="modal fade" id="login">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header row">
+                    <div class="col-md-8">
+                        <h5 class="modal-title"><b>Welcome! Please Login to continue.</b></h5>
+
+                        <p>New member <a href="" data-toggle="modal"
+                            data-target="#register"> Rigester</a> here..</p>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                        </button>
+                    </div>
+
+
+                </div>
+
+
+                <div class="modal-body">
+
+                    <form class="form-valide" id="subcategory-form" method="post" enctype="multipart/form-data">
+                        @csrf
+
+                        <div class="row">
+
+
+                            <div class="col-md-7">
+                               
+                                <input type="text" class="form-control" id="email" name="email"
+                                    placeholder="Enter email" :value="old('name')">
+                                <div id="email_text" class="text-danger backend-error-text"></div>
+                                <br>
+                                
+                                <input type="password" class="form-control" id="password" name="password"
+                                    placeholder="" :value="old('password')">
+                                <div id="password_text" class="text-danger backend-error-text"></div>
+                            </div>
+                            <div class="col-md-5">
+                                <button type="button" id="button-save" onclick="submitSubCategory(this)"
+                                class="btn  btn-secondary   text-center" style="width: 100%;"> login </button>
+                                <br>
+
+                                    <button type="button" class="btn  my-4 social-icon social-facebook icon-facebook" data-dismiss="modal" style="width: 100%; height:50px;">Facebook</button>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+                    </form>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="register">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header row">
+                    <div class="col-md-8">
+                        <h5 class="modal-title"><b>Welcome! Please Login to continue.</b></h5>
+
+                        <p>New member <a href=""> Rigester</a> here..</p>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                        </button>
+                    </div>
+
+
+                </div>
+
+
+                <div class="modal-body">
+
+                    <form class="form-valide" id="subcategory-form" method="post" enctype="multipart/form-data">
+                        @csrf
+
+                        <div class="row">
+
+
+                            <div class="col-md-7">
+                               
+                                <input type="text" class="form-control" id="email" name="email"
+                                    placeholder="Enter email" :value="old('name')">
+                                <div id="email_text" class="text-danger backend-error-text"></div>
+                                <br>
+                                
+                                <input type="password" class="form-control" id="password" name="password"
+                                    placeholder="" :value="old('password')">
+                                <div id="password_text" class="text-danger backend-error-text"></div>
+                            </div>
+                            <div class="col-md-5">
+                                <button type="button" id="button-save" onclick="submitSubCategory(this)"
+                                class="btn  btn-secondary   text-center" style="width: 100%;"> login </button>
+                                <br>
+
+                                    <button type="button" class="btn  my-4 social-icon social-facebook icon-facebook" data-dismiss="modal" style="width: 100%; height:50px;">Facebook</button>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+                    </form>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
 @endsection
 @section('scripts')
     <script>
