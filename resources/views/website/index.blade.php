@@ -153,7 +153,7 @@
             @foreach ($featured_product as $featuredlist)
                 <div class="product-default appear-animate" data-animation-name="fadeInRightShorter">
                     <figure>
-                        <a href="{{url('products/'.$featuredlist->id)}}">
+                        <a href="{{url('product/'.$featuredlist->id)}}">
                             <img src="{{ $featuredlist->feature_image }}" width="280" height="280" alt="product">
                             <img src="{{ $featuredlist->feature_image }}" width="280" height="280" alt="product">
                         </a>
@@ -180,14 +180,14 @@
 
                         <!-- End .product-container -->
                         <div class="price-box">
-                            <del class="old-price">{{$featuredlist->currency}}{{$featuredlist->actual_price}}</del>
-                            <span class="product-price">{{$featuredlist->currency}}{{$featuredlist->discount}}</span>
+                            <del class="old-price">{{$featuredlist->currency}}{{$featuredlist->discount}}</del>
+                            <span class="product-price">{{$featuredlist->currency}}{{$featuredlist->actual_price }}</span>
                         </div>
                         <!-- End .price-box -->
                         <div class="product-action">
                             <a href="wishlist.html" class="btn-icon-wish" title="wishlist"><i
                                     class="icon-heart"></i></a>
-                            <a href="{{url('products/'.$featuredlist->id)}}" class="btn-icon btn-add-cart"><i
+                            <a href="{{url('product/'.$featuredlist->id)}}" class="btn-icon btn-add-cart"><i
                                     class="fa fa-arrow-right"></i><span>SELECT
                                     OPTIONS</span></a>
                             <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View"><i
@@ -282,7 +282,7 @@
                             <a href="category.html" class="product-category">{{$arriviallist->category->name}}</a>
                         </div>
                         <h3 class="product-title">
-                            <a href="{{url('products/'.$arriviallist->id)}}">{{$arriviallist->name}}</a>
+                            <a href="{{url('product/'.$arriviallist->id)}}">{{$arriviallist->name}}</a>
                         </h3>
                         <div class="ratings-container">
                             <div class="product-ratings">
@@ -294,14 +294,14 @@
                         </div>
                         <!-- End .product-container -->
                         <div class="price-box">
-                            <del class="old-price">{{$arriviallist->currency}}{{$arriviallist->actual_price}}</del>
-                            <span class="product-price">{{$arriviallist->currency}}{{$arriviallist->discount}}</span>
+                            <del class="old-price">{{$arriviallist->currency}}{{$arriviallist->discount}}</del>
+                            <span class="product-price">{{$arriviallist->currency}}{{$arriviallist->actual_price }}</span>
                         </div>
                         <!-- End .price-box -->
                         <div class="product-action">
                             <a href="wishlist.html" class="btn-icon-wish" title="wishlist"><i
                                     class="icon-heart"></i></a>
-                            <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
+                            <a href="{{url('product/'.$arriviallist->id)}}" class="btn-icon btn-add-cart product-type-simple"><i
                                     class="icon-shopping-cart"></i><span>ADD TO CART</span></a>
                             <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View"><i
                                     class="fas fa-external-link-alt"></i></a>

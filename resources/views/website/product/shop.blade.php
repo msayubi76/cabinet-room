@@ -109,7 +109,7 @@
             <div class="col-6 col-sm-4 col-md-3 col-xl-2">
                 <div class="product-default">
                     <figure>
-                        <a href="{{url('products/'.$productlist->id)}}">
+                        <a href="{{url('product/'.$productlist->id)}}">
                             <img src="{{asset($productlist->feature_image)}}" width="180" height="180" alt="product" />
                             <img src="{{asset($productlist->feature_image)}}" width="180" height="180" alt="product" />
                         </a>
@@ -141,15 +141,15 @@
                         <!-- End .product-container -->
 
                         <div class="price-box">
-                            <span class="old-price">{{$productlist->currency}}{{$productlist->actual_price}}</span>
-                            <span class="product-price">{{$productlist->currency}}{{$productlist->discount}}</span>
+                            <span class="old-price">{{$productlist->currency}}{{$productlist->discount}}</span>
+                            <span class="product-price">{{$productlist->currency}}{{$productlist->actual_price }}</span>
                         </div>
                         <!-- End .price-box -->
 
                         <div class="product-action">
                             <a href="wishlist.html" class="btn-icon-wish" title="wishlist"><i
                                     class="icon-heart"></i></a>
-                            <a href="{{url('products/'.$productlist->id)}}" class="btn-icon btn-add-cart"><i
+                            <a href="{{url('product/'.$productlist->id)}}" class="btn-icon btn-add-cart"><i
                                     class="fa fa-arrow-right"></i><span>SELECT
                                     OPTIONS</span></a>
                             <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View"><i

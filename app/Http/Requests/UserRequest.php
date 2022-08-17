@@ -41,10 +41,10 @@ class UserRequest extends FormRequest
         $rules =  [
             'fist_name' => [ 'required', 'alpha', 'max:255'],
             'last_name' => ['required', 'alpha', 'max:255'],
-            'mobile_no' => ['required',  'max:11'],
-            'address' => ['required'],
-            'city' => ['required'],
-            'region' => ['required'],
+            'mobile_no' => ['nullable',  'max:11'],
+            'address' => ['nullable'],
+            'city' => ['nullable'],
+            'region' => ['nullable'],
             'email' => ['required',Rule::unique('users')->ignore($route_id)],
 
             // 'password' => ['required', 'confirmed'],

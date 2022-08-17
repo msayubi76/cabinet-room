@@ -64,6 +64,10 @@ class Product extends Model
     {
         return $this->morphMany(Media::class, 'model');
     }
+    public function orderDetail()
+    {
+        return $this->hasmany(OrderDetail::class, 'product_id');
+    }
 
 
 

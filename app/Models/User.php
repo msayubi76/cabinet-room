@@ -55,10 +55,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    
+
     public function cartItems(): HasMany
     {
         return $this->hasMany(Cart::class);
+    }
+    public function payments()
+    {
+        return $this->hasMany(Payment::class,'user_id');
     }
 
 

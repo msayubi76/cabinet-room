@@ -14,5 +14,13 @@ class Payment extends Model
     protected $fillable =[
         'user_id', 'status', 'method', 'payment',
     ];
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    public function orders()
+    {
+        return $this->hasMany(Order::class,'payment_id');
+    }
+
 }
 

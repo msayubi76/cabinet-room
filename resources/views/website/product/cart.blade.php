@@ -38,7 +38,7 @@
                                 <td>
                                     <figure class="product-image-container">
                                         <a href="product.html" class="product-image">
-                                            <img src="{{asset('website/assets/images/products/product-4.jpg')}}" alt="product">
+                                            <img src="{{asset($cartlist->feature_image)}}" alt="product">
                                         </a>
 
                                         <a href="#" class=" btn-remove icon-cancel delete-cart-item" title="Remove Product"></a>
@@ -49,7 +49,7 @@
                                         <a href="product.html">{{$cartlist->product->name}}</a>
                                     </h5>
                                 </td>
-                                <td>{{$cartlist->product->currency}}{{$cartlist->product->discount}}</td>
+                                <td>{{$cartlist->product->currency}}{{$cartlist->product->actual_price}}</td>
                                 <td>
                                     <input type="hidden" class="product_id" name="product_id[]" value={{$cartlist->product_id}} >
                                     <div class="product-single-qty">
@@ -57,12 +57,12 @@
                                         <input class="horizontal-quantity form-control" name="quantity" type="text" value="{{$cartlist->quantity}}">
                                     </div><!-- End .product-single-qty -->
                                 </td>
-                                @php $total =$cartlist->product->discount * $cartlist->quantity ; @endphp
+                                @php $total =$cartlist->product->actual_price * $cartlist->quantity ; @endphp
                                 <td class="text-right"><span class="subtotal-price"></span>{{$cartlist->product->currency}}{{ $total }}</td>
                             </tr>
 
 
-                            @php $alltotal +=$cartlist->product->discount * $cartlist->quantity ; @endphp
+                            @php $alltotal +=$cartlist->product->actual_price * $cartlist->quantity ; @endphp
                             @endforeach
                         </tbody>
 

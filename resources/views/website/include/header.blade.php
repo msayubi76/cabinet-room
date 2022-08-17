@@ -11,7 +11,7 @@
                     <a href="#">Links</a>
                     <div class="header-menu">
                         <ul>
-                            <li><a href="dashboard.html">My Account</a></li>
+                            <li><a href="{{ url('user-dashboard') }}">My Account</a></li>
                             <li><a href="{{ url('about-us') }}">About Us</a></li>
                             <li><a href="blog.html">Blog</a></li>
                             <li><a href="wishlist.html">My Wishlist</a></li>
@@ -250,7 +250,7 @@
                                         @foreach ($category as $catlist )
 
 
-                                        <li><a href="{{url('category=')}}">{{$catlist->name}}</a></li>
+                                        <li><a href="{{url('category=' .$catlist->name)}}">{{$catlist->name}}</a></li>
                                         @endforeach
 
 

@@ -235,11 +235,11 @@
                                     </td>
 
                                     <td class="price-col">
-                                        @php $total = $cartitem->product->discount * $cartitem->quantity; @endphp
+                                        @php $total = $cartitem->product->actual_price * $cartitem->quantity; @endphp
                                         <span> {{ $cartitem->product->currency }}{{ $total }}</span>
                                     </td>
                                 </tr>
-                                @php $all_item_total += $cartitem->product->discount * $cartitem->quantity; @endphp
+                                @php $all_item_total += $cartitem->product->actual_price * $cartitem->quantity; @endphp
                             @endforeach
 
                         </tbody>

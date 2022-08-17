@@ -109,8 +109,8 @@
                     <hr class="short-divider">
 
                     <div class="price-box">
-                        <span class="old-price">{{ $product->currency }}{!! $product->actual_price !!}</span>
-                        <span class="new-price">{{ $product->currency }}{!! $product->discount !!}</span>
+                        <span class="old-price">{{ $product->currency }}{!! $product->discount !!}</span>
+                        <span class="new-price">{{ $product->currency }}{!! $product->actual_price !!}</span>
                     </div>
                     <!-- End .price-box -->
 
@@ -1079,8 +1079,8 @@
                     <div class="col-md-8">
                         <h5 class="modal-title"><b>Welcome! Please Login to continue.</b></h5>
 
-                        <p>New member <a href="" data-toggle="modal"
-                            data-target="#register"> Rigester</a> here..</p>
+                        <p>New member <a href="" data-toggle="modal" data-target="#register"> Rigester</a> here..
+                        </p>
                     </div>
 
 
@@ -1095,29 +1095,39 @@
 
                 <div class="modal-body">
 
-                    <form class="form-valide" id="subcategory-form" method="post" enctype="multipart/form-data">
+                    <form class="form-valide" id="subcategory-form" method="post" action="{{ route('login') }}"
+                        enctype="multipart/form-data">
                         @csrf
 
                         <div class="row">
 
 
                             <div class="col-md-7">
-                               
+
                                 <input type="text" class="form-control" id="email" name="email"
-                                    placeholder="Enter email" :value="old('name')">
-                                <div id="email_text" class="text-danger backend-error-text"></div>
-                                <br>
-                                
-                                <input type="password" class="form-control" id="password" name="password"
-                                    placeholder="" :value="old('password')">
-                                <div id="password_text" class="text-danger backend-error-text"></div>
-                            </div>
-                            <div class="col-md-5">
-                                <button type="button" id="button-save" onclick="submitSubCategory(this)"
-                                class="btn  btn-secondary   text-center" style="width: 100%;"> login </button>
+                                    placeholder="Enter email" :value="old('email')">
+                                @error('email')
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                 <br>
 
-                                    <button type="button" class="btn  my-4 social-icon social-facebook icon-facebook" data-dismiss="modal" style="width: 100%; height:50px;">Facebook</button>
+                                <input type="password" class="form-control" id="password" name="password"
+                                    placeholder="" :value="old('password')">
+                                @error('password')
+                                    <span class="text-danger text-uppercase" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-md-5">
+                                <button type="submit" id="button-save" class="btn  btn-secondary   text-center"
+                                    style="width: 100%;"> Sign In </button>
+                                <br>
+
+                                <button type="button" class="btn  my-4 social-icon social-facebook icon-facebook"
+                                    data-dismiss="modal" style="width: 100%; height:50px;">Facebook</button>
 
 
                             </div>
@@ -1159,29 +1169,66 @@
 
                 <div class="modal-body">
 
-                    <form class="form-valide" id="subcategory-form" method="post" enctype="multipart/form-data">
+                    <form class="form-valide" method="post" action="{{ route('register') }}"
+                        enctype="multipart/form-data">
                         @csrf
 
                         <div class="row">
-
-
                             <div class="col-md-7">
-                               
-                                <input type="text" class="form-control" id="email" name="email"
-                                    placeholder="Enter email" :value="old('name')">
-                                <div id="email_text" class="text-danger backend-error-text"></div>
-                                <br>
-                                
-                                <input type="password" class="form-control" id="password" name="password"
-                                    placeholder="" :value="old('password')">
-                                <div id="password_text" class="text-danger backend-error-text"></div>
+                                <input type="text" class="form-control" id="fist_name" name="fist_name"
+                                    placeholder="Enter first name" :value="old('fist_name')">
+                                @error('fist_name')
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="col-md-5">
-                                <button type="button" id="button-save" onclick="submitSubCategory(this)"
-                                class="btn  btn-secondary   text-center" style="width: 100%;"> login </button>
+
+
+                                <input type="last_name" class="form-control" id="last_name" name="last_name"
+                                    placeholder=" Entere last name" :value="old('last_name')">
+                                @error('last_name')
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-7">
+
+                                <input type="text" class="form-control" id="email" name="email"
+                                    placeholder="Enter email" :value="old('name')">
+                                @error('email')
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                 <br>
 
-                                    <button type="button" class="btn  my-4 social-icon social-facebook icon-facebook" data-dismiss="modal" style="width: 100%; height:50px;">Facebook</button>
+                                <input type="password" class="form-control" id="password" name="password"
+                                    placeholder="" :value="old('password')">
+                                @error('password')
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+
+                                <input type="password" class="form-control" id="password" name="password_confirmation"
+                                    placeholder="" :value="old('password')">
+                                @error('confirmed')
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-md-5">
+                                <button type="submit" id="button-save" class="btn  btn-secondary   text-center"
+                                    style="width: 100%;"> Sign Up </button>
+                                <br>
+
+                                <button type="button" class="btn  my-4 social-icon social-facebook icon-facebook"
+                                    data-dismiss="modal" style="width: 100%; height:50px;">Facebook</button>
 
 
                             </div>

@@ -33,7 +33,7 @@
         (function(d) {
             var wf = d.createElement('script'),
                 s = d.scripts[0];
-            wf.src = 'assets/js/webfont.js';
+            wf.src = 'website/assets/js/webfont.js';
             wf.async = true;
             s.parentNode.insertBefore(wf, s);
         })(document);
@@ -44,6 +44,9 @@
 
     <!--  CSS File -->
     <link rel="stylesheet" href="{{ asset('website/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('website/assets/css/style.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('website/assets/css/demo4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('website/assets/css/jquery.ui.css') }}">
 
 
@@ -106,6 +109,8 @@
     <script src="{{ asset('website/assets/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('website/assets/js/optional/isotope.pkgd.min.js') }}"></script>
     <script src="{{ asset('website/assets/js/plugins.min.js') }}"></script>
+    <script src="{{ asset('website/assets/js/jquery.plugin.min.js') }}"></script>
+    <script src="{{ asset('website/assets/js/jquery.countdown.min.js') }}"></script>
 
     <script src="{{ asset('website/assets/js/jquery.appear.min.js') }}"></script>
     <script src="{{ asset('website/assets/js/jquery.ui.js') }}"></script>

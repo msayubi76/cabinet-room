@@ -36,7 +36,7 @@ class CheckOutController extends Controller
         try {
             $order = OrderService::store($request);
 
-            return redirect(route('website.checout'))->with('success', 'Your Shipping  added successfully.');
+            return redirect('check-out')->with('success', 'Your Shipping  added successfully.');
 
         } catch (\Throwable $th) {
 
