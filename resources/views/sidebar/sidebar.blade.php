@@ -70,9 +70,25 @@
                             <i class="icon-badge menu-icon"></i><span class="nav-text">Orders</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="{{ url('admin/orders')}}">Products List</a></li>
+                            <li><a href="{{ url('admin/orders')}}">Orders List</a></li>
                         </ul>
                     </li>
+
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" href="{{ url('/settings')}}" aria-expanded="false">
+                            <i class="icon-badge menu-icon"></i><span class="nav-text">Setting</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ url('admin/settings')}}">About Us</a></li>
+                        </ul>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ url('admin/settings/contact-us')}}">Contact Us</a></li>
+                        </ul>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ url('admin/settings')}}">Privacy And Policy</a></li>
+                        </ul>
+                    </li>
+
 
                     <li class="nav-label">Apps</li>
                     <li>

@@ -1,9 +1,7 @@
 <header class="header">
     <div class="header-top">
         <div class="container">
-            <div class="header-left d-none d-sm-block">
-                <p class="top-message text-uppercase">FREE Returns. Standard Shipping Orders $99+</p>
-            </div>
+
             <!-- End .header-left -->
 
             <div class="header-right header-dropdowns ml-0 ml-sm-auto w-sm-100">
@@ -16,7 +14,7 @@
                             <li><a href="{{ url('contact-us') }}">Contact Us</a></li>
 
                             <li><a href="{{ url('cart') }}">Cart</a></li>
-                            <li><a href="login.html" class="login-link">Log In</a></li>
+                            <li><a href="{{ url('login') }}" >Log In</a></li>
                         </ul>
                     </div>
                     <!-- End .header-menu -->
@@ -25,29 +23,8 @@
 
                 <span class="separator"></span>
 
-                <div class="header-dropdown">
-                    <a href="#"><i class="flag-us flag"></i>ENG</a>
-                    <div class="header-menu">
-                        <ul>
-                            <li><a href="#"><i class="flag-us flag mr-2"></i>ENG</a>
-                            </li>
-                            <li><a href="#"><i class="flag-fr flag mr-2"></i>FRA</a></li>
-                        </ul>
-                    </div>
-                    <!-- End .header-menu -->
-                </div>
-                <!-- End .header-dropown -->
 
-                <div class="header-dropdown mr-auto mr-sm-3 mr-md-0">
-                    <a href="#">USD</a>
-                    <div class="header-menu">
-                        <ul>
-                            <li><a href="#">EUR</a></li>
-                            <li><a href="#">USD</a></li>
-                        </ul>
-                    </div>
-                    <!-- End .header-menu -->
-                </div>
+
                 <!-- End .header-dropown -->
 
                 <span class="separator"></span>
@@ -112,9 +89,9 @@
                     <h6><span>Call us now</span><a href="tel:#" class="text-dark font1">+123 5678 890</a></h6>
                 </div>
 
-                <a href="login.html" class="header-icon" title="login"><i class="icon-user-2"></i></a>
+                <a href="{{ url('login') }}" class="header-icon" title="login"><i class="icon-user-2"></i></a>
 
-                <a href="wishlist.html" class="header-icon" title="wishlist"><i class="icon-wishlist-2"></i></a>
+
 
                 <div class="dropdown cart-dropdown">
                     <a href="{{url('cart')}}" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
@@ -178,7 +155,7 @@
                             <div class="dropdown-cart-action">
                                 <a href="{{url('cart')}}" class="btn btn-gray btn-block view-cart">View
                                     Cart</a>
-                                <a href="checkout.html" class="btn btn-dark btn-block">Checkout</a>
+                                <a href="{{ url('check-out') }}" class="btn btn-dark btn-block">Checkout</a>
                             </div>
                             <!-- End .dropdown-cart-total -->
                         </div>
@@ -256,15 +233,14 @@
 
                             <li><a href="{{ url('/contact-us') }}">Contact Us</a></li>
                             <li><a href="{{ url('/privacy-and-policy') }}">Privacy and Policy</a></li>
-                            <li><a href="login.html">Login</a></li>
+                            <li><a href="{{ url('login') }}">Login</a></li>
                             <li><a href="forgot-password.html">Forgot Password</a></li>
                         </ul>
                     </li>
 
                     <li class="{{ Request::is('about-us') ? 'active' : '' }}"><a href="{{ url('/about-us') }}">About Us</a></li>
                     <li class="{{ Request::is('contact-us') ? 'active' : '' }}"><a href="{{ url('/contact-us') }}">Contact Us</a></li>
-                    <li class="float-right"><a href="https://1.envato.market/DdLk5" rel="noopener" class="pl-5" target="_blank">Buy Porto!</a></li>
-                    <li class="float-right"><a href="#" class="pl-5">Special Offer!</a></li>
+
                 </ul>
             </nav>
         </div>

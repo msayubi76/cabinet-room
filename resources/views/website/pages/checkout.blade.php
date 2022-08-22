@@ -1,5 +1,5 @@
 @extends('website.master')
-@section('title', 'Checout')
+@section('title', 'Checkout')
 
 @section('content')
     <div class="container checkout-container">

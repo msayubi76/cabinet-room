@@ -12,9 +12,16 @@ use App\Http\Requests\SettingRequest;
 
 class SettingService
 {
-    public static function getSetting(){
+    public static function getAboutSetting(){
         return Setting::orderBy('id', 'DESC')->paginate(30);
     }
+    public static function getContactSetting(){
+        return Setting::orderBy('id', 'DESC')->paginate(30);
+    }
+    public static function getPrivacySetting(){
+        return Setting::orderBy('id', 'DESC')->paginate(30);
+    }
+
 
     public static function store(SettingRequest $request)
     {
@@ -25,7 +32,7 @@ class SettingService
         $setting = Setting::create($data);
 
         DB::commit();
-        $response = ['status' => true, 'message' => 'Category added successfully.', 'setting' => $setting];
+        $response = ['status' => true, 'message' => 'page added successfully.', 'setting' => $setting];
 
         return $response;
     }
@@ -38,22 +45,22 @@ class SettingService
 
 
         DB::commit();
-        $response = ['status' => true, 'message' => 'Category updated successfully.', 'setting' => $setting];
+        $response = ['status' => true, 'message' => 'pages updated successfully.', 'setting' => $setting];
         return $response;
     }
 
-    public static function destroy($id)
-    {
-        DB::beginTransaction();
-        $setting = Category::FindorFail($id);
-        // $setting->subcategories()->delete();
-        // $setting->products()->delete();
+    // public static function destroy($id)
+    // {
+    //     DB::beginTransaction();
+    //     $setting = Category::FindorFail($id);
+    //     // $setting->subcategories()->delete();
+    //     // $setting->products()->delete();
 
-        $setting->delete();
-        DB::commit();
-        $response = ['status' => true, 'message' => 'Category removed with sub category and realted Products successfully.'];
-        return $response;
-    }
+    //     $setting->delete();
+    //     DB::commit();
+    //     $response = ['status' => true, 'message' => 'Category removed with sub category and realted Products successfully.'];
+    //     return $response;
+    // }
 
 
 

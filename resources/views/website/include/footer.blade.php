@@ -33,19 +33,19 @@
 
                 <div class="col-lg-3 col-sm-6">
                     <div class="widget">
-                        <h4 class="widget-title">Customer Service</h4>
+                        <h4 class="widget-title">Pages</h4>
 
                         <ul class="links">
-                            <li><a href="#">Help & FAQs</a></li>
-                            <li><a href="#">Order Tracking</a></li>
-                            <li><a href="#">Shipping & Delivery</a></li>
-                            <li><a href="#">Orders History</a></li>
-                            <li><a href="#">Advanced Search</a></li>
-                            <li><a href="dashboard.html">My Account</a></li>
-                            <li><a href="#">Careers</a></li>
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="#">Corporate Sales</a></li>
-                            <li><a href="#">Privacy</a></li>
+                            <li><a href="{{ url('/') }}">Home</a></li>
+                            <li><a href="{{ url('categories') }}">Categories</a></li>
+                            <li><a href="{{url('/products')}}">Shop</a></li>
+                            <li><a href="{{ url('/about-us') }}">About Us</a></li>
+                            <li><a href="{{ url('/contact-us') }}">Contact Us</a></li>
+                            <li><a href="{{ url('user-dashboard') }}">My Account</a></li>
+
+                            <li><a href="{{ url('cart') }}">Cart</a></li>
+                            <li><a href="{{ url('login') }}">Login</a></li>
+                            <li><a href="{{ url('/privacy-and-policy') }}">Privacy</a></li>
                         </ul>
                     </div>
                     <!-- End .widget -->
@@ -54,20 +54,13 @@
 
                 <div class="col-lg-3 col-sm-6">
                     <div class="widget">
-                        <h4 class="widget-title">Popular Tags</h4>
+                        <h4 class="widget-title">Popular Categories</h4>
 
                         <div class="tagcloud">
-                            <a href="#">Bag</a>
-                            <a href="#">Black</a>
-                            <a href="#">Blue</a>
-                            <a href="#">Clothes</a>
-                            <a href="#">Fashion</a>
-                            <a href="#">Hub</a>
-                            <a href="#">Shirt</a>
-                            <a href="#">Shoes</a>
-                            <a href="#">Skirt</a>
-                            <a href="#">Sports</a>
-                            <a href="#">Sweater</a>
+                            @foreach ($category as $catlist )
+                            <a href="{{url('category=' .$catlist->name)}}">{{$catlist->name}}</a>
+                            @endforeach
+
                         </div>
                     </div>
                     <!-- End .widget -->

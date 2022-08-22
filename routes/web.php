@@ -3,11 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrderController;
 use PHPUnit\TextUI\XmlConfiguration\Group;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SettingController;
 use PHPUnit\TextUI\XmlConfiguration\Groups;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SubCategoryController;
 
@@ -46,6 +47,9 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::resource('category', CategoryController::class);
     Route::resource('subcategory', SubCategoryController::class);
     Route::resource('products', ProductController::class);
+    Route::resource('settings', SettingController::class);
+    Route::get('settings/contact-us',[SettingController::class,'contactIndex']);
+    // Route::get('settings',[SettingController::class,'privacyIndex']);
     Route::get('orders',[OrderController::class,'index']);
 
     Route::any('getSubCategory', [ProductController::class, 'getSubCategory'])->name('getSubCategory');
