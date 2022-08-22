@@ -65,15 +65,15 @@
                             <li><a href="{{ url('admin/products')}}">Products List</a></li>
                         </ul>
                     </li>
-                    <li class="mega-menu mega-menu-sm">
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Category</span>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" href="{{ url('/orders')}}" aria-expanded="false">
+                            <i class="icon-badge menu-icon"></i><span class="nav-text">Orders</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="">View Categories</a></li>
-
+                            <li><a href="{{ url('admin/orders')}}">Products List</a></li>
                         </ul>
                     </li>
+
                     <li class="nav-label">Apps</li>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">

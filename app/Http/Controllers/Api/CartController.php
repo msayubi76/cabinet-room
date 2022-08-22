@@ -49,7 +49,7 @@ class CartController extends Controller
             $category = Category::where('is_active', '0')->get();
             $subcategory = SubCategory::where('is_active', '0')->get();
             $cart = Cart::where('user_id', Auth::id())->get();
-            return view('website.product.cart', compact('category', 'subcategory', 'cart'));
+            return view('website.pages.cart', compact('category', 'subcategory', 'cart'));
         } catch (\Throwable $th) {
             return $th;
         }

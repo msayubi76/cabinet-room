@@ -13,9 +13,9 @@
                         <ul>
                             <li><a href="{{ url('user-dashboard') }}">My Account</a></li>
                             <li><a href="{{ url('about-us') }}">About Us</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="wishlist.html">My Wishlist</a></li>
-                            <li><a href="cart.html">Cart</a></li>
+                            <li><a href="{{ url('contact-us') }}">Contact Us</a></li>
+
+                            <li><a href="{{ url('cart') }}">Cart</a></li>
                             <li><a href="login.html" class="login-link">Log In</a></li>
                         </ul>
                     </div>
@@ -87,9 +87,10 @@
                             <div class="select-custom">
                                 <select id="cat" name="cat">
                                     <option value="">All Categories</option>
-                                    @foreach ($category as $catitem )
+                                    @foreach ($category as $catitem  )
 
                                     <option value="">{{$catitem->name}}</option>
+
                                     @foreach ($subcategory as $subcatlist )
 
                                     <option value="">-
@@ -162,48 +163,8 @@
                                 @endforeach
                                 <!-- End .product -->
 
-                                {{-- <div class="product">
-                                    <div class="product-details">
-                                        <h4 class="product-title">
-                                            <a href="product.html">Brown Women Casual HandBag</a>
-                                        </h4>
 
-                                        <span class="cart-product-info">
-                                            <span class="cart-product-qty">1</span> × $35.00
-                                        </span>
-                                    </div>
-                                    <!-- End .product-details -->
 
-                                    <figure class="product-image-container">
-                                        <a href="product.html" class="product-image">
-                                            <img src="{{asset('website/assets/images/products/product-2.jpg')}}" alt="product" width="80" height="80">
-                                        </a>
-
-                                        <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
-                                    </figure>
-                                </div>
-                                <!-- End .product -->
-
-                                <div class="product">
-                                    <div class="product-details">
-                                        <h4 class="product-title">
-                                            <a href="product.html">Circled Ultimate 3D Speaker</a>
-                                        </h4>
-
-                                        <span class="cart-product-info">
-                                            <span class="cart-product-qty">1</span> × $35.00
-                                        </span>
-                                    </div>
-                                    <!-- End .product-details -->
-
-                                    <figure class="product-image-container">
-                                        <a href="product.html" class="product-image">
-                                            <img src="{{asset('website/assets/images/products/product-3.jpg')}}" alt="product" width="80" height="80">
-                                        </a>
-                                        <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
-                                    </figure>
-                                </div> --}}
-                                <!-- End .product -->
                             </div>
                             <!-- End .cart-product -->
 
@@ -241,7 +202,7 @@
                         <a  href="{{url('/')}}">Home</a>
                     </li>
                     <li>
-                        <a href="category.html">Categories</a>
+                        <a href="{{ url('categories') }}">Categories</a>
                         <div class="megamenu megamenu-fixed-width megamenu-3cols">
                             <div class="row">
                                 <div class="col-lg-6">
@@ -251,6 +212,12 @@
 
 
                                         <li><a href="{{url('category=' .$catlist->name)}}">{{$catlist->name}}</a></li>
+                                        @foreach ($subcategory as $subcatlist )
+
+                                        <option value="">-
+                                            {{$subcatlist->name}}</option>
+
+                                        @endforeach
                                         @endforeach
 
 

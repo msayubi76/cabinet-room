@@ -27,6 +27,7 @@ class CategoryController extends Controller
         try {
 
             $category_response = CategoryService::store($request);
+
             return $category_response;
 
         } catch (\Throwable $th) {

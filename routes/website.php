@@ -16,6 +16,7 @@ Route::get('/product/{id}', [FrontendController::class, 'singleProduct'])->name(
 Route::get('/about-us', [FrontendController::class, 'about']);
 Route::get('/contact-us', [FrontendController::class, 'contact']);
 Route::get('/privacy-and-policy', [FrontendController::class, 'policy']);
+Route::get('/categories', [FrontendController::class, 'categories']);
 
 //--> Webste display product by category <-- //
 Route::get('/category={name}', [FrontendController::class, 'category']);

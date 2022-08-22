@@ -21,4 +21,7 @@ class Order extends Model
     public function payments(){
         return $this->belongsTo(Payment::class, 'payment_id');
     }
+    public function users(){
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

@@ -13,26 +13,39 @@ class FrontendController extends Controller
 public function index()
 {
 try {
-    $category = Category::where('is_active', '0')->get();
-    $subcategory = SubCategory::where('is_active', '0')->get();
+    $category = Category::where('is_active', '1')->get();
+    $subcategory = SubCategory::where('is_active', '1',$category)->get();
     $featured_product = Product::where('is_feature_product', '1')->get();
     $arrivial_product = Product::where('is_arrival_product', '1')->get();
     $cart = Cart::where('user_id', Auth::id())->get();
     return view('website.index', compact('category', 'subcategory', 'featured_product', 'arrivial_product', 'cart'));
-} 
+}
 catch (\Throwable $th) {
 return response()->json(['status' => false, 'message' => $th->getMessage()]);
 }
 }
 
+public function categories()
+{
+try {
+
+    $category = Category::where('is_active', '1')->get();
+    $subcategory = SubCategory::where('is_active', '1')->get();
+    $cart = Cart::where('user_id', Auth::id())->get();
+    return view('website.pages.categories', compact('category', 'subcategory', 'cart'));
+}
+ catch (\Throwable $th) {
+return response()->json(['status' => false, 'message' => $th->getMessage()]);
+}
+}
 public function products()
 {
 try {
-    $product = Product::orderBy('id', 'DESC')->paginate(30);
-    $category = Category::where('is_active', '0')->get();
-    $subcategory = SubCategory::where('is_active', '0')->get();
+    $product = Product::orderBy('id', 'DESC')->paginate(1);
+    $category = Category::where('is_active', '1')->get();
+    $subcategory = SubCategory::where('is_active', '1')->get();
     $cart = Cart::where('user_id', Auth::id())->get();
-    return view('website.product.shop', compact('category', 'subcategory', 'product', 'cart'));
+    return view('website.pages.shop', compact('category', 'subcategory', 'product', 'cart'));
 }
  catch (\Throwable $th) {
 return response()->json(['status' => false, 'message' => $th->getMessage()]);
@@ -43,10 +56,10 @@ public function singleProduct($id)
 {
 try {
     $product = Product::find($id);
-    $category = Category::where('is_active', '0')->get();
-    $subcategory = SubCategory::where('is_active', '0')->get();
+    $category = Category::where('is_active', '1')->get();
+    $subcategory = SubCategory::where('is_active', '1')->get();
     $cart = Cart::where('user_id', Auth::id())->get();
-    return view('website.product.singleProduct', compact('category', 'subcategory', 'product', 'cart'));
+    return view('website.pages.single-product', compact('category', 'subcategory', 'product', 'cart'));
 }
  catch (\Throwable $th) {
 return response()->json(['status' => false, 'message' => $th->getMessage()]);
@@ -56,11 +69,11 @@ return response()->json(['status' => false, 'message' => $th->getMessage()]);
 public function about()
 {
 try {
-    $category = Category::where('is_active', '0')->get();
-    $subcategory = SubCategory::where('is_active', '0')->get();
+    $category = Category::where('is_active', '1')->get();
+    $subcategory = SubCategory::where('is_active', '1')->get();
     $cart = Cart::where('user_id', Auth::id())->get();
     return view('website.pages.about', compact('category', 'subcategory', 'cart'));
-} 
+}
 catch (\Throwable $th) {
 return response()->json(['status' => false, 'message' => $th->getMessage()]);
 }
@@ -69,11 +82,11 @@ return response()->json(['status' => false, 'message' => $th->getMessage()]);
 public function contact()
 {
 try {
-    $category = Category::where('is_active', '0')->get();
-    $subcategory = SubCategory::where('is_active', '0')->get();
+    $category = Category::where('is_active', '1')->get();
+    $subcategory = SubCategory::where('is_active', '1')->get();
     $cart = Cart::where('user_id', Auth::id())->get();
     return view('website.pages.contact', compact('category', 'subcategory', 'cart'));
-} 
+}
 catch (\Throwable $th) {
 return response()->json(['status' => false, 'message' => $th->getMessage()]);
 }
@@ -82,11 +95,11 @@ return response()->json(['status' => false, 'message' => $th->getMessage()]);
 public function policy()
 {
 try {
-    $category = Category::where('is_active', '0')->get();
-    $subcategory = SubCategory::where('is_active', '0')->get();
+    $category = Category::where('is_active', '1')->get();
+    $subcategory = SubCategory::where('is_active', '1')->get();
     $cart = Cart::where('user_id', Auth::id())->get();
     return view('website.pages.privacy-and-policy', compact('category', 'subcategory', 'cart'));
-} 
+}
 catch (\Throwable $th) {
 return response()->json(['status' => false, 'message' => $th->getMessage()]);
 }
@@ -95,8 +108,8 @@ return response()->json(['status' => false, 'message' => $th->getMessage()]);
 public function category($name)
 {
 try {
-    $subcategory = SubCategory::where('is_active', '0')->get();
-    $category = Category::where('is_active', '0')->get();
+    $subcategory = SubCategory::where('is_active', '1')->get();
+    $category = Category::where('is_active', '1')->get();
     $cart = Cart::where('user_id', Auth::id())->get();
     if (Category::where('name', $name)->exists()) {
     $get_category = Category::where('name', $name)->first();

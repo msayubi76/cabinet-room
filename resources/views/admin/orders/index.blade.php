@@ -8,7 +8,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-8 col-md-6 col-sm-8 text-left">
-                                <h4 class="card-title">Categories Table</h4>
+                                <h4 class="card-title">Orders Table</h4>
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-4 text-right">
                                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addcategory">Add
@@ -20,22 +20,23 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Image</th>
+                                        <th>price</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="table_id">
-                                    @foreach ($categories as $category)
-                                        <tr id='row_{{ $category->id }}'>
-                                            <td>{{ $category->name }}</td>
-                                            <td><img src="{{ $category->image_url }}" height="50px" width="50px"
-                                                    alt=""></td>
-                                            <td class="text-center">
+                                    @foreach ($orders as $order)
+                                        <tr id='row_{{ $order->id }}'>
+                                            <td>{{ $order->users->fist_name }} {{ $order->users->last_name }}</td>
+                                            <td>{{ $order->payments->payment }}</td>
+                                            <td>
                                                 <span
-                                                    class="badge badge-{{ $category->is_active == '1' ? 'success' : 'warning' }}">
-                                                    {{ $category->is_active == '1' ? 'active' : 'not-active' }}</span>
+                                                class="badge badge-{{ $order->order_status == 'padding' ? 'success' : 'warning' }}">
+                                                {{ $order->order_status == 'padding' ? 'not-padding' : 'padding' }}</span>
                                             </td>
+
+
 
                                             <td>
                                                 <div class="button-group">
@@ -46,11 +47,11 @@
                                                                 data-toggle="dropdown"></button>
                                                             <div class="dropdown-menu">
                                                                 <a class="dropdown-item"
-                                                                    onclick="openViewModal({{ $category }})">View</a>
+                                                                    onclick="openViewModal({{ $order }})">View</a>
                                                                 <a class="dropdown-item"
-                                                                    href="javascript:openEditModal({{ json_encode($category) }})">Edit</a>
+                                                                    href="javascript:openEditModal({{ json_encode($order) }})">Edit</a>
                                                                 <a class="dropdown-item"
-                                                                    href="javascript:openDeleteDialog({{ $category->id }})">Delete</a>
+                                                                    href="javascript:openDeleteDialog({{ $order->id }})">Delete</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -90,7 +91,7 @@
         </div>
     </div>
     {{-- add --}}
-    <div class="modal fade" id="addcategory">
+    <div class="modal fade" id="addorder">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -125,11 +126,9 @@
                                 <div id="profile_text" class="text-danger backend-error-text"></div>
                             </div>
                             <div class="form-group ">
-                                <label class="form-label form-check-label" for="name"
-                                style="margin-top: 35px; margin-left:30px;">
-
-                                <input type="checkbox" class="form-check-input" checked name="is_active"
-                                    value="1">Active </label>
+                                <label class="col-lg-4 col-form-label form-check-label" for="name">
+                                    <input type="checkbox" class="form-check-input" checked name="is_active"
+                                        value="1">status </label>
                                 <div id="is_active_text" class="text-danger backend-error-text"></div>
                             </div>
                         </div>
@@ -182,7 +181,7 @@
                             </div>
                             <div class="form-group ">
                                 <label class="col-lg-4 col-form-label form-check-label" for="name">
-                                    <input type="checkbox" id="edit_is_active" name="is_active" value="1"> Status
+                                    <input type="checkbox" id="edit_is_active" name="is_active" value=""> Status
                                 </label>
                                 <div id="edit_is_active" class="text-danger backend-error-text"></div>
                             </div>
@@ -198,7 +197,7 @@
         </div>
     </div>
 @endsection
-@section('scripts')
+{{-- @section('scripts')
     <script>
         category_image.onchange = evt => {
             const [file] = category_image.files
@@ -487,4 +486,4 @@
             return errorMessage;
         }
     </script>
-@endsection
+@endsection --}}

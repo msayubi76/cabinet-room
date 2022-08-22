@@ -18,8 +18,10 @@ class CategoryService
 
     public static function store(CategoryRequest $request)
     {
+
         DB::beginTransaction();
         $data = $request->validated();
+
 
         if ($request->hasFile('category_image')) :
             $image_name = FileUploadTrait::fileUpload($request->category_image, 'categories');
@@ -28,9 +30,10 @@ class CategoryService
             $data['image_name'] =  $image_name;
             $data['image_url'] = url('/storage/categories/' . $image_name);
         endif;
-
+        $data['is_active'] =  $request->is_active == true ? '1' : '0';
 
         $category = Category::create($data);
+
         DB::commit();
         $response = ['status' => true, 'message' => 'Category added successfully.', 'category' => $category];
 

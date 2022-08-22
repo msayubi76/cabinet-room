@@ -18,6 +18,7 @@ class SubCategoryService {
 
     public static function store(SubCategoryRequest $request)
     {
+
         DB::beginTransaction();
         $data = $request->validated();
 

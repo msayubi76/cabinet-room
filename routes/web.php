@@ -7,6 +7,7 @@ use PHPUnit\TextUI\XmlConfiguration\Group;
 use App\Http\Controllers\ProductController;
 use PHPUnit\TextUI\XmlConfiguration\Groups;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SubCategoryController;
 
@@ -45,12 +46,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::resource('category', CategoryController::class);
     Route::resource('subcategory', SubCategoryController::class);
     Route::resource('products', ProductController::class);
-    // Route::get('products',[ProductController::class,'index'])->name('product.index');
-    // Route::get('products/create',[ProductController::class,'create']);
-    // Route::post('products/store',[ProductController::class,'store'])->name('products.store');
-    // Route::get('products/update/{product_id}',[ProductController::class,'edit']);
-    // Route::post('products/update/{product_id}',[ProductController::class,'update'])->name('products.update');
-    // Route::Delete('/products/{id}',[ProductController::class,'destroy']);
+    Route::get('orders',[OrderController::class,'index']);
+
     Route::any('getSubCategory', [ProductController::class, 'getSubCategory'])->name('getSubCategory');
 });
 
