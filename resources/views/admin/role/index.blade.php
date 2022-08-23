@@ -41,20 +41,11 @@
                                                 @endforeach
                                             </td>
                                             <td>
-                                                <div class="button-group">
-                                                    <div class="btn-group">
-                                                        <div class="btn-group">
-                                                            <button id="btnGroupDrop1" type="button"
-                                                                class="btn btn-primary dropdown-toggle py-0 px-2"
-                                                                data-toggle="dropdown"></button>
-                                                            <div class="dropdown-menu">
-                                                                <a class="dropdown-item"
+
+                                                                <a class="btn btn-secondary"
                                                                     href="{{ url('admin/attach-permission/' . $role->id) }}">Assign
                                                                     Permission</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+
                                             </td>
                                             <td>
                                                 <div class="button-group">
@@ -262,7 +253,7 @@
                     var string =
                         `<tr id="row_${data.role.id}">
                                 <td>${data.role.name}</td>
-                                <td><a href="${'attach-Role->id'}" class="btn btn-secondary">Attach Permission</a></td>
+                                <td><a href="${'admin/attach-permission/'.data.role.id}" class="btn btn-secondary">Attach Permission</a></td>
 
                                 <td>
                                     <div class="button-group">

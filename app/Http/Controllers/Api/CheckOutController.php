@@ -27,7 +27,7 @@ class CheckOutController extends Controller
             $cart = Cart::where('user_id', Auth::id())->get();
             return view('website.pages.checkout', compact('category', 'subcategory', 'cart'));
         } catch (\Throwable $th) {
-            return $th;
+            return redirect(route('website.pages.checkout'))->with('error', $th->getMessage());
         }
     }
 
@@ -35,12 +35,11 @@ class CheckOutController extends Controller
     {
         try {
             $order = OrderService::store($request);
+            return redirect(route('check-out.index'))->with('success', 'Your Shipping detail added successfully.');
 
-            return redirect('check-out')->with('success', 'Your Shipping  added successfully.');
 
         } catch (\Throwable $th) {
-
-            return $th;
+            return back()->with('error', $th->getMessage());
         }
     }
 }

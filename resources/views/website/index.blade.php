@@ -164,7 +164,7 @@
                     </figure>
                     <div class="product-details">
                         <div class="category-list">
-                            <a href="category.html" class="product-category">{{$featuredlist->category->name}}</a>
+                            <a href="{{url('category=' .$featuredlist->category->name)}}" class="product-category">{{$featuredlist->category->name}}</a>
                         </div>
                         <h3 class="product-title">
                             <a href="{{url('products/'.$featuredlist->id)}}">{{$featuredlist->name}}</a>
@@ -269,7 +269,7 @@
 
                 <div class="product-default appear-animate" data-animation-name="fadeInRightShorter">
                     <figure>
-                        <a href="{{url('products/'.$arriviallist->id)}}">
+                        <a href="{{url('product/'.$arriviallist->id)}}">
                             <img src="{{ $arriviallist->feature_image }}" width="220" height="220" alt="product">
                             <img src="{{ $arriviallist->feature_image }}" width="220" height="220" alt="product">
                         </a>
@@ -279,7 +279,7 @@
                     </figure>
                     <div class="product-details">
                         <div class="category-list">
-                            <a href="category.html" class="product-category">{{$arriviallist->category->name}}</a>
+                            <a href="{{url('category=' .$arriviallist->category->name)}}" class="product-category">{{$arriviallist->category->name}}</a>
                         </div>
                         <h3 class="product-title">
                             <a href="{{url('product/'.$arriviallist->id)}}">{{$arriviallist->name}}</a>
@@ -483,18 +483,19 @@
                 </div>
 
                 <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="500">
-                    <h4 class="section-sub-title">Best Selling Products</h4>
+                    <h4 class="section-sub-title">Arrivial Products</h4>
+                    @foreach ($arrivial_product as $arriviallist)
                     <div class="product-default left-details product-widget">
                         <figure>
-                            <a href="product.html">
-                                <img src="{{asset('website/assets/images/products/small/product-4.jpg')}}" width="84" height="84" alt="product">
-                                <img src="{{asset('website/assets/images/products/small/product-4-2.jpg')}}" width="84" height="84" alt="product">
+                            <a href="{{url('products/'.$arriviallist->id)}}">
+                                <img src="{{ $arriviallist->feature_image }}" width="84" height="84" alt="product">
+                                <img src="{{ $arriviallist->feature_image }}" width="84" height="84" alt="product">
                             </a>
                         </figure>
 
                         <div class="product-details">
-                            <h3 class="product-title"> <a href="product.html">Blue Backpack for the Young -
-                                    S</a> </h3>
+                            <h3 class="product-title"> <a href="{{url('product/'.$arriviallist->id)}}">{{$arriviallist->name}}
+                                    </a> </h3>
 
                             <div class="ratings-container">
                                 <div class="product-ratings">
@@ -507,115 +508,32 @@
                             <!-- End .product-container -->
 
                             <div class="price-box">
-                                <span class="product-price">$49.00</span>
+                                <span class="product-price">{{$arriviallist->currency}}{{$arriviallist->actual_price }}</span>
                             </div>
                             <!-- End .price-box -->
                         </div>
                         <!-- End .product-details -->
                     </div>
+      @endforeach
 
-                    <div class="product-default left-details product-widget">
-                        <figure>
-                            <a href="product.html">
-                                <img src="{{asset('website/assets/images/products/small/product-5.jpg')}}" width="84" height="84" alt="product">
-                                <img src="{{asset('website/assets/images/products/small/product-5-2.jpg')}}" width="84" height="84" alt="product">
-                            </a>
-                        </figure>
 
-                        <div class="product-details">
-                            <h3 class="product-title"> <a href="product.html">Casual Spring Blue Shoes</a> </h3>
 
-                            <div class="ratings-container">
-                                <div class="product-ratings">
-                                    <span class="ratings" style="width:100%"></span>
-                                    <!-- End .ratings -->
-                                    <span class="tooltiptext tooltip-top"></span>
-                                </div>
-                                <!-- End .product-ratings -->
-                            </div>
-                            <!-- End .product-container -->
-
-                            <div class="price-box">
-                                <span class="product-price">$49.00</span>
-                            </div>
-                            <!-- End .price-box -->
-                        </div>
-                        <!-- End .product-details -->
-                    </div>
-
-                    <div class="product-default left-details product-widget">
-                        <figure>
-                            <a href="product.html">
-                                <img src="{{asset('website/assets/images/products/small/product-6.jpg')}}" width="84" height="84" alt="product">
-                                <img src="{{asset('website/assets/images/products/small/product-6-2.jpg')}}" width="84" height="84" alt="product">
-                            </a>
-                        </figure>
-
-                        <div class="product-details">
-                            <h3 class="product-title"> <a href="product.html">Men Black Gentle Belt</a> </h3>
-
-                            <div class="ratings-container">
-                                <div class="product-ratings">
-                                    <span class="ratings" style="width:100%"></span>
-                                    <!-- End .ratings -->
-                                    <span class="tooltiptext tooltip-top">5.00</span>
-                                </div>
-                                <!-- End .product-ratings -->
-                            </div>
-                            <!-- End .product-container -->
-
-                            <div class="price-box">
-                                <span class="product-price">$49.00</span>
-                            </div>
-                            <!-- End .price-box -->
-                        </div>
-                        <!-- End .product-details -->
-                    </div>
                 </div>
 
                 <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="800">
                     <h4 class="section-sub-title">Latest Products</h4>
+                    @foreach ($latest_product as $list)
                     <div class="product-default left-details product-widget">
                         <figure>
-                            <a href="product.html">
-                                <img src="{{asset('website/assets/images/products/small/product-7.jpg')}}" width="84" height="84" alt="product">
-                                <img src="{{asset('website/assets/images/products/small/product-7-2.jpg')}}" width="84" height="84" alt="product">
+                            <a href="{{url('products/'.$list->id)}}">
+                                <img src="{{ $list->feature_image }}" width="84" height="84" alt="product">
+                                <img src="{{ $list->feature_image }}" width="84" height="84" alt="product">
                             </a>
                         </figure>
 
                         <div class="product-details">
-                            <h3 class="product-title"> <a href="product.html">Brown-Black Men Casual Glasses</a>
-                            </h3>
-
-                            <div class="ratings-container">
-                                <div class="product-ratings">
-                                    <span class="ratings" style="width:100%"></span>
-                                    <!-- End .ratings -->
-                                    <span class="tooltiptext tooltip-top"></span>
-                                </div>
-                                <!-- End .product-ratings -->
-                            </div>
-                            <!-- End .product-container -->
-
-                            <div class="price-box">
-                                <span class="product-price">$49.00</span>
-                            </div>
-                            <!-- End .price-box -->
-                        </div>
-                        <!-- End .product-details -->
-                    </div>
-
-                    <div class="product-default left-details product-widget">
-                        <figure>
-                            <a href="product.html">
-                                <img src="{{asset('website/assets/images/products/small/product-8.jpg')}}" width="84" height="84" alt="product">
-                                <img src="{{asset('website/assets/images/products/small/product-8-2.jpg')}}" width="84" height="84" alt="product">
-                            </a>
-                        </figure>
-
-                        <div class="product-details">
-                            <h3 class="product-title"> <a href="product.html">Brown-Black Men Casual Glasses</a>
-                            </h3>
+                            <h3 class="product-title"> <a href="{{url('product/'.$list->id)}}">{{$list->name}}
+                                    </a> </h3>
 
                             <div class="ratings-container">
                                 <div class="product-ratings">
@@ -628,85 +546,30 @@
                             <!-- End .product-container -->
 
                             <div class="price-box">
-                                <span class="product-price">$49.00</span>
+                                <span class="product-price">{{$list->currency}}{{$list->actual_price }}</span>
                             </div>
                             <!-- End .price-box -->
                         </div>
                         <!-- End .product-details -->
                     </div>
+                 @endforeach
 
-                    <div class="product-default left-details product-widget">
-                        <figure>
-                            <a href="product.html">
-                                <img src="{{asset('website/assets/images/products/small/product-9.jpg')}}" width="84" height="84" alt="product">
-                                <img src="{{asset('website/assets/images/products/small/product-9-2.jpg')}}" width="84" height="84" alt="product">
-                            </a>
-                        </figure>
-
-                        <div class="product-details">
-                            <h3 class="product-title"> <a href="product.html">Black Men Casual Glasses</a> </h3>
-
-                            <div class="ratings-container">
-                                <div class="product-ratings">
-                                    <span class="ratings" style="width:100%"></span>
-                                    <!-- End .ratings -->
-                                    <span class="tooltiptext tooltip-top"></span>
-                                </div>
-                                <!-- End .product-ratings -->
-                            </div>
-                            <!-- End .product-container -->
-
-                            <div class="price-box">
-                                <span class="product-price">$49.00</span>
-                            </div>
-                            <!-- End .price-box -->
-                        </div>
-                        <!-- End .product-details -->
-                    </div>
                 </div>
 
-                <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="1100">
+                <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="800">
                     <h4 class="section-sub-title">Top Rated Products</h4>
+                    @foreach ($latest_product as $list)
                     <div class="product-default left-details product-widget">
                         <figure>
-                            <a href="product.html">
-                                <img src="{{asset('website/assets/images/products/small/product-10.jpg')}}" width="84" height="84" alt="product">
-                                <img src="{{asset('website/assets/images/products/small/product-10-2.jpg')}}" width="84" height="84" alt="product">
+                            <a href="{{url('products/'.$list->id)}}">
+                                <img src="{{ $list->feature_image }}" width="84" height="84" alt="product">
+                                <img src="{{ $list->feature_image }}" width="84" height="84" alt="product">
                             </a>
                         </figure>
 
                         <div class="product-details">
-                            <h3 class="product-title"> <a href="product.html">Basketball Sports Blue Shoes</a>
-                            </h3>
-
-                            <div class="ratings-container">
-                                <div class="product-ratings">
-                                    <span class="ratings" style="width:100%"></span>
-                                    <!-- End .ratings -->
-                                    <span class="tooltiptext tooltip-top"></span>
-                                </div>
-                                <!-- End .product-ratings -->
-                            </div>
-                            <!-- End .product-container -->
-
-                            <div class="price-box">
-                                <span class="product-price">$49.00</span>
-                            </div>
-                            <!-- End .price-box -->
-                        </div>
-                        <!-- End .product-details -->
-                    </div>
-
-                    <div class="product-default left-details product-widget">
-                        <figure>
-                            <a href="product.html">
-                                <img src="{{asset('website/assets/images/products/small/product-11.jpg')}}" width="84" height="84" alt="product">
-                                <img src="{{asset('website/assets/images/products/small/product-11-2.jpg')}}" width="84" height="84" alt="product">
-                            </a>
-                        </figure>
-
-                        <div class="product-details">
-                            <h3 class="product-title"> <a href="product.html">Men Sports Travel Bag</a> </h3>
+                            <h3 class="product-title"> <a href="{{url('product/'.$list->id)}}">{{$list->name}}
+                                    </a> </h3>
 
                             <div class="ratings-container">
                                 <div class="product-ratings">
@@ -719,41 +582,14 @@
                             <!-- End .product-container -->
 
                             <div class="price-box">
-                                <span class="product-price">$49.00</span>
+                                <span class="product-price">{{$list->currency}}{{$list->actual_price }}</span>
                             </div>
                             <!-- End .price-box -->
                         </div>
                         <!-- End .product-details -->
                     </div>
+                 @endforeach
 
-                    <div class="product-default left-details product-widget">
-                        <figure>
-                            <a href="product.html">
-                                <img src="{{asset('website/assets/images/products/small/product-12.jpg')}}" width="84" height="84" alt="product">
-                                <img src="{{asset('website/assets/images/products/small/product-12-2.jpg')}}" width="84" height="84" alt="product">
-                            </a>
-                        </figure>
-
-                        <div class="product-details">
-                            <h3 class="product-title"> <a href="product.html">Brown HandBag</a> </h3>
-
-                            <div class="ratings-container">
-                                <div class="product-ratings">
-                                    <span class="ratings" style="width:100%"></span>
-                                    <!-- End .ratings -->
-                                    <span class="tooltiptext tooltip-top"></span>
-                                </div>
-                                <!-- End .product-ratings -->
-                            </div>
-                            <!-- End .product-container -->
-
-                            <div class="price-box">
-                                <span class="product-price">$49.00</span>
-                            </div>
-                            <!-- End .price-box -->
-                        </div>
-                        <!-- End .product-details -->
-                    </div>
                 </div>
             </div>
             <!-- End .row -->

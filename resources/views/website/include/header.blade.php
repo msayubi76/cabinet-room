@@ -9,7 +9,21 @@
                     <a href="#">Links</a>
                     <div class="header-menu">
                         <ul>
-                            <li><a href="{{ url('user-dashboard') }}">My Account</a></li>
+
+                            <li>
+                                @if(Auth::check())
+                                    @if(Auth::user()->type == 'admin')
+                                    <a href="{{ url('admin/dashboard') }}">
+
+                                    @elseif (Auth::user()->type == 'customer')
+                                    <a href="{{ url('user-dashboard') }}">
+                                    @endif
+                                @else
+                                    <a href="{{ url('login') }}">
+                                @endif
+                                My Account</a>
+                        </li>
+                            {{-- <li><a href="{{ url('user-dashboard') }}">My Account</a></li> --}}
                             <li><a href="{{ url('about-us') }}">About Us</a></li>
                             <li><a href="{{ url('contact-us') }}">Contact Us</a></li>
 
@@ -96,7 +110,7 @@
                 <div class="dropdown cart-dropdown">
                     <a href="{{url('cart')}}" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                         <i  class="minicart-icon"></i>
-                        <span class="cart-count badge-circle">3</span>
+                        <span class="cart-count badge-circle">{{App\Models\Cart::where('user_id', Auth::id())->count() }}</span>
                     </a>
 
                     <div class="cart-overlay"></div>

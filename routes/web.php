@@ -48,8 +48,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::resource('subcategory', SubCategoryController::class);
     Route::resource('products', ProductController::class);
     Route::resource('settings', SettingController::class);
-    Route::get('settings/contact-us',[SettingController::class,'contactIndex']);
-    // Route::get('settings',[SettingController::class,'privacyIndex']);
+
+
     Route::get('orders',[OrderController::class,'index']);
 
     Route::any('getSubCategory', [ProductController::class, 'getSubCategory'])->name('getSubCategory');

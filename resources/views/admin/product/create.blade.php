@@ -154,13 +154,13 @@
                                 </div>
 
                                </div>
-                               {{-- <div class="form-group mb-8">
+                               <div class="form-group mb-8">
                                 <textarea class="form-control h-150px mysummernote" id="" name="short_description" rows="6" placeholder="Describe yourself here...">
                                    </textarea>
-                                   @error('description')
+                                   @error('short_description')
                                    <div class="text-danger">{{ $message }}</div>
                                @enderror
-                            </div> --}}
+                            </div>
 
                                <div class="modal-footer">
                                <a href="{{url('/admin/products')}}"  type="button" class="btn btn-secondary"> Close </a>

@@ -30,7 +30,8 @@ return new class extends Migration
             $table->double('width')->nullable();
             $table->boolean('is_feature_product')->default('0');
             $table->boolean('is_arrival_product')->default('0');
-            $table->string('currency')->default('Dollar');
+            $table->string('currency');
+            $table->mediumText('short_description')->nullable();
 
 
             $table->foreignId('created_by')->nullable()->constrained('users')->cascadeOnDelete() ;

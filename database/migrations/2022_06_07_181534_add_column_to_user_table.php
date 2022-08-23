@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('type')->after('email')->default('user');
+            $table->string('type')->after('email')->default('customer');
             $table->string('image_url')->nullable();
             $table->string('image_folder')->nullable();
             $table->string('image_name')->nullable();

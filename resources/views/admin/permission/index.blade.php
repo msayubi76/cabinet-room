@@ -248,8 +248,7 @@ var dataarray =[];
                 .find('[type="button"]')
                 .prop("disabled", false);
             document.getElementById("permission-form").reset();
-            dataarray.push(data);
-            var index = (dataarray.length)-1;
+            const PERMISSION = JSON.stringify(data.permission)
             var string =
             `<tr id="row_${data.permission.id}">
                 <td>${data.permission.name}</td>
@@ -262,7 +261,7 @@ var dataarray =[];
                             <div class="btn-group"><button id="btnGroupDrop${data.permission.id}" type="button"
                                     class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button>
                                 <div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal(${data.permission})">View</a>
-                                    <a class="dropdown-item" href="javascript:openEditIndexModal(${index})">Edit</a><a
+                                    <a class="dropdown-item" href="javascript:;" onclick='openEditModal(${PERMISSION})'>Edit</a><a
                                         class="dropdown-item" href="javascript:openDeleteDialog(${data.permission.id});">Delete</a></div>
                             </div>
                         </div>

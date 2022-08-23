@@ -37,8 +37,9 @@
 
                                 <td>
                                     <figure class="product-image-container">
+                                        
                                         <a href="product.html" class="product-image">
-                                            <img src="{{asset($cartlist->feature_image)}}" alt="product">
+                                            <img src="{{asset($cartlist->product->feature_image)}}" alt="product">
                                         </a>
 
                                         <a href="#" class=" btn-remove icon-cancel delete-cart-item" title="Remove Product"></a>
@@ -72,7 +73,7 @@
                             <tr>
                                 <td colspan="5" class="clearfix">
                                     <div class="float-left">
-                                        <div class="cart-discount">
+                                        {{-- <div class="cart-discount">
                                             <form action="#">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control form-control-sm"
@@ -83,7 +84,7 @@
                                                     </div>
                                                 </div><!-- End .input-group -->
                                             </form>
-                                        </div>
+                                        </div> --}}
                                     </div><!-- End .float-left -->
 
                                     <div class="float-right">
@@ -109,64 +110,7 @@
                                 <td>${{$alltotal}}</td>
                             </tr>
 
-                            {{-- <tr>
-                                <td colspan="2" class="text-left">
-                                    <h4>Shipping</h4>
-
-                                    <div class="form-group form-group-custom-control">
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" class="custom-control-input" name="radio"
-                                                checked>
-                                            <label class="custom-control-label">Local pickup</label>
-                                        </div><!-- End .custom-checkbox -->
-                                    </div><!-- End .form-group -->
-
-                                    <div class="form-group form-group-custom-control mb-0">
-                                        <div class="custom-control custom-radio mb-0">
-                                            <input type="radio" name="radio" class="custom-control-input">
-                                            <label class="custom-control-label">Flat rate</label>
-                                        </div><!-- End .custom-checkbox -->
-                                    </div><!-- End .form-group -->
-
-                                    <form action="#">
-                                        <div class="form-group form-group-sm">
-                                            <label>Shipping to <strong>NY.</strong></label>
-                                            <div class="select-custom">
-                                                <select class="form-control form-control-sm">
-                                                    <option value="USA">United States (US)</option>
-                                                    <option value="Turkey">Turkey</option>
-                                                    <option value="China">China</option>
-                                                    <option value="Germany">Germany</option>
-                                                </select>
-                                            </div><!-- End .select-custom -->
-                                        </div><!-- End .form-group -->
-
-                                        <div class="form-group form-group-sm">
-                                            <div class="select-custom">
-                                                <select class="form-control form-control-sm">
-                                                    <option value="NY">New York</option>
-                                                    <option value="CA">California</option>
-                                                    <option value="TX">Texas</option>
-                                                </select>
-                                            </div><!-- End .select-custom -->
-                                        </div><!-- End .form-group -->
-
-                                        <div class="form-group form-group-sm">
-                                            <input type="text" class="form-control form-control-sm"
-                                                placeholder="Town / City">
-                                        </div><!-- End .form-group -->
-
-                                        <div class="form-group form-group-sm">
-                                            <input type="text" class="form-control form-control-sm"
-                                                placeholder="ZIP">
-                                        </div><!-- End .form-group -->
-
-                                        <button type="submit" class="btn btn-shop btn-update-total">
-                                            Update Totals
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr> --}}
+                          
                         </tbody>
 
                         <tfoot>
@@ -195,7 +139,7 @@ $(document).ready(function () {
     $('.delete-cart-item').click(function (e) {
         e.preventDefault();
         var product_id = $(this).closest('.product_data').find('.product_id').val();
-alert(product_id);
+// alert(product_id);
 
         $.ajaxSetup({
         headers: {
@@ -212,7 +156,7 @@ alert(product_id);
             success: function (response) {
                 window.location.reload();
 // alert(response);
-           toster.success("",response.status,"success");
+swal("",response.status,"success");
             }
         });
 

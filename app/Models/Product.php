@@ -32,6 +32,7 @@ class Product extends Model
         'is_feature_product',
         'is_arrival_product',
         'currency',
+        'short_description',
         'created_by',
         'updated_by',
         'deleted_by',

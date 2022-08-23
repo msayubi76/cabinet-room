@@ -63,32 +63,7 @@
             </div>
         </div>
 
-        <div class="checkout-discount">
-            <h4>Have a coupon?
-                <button data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne"
-                    class="btn btn-link btn-toggle">ENTER YOUR CODE</button>
-            </h4>
 
-            <div id="collapseTwo" class="collapse">
-                <div class="feature-box">
-                    <div class="feature-box-content">
-                        <p>If you have a coupon code, please apply it below.</p>
-
-                        <form action="#">
-                            <div class="input-group">
-                                <input type="text" class="form-control form-control-sm w-auto" placeholder="Coupon code"
-                                    required="" />
-                                <div class="input-group-append">
-                                    <button class="btn btn-sm mt-0" type="submit">
-                                        Apply Coupon
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="row">
             <div class="col-lg-7">

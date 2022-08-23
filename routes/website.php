@@ -26,8 +26,8 @@ Route::get('/product-list', [FrontendController::class, 'productList']);
 Route::post('/search-product', [FrontendController::class, 'searchProduct']);
 
 // ----------> Webste Checout <----------- //
-Route::get('check-out', [CheckOutController::class, 'index']);
-Route::post('check-out', [CheckOutController::class, 'store'])->name('website.checkout');
+Route::get('check-out', [CheckOutController::class, 'index'])->name('check-out.index');
+Route::post('check-out', [CheckOutController::class, 'store'])->name('check-out');
 
 // ----------> Webste Cart <------------- //
 Route::post('add-to-cart', [CartController::class, 'addProduct']);

@@ -5,8 +5,10 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use App\Services\SettingService;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+
 class FrontendController extends Controller
 {
 
@@ -14,11 +16,12 @@ public function index()
 {
 try {
     $category = Category::where('is_active', '1')->get();
-    $subcategory = SubCategory::where('is_active', '1',$category)->get();
+    $subcategory = SubCategory::where('is_active', '1')->get();
     $featured_product = Product::where('is_feature_product', '1')->get();
+    $latest_product = Product::orderBy('id','DESC')->paginate(3);
     $arrivial_product = Product::where('is_arrival_product', '1')->get();
     $cart = Cart::where('user_id', Auth::id())->get();
-    return view('website.index', compact('category', 'subcategory', 'featured_product', 'arrivial_product', 'cart'));
+    return view('website.index', compact('category', 'subcategory', 'featured_product', 'arrivial_product', 'latest_product', 'cart'));
 }
 catch (\Throwable $th) {
 return response()->json(['status' => false, 'message' => $th->getMessage()]);
@@ -56,10 +59,14 @@ public function singleProduct($id)
 {
 try {
     $product = Product::find($id);
+    $related_product = Product::orderBy('id', 'DESC')->paginate(6);
+    $featured_product = Product::where('is_feature_product', '1')->get();
+    $latest_product = Product::orderBy('id','DESC')->paginate(3);
+    $arrivial_product = Product::where('is_arrival_product', '1')->get();
     $category = Category::where('is_active', '1')->get();
     $subcategory = SubCategory::where('is_active', '1')->get();
     $cart = Cart::where('user_id', Auth::id())->get();
-    return view('website.pages.single-product', compact('category', 'subcategory', 'product', 'cart'));
+    return view('website.pages.single-product', compact('category', 'subcategory', 'product', 'arrivial_product', 'featured_product', 'latest_product','cart','related_product'));
 }
  catch (\Throwable $th) {
 return response()->json(['status' => false, 'message' => $th->getMessage()]);
@@ -69,10 +76,11 @@ return response()->json(['status' => false, 'message' => $th->getMessage()]);
 public function about()
 {
 try {
+    $setting = SettingService::getSetting();
     $category = Category::where('is_active', '1')->get();
     $subcategory = SubCategory::where('is_active', '1')->get();
     $cart = Cart::where('user_id', Auth::id())->get();
-    return view('website.pages.about', compact('category', 'subcategory', 'cart'));
+    return view('website.pages.about', compact('category', 'subcategory', 'cart','setting'));
 }
 catch (\Throwable $th) {
 return response()->json(['status' => false, 'message' => $th->getMessage()]);
@@ -82,10 +90,11 @@ return response()->json(['status' => false, 'message' => $th->getMessage()]);
 public function contact()
 {
 try {
+    $setting = SettingService::getSetting();
     $category = Category::where('is_active', '1')->get();
     $subcategory = SubCategory::where('is_active', '1')->get();
     $cart = Cart::where('user_id', Auth::id())->get();
-    return view('website.pages.contact', compact('category', 'subcategory', 'cart'));
+    return view('website.pages.contact', compact('category', 'subcategory', 'cart','setting'));
 }
 catch (\Throwable $th) {
 return response()->json(['status' => false, 'message' => $th->getMessage()]);
@@ -95,10 +104,11 @@ return response()->json(['status' => false, 'message' => $th->getMessage()]);
 public function policy()
 {
 try {
+    $setting = SettingService::getSetting();
     $category = Category::where('is_active', '1')->get();
     $subcategory = SubCategory::where('is_active', '1')->get();
     $cart = Cart::where('user_id', Auth::id())->get();
-    return view('website.pages.privacy-and-policy', compact('category', 'subcategory', 'cart'));
+    return view('website.pages.privacy-and-policy', compact('category', 'subcategory', 'cart','setting'));
 }
 catch (\Throwable $th) {
 return response()->json(['status' => false, 'message' => $th->getMessage()]);

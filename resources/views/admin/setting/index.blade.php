@@ -26,6 +26,10 @@
                                     <tr>
                                       <th>    About Us
                                      </th>
+                                     <th>   Contact Us
+                                    </th>
+                                    <th>    Privacy And Policy
+                                    </th>
 
 
 
@@ -41,6 +45,8 @@
 
 
                                             <td>{{$list->about_us_detail}}</td>
+                                            <td>{{$list->contact_us_detail}}</td>
+                                            <td>{{$list->privacy_and_policy_detail}}</td>
 
 
                                             <td>

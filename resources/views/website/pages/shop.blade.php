@@ -60,11 +60,11 @@
                     <div class="product-details">
                         <div class="category-wrap">
                             <div class="category-list">
-                                <a href="category.html" class="product-category">{{$productlist->category->name}}</a>
+                                <a href="{{url('category=' .$productlist->category->name)}}" class="product-category">{{$productlist->category->name}}</a>
                             </div>
                         </div>
 
-                        <h3 class="product-title"> <a href="product.html">{{$productlist->name}}</a>
+                        <h3 class="product-title"> <a href="{{url('product/'.$productlist->id)}}">{{$productlist->name}}</a>
                         </h3>
 
                         <div class="ratings-container">

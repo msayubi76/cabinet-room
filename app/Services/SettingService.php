@@ -12,15 +12,10 @@ use App\Http\Requests\SettingRequest;
 
 class SettingService
 {
-    public static function getAboutSetting(){
+    public static function getSetting(){
         return Setting::orderBy('id', 'DESC')->paginate(30);
     }
-    public static function getContactSetting(){
-        return Setting::orderBy('id', 'DESC')->paginate(30);
-    }
-    public static function getPrivacySetting(){
-        return Setting::orderBy('id', 'DESC')->paginate(30);
-    }
+
 
 
     public static function store(SettingRequest $request)
@@ -28,6 +23,8 @@ class SettingService
 
         DB::beginTransaction();
         $data = $request->validated();
+
+
 
         $setting = Setting::create($data);
 
@@ -40,6 +37,7 @@ class SettingService
     public static function update(SettingRequest $request, Setting $setting){
         DB::beginTransaction();
         $data = $request->validated();
+
 
         $setting->update($data);
 

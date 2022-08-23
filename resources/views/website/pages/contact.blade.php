@@ -24,15 +24,11 @@
                         Contact Info
                     </h2>
 
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing
-                        elit. Sed imperdiet libero id nisi euismod, sed
-                        porta est consectetur. Vestibulum auctor felis eget
-                        orci semper vestibulum. Pellentesque ultricies nibh
-                        gravida, accumsan libero luctus, molestie nunc.L
-                        orem ipsum dolor sit amet, consectetur adipiscing
-                        elit.
-                    </p>
+                  
+                        @foreach ($setting as  $contact)
+                <p>{{ $contact->contact_us_detail }}</p>
+            @endforeach
+                   
                 </div>
 
                 <div class="col-sm-6 col-lg-3">

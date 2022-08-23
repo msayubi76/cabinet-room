@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('setting', function (Blueprint $table) {
             $table->id();
-            $table->mediumText('privacy_and _policy_detail')->nullable();
+            $table->mediumText('privacy_and_policy_detail')->nullable();
             $table->mediumText('about_us_detail')->nullable();
             $table->mediumText('contact_us_detail')->nullable();
             $table->string('name')->nullable();
