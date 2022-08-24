@@ -118,7 +118,7 @@
                         <div class="row">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
                                 <img id="image_preview" src="{{ url('images/profile/default_image.png') }}" alt=""
-                                    width="120" height="90" class="rounded-circle border border-dark" />
+                                    width="120" height="100" class="rounded-circle border border-dark" />
                             </div>
                         </div>
 

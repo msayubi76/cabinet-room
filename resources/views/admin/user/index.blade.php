@@ -94,7 +94,7 @@
     </div>
     {{-- add --}}
     <div class="modal fade" id="addUserModal">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-m modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Add User</h5>
@@ -108,7 +108,7 @@
                         <div class="row">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
                                 <img id="image_preview" src="{{ url('images/profile/default_image.png') }}" alt=""
-                                    style="max-width: 120Px;" class="rounded-circle border border-dark" />
+                                   width="120" height="100" class="rounded-circle border border-dark" />
                             </div>
                         </div>
                         <div class="form-validation">
