@@ -20,6 +20,7 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
+
         return view('auth.register');
     }
 
@@ -36,6 +37,10 @@ class RegisteredUserController extends Controller
         $request->validate([
             'fist_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
+            'mobile_no' => ['required'],
+            'address' => ['required', 'string'],
+            'city' => ['required'],
+            'region' => ['required', 'string'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
@@ -43,6 +48,10 @@ class RegisteredUserController extends Controller
         $user = User::create([
             'fist_name' => $request->fist_name,
             'last_name' => $request->last_name,
+            'mobile_no' => $request->mobile_no,
+            'address' => $request->address,
+            'city' => $request->city,
+            'region' => $request->region,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);

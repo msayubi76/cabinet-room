@@ -44,7 +44,7 @@ return response()->json(['status' => false, 'message' => $th->getMessage()]);
 public function products()
 {
 try {
-    $product = Product::orderBy('id', 'DESC')->paginate(1);
+    $product = Product::orderBy('id', 'DESC')->paginate(30);
     $category = Category::where('is_active', '1')->get();
     $subcategory = SubCategory::where('is_active', '1')->get();
     $cart = Cart::where('user_id', Auth::id())->get();

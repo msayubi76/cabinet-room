@@ -31,7 +31,7 @@
                                     @foreach ($sub_categories as $cate)
                                         <tr id='row_{{ $cate->id }}'>
                                             <td>{{ $cate->name }}</td>
-                                            <td>{{ $cate->category->name }}</td>
+                                            <td>{{ $cate->category?$cate->category->name:'' }}</td>
                                             <td><img src="{{ $cate->image_url }}" height="50px" width="50px"
                                                     alt=""></td>
 
@@ -130,9 +130,9 @@
                                 <select name="category_id" class="form-control" id="">
                                     <option value="">-- Select Category --</option>
                                     @foreach ($category as $catitem)
-                                        @if ($catitem)
+
                                             <option value="{{ $catitem->id }}">{{ $catitem->name }}</option>
-                                        @endif
+
                                     @endforeach
                                 </select>
                                 <div id="category_id_text" class="text-danger backend-error-text"></div>

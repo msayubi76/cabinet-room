@@ -818,8 +818,7 @@
                 e.preventDefault();
                 var product_id = $(this).closest('.product_data').find('.product_id').val();
                 var quantity = $(this).closest('.product_data').find('.horizontal-quantity').val();
-                // alert(product_id);
-                // alert(product_quantity);
+
 
                 $.ajaxSetup({
                     headers: {

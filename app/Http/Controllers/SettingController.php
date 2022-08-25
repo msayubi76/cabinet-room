@@ -26,12 +26,12 @@ class SettingController extends Controller
 
     public function store(SettingRequest $request){
 
-        dd($request);
+
         try {
             $setting_response = SettingService::store($request);
-            return $setting_response;
+            return redirect(route('settings.index'))->with('success', 'Pages added successfully.');
         } catch (\Throwable $th) {
-            return $th;
+            return redirect(route('settings.index'))->with('error', $th->getMessage());
         }
 
 
@@ -47,9 +47,9 @@ class SettingController extends Controller
         try {
             $setting_response = SettingService::update($request, $setting);
 
-            return $setting_response;
+            return redirect(route('settings.index'))->with('success', 'Pages updated successfully.');
         } catch (\Throwable $th) {
-            return $th;
+            return redirect(route('settings.index'))->with('error', $th->getMessage());
         }
     }
 }

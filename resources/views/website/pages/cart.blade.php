@@ -37,7 +37,7 @@
 
                                 <td>
                                     <figure class="product-image-container">
-                                        
+
                                         <a href="product.html" class="product-image">
                                             <img src="{{asset($cartlist->product->feature_image)}}" alt="product">
                                         </a>
@@ -110,7 +110,7 @@
                                 <td>${{$alltotal}}</td>
                             </tr>
 
-                          
+
                         </tbody>
 
                         <tfoot>
@@ -167,8 +167,7 @@ swal("",response.status,"success");
 
     var update_product_id = $(this).closest('.product_data').find('.product_id').val();
     var quantity = $(this).closest('.product_data').find('.horizontal-quantity').val();
-    alert(update_product_id);
-    alert(quantity);
+
     data = {
         'product_id':update_product_id,
         'quantity' :quantity,
@@ -187,7 +186,7 @@ swal("",response.status,"success");
         data: data,
 
         success: function (response) {
-            // window.location.reload();
+            window.location.reload();
             toster.success("",response.status,"success");
         }
     });
