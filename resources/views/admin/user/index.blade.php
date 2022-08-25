@@ -24,6 +24,7 @@
                                         <th>Last Name</th>
                                         <th>Email</th>
                                         <th>Status</th>
+                                        <th>Type</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -40,6 +41,7 @@
                                                     Approved
                                                 @endif
                                             </td>
+                                            <td>{{ $user->type }}</td>
                                             <td>
                                                 <div class="button-group">
                                                     <div class="btn-group">
@@ -413,6 +415,7 @@
                                 <td>${data.user.last_name}</td>
                                 <td>${data.user.email}</td>
                                 <td>${data.user.email_verified_at == undefined ? "Not Approved" : "Approved"}</td>
+                                <td>${data.user.type}</td>
                                 <td>
                                     <div class="button-group">
                                         <div class="btn-group">
@@ -506,6 +509,7 @@
                             <td>${data.user.last_name}</td>
                             <td>${data.user.email}</td>
                             <td>${data.user.email_verified_at == undefined ? "Not Approved" : "Approved"}</td>
+                            <td>${data.user.type}</td>
                             <td>
                                 <div class="button-group">
                                     <div class="btn-group">
