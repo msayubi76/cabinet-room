@@ -8,6 +8,8 @@ use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class UserService
 {
@@ -23,6 +25,7 @@ class UserService
 
     public static function store(UserRequest $request)
     {
+
         DB::beginTransaction();
         $data = $request->validated();
         if ($request->hasFile('profile')) :
@@ -33,7 +36,14 @@ class UserService
         endif;
         $data['password'] = Hash::make($request->password);
         $data['type'] = 'admin';
+
+
+
+
         $user = User::create($data);
+        $user->syncRoles($request->roles);
+
+
         DB::commit();
         $response = ['status' => true, 'message' => 'Sub user added Successfully.', 'user' => $user];
         return $response;

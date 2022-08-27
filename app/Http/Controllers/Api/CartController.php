@@ -23,19 +23,19 @@ class CartController extends Controller
             $product = Product::where('id', $product_id)->first();
             if ($product) {
                 if (Cart::where('product_id', $product_id)->where('user_id', Auth::id())->exists()) {
-                    return response()->json(['status' => $product->name . 'Product is Alredy Added']);
+                    return response()->json(['status' => 'Product is Alredy Added']);
                 } else {
                     $cart = new Cart();
                     $cart->product_id = $product_id;
                     $cart->user_id = Auth::id();
                     $cart->quantity = $quantity;
                     $cart->save();
-                    return response()->json(['status' =>  $product->name . ' has been added to your cart']);
+                    return response()->json(['status' =>  'Has been added to your cart']);
                 }
             }
         }else{
             return response()->json(['status' => 'loggin to continue']);
-          
+
         }
 
         } catch (\Throwable $th) {
@@ -71,7 +71,7 @@ class CartController extends Controller
                 return response()->json(['status' => 'Cart Iteam updated successfully.']);
             }
 
-            return response()->json(['status' => 'loggin 22 to continue']);
+            return response()->json(['status' => 'Login  to continue']);
         } catch (\Throwable $th) {
             return $th;
         }

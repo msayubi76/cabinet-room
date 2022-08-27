@@ -16,7 +16,9 @@ public function index()
 {
 try {
     $category = Category::where('is_active', '1')->get();
+
     $subcategory = SubCategory::where('is_active', '1')->get();
+
     $featured_product = Product::where('is_feature_product', '1')->get();
     $latest_product = Product::orderBy('id','DESC')->paginate(3);
     $arrivial_product = Product::where('is_arrival_product', '1')->get();
@@ -91,8 +93,9 @@ public function contact()
 {
 try {
     $setting = SettingService::getSetting();
-    $category = Category::where('is_active', '1')->get();
-    $subcategory = SubCategory::where('is_active', '1')->get();
+    $category = Category::where('is_active', '1')->first();
+    $category_id = $category->id;
+    $subcategory = SubCategory::where('category_id',$category_id)->where('is_active', '1')->get();
     $cart = Cart::where('user_id', Auth::id())->get();
     return view('website.pages.contact', compact('category', 'subcategory', 'cart','setting'));
 }
@@ -156,7 +159,7 @@ try {
     if ($product_search != "") {
     $product = Product::where("name", "like", "%$product_search%")->first();
     if ($product) {
-    return redirect('products/' . $product->id);
+    return redirect('product/' . $product->id);
     } else {
     return redirect()->back()->with("status", "No product match your search");
     }

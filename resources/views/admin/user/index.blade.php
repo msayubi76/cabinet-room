@@ -184,6 +184,20 @@
                                     <div id="confirmed_text" class="text-danger"></div>
                                 </div>
                             </div>
+                            <h3 class="text-xl my-4 text-gray-600">Role</h3>
+                            <div class="grid grid-cols-3 gap-4">
+                              @foreach($roles as $role)
+
+                                  <div class="flex flex-col justify-cente">
+                                      <div class="flex flex-col">
+                                          <label class="inline-flex items-center mt-3">
+                                              <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" name="roles[]" value="{{$role->id}}"
+                                              ><span class="ml-2 text-gray-700">{{ $role->name }}</span>
+                                          </label>
+                                      </div>
+                                  </div>
+                              @endforeach
+                            </div>
 
 
                         </div>
@@ -278,10 +292,7 @@
 
                             <div class="form-group row">
 
-                                <div class="col-lg-6">
 
-
-                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">

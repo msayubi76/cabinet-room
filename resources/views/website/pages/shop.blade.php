@@ -121,8 +121,6 @@
             <ul class="pagination toolbox-item">
 
 
-                {!! $product->links() !!}
-
 
             </ul>
         </nav>
