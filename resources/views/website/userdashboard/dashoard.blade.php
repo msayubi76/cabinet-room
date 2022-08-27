@@ -8,8 +8,8 @@
             <nav aria-label="breadcrumb" class="breadcrumb-nav">
                 <div class="container">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="demo4.html">Home</a></li>
-                        <li class="breadcrumb-item"><a href="category.html">Shop</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('products') }}">Shop</a></li>
                         <li class="breadcrumb-item active" aria-current="page">
                             My Account
                         </li>
@@ -157,6 +157,7 @@
                                             {{ $orderlist->order_status }}
 
                                         </td>
+
                                         <td >
                                             {{ $orderlist->payments->payment }}
 
@@ -165,6 +166,7 @@
                                             {{ date('d-m-y',strtotime($orderlist->created_at))  }}
 
                                         </td>
+
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -257,7 +259,7 @@
                                     </div>
                                 </div>
                             </div>
-{{--
+
                             <div class="form-group mb-2">
                                 <label for="acc-text">Display name <span class="required">*</span></label>
                                 <input type="text" class="form-control" id="acc-text" name="acc-text"
@@ -265,7 +267,7 @@
                                 <p>This will be how your name will be displayed in the account section and
                                     in
                                     reviews</p>
-                            </div> --}}
+                            </div>
 
 
                             <div class="form-group mb-4">

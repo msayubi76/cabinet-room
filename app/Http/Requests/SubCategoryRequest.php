@@ -24,9 +24,9 @@ class SubCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'category_id' => ['required','integer'],
+            'category_id' => ['nullable','integer'],
             'name' => ['required'],
-            'profile' => ['nullable', 'mimes:jpg,bmp,png'],
+            'profile' => ['required', 'mimes:jpg,bmp,png'],
             'sort_order' => ['nullable'],
         ];
     }

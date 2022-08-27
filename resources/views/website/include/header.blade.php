@@ -8,27 +8,36 @@
                 <div class="header-dropdown dropdown-expanded d-none d-lg-block">
                     <a href="#">Links</a>
                     <div class="header-menu">
-                        <ul>
 
-                            <li>
-                                @if(Auth::check())
+                        <ul>
+                             @if(Auth::user())
+                             <li><a href="{{ route('logout')}}" >Log out</a></li>
+                             <li>
+
+
                                     @if(Auth::user()->type == 'admin')
                                     <a href="{{ url('admin/dashboard') }}">
 
                                     @elseif (Auth::user()->type == 'customer')
                                     <a href="{{ url('user-dashboard') }}">
-                                    @endif
+
                                 @else
                                     <a href="{{ url('login') }}">
                                 @endif
                                 My Account</a>
                         </li>
+                        <li><a href="{{ url('cart') }}">Cart</a></li>
+                                @else
+                                <li><a href="{{ url('login') }}" >Log In</a></li>
+                                @endif
+
+
                             {{-- <li><a href="{{ url('user-dashboard') }}">My Account</a></li> --}}
                             <li><a href="{{ url('about-us') }}">About Us</a></li>
                             <li><a href="{{ url('contact-us') }}">Contact Us</a></li>
 
-                            <li><a href="{{ url('cart') }}">Cart</a></li>
-                            <li><a href="{{ url('login') }}" >Log In</a></li>
+
+
                         </ul>
                     </div>
                     <!-- End .header-menu -->
@@ -136,7 +145,7 @@
                                         </h4>
 
                                         <span class="cart-product-info">
-                                            <span class="cart-product-qty">{{$cartlist->quantity}}</span> × {{$cartlist->product->discount}}
+                                            <span class="cart-product-qty">{{$cartlist->quantity}}</span> × {{$cartlist->product->actual_price}}
                                         </span>
                                     </div>
 
@@ -150,7 +159,7 @@
                                         <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
                                     </figure>
                                 </div>
-                                @php $total += $cartlist->product->discount * $cartlist->quantity; @endphp
+                                @php $total += $cartlist->product->actual_price * $cartlist->quantity; @endphp
                                 @endforeach
                                 <!-- End .product -->
 
