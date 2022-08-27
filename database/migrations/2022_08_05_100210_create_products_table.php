@@ -30,7 +30,7 @@ return new class extends Migration
             $table->double('width')->nullable();
             $table->boolean('is_feature_product')->default('0');
             $table->boolean('is_arrival_product')->default('0');
-            $table->string('currency');
+            $table->string('currency')->default('Rs');
             $table->mediumText('short_description')->nullable();
 
 
