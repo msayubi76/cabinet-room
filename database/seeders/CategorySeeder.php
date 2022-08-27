@@ -18,14 +18,14 @@ class CategorySeeder extends Seeder
     {
         Category::factory()
             ->has(
-                SubCategory::factory()->count(5)
+                SubCategory::factory()->count(rand(1,12))
                     ->state(function (array $attributes, Category $category) {
                         return ['category_id' => $category->id];
                     }),
                 'subcategories'
             )
 
-            ->count(5)
+            ->count(13)
             ->create();
     }
 }
