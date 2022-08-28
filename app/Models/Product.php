@@ -20,6 +20,7 @@ class Product extends Model
         'description',
         'actual_price',
         'discount',
+        'saleprice',
         'shipping_charge',
         'colour',
         'feature_image',

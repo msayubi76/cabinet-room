@@ -111,28 +111,26 @@
 
 </html> --}}
 
-/*--
-Author: DesignMaz
-Author URL: https://www.designmaz.net
-License URL: https://www.designmaz.net/licence/
---*/
+
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Free Responsive Flat Login Form Widget Template | Designmaz</title>
+    <title>Cabinet | Login</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- Custom Theme files -->
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<link href="{{ asset('form-assets/css/style.css') }}" rel="stylesheet" type="text/css" media="all"/>
 <!-- Custom Theme files -->
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+<script type="text/javascript" src="{{ asset('form-assets/js/jquery.min.js') }}"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" href="{{asset('admin-assets/css/stylelogin.css')  }}">
+<link rel="stylesheet" href="{{asset('form-assets/css/stylelogin.css')  }}">
+
 <!--Google Fonts-->
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<link href="{{ asset('form-assets/css/family.css') }}" rel='stylesheet' type='text/css'>
 <!--Google Fonts-->
-<script>var __links = document.querySelectorAll('a');function __linkClick(e) { parent.window.postMessage(this.href, '*');} ;for (var i = 0, l = __links.length; i < l; i++) {if ( __links[i].getAttribute('data-t') == '_blank' ) { __links[i].addEventListener('click', __linkClick, false);}}</script>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+{{-- <script>var __links = document.querySelectorAll('a');function __linkClick(e) { parent.window.postMessage(this.href, '*');} ;for (var i = 0, l = __links.length; i < l; i++) {if ( __links[i].getAttribute('data-t') == '_blank' ) { __links[i].addEventListener('click', __linkClick, false);}}</script>
+<script src="{{ asset('form-assets/js/ajax.min.js') }}"></script>
 <script>$(document).ready(function(c) {
 	$('.sinup-close').on('click', function(c){
 		$('.setting').fadeOut('slow', function(c){
@@ -140,36 +138,73 @@ License URL: https://www.designmaz.net/licence/
 		});
 	});
 });
-</script>
+</script> --}}
 <!---Google Analytics Designmaz.net-->
-<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+{{-- <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-35751449-15', 'auto');ga('send', 'pageview');</script>
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-35751449-15', 'auto');ga('send', 'pageview');</script> --}}
 
 </head>
 <body>
 <!--login start here-->
-<h1>Flat New Login Form</h1>
+
 <div class="login">
-	<h2>Login</h2>
-	<form>
-		<input type="text" class="user active" value="User name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'User name';}"/>
-		<input type="password" class="lock active" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}"/>
-	</form>
+	<h2>Cabinet | Login</h2>
+      <!-- Session Status -->
+      <x-auth-session-status class="mb-4" :status="session('status')" />
+
+      <!-- Validation Errors -->
+      <x-auth-validation-errors class="mb-4" :errors="$errors" style="
+
+      text-align: center;
+          color: rgb(219, 0, 0);
+      margin-left: 15px;" />
+	<form method="post" action="{{ route('login') }}">
+        @csrf
+        <div class="form-group">
+		<input type="text" name="email" class="user active" placeholder="Email" :value="old('email')"/>
+        @error('email')
+        <span class="text-danger" role="alert" style="
+
+            text-align: center;
+                color: rgb(219, 0, 0);
+            margin-left: 30px;">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+		<input type="password" name="password" class="lock active" placeholder="Password" :value="old('password')"/>
+        </div>
+        @error('password')
+        <span class="text-danger" role="alert" style="
+
+            text-align: center;
+            color: rgb(219, 0, 0);
+            margin-left: 30px;">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+
 	<div class="forgot">
 		 <div class="login-check">
  			 <label class="checkbox"><input type="checkbox" name="checkbox" checked><i> </i> Remember Me</label>
 
  		  </div>
  		  <div class="login-para">
- 			<p><a href="#"> Forgot Password? </a></p>
+            @if (Route::has('password.request'))
+            <p><a
+                href="{{ route('password.request') }}">
+                Forgot Password?
+            </a></p>
+        @endif
+ 			{{-- <p><a href="#"> Forgot Password? </a></p> --}}
  		 </div>
 		<div class="clear"> </div>
 	</div>
 	<div class="login-bwn">
 	   <input type="submit" value="Log in" />
 	</div>
+</form>
 	<div class="login-bottom">
 		<h3>Login</h3>
 		<p>With your social media account</p>
@@ -183,8 +218,8 @@ License URL: https://www.designmaz.net/licence/
 			<div class="clear"> </div></a>
 				<div class="clear"> </div>
 		</div>
-		<h4>Don,t have an Account? <a href="#"> Register Now!</a></h4>
-		<div class="reg-bwn"><a href="#">REGISTER</a></div>
+		<h4>Don,t have an Account? <a href="{{ route('register')}}"> Register Now!</a></h4>
+		<div class="reg-bwn"><a href="{{ route('register')}}">REGISTER</a></div>
 	</div>
   </div>
 </div>
@@ -194,7 +229,7 @@ style="display:block"
 data-ad-client="ca-pub-8011246932591811"
 data-ad-slot="9844648019"
 data-ad-format="auto"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script async src="{{ asset('form-assets/js/adsbygoogle.js') }}"></script>
 				</div>
 
 <div class="copyright">

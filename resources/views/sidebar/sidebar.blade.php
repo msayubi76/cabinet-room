@@ -75,6 +75,16 @@
                     </li>
 
                     <li>
+                        <a class="has-arrow" href="javascript:void()" href="{{ url('/banners')}}" aria-expanded="false">
+                            <i class="icon-badge menu-icon"></i><span class="nav-text">Banners</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ url('admin/banners')}}"> Banners</a></li>
+                        </ul>
+
+
+                    </li>
+                    <li>
                         <a class="has-arrow" href="javascript:void()" href="{{ url('/settings')}}" aria-expanded="false">
                             <i class="icon-badge menu-icon"></i><span class="nav-text">Setting</span>
                         </a>

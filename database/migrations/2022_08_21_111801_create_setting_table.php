@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('email')->unique()->nullable();
 
+
+
             $table->timestamps();
         });
     }

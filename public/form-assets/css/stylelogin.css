@@ -107,6 +107,10 @@ form {
   background: url(../images/user.png)no-repeat 15px 7px #fff;
   display: block;
 }
+.login form input.email {
+    background: url(../images/email.png)no-repeat 15px 7px #fff;
+    display: block;
+  }
 .login form input.lock {
   background: url(../images/key.png)no-repeat 15px 7px #fff;
   display: block;
@@ -128,14 +132,14 @@ label.checkbox {
 	-ms-transition: border-color 0.3s;
 	-moz-transition: border-color 0.3s;
 	-webkit-transition: border-color 0.3s;
-	
+
 }
 .forgot.checkbox i:hover {
 	border-color:red;
-	
+
 }
 .forgot i:before {
-	background-color: #2da5da;	
+	background-color: #2da5da;
 }
 .forgot  .rating label {
 	color: #ccc;
@@ -201,10 +205,10 @@ label.checkbox {
 }
 .forgot.checkbox input:checked + i,
 .forgot . input:checked + i {
-	border-color: #2da5da;	
+	border-color: #2da5da;
 }
 .forgot .rating input:checked ~ label {
-	color: #2da5da;	
+	color: #2da5da;
 }
 
 .forgot .checkbox input:checked + i:after {
@@ -309,12 +313,12 @@ label.checkbox {
 .button a.tw {
   background: #1DAEE3;
  float: left;
- 
+
 }
 .button a.fa {
   background:#3B5998;
  float: left;
-  
+
 }
 .button a span {
   margin-top: 8px;
@@ -350,7 +354,7 @@ float: left;
   height: 19px;
   display: inline-block;
   padding: 10px 6px;
-  
+
   border-radius: 4px 0px 0px 4px;
 }
 i.anc-go {
@@ -403,7 +407,7 @@ h3 {
   padding: 0px 0px 0px 0px;
 }
 .forgot {
-  width: 73%;	
+  width: 73%;
 }
 .face-bwn {
   width: 22%;
@@ -469,7 +473,7 @@ form {
 }
 .login form input[type="text"],.login input[type="password"] {
   font-size: 13px;
-    padding: 9px 20px 9px 45px;
+    /* padding: 9px 20px 9px 45px; */
 	width: 66%;
 }
 .forgot {

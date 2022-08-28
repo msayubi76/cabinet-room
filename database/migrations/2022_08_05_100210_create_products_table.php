@@ -21,6 +21,7 @@ return new class extends Migration
             $table->mediumText('description')->nullable();
             $table->decimal('actual_price')->nullable();
             $table->decimal('discount')->nullable();
+            $table->decimal('saleprice')->nullable();
             $table->decimal('shipping_charge')->nullable();
             $table->string('colour')->nullable();
             $table->string('folder_name')->nullable();

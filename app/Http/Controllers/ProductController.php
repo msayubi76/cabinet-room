@@ -56,7 +56,7 @@ class ProductController extends Controller
             $product_response = ProductService::update($request, $product);
             return redirect(route('products.index'))->with('success', 'Product updated successfully.');
         } catch (\Throwable $th) {
-            return $th;
+           return redirect(route('products.index'))->with('error', $th->getMessage());
         }
     }
     public function destroy($id)
@@ -65,7 +65,7 @@ class ProductController extends Controller
             $product_response = ProductService::destroy($id);
             return $product_response;
         } catch (\Throwable $th) {
-            return $th;
+           return redirect(route('products.index'))->with('error', $th->getMessage());
         }
     }
 

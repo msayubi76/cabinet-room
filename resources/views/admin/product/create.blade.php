@@ -81,18 +81,24 @@
                             </div>
                             <div class="form-group row ">
                                 <div class="col-md-4 mb-8">
-                                    <input type="text" class="form-control input-default" placeholder="Actual Price" :value="old('actual_price')" name="actual_price">
+                                    <input type="text" class="form-control input-default"  id="actualprice" placeholder="Actual Price" :value="old('actual_price')" name="actual_price">
                                     @error('actual_price')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                                 </div>
                                 <div class="col-md-4 mb-8">
-                                    <input type="text" class="form-control input-default" placeholder="Discount" :value="old('discount')" name="discount">
+                                    <input type="text" class="form-control input-default" id="discount" placeholder="Discount" :value="old('discount')" name="discount">
                                     @error('discount')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                                 </div>
-                                <div class="col-md-4 mb-8">
+                                <div class="col-md-2 mb-8">
+                                    <input type="text" class="form-control input-default" id="saleprice" placeholder="Discount" :value="old('saleprice')" name="saleprice">
+                                    @error('saleprice')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                                </div>
+                                <div class="col-md-2 mb-8">
                                     <input type="text" class="form-control input-default" placeholder="Shipping Charge" :value="old('shipping_charge')" name="shipping_charge">
                                     @error('shipping_charge')
                                     <div class="text-danger">{{ $message }}</div>
@@ -180,92 +186,16 @@
 @endsection
 @section('scripts')
 <script>
-//  function submitProduct() {
-//     var form = $('#product-form')[0];
-//     $("#button-save").text('Loading...');
-//     console.log('form ', form);
+$("#actualprice,#discount").keyup(function (e) {
+ var actual = $("#actualprice").val();
+ var discount = $("#discount").val();
+ var divide = (discount / 100).toFixed(2);
+ var mutiplication = actual * divide;
+ var mainvalue = actual - mutiplication;
+ $("#saleprice").val(mainvalue);
 
 
-//     const myFormData = new FormData(form);
-//     const formDataObj = {};
-//     myFormData.forEach((value, key) => (formDataObj[key] = value));
-//     console.log(formDataObj);
-//     $.ajax({
-//         headers: {
-//             'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
-//         },
-//         url: "/admin/products", // the endpoint
-//         type: "POST", // http method
-//         processData: false,
-//         contentType: false,
-//         data: myFormData,
-//         beforeSend: function () {
-//             $(form)
-//             $('.backend-error-text').text('')
-//             $("#button-save").prop("disabled", true);
-//         },
-//         success: function (data) {
-//             $("#button-save").prop("disabled", false);
-//             $("#button-save").text("Add Product");
-//             console.log('data',data);
-//             swal({
-//                 title: "",
-//                 text: data.message,
-//                 icon: "success",
-
-//               });
-//             $(form)
-//                 .find('[type="button"]')
-//                 .prop("disabled", false);
-//             document.getElementById("product-form").reset();
-
-
-
-//         },
-//         error: function (error) {
-//             $(form)
-//             $("#button-save").prop("disabled", false);
-//             $("#button-save").text("Add Product");
-//             var errorMessage = error.statusText;
-//             var sweetMessage = error.statusText;
-//             if (error.status == 422) {
-//                 errorMessage = handleValidationErrors(error)
-//                 sweetMessage ='Invalid Data'
-//             }
-//             swal({
-//                 title: "Error",
-//                 text: sweetMessage,
-//                 icon: "error",
-//               });
-
-//         },
-//     });
-// }
-// function handleValidationErrors(error, type = 'create') {
-//     let errors = error.responseJSON.errors;
-//     var errorMessage = error.responseJSON.message
-//     var element = '';
-//     $.each(errors, function (key, item) {
-//         element = key.split('.')
-//         if (element.length > 1) {
-//             element = `${element[0]}_${element[1]}`
-//         } else {
-//             element = `${element}`
-//         }
-//         // dataAttr = $(element).closest('.tab').data('id')
-//         // $(`.step-${dataAttr}`).addClass('backend-error')
-//         if (type == 'edit') {
-//             console.log('edit',element);
-//             $(`#edit_${element}_text`).text(item[0])
-
-//         } else if (type == 'create') {
-//             $(`#${element}_text`).text(item[0])
-
-//         }
-//     });
-
-//     return errorMessage;
-// }
+});
 
 
 

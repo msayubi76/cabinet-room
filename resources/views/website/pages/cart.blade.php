@@ -18,8 +18,20 @@
         <div class="row">
             <div class="col-lg-8 ">
                 <div class="cart-table-container ">
-                    <table class="table table-cart product_data">
-                        <thead>
+                    {{-- <div class="row">
+                        <div class="col-md-2"> Image</div>
+                        <div class="col-md-2"><strong class="text-center">Nmae</strong> </div>
+                        <div class="col-md-2">Nmae</div>
+                        <div class="col-md-2">Nmae</div>
+                        <div class="col-md-2">Nmae</div>
+                        <div class="col-md-2">Nmae</div>
+
+                    </div> --}}
+                    @php $total = 0; @endphp
+                    @php $alltotal = 0; @endphp
+                    @foreach ($cart as  $cartlist)
+                    <table class="table table-cart product_data ">
+                        {{-- <thead>
                             <tr>
                                 <th class="thumbnail-col"></th>
                                 <th class="product-col">Product</th>
@@ -27,13 +39,12 @@
                                 <th class="qty-col">Quantity</th>
                                 <th class="text-right">Subtotal</th>
                             </tr>
-                        </thead>
+                        </thead> --}}
 
                         <tbody >
-                            @php $total = 0; @endphp
-                            @php $alltotal = 0; @endphp
-                            @foreach ($cart as  $cartlist)
+
                             <tr class="product-row ">
+                                <div class="">
 
                                 <td>
                                     <figure class="product-image-container">
@@ -45,57 +56,48 @@
                                         <a href="#" class=" btn-remove icon-cancel delete-cart-item" title="Remove Product"></a>
                                     </figure>
                                 </td>
-                                <td class="product-col">
+                                <td class="text-center">
                                     <h5 class="product-title">
                                         <a href="product.html">{{$cartlist->product->name}}</a>
                                     </h5>
                                 </td>
-                                <td>{{$cartlist->product->currency}}{{$cartlist->product->actual_price}}</td>
-                                <td>
-                                    <input type="hidden" class="product_id" name="product_id[]" value={{$cartlist->product_id}} >
+                                <td class="text-center">{{$cartlist->product->currency}}{{$cartlist->product->actual_price}}</td>
+                                <td class="text-center">
+                                    <input type="hidden" class="product_id"  value={{$cartlist->product_id}} >
                                     <div class="product-single-qty">
 
                                         <input class="horizontal-quantity form-control" name="quantity" type="text" value="{{$cartlist->quantity}}">
                                     </div><!-- End .product-single-qty -->
                                 </td>
                                 @php $total =$cartlist->product->actual_price * $cartlist->quantity ; @endphp
-                                <td class="text-right"><span class="subtotal-price"></span>{{$cartlist->product->currency}}{{ $total }}</td>
+                                <td class="text-center"><span class="subtotal-price"></span>{{$cartlist->product->currency}}{{ $total }}</td>
+
+                                <td class="text-center">
+
+
+                                    <div class="float-right">
+                                        <button type="submit" class="btn btn-shop update-cart">
+                                            Update
+                                        </button>
+                                    </div><!-- End .float-right -->
+                                </td>
+                            </div>
                             </tr>
 
 
                             @php $alltotal +=$cartlist->product->actual_price * $cartlist->quantity ; @endphp
-                            @endforeach
+
                         </tbody>
 
 
 
                         <tfoot>
                             <tr>
-                                <td colspan="5" class="clearfix">
-                                    <div class="float-left">
-                                        {{-- <div class="cart-discount">
-                                            <form action="#">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control form-control-sm"
-                                                        placeholder="Coupon Code" required>
-                                                    <div class="input-group-append">
-                                                        <button class="btn btn-sm" type="submit">Apply
-                                                            Coupon</button>
-                                                    </div>
-                                                </div><!-- End .input-group -->
-                                            </form>
-                                        </div> --}}
-                                    </div><!-- End .float-left -->
 
-                                    <div class="float-right">
-                                        <button type="submit" class="btn btn-shop update-cart">
-                                            Update Cart
-                                        </button>
-                                    </div><!-- End .float-right -->
-                                </td>
                             </tr>
                         </tfoot>
                     </table>
+                    @endforeach
                 </div><!-- End .cart-table-container -->
             </div><!-- End .col-lg-8 -->
 
@@ -165,11 +167,12 @@ swal("",response.status,"success");
     $('.update-cart').click(function (e) {
     e.preventDefault();
 
-    var update_product_id = $(this).closest('.product_data').find('.product_id').val();
+    var product_id = $(this).closest('.product_data').find('.product_id').val();
     var quantity = $(this).closest('.product_data').find('.horizontal-quantity').val();
 
+
     data = {
-        'product_id':update_product_id,
+        'product_id':product_id,
         'quantity' :quantity,
     }
 
