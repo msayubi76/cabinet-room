@@ -14,29 +14,28 @@
         </div>
     </nav>
 
-    <div id="map"></div>
+
 
     <div class="container contact-us-container">
         <div class="contact-info">
+            @foreach ($setting as  $contact)
             <div class="row">
                 <div class="col-12">
-                    <h2 class="ls-n-25 m-b-1">
-                        Contact Info
-                    </h2>
 
-                  
-                        @foreach ($setting as  $contact)
+
+
+
                 <p>{{ $contact->contact_us_detail }}</p>
-            @endforeach
-                   
+
+
                 </div>
 
                 <div class="col-sm-6 col-lg-3">
                     <div class="feature-box text-center">
-                        <i class="sicon-location-pin"></i>
+                        <i class="far fa-calendar-alt"></i>
                         <div class="feature-box-content">
-                            <h3>Address</h3>
-                            <h5>123 Wall Street, New York / NY</h5>
+                            <h3>  Address</h3>
+                            <h5>{{ $contact->address }}</h5>
                         </div>
                     </div>
                 </div>
@@ -45,7 +44,16 @@
                         <i class="fa fa-mobile-alt"></i>
                         <div class="feature-box-content">
                             <h3>Phone Number</h3>
-                            <h5>(800) 123-4567</h5>
+                            <h5>{{ $contact->mobile_no1 }}</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="feature-box text-center">
+                        <i class="fa fa-mobile-alt"></i>
+                        <div class="feature-box-content">
+                            <h3>Phone Number</h3>
+                            <h5>{{ $contact->mobile_no2  }}</h5>
                         </div>
                     </div>
                 </div>
@@ -54,20 +62,14 @@
                         <i class="far fa-envelope"></i>
                         <div class="feature-box-content">
                             <h3>E-mail Address</h3>
-                            <h5>porto@portotheme.com</h5>
+                            <h5>{{ $contact->email }}</h5>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="feature-box text-center">
-                        <i class="far fa-calendar-alt"></i>
-                        <div class="feature-box-content">
-                            <h3>Working Days/Hours</h3>
-                            <h5>Mon - Sun / 9:00AM - 8:00PM</h5>
-                        </div>
-                    </div>
-                </div>
+
+
             </div>
+            @endforeach
         </div>
 
         <div class="row">

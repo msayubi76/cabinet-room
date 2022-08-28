@@ -10,32 +10,35 @@
                     <div class="header-menu">
 
                         <ul>
-                             @if(Auth::user())
-                             <li><a href="{{ route('logout')}}" >Log out</a></li>
-                             <li>
 
 
-                                    @if(Auth::user()->type == 'admin')
-                                    <a href="{{ url('admin/dashboard') }}">
-
-                                    @elseif (Auth::user()->type == 'customer')
-                                    <a href="{{ url('user-dashboard') }}">
-
-                                @else
-                                    <a href="{{ url('login') }}">
-                                @endif
-                                My Account</a>
-                        </li>
-                        <li><a href="{{ url('cart') }}">Cart</a></li>
-                                @else
-                                <li><a href="{{ url('login') }}" >Log In</a></li>
-                                @endif
-
-
-                            {{-- <li><a href="{{ url('user-dashboard') }}">My Account</a></li> --}}
+                            <li><a href="{{ url('/') }}">Home</a></li>
+                            <li><a href="{{ url('products') }}">Products</a></li>
+                            <li><a href="{{ url('products') }}">Gallary</a></li>
                             <li><a href="{{ url('about-us') }}">About Us</a></li>
                             <li><a href="{{ url('contact-us') }}">Contact Us</a></li>
+                            @if(Auth::user())
+                            <li><a href="{{ url('cart') }}">Cart</a></li>
 
+                            <li>
+
+
+                                   @if(Auth::user()->type == 'admin')
+                                   <a href="{{ url('admin/dashboard') }}">
+
+                                   @elseif (Auth::user()->type == 'customer')
+                                   <a href="{{ url('user-dashboard') }}">
+
+                               @else
+                                   <a href="{{ url('login') }}">
+                               @endif
+                               My Account</a>
+                       </li>
+                       <li><a href="{{ route('logout')}}" >Log out</a></li>
+
+                               @else
+                               <li><a href="{{ url('login') }}" >Log In</a></li>
+                               @endif
 
 
                         </ul>
@@ -198,9 +201,7 @@
         <div class="container">
             <nav class="main-nav w-100">
                 <ul class="menu">
-                    <li class="{{ Request::is('/') ? 'active' : '' }}">
-                        <a  href="{{url('/')}}">Home</a>
-                    </li>
+
                     <li>
                         <a href="{{ url('categories') }}">Categories</a>
                         <div class="megamenu megamenu-fixed-width megamenu-3cols">
@@ -243,26 +244,26 @@
                         </div>
                         <!-- End .megamenu -->
                     </li>
-                    <li class="{{ Request::is('products') ? 'active' : '' }}">
-                        <a  href="{{url('/products')}}">Products</a>
 
-                        <!-- End .megamenu -->
-                    </li>
+                    @foreach ($category as $catlist )
                     <li>
-                        <a href="#">Pages</a>
+
+
+                        <a href="{{url('category=' .$catlist->name)}}">{{$catlist->name}}</a>
                         <ul>
+                            @foreach ($subcategory as $subcatlist )
 
-                            <li><a href="{{ url('/about-us') }}">About Us</a></li>
 
-                            <li><a href="{{ url('/contact-us') }}">Contact Us</a></li>
-                            <li><a href="{{ url('/privacy-and-policy') }}">Privacy and Policy</a></li>
-                            <li><a href="{{ url('login') }}">Login</a></li>
-                            <li><a href="forgot-password.html">Forgot Password</a></li>
+
+                            <li><a href=""> {{$subcatlist->name}}</a></li>
+                            @endforeach
+
+
                         </ul>
-                    </li>
 
-                    <li class="{{ Request::is('about-us') ? 'active' : '' }}"><a href="{{ url('/about-us') }}">About Us</a></li>
-                    <li class="{{ Request::is('contact-us') ? 'active' : '' }}"><a href="{{ url('/contact-us') }}">Contact Us</a></li>
+                    </li>
+                    @endforeach
+
 
                 </ul>
             </nav>

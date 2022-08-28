@@ -39,20 +39,20 @@
 
 
 
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" id="address-tab" data-toggle="tab" href="#address" role="tab"
                             aria-controls="address" aria-selected="false">Addresses</a>
-                    </li>
+                    </li> --}}
 
                     <li class="nav-item">
                         <a class="nav-link" id="edit-tab" data-toggle="tab" href="#edit" role="tab"
                             aria-controls="edit" aria-selected="false">Account
                             details</a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" id="shop-address-tab" data-toggle="tab" href="#shipping" role="tab"
                             aria-controls="edit" aria-selected="false">Shopping Addres</a>
-                    </li>
+                    </li> --}}
 
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('logout')}}">Logout</a>
@@ -94,7 +94,7 @@
 
 
 
-                            <div class="col-6 col-md-4">
+                            {{-- <div class="col-6 col-md-4">
                                 <div class="feature-box text-center pb-4">
                                     <a href="#address" class="link-to-tab"><i
                                             class="sicon-location-pin"></i></a>
@@ -102,7 +102,7 @@
                                         <h3>ADDRESSES</h3>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="col-6 col-md-4">
                                 <div class="feature-box text-center pb-4">

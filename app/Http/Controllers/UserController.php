@@ -10,10 +10,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\ChangePasswordRequest;
-
-
-
-
+use App\Services\RoleService;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
@@ -23,7 +22,9 @@ class UserController extends Controller
 
         try {
             $users = UserService::getUsers();
-            return view('admin.user.index', compact('users'));
+            $roles = RoleService::getRoles();
+
+            return view('admin.user.index', compact('users','roles'));
         } catch (\Throwable $th) {
 
         }
@@ -31,13 +32,18 @@ class UserController extends Controller
     public function profile()
     {
 
+
         return view('admin.user.userprofile');
     }
 
     public function store(UserRequest $request)
+
     {
+
         try {
             $user_response = UserService::store($request);
+            dd($user_response);
+
             return $user_response;
         } catch (\Throwable $th) {
             return response()->json(['status' => false, 'message' => $th->getMessage()]);
