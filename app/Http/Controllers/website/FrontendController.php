@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\website;
 use App\Models\Cart;
+use App\Models\Banner;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\SubCategory;
@@ -15,7 +16,8 @@ class FrontendController extends Controller
 public function index()
 {
 try {
-    $category = Category::where('is_active', '1')->get();
+    $category = Category::where('is_active', '1')->with('subcategories')->get();
+
 
     $subcategory = SubCategory::where('is_active', '1')->get();
 
@@ -23,7 +25,9 @@ try {
     $latest_product = Product::orderBy('id','DESC')->paginate(3);
     $arrivial_product = Product::where('is_arrival_product', '1')->get();
     $cart = Cart::where('user_id', Auth::id())->get();
-    return view('website.index', compact('category', 'subcategory', 'featured_product', 'arrivial_product', 'latest_product', 'cart'));
+    $banners = Banner::orderBy('id','DESC')->get();
+    dd($banners);
+    return view('website.index', compact('category', 'subcategory', 'featured_product', 'arrivial_product', 'latest_product', 'cart','banners'));
 }
 catch (\Throwable $th) {
 return response()->json(['status' => false, 'message' => $th->getMessage()]);
@@ -34,7 +38,7 @@ public function categories()
 {
 try {
 
-    $category = Category::where('is_active', '1')->get();
+     $category = Category::where('is_active', '1')->with('subcategories')->get();
     $subcategory = SubCategory::where('is_active', '1')->get();
     $cart = Cart::where('user_id', Auth::id())->get();
     return view('website.pages.categories', compact('category', 'subcategory', 'cart'));
@@ -47,7 +51,7 @@ public function products()
 {
 try {
     $product = Product::orderBy('id', 'DESC')->paginate(30);
-    $category = Category::where('is_active', '1')->get();
+     $category = Category::where('is_active', '1')->with('subcategories')->get();
     $subcategory = SubCategory::where('is_active', '1')->get();
     $cart = Cart::where('user_id', Auth::id())->get();
     return view('website.pages.shop', compact('category', 'subcategory', 'product', 'cart'));
@@ -65,7 +69,7 @@ try {
     $featured_product = Product::where('is_feature_product', '1')->get();
     $latest_product = Product::orderBy('id','DESC')->paginate(3);
     $arrivial_product = Product::where('is_arrival_product', '1')->get();
-    $category = Category::where('is_active', '1')->get();
+     $category = Category::where('is_active', '1')->with('subcategories')->get();
     $subcategory = SubCategory::where('is_active', '1')->get();
     $cart = Cart::where('user_id', Auth::id())->get();
     return view('website.pages.single-product', compact('category', 'subcategory', 'product', 'arrivial_product', 'featured_product', 'latest_product','cart','related_product'));
@@ -79,7 +83,7 @@ public function about()
 {
 try {
     $setting = SettingService::getSetting();
-    $category = Category::where('is_active', '1')->get();
+     $category = Category::where('is_active', '1')->with('subcategories')->get();
     $subcategory = SubCategory::where('is_active', '1')->get();
     $cart = Cart::where('user_id', Auth::id())->get();
     return view('website.pages.about', compact('category', 'subcategory', 'cart','setting'));
@@ -108,7 +112,7 @@ public function policy()
 {
 try {
     $setting = SettingService::getSetting();
-    $category = Category::where('is_active', '1')->get();
+     $category = Category::where('is_active', '1')->with('subcategories')->get();
     $subcategory = SubCategory::where('is_active', '1')->get();
     $cart = Cart::where('user_id', Auth::id())->get();
     return view('website.pages.privacy-and-policy', compact('category', 'subcategory', 'cart','setting'));
@@ -122,7 +126,7 @@ public function category($name)
 {
 try {
     $subcategory = SubCategory::where('is_active', '1')->get();
-    $category = Category::where('is_active', '1')->get();
+     $category = Category::where('is_active', '1')->with('subcategories')->get();
     $cart = Cart::where('user_id', Auth::id())->get();
     if (Category::where('name', $name)->exists()) {
     $get_category = Category::where('name', $name)->first();
@@ -130,6 +134,25 @@ try {
     return view('website.category.product-with-category', compact('get_category', 'category', 'subcategory', 'product', 'cart'));
     } else {
     return redirect('/')->with('status', 'Category Dosent Exists');
+    }
+}
+ catch (\Throwable $th) {
+return response()->json(['status' => false, 'message' => $th->getMessage()]);
+}
+}
+
+public function subCategory($name)
+{
+try {
+    $subcategory = SubCategory::where('is_active', '1')->get();
+     $category = Category::where('is_active', '1')->with('subcategories')->get();
+    $cart = Cart::where('user_id', Auth::id())->get();
+    if (SubCategory::where('name', $name)->exists()) {
+    $get_subcategory = SubCategory::where('name', $name)->first();
+    $product = Product::where('sub_category_id', $get_subcategory->id)->get();
+    return view('website.category.product-with-subcategory', compact('get_subcategory', 'category', 'subcategory', 'product', 'cart'));
+    } else {
+    return redirect('/')->with('status', 'SubCategory Dosent Exists');
     }
 }
  catch (\Throwable $th) {

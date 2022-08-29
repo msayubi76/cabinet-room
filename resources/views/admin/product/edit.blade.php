@@ -104,7 +104,7 @@
                                 </div>
                                 <div class="form-group row ">
                                     <div class="col-md-4 mb-8">
-                                        <input type="text" class="form-control input-default" id="edit_actual_price"
+                                        <input type="text" class="form-control input-default" id="actualprice"
                                             placeholder="Actual Price" value="{{ $product->actual_price }}"
                                             name="actual_price">
                                             @error('actual_price')
@@ -113,14 +113,22 @@
 
                                     </div>
                                     <div class="col-md-4 mb-8">
-                                        <input type="text" class="form-control input-default" id="edit_discount"
+                                        <input type="text" class="form-control input-default" id="discount"
                                             placeholder="Discount" value="{{ $product->discount }}" name="discount">
                                             @error('discount')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
 
                                     </div>
-                                    <div class="col-md-4 mb-8">
+                                         <div class="col-md-2 mb-8">
+                                        <input type="text" class="form-control input-default" id="saleprice"
+                                            placeholder="Sale Price" value="{{ $product->saleprice }}" name="saleprice">
+                                            @error('saleprice')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
+                                    </div>
+                                    <div class="col-md-2 mb-8">
                                         <input type="text" class="form-control input-default" id="edit_shipping_charge"
                                             placeholder="Shipping Charge" value="{{ $product->shipping_charge }}"
                                             name="shipping_charge">
@@ -224,94 +232,16 @@
 @endsection
 @section('scripts')
     <script>
-        // function updateProduct() {
-        //     var form = $('#edit-product-form')[0];
-        //     $("#button-update").text('Loading...');
-        //     proudct_id = form.proudct_id.value;
-        //     console.log(proudct_id);
-        //     console.log('proudct_id', proudct_id);
+      $("#actualprice,#discount").keyup(function (e) {
+ var actual = $("#actualprice").val();
+ var discount = $("#discount").val();
+ var divide = (discount / 100).toFixed(2);
+ var mutiplication = actual * divide;
+ var mainvalue = actual - mutiplication;
+ $("#saleprice").val(mainvalue);
 
-        //     const myFormData = new FormData(form);
-        //     const formDataObj = {};
-        //     myFormData.forEach((value, key) => (formDataObj[key] = value));
-        //     console.log(formDataObj);
-        //     $.ajax({
-        //         headers: {
-        //             'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
-        //         },
-        //         url: "/admin/products/" + proudct_id, // the endpoint
-        //         type:"POST", // salahuyddin changed
-        //         processData: false,
-        //         contentType: false,
-        //         data: myFormData,
-        //         beforeSend: function () {
-        //             $(form)
-        //             $('.backend-error-text').text('')
-        //             $("#button-update").prop("disabled", true);
 
-        //         },
-        //         success: function (data) {
-        //             $("#button-update").prop("disabled", false);
-        //             $("#button-update").text("Update Product");
-
-        //             $(form)
-        //                 .find('[type="button"]')
-        //                 .prop("disabled", false);
-        //                 swal({
-        //                     title: "",
-        //                     text: data.message,
-        //                     icon: "success",
-        //                 });
-        //                 $(form)
-        //                 .find('[type="button"]')
-        //                 .prop("disabled", false);
-
-        //         },
-        //         error: function (error) {
-        //             $(form)
-        //             $("#button-update").prop("disabled", false);
-        //             $("#button-update").text("Update Product");
-        //             var errorMessage = error.statusText;
-        //             var sweetMessage = error.statusText;
-
-        //             if (error.status == 422) {
-        //                 errorMessage = handleValidationErrors(error, 'edit')
-        //                 sweetMessage = 'Invalid Data'
-        //             }
-        //             swal({
-        //                 title: "Error",
-        //                 text: sweetMessage,
-        //                 icon: "error",
-        //               });
-
-        //         },
-        //     });
-        // }
-        // function handleValidationErrors(error, type = 'create') {
-        //     let errors = error.responseJSON.errors;
-        //     var errorMessage = error.responseJSON.message
-        //     var element = '';
-        //     $.each(errors, function (key, item) {
-        //         element = key.split('.')
-        //         if (element.length > 1) {
-        //             element = `${element[0]}_${element[1]}`
-        //         } else {
-        //             element = `${element}`
-        //         }
-        //         // dataAttr = $(element).closest('.tab').data('id')
-        //         // $(`.step-${dataAttr}`).addClass('backend-error')
-        //         if (type == 'edit') {
-        //             console.log('edit',element);
-        //             $(`#edit_${element}_text`).text(item[0])
-
-        //         } else if (type == 'create') {
-        //             $(`#${element}_text`).text(item[0])
-
-        //         }
-        //     });
-
-        //     return errorMessage;
-        // }
+});
 
 
 

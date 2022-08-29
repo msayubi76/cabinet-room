@@ -17,7 +17,7 @@ class UserDashboardController extends Controller
 public function index()
 {
 try {
-    $category = Category::where('is_active', '0')->get();
+    $category = Category::where('is_active', '1')->with('subcategories')->get();
     $subcategory = SubCategory::where('is_active', '0')->get();
     $cart = Cart::where('user_id', Auth::id())->get();
     $order = Order::where('user_id', Auth::id())->get();

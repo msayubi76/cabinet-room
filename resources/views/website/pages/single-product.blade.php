@@ -109,8 +109,8 @@
                     <hr class="short-divider">
 
                     <div class="price-box">
-                        <span class="old-price">{{ $product->currency }}{!! $product->discount !!}</span>
-                        <span class="new-price">{{ $product->currency }}{!! $product->actual_price !!}</span>
+                        <span class="old-price">{{ $product->currency }}{!! $product->actual_price !!}</span>
+                        <span class="new-price">{{ $product->currency }}{!! $product->saleprice !!}</span>
                     </div>
                     <!-- End .price-box -->
 
@@ -144,12 +144,17 @@
                             <input class="horizontal-quantity form-control" name="quantity" type="text">
                         </div>
                         <!-- End .product-single-qty -->
-
-                        <a class="btn btn-dark add-cart mr-2" title="Add to Cart" data-toggle="modal"
-                            data-target="#login">Add to
+                        @if(Auth::user())
+                        <a class="btn btn-dark add-cart mr-2" title="Add to Cart" >Add to
                             Cart</a>
 
                         <a href="{{ url('cart') }}" class="btn btn-gray view-cart d-none">View cart</a>
+                        @else
+                        <a class="btn btn-dark add-cart mr-2" title="Add to Cart" data-toggle="modal"
+                            data-target="#login">Add to
+                            Cart</a>
+                        @endif
+
                     </div>
                     <!-- End .product-action -->
 
@@ -462,8 +467,8 @@
                         </div>
                         <!-- End .product-container -->
                         <div class="price-box">
-                            <del class="old-price">{{$product_item->currency}}{{$product_item->discount}}</del>
-                            <span class="product-price">{{$product_item->currency}}{{$product_item->actual_price }}</span>
+                            <del class="old-price">{{$product_item->currency}}{{$product_item->actual_price}}</del>
+                            <span class="product-price">{{$product_item->currency}}{{$product_item->saleprice }}</span>
                         </div>
                         <!-- End .price-box -->
                         <div class="product-action">
@@ -515,7 +520,7 @@
                         <!-- End .product-container -->
 
                         <div class="price-box">
-                            <span class="product-price">{{$featuredlist->currency}}{{$featuredlist->actual_price }}</span>
+                            <span class="product-price">{{$featuredlist->currency}}{{$featuredlist->saleprice }}</span>
                         </div>
                         <!-- End .price-box -->
                     </div>
@@ -551,7 +556,7 @@
                         <!-- End .product-container -->
 
                         <div class="price-box">
-                            <span class="product-price">{{$arriviallist->currency}}{{$arriviallist->actual_price }}</span>
+                            <span class="product-price">{{$arriviallist->currency}}{{$arriviallist->saleprice }}</span>
                         </div>
                         <!-- End .price-box -->
                     </div>
@@ -586,7 +591,7 @@
                         <!-- End .product-container -->
 
                         <div class="price-box">
-                            <span class="product-price">{{$list->currency}}{{$list->actual_price }}</span>
+                            <span class="product-price">{{$list->currency}}{{$list->saleprice }}</span>
                         </div>
                         <!-- End .price-box -->
                     </div>
@@ -622,7 +627,7 @@
                         <!-- End .product-container -->
 
                         <div class="price-box">
-                            <span class="product-price">{{$list->currency}}{{$list->actual_price }}</span>
+                            <span class="product-price">{{$list->currency}}{{$list->saleprice }}</span>
                         </div>
                         <!-- End .price-box -->
                     </div>

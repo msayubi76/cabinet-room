@@ -13,7 +13,7 @@ class BannerController extends Controller
     {
             $banners = BannerService::getBanners();
 
-            return view('admin.banner.index',compact('banners'));
+            return view('admin.Banner.index',compact('banners'));
 
 
     }

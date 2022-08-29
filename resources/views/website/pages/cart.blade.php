@@ -5,10 +5,10 @@
     <div class="container">
         <ul class="checkout-progress-bar d-flex justify-content-center flex-wrap">
             <li class="active">
-                <a href="{{ url('cart') }}">Shopping Cart</a>
+                <a href="">Shopping Cart</a>
             </li>
             <li>
-                <a href="{{ url('check-out') }}">Checkout</a>
+                <a href="">Checkout</a>
             </li>
             <li class="disabled">
                 <a href="cart.html">Order Complete</a>
@@ -61,7 +61,7 @@
                                         <a href="product.html">{{$cartlist->product->name}}</a>
                                     </h5>
                                 </td>
-                                <td class="text-center">{{$cartlist->product->currency}}{{$cartlist->product->actual_price}}</td>
+                                <td class="text-center">{{$cartlist->product->currency}}{{$cartlist->product->saleprice}}</td>
                                 <td class="text-center">
                                     <input type="hidden" class="product_id"  value={{$cartlist->product_id}} >
                                     <div class="product-single-qty">
@@ -69,7 +69,7 @@
                                         <input class="horizontal-quantity form-control" name="quantity" type="text" value="{{$cartlist->quantity}}">
                                     </div><!-- End .product-single-qty -->
                                 </td>
-                                @php $total =$cartlist->product->actual_price * $cartlist->quantity ; @endphp
+                                @php $total =$cartlist->product->saleprice * $cartlist->quantity ; @endphp
                                 <td class="text-center"><span class="subtotal-price"></span>{{$cartlist->product->currency}}{{ $total }}</td>
 
                                 <td class="text-center">
@@ -85,7 +85,7 @@
                             </tr>
 
 
-                            @php $alltotal +=$cartlist->product->actual_price * $cartlist->quantity ; @endphp
+                            @php $alltotal +=$cartlist->product->saleprice * $cartlist->quantity ; @endphp
 
                         </tbody>
 

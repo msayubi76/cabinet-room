@@ -94,7 +94,7 @@
 
                                     <option value="">{{$catitem->name}}</option>
 
-                                    @foreach ($subcategory as $subcatlist )
+                                    @foreach ($catitem->subcategories as $subcatlist )
 
                                     <option value="">-
                                         {{$subcatlist->name}}</option>
@@ -148,7 +148,7 @@
                                         </h4>
 
                                         <span class="cart-product-info">
-                                            <span class="cart-product-qty">{{$cartlist->quantity}}</span> × {{$cartlist->product->actual_price}}
+                                            <span class="cart-product-qty">{{$cartlist->quantity}}</span> × {{$cartlist->product->saleprice}}
                                         </span>
                                     </div>
 
@@ -162,7 +162,7 @@
                                         <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
                                     </figure>
                                 </div>
-                                @php $total += $cartlist->product->actual_price * $cartlist->quantity; @endphp
+                                @php $total += $cartlist->product->saleprice * $cartlist->quantity; @endphp
                                 @endforeach
                                 <!-- End .product -->
 
@@ -213,7 +213,7 @@
 
 
                                         <li><a href="{{url('category=' .$catlist->name)}}">{{$catlist->name}}</a></li>
-                                        @foreach ($subcategory as $subcatlist )
+                                        @foreach ($catlist->subcategories as $subcatlist )
 
                                         <option value="">-
                                             {{$subcatlist->name}}</option>
@@ -251,11 +251,11 @@
 
                         <a href="{{url('category=' .$catlist->name)}}">{{$catlist->name}}</a>
                         <ul>
-                            @foreach ($subcategory as $subcatlist )
+                            @foreach ($catlist->subcategories as $subcatlist )
 
 
 
-                            <li><a href=""> {{$subcatlist->name}}</a></li>
+                            <li><a href="{{url('sub-category=' .$subcatlist->name)}}"> {{$subcatlist->name}}</a></li>
                             @endforeach
 
 

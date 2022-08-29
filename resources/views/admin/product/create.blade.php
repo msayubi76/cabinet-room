@@ -93,7 +93,7 @@
                         @enderror
                                 </div>
                                 <div class="col-md-2 mb-8">
-                                    <input type="text" class="form-control input-default" id="saleprice" placeholder="Discount" :value="old('saleprice')" name="saleprice">
+                                    <input type="text" class="form-control input-default" id="saleprice" placeholder="Sale Price" :value="old('saleprice')" name="saleprice">
                                     @error('saleprice')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror

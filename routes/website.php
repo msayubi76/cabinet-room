@@ -20,6 +20,7 @@ Route::get('/categories', [FrontendController::class, 'categories']);
 
 //--> Webste display product by category <-- //
 Route::get('/category={name}', [FrontendController::class, 'category']);
+Route::get('/sub-category={name}', [FrontendController::class, 'subCategory']);
 
 // -------> Webste search filter <------ //
 Route::get('/product-list', [FrontendController::class, 'productList']);

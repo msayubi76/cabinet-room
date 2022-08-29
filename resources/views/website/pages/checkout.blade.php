@@ -5,10 +5,10 @@
     <div class="container checkout-container">
         <ul class="checkout-progress-bar d-flex justify-content-center flex-wrap">
             <li>
-                <a href="{{ url('cart') }}">Shopping Cart</a>
+                <a href="">Shopping Cart</a>
             </li>
             <li class="active">
-                <a href="{{ url('check-out') }}">Checkout</a>
+                <a href="">Checkout</a>
             </li>
             <li class="disabled">
                 <a href="#">Order Complete</a>
@@ -210,11 +210,11 @@
                                     </td>
 
                                     <td class="price-col">
-                                        @php $total = $cartitem->product->actual_price * $cartitem->quantity; @endphp
+                                        @php $total = $cartitem->product->saleprice * $cartitem->quantity; @endphp
                                         <span> {{ $cartitem->product->currency }}{{ $total }}</span>
                                     </td>
                                 </tr>
-                                @php $all_item_total += $cartitem->product->actual_price * $cartitem->quantity; @endphp
+                                @php $all_item_total += $cartitem->product->saleprice * $cartitem->quantity; @endphp
                             @endforeach
 
                         </tbody>
