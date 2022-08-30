@@ -17,13 +17,13 @@ class UserDashboardController extends Controller
 public function index()
 {
 try {
-    $category = Category::where('is_active', '1')->with('subcategories')->get();
+    $category = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();
     $subcategory = SubCategory::where('is_active', '0')->get();
     $cart = Cart::where('user_id', Auth::id())->get();
     $order = Order::where('user_id', Auth::id())->get();
 
-    // $order_detail = OrderDetail::where('order_id',$order)->get();
-    // dd($order_detail);
+    $order_detail = OrderDetail::where('order_id',$order->id)->get();
+    dd($order_detail);
 
 
     return view('website.userdashboard.dashoard', compact('category', 'subcategory', 'cart', 'order'));

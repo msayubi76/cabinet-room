@@ -134,8 +134,10 @@
                             <img src="{{ $featuredlist->feature_image }}" width="280" height="280" alt="product">
                         </a>
                         <div class="label-group">
-                            <div class="product-label label-hot">HOT</div>
-                            <div class="product-label label-sale">-20%</div>
+                             {{-- <div class="product-label label-hot">HOT</div> --}}
+                             @if ($featuredlist->discount > 0)
+                             <div class="product-label label-sale">{{ substr($featuredlist->discount,0,2 )}}%</div>
+                             @endif
                         </div>
                     </figure>
                     <div class="product-details">
@@ -156,9 +158,13 @@
 
                         <!-- End .product-container -->
                         <div class="price-box">
+                            @if ($featuredlist->discount > 0)
                             <del class="old-price">{{$featuredlist->currency}}{{$featuredlist->actual_price}}</del>
                             <span class="product-price">{{$featuredlist->currency}}{{$featuredlist->saleprice }}</span>
-                        </div>
+                         @else
+                            <span class="product-price">{{$featuredlist->currency}}{{$featuredlist->saleprice }}</span>
+                            @endif
+                            </div>
                         <!-- End .price-box -->
                         <div class="product-action">
                             <a href="wishlist.html" class="btn-icon-wish" title="wishlist"><i
@@ -250,7 +256,10 @@
                             <img src="{{ $arriviallist->feature_image }}" width="220" height="220" alt="product">
                         </a>
                         <div class="label-group">
-                            <div class="product-label label-hot">HOT</div>
+                             {{-- <div class="product-label label-hot">HOT</div> --}}
+                             @if ($arriviallist->discount > 0)
+                             <div class="product-label label-sale">{{ substr($arriviallist->discount,0,2 )}}%</div>
+                             @endif
                         </div>
                     </figure>
                     <div class="product-details">
@@ -270,9 +279,14 @@
                         </div>
                         <!-- End .product-container -->
                         <div class="price-box">
+                            @if ($arriviallist->discount > 0)
                             <del class="old-price">{{$arriviallist->currency}}{{$arriviallist->actual_price}}</del>
                             <span class="product-price">{{$arriviallist->currency}}{{$arriviallist->saleprice }}</span>
-                        </div>
+                            @else
+                            <span class="product-price">{{$arriviallist->currency}}{{$arriviallist->saleprice }}</span>
+                            @endif
+
+                             </div>
                         <!-- End .price-box -->
                         <div class="product-action">
                             <a href="wishlist.html" class="btn-icon-wish" title="wishlist"><i
@@ -419,19 +433,26 @@
             <hr class="mt-4 m-b-5">
 
             <div class="product-widgets-container row pb-2">
-                <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="200">
+                <div class="col-lg-3 col-sm-6 pb-5 pb-md-0">
                     <h4 class="section-sub-title">Featured Products</h4>
                     @foreach ($featured_product as $featuredlist)
                     <div class="product-default left-details product-widget">
                         <figure>
                             <a href="{{url('product/'.$featuredlist->id)}}">
-                                <img src="{{ $featuredlist->feature_image }}" width="84" height="84" alt="product">
-                                <img src="{{ $featuredlist->feature_image }}" width="84" height="84" alt="product">
+                                <img src="{{ $featuredlist->feature_image }}" width="74" height="74"
+                                    alt="product">
+                                <img src="{{ $featuredlist->feature_image }}" width="74" height="74"
+                                    alt="product">
                             </a>
+                            {{-- <div class="product-label label-hot">HOT</div> --}}
+                            @if ($featuredlist->discount > 0)
+                            <div class="product-label label-sale">{{ substr($featuredlist->discount,0,2 )}}%</div>
+                            @endif
+
                         </figure>
 
                         <div class="product-details">
-                            <h3 class="product-title"> <a href="{{url('products/'.$featuredlist->id)}}">{{$featuredlist->name}}</a>
+                            <h3 class="product-title"> <a href="{{url('products/'.$featuredlist->id)}}"> {{$featuredlist->name}}</a>
                             </h3>
 
                             <div class="ratings-container">
@@ -445,16 +466,19 @@
                             <!-- End .product-container -->
 
                             <div class="price-box">
+                                @if ($featuredlist->discount > 0)
+                                <span class="old-price">{{$featuredlist->currency}}{{$featuredlist->actual_price}}</span>
                                 <span class="product-price">{{$featuredlist->currency}}{{$featuredlist->saleprice }}</span>
+                                @else
+                                <span class="product-price">{{$featuredlist->currency}}{{$featuredlist->saleprice }}</span>
+                                @endif
+
                             </div>
                             <!-- End .price-box -->
                         </div>
-
                         <!-- End .product-details -->
                     </div>
-
-                    @endforeach
-
+    @endforeach
 
                 </div>
 
@@ -467,6 +491,10 @@
                                 <img src="{{ $arriviallist->feature_image }}" width="84" height="84" alt="product">
                                 <img src="{{ $arriviallist->feature_image }}" width="84" height="84" alt="product">
                             </a>
+                             {{-- <div class="product-label label-hot">HOT</div> --}}
+                             @if ($arriviallist->discount > 0)
+                             <div class="product-label label-sale">{{ substr($arriviallist->discount,0,2 )}}%</div>
+                             @endif
                         </figure>
 
                         <div class="product-details">
@@ -484,16 +512,18 @@
                             <!-- End .product-container -->
 
                             <div class="price-box">
+                                @if ($arriviallist->discount > 0)
+                                <span class="old-price">{{$arriviallist->currency}}{{$arriviallist->actual_price}}</span>
                                 <span class="product-price">{{$arriviallist->currency}}{{$arriviallist->saleprice }}</span>
+                                @else
+                                <span class="product-price">{{$arriviallist->currency}}{{$arriviallist->saleprice }}</span>
+                                @endif
                             </div>
                             <!-- End .price-box -->
                         </div>
                         <!-- End .product-details -->
                     </div>
       @endforeach
-
-
-
                 </div>
 
                 <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="800">
@@ -505,6 +535,10 @@
                                 <img src="{{ $list->feature_image }}" width="84" height="84" alt="product">
                                 <img src="{{ $list->feature_image }}" width="84" height="84" alt="product">
                             </a>
+                             {{-- <div class="product-label label-hot">HOT</div> --}}
+                             @if ($list->discount > 0)
+                             <div class="product-label label-sale">{{ substr($list->discount,0,2 )}}%</div>
+                             @endif
                         </figure>
 
                         <div class="product-details">
@@ -522,7 +556,12 @@
                             <!-- End .product-container -->
 
                             <div class="price-box">
+                                @if ($list->discount > 0)
+                                <span class="old-price">{{$list->currency}}{{$list->actual_price}}</span>
                                 <span class="product-price">{{$list->currency}}{{$list->saleprice }}</span>
+                                @else
+                                <span class="product-price">{{$list->currency}}{{$list->saleprice }}</span>
+                                @endif
                             </div>
                             <!-- End .price-box -->
                         </div>
@@ -541,6 +580,10 @@
                                 <img src="{{ $list->feature_image }}" width="84" height="84" alt="product">
                                 <img src="{{ $list->feature_image }}" width="84" height="84" alt="product">
                             </a>
+                             {{-- <div class="product-label label-hot">HOT</div> --}}
+                             @if ($list->discount > 0)
+                             <div class="product-label label-sale">{{ substr($list->discount,0,2 )}}%</div>
+                             @endif
                         </figure>
 
                         <div class="product-details">
@@ -558,7 +601,12 @@
                             <!-- End .product-container -->
 
                             <div class="price-box">
+                                @if ($list->discount > 0)
+                                <span class="old-price">{{$list->currency}}{{$list->actual_price}}</span>
                                 <span class="product-price">{{$list->currency}}{{$list->saleprice }}</span>
+                                @else
+                                <span class="product-price">{{$list->currency}}{{$list->saleprice }}</span>
+                                @endif
                             </div>
                             <!-- End .price-box -->
                         </div>

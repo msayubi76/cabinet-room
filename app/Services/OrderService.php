@@ -57,14 +57,14 @@ class OrderService
 
             $quantity = $item->quantity;
 
-            $actual_price = (float) $product->actual_price;
+            $saleprice = (float) $product->saleprice;
 
-            $price = $actual_price * $quantity;
+            $price = $saleprice * $quantity;
 
             $amount =  $amount + round($price, 4);
-           
 
-            $OrderDetailData[] = ['product_id' => $product->id, 'quantity' => $quantity, 'price' => $actual_price, 'order_id' => $order->id];
+
+            $OrderDetailData[] = ['product_id' => $product->id, 'quantity' => $quantity, 'price' => $saleprice, 'order_id' => $order->id];
         endforeach;
 
         $payment->update(['payment' => $amount]);
