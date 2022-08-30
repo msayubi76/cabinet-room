@@ -74,7 +74,7 @@
                 <button class="mobile-menu-toggler text-primary mr-2" type="button">
                     <i class="fas fa-bars"></i>
                 </button>
-                <a href="demo4.html" class="logo">
+                <a href="{{ url('/') }}" class="logo">
                     <img src="{{asset('website/assets/images/logo.png')}}" width="111" height="44" alt="Porto Logo">
                 </a>
             </div>
