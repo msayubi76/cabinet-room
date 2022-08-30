@@ -57,7 +57,7 @@
                         <h4 class="widget-title">Popular Categories</h4>
 
                         <div class="tagcloud">
-                            @foreach ($category as $catlist )
+                            @foreach ($categories as $catlist )
                             <a href="{{url('category=' .$catlist->name)}}">{{$catlist->name}}</a>
                             @endforeach
 

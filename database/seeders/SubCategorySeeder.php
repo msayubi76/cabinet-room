@@ -16,7 +16,7 @@ class SubCategorySeeder extends Seeder
     public function run()
     {
         SubCategory::factory()
-        ->count(30)
+        ->count(10)
         ->create();
     }
 }

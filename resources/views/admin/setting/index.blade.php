@@ -15,8 +15,7 @@
                                 <h4 class="card-title">Settings</h4>
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-4 text-right">
-                              <a href="{{url('admin/settings/create')}}" class="btn btn-sm btn-primary">Add
-                                    Aubout Us Detail</a>
+                              <a href="{{url('admin/settings/create')}}" class="btn btn-sm btn-primary">Add Page Setting</a>
 
                             </div>
                         </div>

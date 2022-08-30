@@ -64,7 +64,7 @@
                 </nav>
 
                 <div class="row">
-                    @foreach ($product as $productlist)
+                    @foreach ($products as $productlist)
                     <div class="col-6 col-sm-4 col-md-3">
                         <div class="product-default">
                             <figure>
@@ -85,7 +85,7 @@
                             <div class="product-details">
                                 <div class="category-wrap">
                                     <div class="category-list">
-                                        <a href="{{url('category=' .$productlist->category->name)}}" class="product-category">{{$productlist->category->name}}</a>
+                                        <a href="" class="product-category">{{$productlist->category?$productlist->category->name:''}}</a>
 
                                     </div>
                                 </div>
@@ -171,42 +171,7 @@
             <div class="sidebar-overlay"></div>
             <aside class="sidebar-shop col-lg-3 order-lg-first mobile-sidebar custom-scrollbar position-fixed ">
                 <div class="sidebar-wrapper position-static">
-                    <div class="widget">
-                        <h3 class="widget-title">
-                            <a data-toggle="collapse" href="#widget-body-2" role="button" aria-expanded="true" aria-controls="widget-body-2">Categories</a>
-                        </h3>
 
-                        <div class="collapse show" id="widget-body-2">
-                            <div class="widget-body">
-
-                                <ul class="cat-list">
-                                    @foreach ($category as $catlist )
-                                    <li>
-
-                                        <a href="#widget-category-1" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="widget-category-1">
-                                            {{$catlist->name}}<span class="products-count"></span>
-                                            <span class="toggle"></span>
-                                        </a>
-                                        <div class="collapse show" id="widget-category-1">
-                                            @foreach ($catlist->subcategories as $subcatlist )
-                                            <ul class="cat-sublist">
-
-                                                <li><a  href="{{url('sub-category=' .$subcatlist->name)}}"> {{$subcatlist->name}}</a></li>
-
-                                            </ul>
-                                            @endforeach
-                                        </div>
-
-                                    </li>
-                                    @endforeach
-
-                                </ul>
-
-                            </div>
-                            <!-- End .widget-body -->
-                        </div>
-                        <!-- End .collapse -->
-                    </div>
                     <!-- End .widget -->
 
                     <div class="widget">
@@ -297,7 +262,7 @@
 
                         <div class="widget-body">
                             <div class="owl-carousel widget-featured-products">
-                                @foreach ($featured_product as $featuredlist)
+                                @foreach ($featuredProducts as $featuredlist)
                                 <div class="featured-col">
                                     <div class="product-default left-details product-widget">
                                         <figure>

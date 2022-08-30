@@ -18,7 +18,7 @@ public function index()
 {
 try {
     $category = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();
-    $subcategory = SubCategory::where('is_active', '0')->get();
+  
     $cart = Cart::where('user_id', Auth::id())->get();
     $order = Order::where('user_id', Auth::id())->get();
 
@@ -26,7 +26,7 @@ try {
     dd($order_detail);
 
 
-    return view('website.userdashboard.dashoard', compact('category', 'subcategory', 'cart', 'order'));
+    return view('website.userdashboard.dashoard', compact('category',  'cart', 'order'));
 }
 catch (\Throwable $th) {
     return response()->json(['status' => false, 'message' => $th->getMessage()]);

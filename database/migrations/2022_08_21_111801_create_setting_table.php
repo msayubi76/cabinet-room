@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('setting', function (Blueprint $table) {
             $table->id();
-            $table->mediumText('privacy_and_policy_detail')->nullable();
+
             $table->mediumText('about_us_detail')->nullable();
             $table->mediumText('contact_us_detail')->nullable();
             $table->string('name')->nullable();
@@ -23,10 +23,15 @@ return new class extends Migration
             $table->string('mobile_no2')->nullable();
             $table->string('address')->nullable();
             $table->string('email')->unique()->nullable();
+            $table->mediumText('privacyAndPolicyDetail')->nullable();
 
 
+            $table->foreignId('created_by')->nullable()->constrained('users')->cascadeOnDelete() ;
+            $table->foreignId('updated_by')->nullable()->constrained('users')->cascadeOnDelete() ;
+            $table->foreignId('deleted_by')->nullable()->constrained('users')->cascadeOnDelete();
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

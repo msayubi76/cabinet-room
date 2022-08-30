@@ -90,7 +90,7 @@
                             <div class="select-custom">
                                 <select id="cat" name="cat">
                                     <option value="">All Categories</option>
-                                    @foreach ($category as $catitem  )
+                                    @foreach ($categories as $catitem  )
 
                                     <option value="">{{$catitem->name}}</option>
 
@@ -203,52 +203,12 @@
                 <ul class="menu">
 
                     <li>
-                        <a href="">All Categories</a>
-                        <div class="megamenu megamenu-fixed-width megamenu-3cols">
-                            <div class="row">
-                                <div class="col-lg-6">
+                        <a href="{{url('/products')}}">All Products</a>
 
-                                    <ul class="submenu">
-                                      <li>  @foreach ($category as $catlist )
-                                        <a href="{{url('category=' .$catlist->name)}}"><strong>{{$catlist->name}}</strong> </a>
-                                        @foreach ($catlist->subcategories as $subcatlist )
-
-
-                                        <li><a  href="{{url('sub-category=' .$subcatlist->name)}}"> -{{$subcatlist->name}}</a></li>
-
-
-
-
-                                        @endforeach
-
-
-                                        @endforeach
-                                    </li>
-                                    </ul>
-                                </div>
-
-
-                                <div class="col-lg-6 p-0">
-                                    <div class="menu-banner">
-                                        <figure>
-                                            <img src="{{asset('website/assets/images/menu-banner.jpg')}}" width="192" height="313" alt="Menu banner">
-                                        </figure>
-                                        <div class="banner-content">
-                                            <h4>
-                                                <span class="">UP TO</span><br />
-                                                <b class="">50%</b>
-                                                <i>OFF</i>
-                                            </h4>
-                                            <a href="category.html" class="btn btn-sm btn-dark">SHOP NOW</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <!-- End .megamenu -->
                     </li>
 
-                    @foreach ($category as $catlist )
+                    @foreach ($categories as $catlist )
                     <li>
                         <a href="{{url('category=' .$catlist->name)}}">{{$catlist->name}}</a>
                         <div class="megamenu megamenu-fixed-width megamenu-3cols">

@@ -8,12 +8,12 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-8 col-md-6 col-sm-8 text-left">
-                                <h4 class="card-title">Orders Table</h4>
+                                <h4 class="card-title">Customers Orders </h4>
                             </div>
-                            <div class="col-lg-4 col-md-6 col-sm-4 text-right">
+                            {{-- <div class="col-lg-4 col-md-6 col-sm-4 text-right">
                                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addcategory">Add
                                     Category</button>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered zero-configuration" id="table">

@@ -37,8 +37,8 @@ class ProductRequest extends FormRequest
             'images' => ['nullable'],
             'length' => ['required'],
             'width' => ['required'],
-            'is_feature_product' => ['required'],
-            'is_arrival_product' => ['required'],
+            'is_feature_product' => ['nullable'],
+            'is_arrival_product' => ['nullable'],
             'currency' => ['required'],
             'short_description' => ['required'],
 

@@ -126,7 +126,7 @@
             }">
 
 
-            @foreach ($featured_product as $featuredlist)
+            @foreach ($featuredProducts as $featuredlist)
                 <div class="product-default appear-animate" data-animation-name="fadeInRightShorter">
                     <figure>
                         <a href="{{url('product/'.$featuredlist->id)}}">
@@ -142,7 +142,8 @@
                     </figure>
                     <div class="product-details">
                         <div class="category-list">
-                            <a href="{{url('category=' .$featuredlist->category->name)}}" class="product-category">{{$featuredlist->category->name}}</a>
+
+                            <a href="" class="product-category">{{$featuredlist->category?$featuredlist->category->name:''}}</a>
                         </div>
                         <h3 class="product-title">
                             <a href="{{url('products/'.$featuredlist->id)}}">{{$featuredlist->name}}</a>
@@ -246,7 +247,7 @@
                     }
                 }
             }">
-            @foreach ($arrivial_product as $arriviallist)
+            @foreach ($arrivialProducts as $arriviallist)
 
 
                 <div class="product-default appear-animate" data-animation-name="fadeInRightShorter">
@@ -264,7 +265,7 @@
                     </figure>
                     <div class="product-details">
                         <div class="category-list">
-                            <a href="{{url('category=' .$arriviallist->category->name)}}" class="product-category">{{$arriviallist->category->name}}</a>
+                            <a href="" class="product-category">{{$arriviallist->category?$arriviallist->category->name:''}}</a>
                         </div>
                         <h3 class="product-title">
                             <a href="{{url('product/'.$arriviallist->id)}}">{{$arriviallist->name}}</a>
@@ -323,7 +324,7 @@
             </h2>
 
             <div class="categories-slider owl-carousel owl-theme show-nav-hover nav-outer">
-                @foreach ($category as $catitem  )
+                @foreach ($categories as $catitem  )
                 <div class="product-category appear-animate" data-animation-name="fadeInUpShorter">
                     <a href="{{url('category=' .$catitem->name)}}">
                         <figure>
@@ -435,7 +436,7 @@
             <div class="product-widgets-container row pb-2">
                 <div class="col-lg-3 col-sm-6 pb-5 pb-md-0">
                     <h4 class="section-sub-title">Featured Products</h4>
-                    @foreach ($featured_product as $featuredlist)
+                    @foreach ($featuredProductsFooter as $featuredlist)
                     <div class="product-default left-details product-widget">
                         <figure>
                             <a href="{{url('product/'.$featuredlist->id)}}">
@@ -484,7 +485,7 @@
 
                 <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="500">
                     <h4 class="section-sub-title">Arrivial Products</h4>
-                    @foreach ($arrivial_product as $arriviallist)
+                    @foreach ($arrivialProductsFooter as $arriviallist)
                     <div class="product-default left-details product-widget">
                         <figure>
                             <a href="{{url('products/'.$arriviallist->id)}}">
@@ -528,7 +529,7 @@
 
                 <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="800">
                     <h4 class="section-sub-title">Latest Products</h4>
-                    @foreach ($latest_product as $list)
+                    @foreach ($latestrPoductsFooter as $list)
                     <div class="product-default left-details product-widget">
                         <figure>
                             <a href="{{url('products/'.$list->id)}}">
@@ -573,7 +574,7 @@
 
                 <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="800">
                     <h4 class="section-sub-title">Top Rated Products</h4>
-                    @foreach ($latest_product as $list)
+                    @foreach ($latestrPoductsFooter as $list)
                     <div class="product-default left-details product-widget">
                         <figure>
                             <a href="{{url('products/'.$list->id)}}">

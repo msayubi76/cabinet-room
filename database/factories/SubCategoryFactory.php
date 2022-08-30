@@ -18,6 +18,7 @@ class SubCategoryFactory extends Factory
     public function definition()
     {
         return [
+            'category_id' =>  rand(1,10),
             'name' => $this->faker->name(),
             'image_url' => $this->faker->imageUrl(),
             'is_active' => $this->faker->boolean(),

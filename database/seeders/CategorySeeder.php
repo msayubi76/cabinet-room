@@ -17,15 +17,15 @@ class CategorySeeder extends Seeder
     public function run()
     {
         Category::factory()
-            ->has(
-                SubCategory::factory()->count(rand(1,12))
-                    ->state(function (array $attributes, Category $category) {
-                        return ['category_id' => $category->id];
-                    }),
-                'subcategories'
-            )
+            // ->has(
+            //     SubCategory::factory()->count(rand(1,12))
+            //         ->state(function (array $attributes, Category $category) {
+            //             return ['category_id' => $category->id];
+            //         }),
+            //     'subcategories'
+            // )
 
-            ->count(13)
+            ->count(10)
             ->create();
     }
 }

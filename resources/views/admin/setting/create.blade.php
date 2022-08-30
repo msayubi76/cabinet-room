@@ -12,7 +12,7 @@
 
             </div>
                 @endif
-                    <h4 class="card-title">update page ASetting</h4>
+                    <h4 class="card-title">Pages Setting</h4>
 
                     <div class="basic-form">
                         <form action="{{route('settings.store')}}"  method="Post" id="product-form" enctype="multipart/form-data">
@@ -20,7 +20,7 @@
 
 
                             <div class="form-group mb-8">
-                                <label for=""> About Us</label>
+                                <label for=""> About Us Page</label>
                                 <textarea class="form-control h-150px mysummernote" id="" name="about_us_detail" rows="6" placeholder="Write here.......">
                                    </textarea>
                                    @error('about_us_detail')
@@ -28,7 +28,7 @@
                                @enderror
                             </div>
                             <div class="form-group mb-8">
-                                <label for=""> Contact Us</label>
+                                <label for=""> Contact Us Page</label>
                                 <textarea class="form-control h-150px mysummernote" id="" name="contact_us_detail" rows="6" placeholder="Write here.......">
                                    </textarea>
                                    @error('contact_us_detail')
@@ -84,9 +84,10 @@
                                </div>
 
                             <div class="form-group mb-8">
-                                <textarea class="form-control h-150px mysummernote" id="" name="privacy_and_policy_detail" rows="6" placeholder="Write here.......">
+                                <label for="">Privacy And Policy Page</label>
+                                <textarea class="form-control h-150px mysummernote" id="" name="privacyAndPolicyDetail" rows="6" placeholder="Write here.......">
                                    </textarea>
-                                   @error('privacy_and_policy_detail')
+                                   @error('privacyAndPolicyDetail')
                                    <div class="text-danger">{{ $message }}</div>
                                @enderror
                             </div>

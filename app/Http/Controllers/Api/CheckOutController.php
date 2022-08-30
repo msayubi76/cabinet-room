@@ -22,10 +22,10 @@ class CheckOutController extends Controller
     public function index()
     {
         try {
-            $category = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();
-            $subcategory = SubCategory::where('is_active', '0')->get();
+            $categories = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();
+
             $cart = Cart::where('user_id', Auth::id())->get();
-            return view('website.pages.checkout', compact('category', 'subcategory', 'cart'));
+            return view('website.pages.checkout', compact('categories',  'cart'));
         } catch (\Throwable $th) {
             return redirect(route('website.pages.checkout'))->with('error', $th->getMessage());
         }

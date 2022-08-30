@@ -28,7 +28,7 @@
         <nav aria-label="breadcrumb" class="breadcrumb-nav">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="demo4.html"><i class="icon-home"></i></a></li>
-                <li class="breadcrumb-item"><a href="#">{{ $get_subcategory->name }}</a></li>
+                <li class="breadcrumb-item"><a href="#">{{ $subcategory->name }}</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Accessories</li>
             </ol>
         </nav>
@@ -64,7 +64,7 @@
                 </nav>
 
                 <div class="row">
-                    @foreach ($product as $productlist)
+                    @foreach ($products as $productlist)
                     <div class="col-6 col-sm-4 col-md-3">
                         <div class="product-default">
                             <figure>

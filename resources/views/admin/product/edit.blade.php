@@ -24,6 +24,7 @@
                                 <div class="form-group row mb-8">
 
                                     <div class="col-md-4">
+                                        <label for=""> Product Name<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control input-default" id="edit_name"
                                         placeholder="Product Name" value="{{ $product->name }}" name="name">
                                         @error('name')
@@ -32,6 +33,7 @@
                                     </div>
 
                                     <div class="col-md-4">
+                                        <label for=""> Product Category<span class="text-danger">*</span></label>
                                         <select name="category_id" class="form-control" id="category">
                                             <option value="">-- Select Category --</option>
                                             @foreach ($category as $catitem)
@@ -46,6 +48,7 @@
                                     </div>
 
                                     <div class="col-md-4">
+                                        <label for=""> Product SubCategory<span class="text-danger">*</span></label>
                                         <select name="sub_category_id" id="subcategory" class="form-control">
                                             <option>-- Select sub Category --</option>
 
@@ -64,6 +67,7 @@
                                 </div>
 
                                 <div class="form-group mb-8">
+                                    <label for=""> Product Discription<span class="text-danger">*</span></label>
                                     <textarea class="form-control h-150px mysummernote" id="edit_description mysummernote" name="description" rows="6"
                                         placeholder="Write here.......">{{ $product->description }}</textarea>
                                         @error('description')
@@ -77,6 +81,7 @@
                                             <img src="{{ asset( $product->feature_image) }}" width="50px"
                                                 height="50px" alt="img">
                                         </div>
+                                        <label for=""> Feature Image<span class="text-danger">*</span></label>
                                         <input type="file" class="form-control" id="edit_feature_image" name="feature_image"
                                             placeholder="feature image" :value="old('feature_image')">
                                             @error('feature_image')
@@ -91,8 +96,8 @@
 
                                              @endforeach
                                         </div>
-                                        {{-- <label class="col-lg-4 col-form-label" for="name">Multiple Images <span class="text-danger">*</span>
-                                        </label> --}}
+                                        <label  for="">Multiple Images<span class="text-danger">*</span>
+                                        </label>
                                         <input type="file" class="form-control" id="images" name="images[]"
                                     placeholder="images"  multiple>
                                     @error('images')
@@ -104,6 +109,7 @@
                                 </div>
                                 <div class="form-group row ">
                                     <div class="col-md-4 mb-8">
+                                        <label for="">Actual Price<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control input-default" id="actualprice"
                                             placeholder="Actual Price" value="{{ $product->actual_price }}"
                                             name="actual_price">
@@ -113,14 +119,16 @@
 
                                     </div>
                                     <div class="col-md-4 mb-8">
+                                        <label for="">Discount Optional<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control input-default" id="discount"
-                                            placeholder="Discount" value="{{ $product->discount }}" name="discount">
+                                            placeholder="Discount Optional" value="{{ $product->discount }}" name="discount">
                                             @error('discount')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
 
                                     </div>
-                                         <div class="col-md-2 mb-8">
+                                         <div class="col-md-4 mb-8">
+                                            <label for="">Sale Price<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control input-default" id="saleprice"
                                             placeholder="Sale Price" value="{{ $product->saleprice }}" name="saleprice">
                                             @error('saleprice')
@@ -128,7 +136,14 @@
                                         @enderror
 
                                     </div>
-                                    <div class="col-md-2 mb-8">
+
+                                </div>
+
+
+
+                                <div class="form-group row ">
+                                    <div class="col-md-4 mb-8">
+                                        <label for="">Shipping Charge<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control input-default" id="edit_shipping_charge"
                                             placeholder="Shipping Charge" value="{{ $product->shipping_charge }}"
                                             name="shipping_charge">
@@ -137,28 +152,17 @@
                                         @enderror
 
                                     </div>
-                                </div>
-
-
-
-                                <div class="form-group row ">
                                     <div class="col-md-4 mb-8">
-                                        <input type="text" class="form-control input-default" id="edit_colour"
-                                            placeholder="colour" value="{{ $product->colour }}" name="colour">
-                                            @error('colour')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-
-                                    </div>
-                                    <div class="col-md-4 mb-8">
+                                        <label for="">Product Length<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control input-default" id="edit-length"
-                                            placeholder="length" value="{{ $product->length }}"name="length">
+                                            placeholder="Length" value="{{ $product->length }}"name="length">
                                             @error('length')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
 
                                     </div>
                                     <div class="col-md-4 mb-8">
+                                        <label for="">Product width<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control input-default" id="edit_width"
                                             placeholder="width" value="{{ $product->width }}"name="width">
                                             @error('width')
@@ -168,9 +172,42 @@
                                     </div>
                                 </div>
                                 <div class="form-group row ">
-                                    <div class="col-md-4 mb-8">
+
+                                    <div class="col-md-3 mb-8">
+                                        <label style="margin-top: 30px;">
+
+                                            <input type="checkbox" class="form-check-input" value="1"
+                                                name="is_feature_product"
+                                                {{ $product->is_feature_product == '1' ? 'checked' : '' }}>Feature Product
+                                                <span class="text-danger">*</span></label>
+                                        @error('width')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-3 mb-8">
+                                        <label style="margin-top: 30px;">
+
+                                            <input type="checkbox" class="form-check-input" value="1"
+                                                name="is_feature_product"
+                                                {{ $product->is_arrival_product == '1' ? 'checked' : '' }}>Arrival Product
+                                                <span class="text-danger">*</span></label>
+                                        @error('is_arrival_product')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-3 mb-8">
+                                        <label for="">Product Colour<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control input-default" id="edit_colour"
+                                            placeholder="colour" value="{{ $product->colour }}" name="colour">
+                                            @error('colour')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
+                                    </div>
+                                    <div class="col-md-3 mb-8">
+                                        <label for="">Product Currency<span class="text-danger">*</span></label>
                                     <select name="currency" class="form-control" id="currency">
-                                        <option value="">-- Select currency --</option>
+                                        <option value="">-- Select Currency --</option>
                                         @foreach ( currencies() as $currency )
 
 
@@ -181,30 +218,9 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="col-md-4 mb-8">
-                                        <label class="col-lg-4 col-form-label form-check-label" for="name">
-
-                                            <input type="checkbox" class="form-check-input" value="1"
-                                                name="is_feature_product"
-                                                {{ $product->is_feature_product == '1' ? 'checked' : '' }}>Feature Product
-                                        </label>
-                                        @error('width')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-4 mb-8">
-                                        <label class="col-lg-4 col-form-label form-check-label" for="name">
-
-                                            <input type="checkbox" class="form-check-input" value="1"
-                                                name="is_feature_product"
-                                                {{ $product->is_arrival_product == '1' ? 'checked' : '' }}>Arrival Product
-                                        </label>
-                                        @error('is_arrival_product')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
                                 </div>
                                 <div class="form-group mb-8">
+                                    <label for="">Product Short Discription<span class="text-danger">*</span></label>
                                     <textarea class="form-control h-150px mysummernote" id="edit_description mysummernote" name="short_description" rows="6"
                                         placeholder="Write here.......">{{ $product->short_description }}</textarea>
                                         @error('short_description')

@@ -18,7 +18,7 @@ class SettingService
 
 
 
-    public static function store(SettingRequest $request)
+    public static function store($request)
     {
 
         DB::beginTransaction();

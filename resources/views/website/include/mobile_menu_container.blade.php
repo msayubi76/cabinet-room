@@ -7,16 +7,16 @@
                 <li>
                     <a href="category.html">Categories</a>
                     <ul>
-                        @foreach ($category as $catitem )
+                        @foreach ($categories as $catitem )
                         <li><a href="{{url('category=' .$catitem->name)}}">{{ $catitem->name }}</a></li>
                         @endforeach
-                        
+
                     </ul>
                 </li>
                 <li>
                     <a href="{{ url('/products') }}">Products</a>
-                    
-                  
+
+
                 </li>
                 <li>
                     <a href="#">Pages<span class="tip tip-hot">Hot!</span></a>
@@ -41,8 +41,8 @@
                         </li>
                     </ul>
                 </li>
-                
-            
+
+
             </ul>
 
             <ul class="mobile-menu mt-2 mb-2">
@@ -63,7 +63,7 @@
                 <li><a href="{{ url('user-dashboard') }}">My Account</a></li>
                 <li><a href="{{ url('about-us') }}">About Us</a></li>
                 <li><a href="{{ url('contact-us') }}">Contact Us</a></li>
-               
+
                 <li><a href="{{ url('cart') }}">Cart</a></li>
                 <li><a href="login.html" class="login-link">Log In</a></li>
             </ul>

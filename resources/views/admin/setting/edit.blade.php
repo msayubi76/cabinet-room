@@ -12,7 +12,7 @@
 
             </div>
                 @endif
-                    <h4 class="card-title">Update About Us</h4>
+                    <h4 class="card-title"> Pages Setting</h4>
 
                     <div class="basic-form">
                         <form action="{{route('settings.update',$setting->id)}}"  method="Post" id="product-form" enctype="multipart/form-data">
@@ -21,6 +21,7 @@
                             <input type="hidden" value="PUT" name="_method">
 
                             <div class="form-group mb-8">
+                                <label for="">About Us Page</label>
                                 <textarea class="form-control h-150px mysummernote" id="" name="about_us_detail" rows="6" placeholder="Write here.......">
                                     {{ $setting->about_us_detail }}
                                    </textarea>
@@ -30,6 +31,7 @@
                             </div>
 
                             <div class="form-group mb-8">
+                                <label for="">Contact Us Page</label>
                                 <textarea class="form-control h-150px mysummernote" id="" name="contact_us_detail" rows="6" placeholder="Write here.......">
                                     {{ $setting->contact_us_detail }}
                                    </textarea>
@@ -85,10 +87,11 @@
                             </div>
                                </div>
                             <div class="form-group mb-8">
-                                <textarea class="form-control h-150px mysummernote" id="" name="privacy_and_policy_detail" rows="6" placeholder="Write here.......">
-                                    {{ $setting->privacy_and_policy_detail }}
+                                <label for="">Privacy And Policy Page</label>
+                                <textarea class="form-control h-150px mysummernote" id="" name="privacyAndPolicyDetail" rows="6" placeholder="Write here.......">
+                                    {{ $setting->privacyAndPolicyDetail }}
                                    </textarea>
-                                   @error('privacy_and_policy_detail')
+                                   @error('privacyAndPolicyDetail')
                                    <div class="text-danger">{{ $message }}</div>
                                @enderror
                             </div>
@@ -103,7 +106,7 @@
 
                                <div class="modal-footer">
                                <a href="{{url('/admin/settings')}}"  type="button" class="btn btn-secondary"> Close </a>
-                               <button type="submit"  id="button-save"  class="btn btn-primary">Update</button>
+                               <button type="submit"  id="button-save"  class="btn btn-primary">Update Setting</button>
                             </div><br>
 
 

@@ -20,18 +20,21 @@ class ProductFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'category_id' =>  Category::factory(),
-            'sub_category_id' =>  SubCategory::factory(),
+            'category_id' =>  rand(1,10),
+            'sub_category_id' =>  rand(1,10),
             'feature_image' => $this->faker->imageUrl(),
+            'images' => $this->faker->imageUrl(),
             'description' => $this->faker->paragraph(),
-            'actual_price' => $this->faker->numberBetween(200, 30000),
-            'discount' => $this->faker->numberBetween(1, 30),
-            'shipping_charge' => $this->faker->numberBetween(0, 10000),
+            'actual_price' => $this->faker->numberBetween(100, 1200),
+            'discount' => $this->faker->numberBetween(0, 20),
+            'saleprice' => $this->faker->numberBetween(80,1200),
+            'shipping_charge' => $this->faker->numberBetween(0, 50),
             'colour' => $this->faker->colorName(),
             'length' => $this->faker->randomDigit(1,50),
             'width' => $this->faker->randomDigit(1,50),
             'is_feature_product' => rand(0,1),
             'is_arrival_product' => rand(0,1),
+
         ];
     }
 }
