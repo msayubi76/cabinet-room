@@ -37,6 +37,7 @@
                                         <select name="category_id" class="form-control" id="category">
                                             <option value="">-- Select Category --</option>
                                             @foreach ($category as $catitem)
+
                                                 <option value="{{ $catitem->id }}"
                                                     {{ $product->category_id == $catitem->id ? 'selected' : '' }}>
                                                     {{ $catitem->name }}</option>
@@ -53,6 +54,7 @@
                                             <option>-- Select sub Category --</option>
 
                                             @foreach ($sub_categories as $sub_category)
+
                                                 <option value="{{ $sub_category->id }}" {{ $product->sub_category_id == $sub_category->id?' selected':'' }}>{{ $sub_category->name }}</option>
                                             @endforeach
 
@@ -99,7 +101,7 @@
                                         <label  for="">Multiple Images<span class="text-danger">*</span>
                                         </label>
                                         <input type="file" class="form-control" id="images" name="images[]"
-                                    placeholder="images"  multiple>
+                                    placeholder="images" :value="old('images')" multiple>
                                     @error('images')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -164,7 +166,7 @@
                                     <div class="col-md-4 mb-8">
                                         <label for="">Product width<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control input-default" id="edit_width"
-                                            placeholder="width" value="{{ $product->width }}"name="width">
+                                            placeholder="width" value="{{ $product->width }}" name="width">
                                             @error('width')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -231,7 +233,7 @@
                                 <div class="modal-footer">
                                     <a href="{{ url('/admin/products') }}" type="button" class="btn btn-secondary">
                                         Close </a>
-                                    <button type="submit" id="button-update" onclick="updateProduct(this)"
+                                    <button type="submit" id="button-update"
                                         class="btn btn-primary">Update Products</button>
                                 </div><br>
 

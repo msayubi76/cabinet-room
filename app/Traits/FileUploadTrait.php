@@ -59,6 +59,12 @@ trait FileUploadTrait {
 
     }
 
+    public function MultipleFilesDeleted($files, $model,$path=null){
+        $image_path = public_path('images/'.$path.'/'.$files, $model,);
+        if(File::exists($image_path)) {
+            File::delete($image_path);
+        }
+    }
 
 
 

@@ -6,6 +6,10 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
+                    @if(session('message'))
+                    <div class="alert alert-success"> {{ session('message') }}</div>
+                    @endif
+
                   @if ($errors->any())
             <div class="text-danger">
                 <strong>Whoops!</strong><br> There were some<strong> problems</strong> with your input.<br><br>

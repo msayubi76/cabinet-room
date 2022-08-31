@@ -151,7 +151,7 @@
 
 <div class="login">
 	<h2>Cabinet | Login</h2>
-      <!-- Session Status -->
+      {{-- <!-- Session Status -->
       <x-auth-session-status class="mb-4" :status="session('status')" />
 
       <!-- Validation Errors -->
@@ -159,7 +159,7 @@
 
       text-align: center;
           color: rgb(219, 0, 0);
-      margin-left: 15px;" />
+      margin-left: 15px;" /> --}}
 	<form method="post" action="{{ route('login') }}">
         @csrf
         <div class="form-group">
@@ -169,8 +169,8 @@
 
             text-align: center;
                 color: rgb(219, 0, 0);
-            margin-left: 30px;">
-            <strong>{{ $message }}</strong>
+            margin-left: 40px;">
+            {{ $message }}
         </span>
         @enderror
 		<input type="password" name="password" class="lock active" placeholder="Password" :value="old('password')"/>
@@ -180,8 +180,8 @@
 
             text-align: center;
             color: rgb(219, 0, 0);
-            margin-left: 30px;">
-            <strong>{{ $message }}</strong>
+            margin-left: 40px;">
+           {{ $message }}
         </span>
         @enderror
 

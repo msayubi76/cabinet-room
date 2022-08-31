@@ -126,8 +126,8 @@
                                 </div>
                                 <div class="col-md-4 mb-8">
                                     <label for="">Product Width <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control input-default" placeholder="Product Width" :value="old('Width')" name="width">
-                                    @error('Width')
+                                    <input type="text" class="form-control input-default" placeholder="Product Width" :value="old('width')" name="width">
+                                    @error('width')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                                 </div>

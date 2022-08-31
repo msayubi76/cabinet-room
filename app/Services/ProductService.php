@@ -60,8 +60,11 @@ class ProductService
             $data['feature_image_name'] =  $image_name;
             $data['feature_image'] = url('/storage/products/' . $image_name);
         endif;
+
         $product->update($data);
-        $image_name = FileUploadTrait::uploadMultipleFiles($request->images, $product, 'products');
+
+
+
 
         DB::commit();
         $response = ['status' => true, 'message' => 'Product updated successfully.', 'product' => $product];

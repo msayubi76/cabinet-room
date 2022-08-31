@@ -28,6 +28,7 @@ Route::get('/', function () {
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('dashboard', function () {
+
         return view('home');
     })->name('dashboard');
     Route::get('/', function () {

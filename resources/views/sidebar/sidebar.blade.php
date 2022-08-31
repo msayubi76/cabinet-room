@@ -89,7 +89,14 @@
                             <i class="icon-badge menu-icon"></i><span class="nav-text">Setting</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="{{ url('admin/settings')}}"> Setting</a></li>
+
+
+                            <li><a href="  {{url('admin/settings/1/edit')}}"> Setting</a></li>
+
+
+
+
+
                         </ul>
 
 

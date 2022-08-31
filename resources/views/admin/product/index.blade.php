@@ -35,7 +35,7 @@
 
 
                                 <tbody id="table_id">
-                                    @foreach ($product as $list)
+                                    @foreach ($products as $list)
                                         <tr id='row_{{$list->id}}'>
                                             <td>{{$list->name}}</td>
                                             <td>{{ $list->category?$list->category->name:''}}</td>

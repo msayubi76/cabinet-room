@@ -33,6 +33,7 @@ return new class extends Migration
             $table->boolean('is_arrival_product')->default('0');
             $table->string('currency')->default('Rs');
             $table->mediumText('short_description')->nullable();
+            $table->tinyInteger('is_active')->default('0');
 
 
             $table->foreignId('created_by')->nullable()->constrained('users')->cascadeOnDelete() ;

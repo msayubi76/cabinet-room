@@ -51,11 +51,17 @@
 
 
     <!-- Main CSS File -->
-    <link rel="stylesheet" href="{{ asset('website/assets/css/demo4.min.css') }}">
+
     <link rel="stylesheet" type="text/css" href="{{ asset('website/assets/vendor/fontawesome-free/css/all.min.css')}}">
+    <style>
+        .pagination{
+            float: right;
+            margin-top: 10px;
+        }
+</style>
 </head>
 
-<body>
+<body class="loaded sidebar-opened">
     {{-- front --}}
     <div class="page-wrapper">
 
@@ -102,7 +108,7 @@
     <script src="{{ asset('website/assets/js/plugins.min.js') }}"></script>
     <script src="{{ asset('website/assets/js/jquery.plugin.min.js') }}"></script>
     <script src="{{ asset('website/assets/js/jquery.countdown.min.js') }}"></script>
-
+    <script src="{{ asset('website/assets/js/nouislider.min.js') }}"></script>
     <script src="{{ asset('website/assets/js/jquery.appear.min.js') }}"></script>
     <script src="{{ asset('website/assets/js/jquery.ui.js') }}"></script>
      <script>

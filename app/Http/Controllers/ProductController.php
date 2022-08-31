@@ -16,8 +16,8 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $product = ProductService::getproducts();
-        return view('admin.product.index', compact('product'));
+        $products = ProductService::getproducts();
+        return view('admin.product.index', compact('products'));
     }
 
     public function create()
@@ -52,6 +52,9 @@ class ProductController extends Controller
 
     public function update(ProductRequest $request, Product $product)
     {
+
+
+
         try {
             $product_response = ProductService::update($request, $product);
             return redirect(route('products.index'))->with('success', 'Product updated successfully.');

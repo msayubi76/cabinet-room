@@ -52,7 +52,7 @@ return response()->json(['status' => false, 'message' => $th->getMessage()]);
 public function products()
 {
 try {
-    $products = Product::orderBy('id', 'DESC')->get();
+    $products = Product::orderBy('id', 'DESC')->paginate(30);
 
     $categories = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();
     $featuredProducts = Product::where('is_feature_product', '1')->get();
@@ -129,12 +129,13 @@ public function category($name)
 try {
 
      $categories = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();
+     $featuredProducts = Product::where('is_feature_product', '1')->get();
 
     $cart = Cart::where('user_id', Auth::id())->get();
     if (Category::where('name', $name)->exists()) {
     $category = Category::where('name', $name)->first();
-    $products = Product::where('category_id', $category->id)->get();
-    return view('website.category.product-with-category', compact('category', 'categories',  'products', 'cart'));
+    $products = Product::where('category_id', $category->id)->paginate(30);
+    return view('website.category.product-with-category', compact('category', 'categories',  'products','featuredProducts', 'cart'));
     } else {
     return redirect('/')->with('status', 'Category Dosent Exists');
     }
@@ -149,11 +150,12 @@ public function subCategory($name)
 try {
 
      $categories = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();
+     $featuredProducts = Product::where('is_feature_product', '1')->get();
     $cart = Cart::where('user_id', Auth::id())->get();
     if (SubCategory::where('name', $name)->exists()) {
     $subcategory = SubCategory::where('name', $name)->first();
-    $products = Product::where('sub_category_id', $subcategory->id)->get();
-    return view('website.category.product-with-subcategory', compact('subcategory', 'categories',  'products', 'cart'));
+    $products = Product::where('sub_category_id', $subcategory->id)->paginate(30);
+    return view('website.category.product-with-subcategory', compact('subcategory', 'categories',  'products','featuredProducts', 'cart'));
     } else {
     return redirect('/')->with('status', 'SubCategory Dosent Exists');
     }
@@ -166,7 +168,7 @@ return response()->json(['status' => false, 'message' => $th->getMessage()]);
 public function productList()
 {
 try {
-    $product = Product::select('name')->get();
+    $product = Product::select('name')->paginate(30);
     $data = [];
     foreach ($product as $product_list) {
     $data[] = $product_list['name'];

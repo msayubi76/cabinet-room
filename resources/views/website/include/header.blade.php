@@ -211,7 +211,8 @@
                     @foreach ($categories as $catlist )
                     <li>
                         <a href="{{url('category=' .$catlist->name)}}">{{$catlist->name}}</a>
-                        <div class="megamenu megamenu-fixed-width megamenu-3cols">
+
+                         <div class="megamenu megamenu-fixed-width megamenu-3cols">
                             <div class="row">
                                 <div class="col-lg-6">
 
@@ -249,10 +250,14 @@
                                 </div>
                             </div>
                         </div>
+
+
+
+
                         <!-- End .megamenu -->
                     </li>
                     @endforeach
-                    {{-- @foreach ($category as $catlist )
+                    {{-- @foreach ($categories as $catlist )
                     <li>
 
 

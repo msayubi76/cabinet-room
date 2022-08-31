@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('image_folder')->nullable();
             $table->string('image_name')->nullable();
             $table->tinyInteger('sort_order')->default('0');
-            
+
             $table->foreignId('created_by')->nullable()->constrained('users')->cascadeOnDelete() ;
             $table->foreignId('updated_by')->nullable()->constrained('users')->cascadeOnDelete() ;
             $table->foreignId('deleted_by')->nullable()->constrained('users')->cascadeOnDelete();
@@ -39,7 +39,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+
         Schema::dropIfExists('sub_categories');
     }
 };

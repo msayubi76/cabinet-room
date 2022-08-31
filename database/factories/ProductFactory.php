@@ -23,7 +23,7 @@ class ProductFactory extends Factory
             'category_id' =>  rand(1,10),
             'sub_category_id' =>  rand(1,10),
             'feature_image' => $this->faker->imageUrl(),
-            'images' => $this->faker->imageUrl(),
+
             'description' => $this->faker->paragraph(),
             'actual_price' => $this->faker->numberBetween(100, 1200),
             'discount' => $this->faker->numberBetween(0, 20),

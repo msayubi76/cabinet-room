@@ -47,9 +47,9 @@ class SettingController extends Controller
         try {
             $setting_response = SettingService::update($request, $setting);
 
-            return redirect(route('settings.index'))->with('success', 'Pages updated successfully.');
+            return redirect('admin/settings/1/edit')->with('success', 'Pages updated successfully.');
         } catch (\Throwable $th) {
-            return redirect(route('settings.index'))->with('error', $th->getMessage());
+            return redirect('admin/settings/1/edit')->with('error', $th->getMessage());
         }
     }
 }
