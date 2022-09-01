@@ -181,7 +181,7 @@
                             </table>
                             <hr class="mt-0 mb-3 pb-2" />
 
-                            <a href="{{ ('/shop') }}" class="btn btn-dark">Go Shop</a>
+                            <a href="{{ ('/products') }}" class="btn btn-dark">Go Shop</a>
                         </div>
                     </div>
                 </div><!-- End .tab-pane -->

@@ -122,7 +122,7 @@
                             </label>
                             <input type="file" class="form-control" id="category_image" name="category_image"
                             placeholder="category_image" :value="old('category_image')">
-                         <div id="profile_text" class="text-danger backend-error-text"></div>
+                         <div id="category_image_text" class="text-danger backend-error-text"></div>
 
                     </div>
 
@@ -212,25 +212,26 @@
 @endsection
 @section('scripts')
 <script>
-   category_image.onchange = evt => {
-       const [file] = category_image.files
-       console.log('file', file);
-       if (file) {
-           image_preview.src = URL.createObjectURL(file)
-       }
-   }
-   edit_category_image.onchange = evt => {
-       const [file] = edit_category_image.files
-       if (file) {
-           edit_image_preview.src = URL.createObjectURL(file)
-       }
-   }
+    category_image.onchange = evt => {
+            const [file] = category_image.files
+            console.log('file', file);
+            if (file) {
+                image_preview.src = URL.createObjectURL(file)
+            }
+        }
+        edit_category_image.onchange = evt => {
+            const [file] = edit_category_image.files
+            if (file) {
+                edit_image_preview.src = URL.createObjectURL(file)
+            }
+        }
 
 
    function submitCategory() {
        var form = $('#category-form')[0];
        $("#button-save").text('Loading...');
        const myFormData = new FormData(form);
+            const formDataObj = {};
 
        $.ajax({
            headers: {
@@ -367,20 +368,21 @@
    function openEditModal(category) {
 
        document.getElementById('edit_name').value = category.name;
-       document.getElementById('edit_is_active').value = category.is_active == '1' ? 'checked' : '';
+       $('#edit_is_active').val(category.is_active)
+            $('#edit_is_active').prop('checked', category.is_active == 1 ? true : false)
 
        document.getElementById('category_id').value = category.id;
        var image;
-       if (category.image_url) {
-           image = category.image_url;
-       } else {
-           image = base_url + '/storage/profile/62a7764c8bf14.jpg';
-       }
-       // document.getElementById('edit_profile').value = user.image_name;
-       $('#edit_image_preview').attr('src', image)
-       // document.getElementById('edit_image_preview').src = user.image_url;
+            if (category.image_url) {
+                image = category.image_url;
+            } else {
+                image = base_url + '/storage/categories/62a7764c8bf14.jpg';
+            }
 
-       $("#editcategory").modal()
+            // document.getElementById('edit_profile').value = user.image_name;
+            $('#edit_image_preview').attr('src', image)
+            // document.getElementById('edit_image_preview').src = user.image_url;
+            $("#editcategory").modal()
    }
 
    function editCategory() {
@@ -389,7 +391,9 @@
        category_id = form.category_id.value;
 
 
+
        const myFormData = new FormData(form);
+
 
        $.ajax({
            headers: {
@@ -430,8 +434,8 @@
                var string =
                    `<tr id="row_${data.category.id}">
           <td>${data.category.name}</td>
-          <td><img src="'${data.category.profile}'" alt=""></td>
-          <td>${(data.category.is_active == '1' ? "Hidden" : "Show")}</td>
+          <td><img src="${data.category.image_url}" height="50px" width="50px" alt=""></td>
+          <td class="text-center"><span class="badge badge-${ data.category.is_active == '1' ? 'success' : 'warning' }">${(data.category.is_active == '1' ? 'active' : 'not-active')}</td>
 
           <td>
               <div class="button-group">

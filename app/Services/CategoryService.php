@@ -41,8 +41,17 @@ class CategoryService
     }
 
     public static function update(CategoryRequest $request, Category $category){
+
         DB::beginTransaction();
+        if ($request->hasFile('category_image')) :
+            $image_name = FileUploadTrait::fileUpload($request->category_image, 'categories');
+
+            $data['folder_name'] = 'categories';
+            $data['image_name'] =  $image_name;
+            $data['image_url'] = url('/storage/categories/' . $image_name);
+        endif;
         $data = $request->validated();
+
 
         $category->update($data);
 

@@ -65,36 +65,40 @@
                     <h1 class="product-title">{!! $product->name !!}</h1>
 
                     <div class="product-nav">
+                        @foreach ($featuredProductsPrevese as $list)
                         <div class="product-prev">
-                            <a href="#">
+                            <a href="{{url('products/'.$list->id)}}">
                                 <span class="product-link"></span>
 
                                 <span class="product-popup">
                                     <span class="box-content">
                                         <img alt="product" width="150" height="150"
-                                            src="assets/images/products/product-3.jpg" style="padding-top: 0px;">
+                                            src="{{ $list->feature_image }}" style="padding-top: 0px;">
 
-                                        <span>Circled Ultimate 3D Speaker</span>
+                                        <span>{{$list->name}}</span>
                                     </span>
                                 </span>
                             </a>
                         </div>
-
+                        @endforeach
+                        @foreach ($latestPoductsNext as $list)
                         <div class="product-next">
-                            <a href="#">
+                            <a href="{{url('products/'.$list->id)}}">
                                 <span class="product-link"></span>
 
                                 <span class="product-popup">
                                     <span class="box-content">
                                         <img alt="product" width="150" height="150"
-                                            src="assets/images/products/product-4.jpg" style="padding-top: 0px;">
+                                            src="{{ $list->feature_image }}" style="padding-top: 0px;">
 
-                                        <span>Blue Backpack for the Young</span>
+                                        <span>{{$list->name}}</span>
                                     </span>
                                 </span>
                             </a>
                         </div>
+                        @endforeach
                     </div>
+
 
                     {{-- <div class="ratings-container">
                         <div class="product-ratings">
@@ -157,8 +161,7 @@
 
                         <a href="{{ url('cart') }}" class="btn btn-gray view-cart d-none">View cart</a>
                         @else
-                        <a class="btn btn-dark add-cart mr-2" title="Add to Cart" data-toggle="modal"
-                            data-target="#login">Add to
+                        <a class="btn btn-dark add-cart mr-2" title="Add to Cart" data-toggle="modal" data-target="#loginModal">Add to
                             Cart</a>
                         @endif
 
@@ -693,180 +696,69 @@
     </div>
     <!-- End .container -->
 
-    <div class="modal fade" id="login">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header row">
-                    <div class="col-md-8">
-                        <h5 class="modal-title"><b>Welcome! Please Login to continue.</b></h5>
-
-                        <p>New member <a href="" data-toggle="modal" data-target="#register"> Rigester</a> here..
-                        </p>
-                    </div>
-
-
-                    <div class="col-md-4">
-                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                        </button>
-                    </div>
-
-
-                </div>
-
-
-                <div class="modal-body">
-
-                    <form class="form-valide" id="subcategory-form" method="post" action="{{ route('login') }}"
-                        enctype="multipart/form-data">
-                        @csrf
-
-                        <div class="row">
-
-
-                            <div class="col-md-7">
-
-                                <input type="text" class="form-control" id="email" name="email"
-                                    placeholder="Enter email" :value="old('email')">
-                                @error('email')
-                                    <span class="text-danger" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                                <br>
-
-                                <input type="password" class="form-control" id="password" name="password"
-                                    placeholder="" :value="old('password')">
-                                @error('password')
-                                    <span class="text-danger text-uppercase" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="col-md-5">
-                                <button type="submit" id="button-save" class="btn  btn-secondary   text-center"
-                                    style="width: 100%;"> Sign In </button>
-                                <br>
-
-                                <button type="button" class="btn  my-4 social-icon social-facebook icon-facebook"
-                                    data-dismiss="modal" style="width: 100%; height:50px;">Facebook</button>
-
-
-                            </div>
-
-
-                        </div>
 
 
 
-                    </form>
-
-                </div>
-
-
-            </div>
+<!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style=" width: 400px;
+    margin: auto;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle"><b>Welcome! Please Login to continue.</b></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-    </div>
-
-
-    <div class="modal fade" id="register">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header row">
-                    <div class="col-md-8">
-                        <h5 class="modal-title"><b>Welcome! Please Login to continue.</b></h5>
-
-                        <p>New member <a href=""> Rigester</a> here..</p>
-                    </div>
-
-
-                    <div class="col-md-4">
-                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                        </button>
-                    </div>
-
-
-                </div>
-
-
-                <div class="modal-body">
-
-                    <form class="form-valide" method="post" action="{{ route('register') }}"
-                        enctype="multipart/form-data">
-                        @csrf
-
-                        <div class="row">
-                            <div class="col-md-7">
-                                <input type="text" class="form-control" id="fist_name" name="fist_name"
-                                    placeholder="Enter first name" :value="old('fist_name')">
-                                @error('fist_name')
-                                    <span class="text-danger" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="col-md-5">
-
-
-                                <input type="last_name" class="form-control" id="last_name" name="last_name"
-                                    placeholder=" Entere last name" :value="old('last_name')">
-                                @error('last_name')
-                                    <span class="text-danger" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
-                            <div class="col-md-7">
-
-                                <input type="text" class="form-control" id="email" name="email"
-                                    placeholder="Enter email" :value="old('name')">
-                                @error('email')
-                                    <span class="text-danger" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                                <br>
-
-                                <input type="password" class="form-control" id="password" name="password"
-                                    placeholder="" :value="old('password')">
-                                @error('password')
-                                    <span class="text-danger" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-
-                                <input type="password" class="form-control" id="password" name="password_confirmation"
-                                    placeholder="" :value="old('password')">
-                                @error('confirmed')
-                                    <span class="text-danger" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="col-md-5">
-                                <button type="submit" id="button-save" class="btn  btn-secondary   text-center"
-                                    style="width: 100%;"> Sign Up </button>
-                                <br>
-
-                                <button type="button" class="btn  my-4 social-icon social-facebook icon-facebook"
-                                    data-dismiss="modal" style="width: 100%; height:50px;">Facebook</button>
-
-
-                            </div>
-
-
-                        </div>
-
-
-
-                    </form>
-
-                </div>
-
-
+        <div class="modal-body">
+            <div class="form-title text-center">
+              <h4>Login</h4>
             </div>
-        </div>
+            <div class="d-flex flex-column text-center">
+                <form class="form-valide" id="subcategory-form" method="post" action="{{ route('login') }}"
+                enctype="multipart/form-data">
+                @csrf
+                <div class="form-group">
+                  <input type="email" name="email" class="form-control" id="email1"placeholder="Your email address...">
+                  @error('email')
+                  <span class="text-danger" role="alert">
+                      {{ $message }}
+                  </span>
+              @enderror
+                </div>
+                <div class="form-group">
+                  <input type="password" name="password" class="form-control" id="password1" placeholder="Your password...">
+                  @error('password')
+                  <span class="text-danger " role="alert">
+                    {{ $message }}
+                  </span>
+              @enderror
+                </div>
+                <button type="submit" class="btn btn-info btn-block btn-round">Login</button>
+              </form>
+
+              <div class="text-center text-muted delimiter">or use a social network</div>
+              <div class="d-flex justify-content-center social-buttons">
+                <button type="button" class="btn btn-gray btn-round" data-toggle="tooltip" data-placement="top" title="Twitter">
+                  <i class="fab fa-twitter"></i>
+                </button>
+                <button type="button" class="btn btn-gray btn-round" data-toggle="tooltip" data-placement="top" title="Facebook">
+                  <i class="fab fa-facebook"></i>
+                </button>
+                <button type="button" class="btn btn-gray btn-round" data-toggle="tooltip" data-placement="top" title="Linkedin">
+                  <i class="fab fa-linkedin"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <div class="signup-section">Not a member yet? <a href="{{ ('') }}" class="text-info"> Sign Up</a>.</div>
+          </div>
+      </div>
     </div>
+  </div>
+
+
 @endsection
 @section('scripts')
     <script>
@@ -900,3 +792,4 @@
         });
     </script>
 @endsection
+

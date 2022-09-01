@@ -202,7 +202,7 @@
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
 
                                 <img id="edit_image_preview" src="{{ url('images/profile/62a7764c8bf14.jpg') }}"
-                                    alt="" width="120" class="rounded-circle border border-dark" />
+                                    alt="" width="120" height="100" class="rounded-circle border border-dark" />
                             </div>
                         </div>
                         <div class="row">
@@ -489,17 +489,17 @@
                     var string =
                         `<tr id="row_${data.sub_category.id}">
                 <td>${data.sub_category.name}</td>
-                <td>${data.subcategory.category_id}</td>
-                <td><img src="'${data.sub_category.image_url}'" alt=""></td>
-                <td>${(data.sub_category.is_active == '1' ? "Hidden" : "Show")}</td>
+                <td>${data.sub_category.category.name}</td>
+                <td><img src="${data.sub_category.image_url}" alt="" height="50px" width="50px"></td>
+                <td class="text-center"><span class="badge badge-${ data.sub_category.is_active == '1' ? 'success' : 'warning' }">${(data.sub_category.is_active == '1' ? 'active' : 'not-active')}</td>
 
-                <td>
+<td>
                     <div class="button-group">
                         <div class="btn-group">
                             <div class="btn-group"><button id="btnGroupDrop${data.sub_category.id}" type="button"
                                     class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button>
                                 <div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal(${data.sub_category})">View</a>
-                                    <a class="dropdown-item" href="javascript:;" onclick='openEditModal(${CATRGORY})'>Edit</a><a
+                                    <a class="dropdown-item" href="javascript:;" onclick='openEditModal(${SUBCATEGORY})'>Edit</a><a
                                         class="dropdown-item" href="javascript:openDeleteDialog(${data.sub_category.id});">Delete</a></div>
                             </div>
                         </div>

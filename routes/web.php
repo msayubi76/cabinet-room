@@ -54,7 +54,7 @@ Route::prefix('admin')->middleware(['isAdmin','auth'])->group(function () {
     Route::resource('banners', BannerController::class);
 
 
-     Route::get('orders/{id}',[OrderController::class,'index']);
+     Route::get('orders',[OrderController::class,'index']);
     Route::get('delete/{id}',[MediaController::class,'destroy']);
 
     Route::any('getSubCategory', [ProductController::class, 'getSubCategory'])->name('getSubCategory');

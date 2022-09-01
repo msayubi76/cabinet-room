@@ -13,7 +13,7 @@ class OrderController extends Controller
     {
     try {
 
-        $orders = Order::all();
+        $orders = Order::orderBy('id', 'DESC')->get();
         // $order_detail = OrderDetail::where('order_id',$orders->id)->get();
         // dd($order_detail);
         return view('admin.orders.index', compact( 'orders'));

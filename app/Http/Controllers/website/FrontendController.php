@@ -73,9 +73,11 @@ try {
     $latestPoductsFooter = Product::orderBy('id','DESC')->limit(3)->get();
     $arrivialProductsFooter = Product::where('is_arrival_product', '1')->limit(3)->get();
      $categories = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();
+     $featuredProductsPrevese = Product::where('is_feature_product', '1')->limit(1)->get();
+    $latestPoductsNext = Product::orderBy('id','DESC')->limit(1)->get();
 
     $cart = Cart::where('user_id', Auth::id())->get();
-    return view('website.pages.single-product', compact('categories',  'product', 'relatedProducts', 'featuredProductsFooter', 'arrivialProductsFooter','cart','latestPoductsFooter'));
+    return view('website.pages.single-product', compact('categories',  'product', 'relatedProducts', 'featuredProductsFooter', 'arrivialProductsFooter','cart','latestPoductsFooter','featuredProductsPrevese','latestPoductsNext'));
 }
  catch (\Throwable $th) {
 return response()->json(['status' => false, 'message' => $th->getMessage()]);
