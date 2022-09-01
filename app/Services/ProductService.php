@@ -52,6 +52,7 @@ class ProductService
     }
 
     public static function update(ProductRequest $request, Product $product){
+
         DB::beginTransaction();
         $data = $request->validated();
         if ($request->hasFile('feature_image')) :
@@ -63,7 +64,9 @@ class ProductService
 
         $product->update($data);
 
-
+        if ($request->hasFile('images')) :
+            $image_name = FileUploadTrait::uploadMultipleFiles($request->images, $product, 'products');
+        endif;
 
 
         DB::commit();

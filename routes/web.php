@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\BannerController;
 use PHPUnit\TextUI\XmlConfiguration\Group;
@@ -26,7 +27,7 @@ Route::get('/', function () {
 
 
 
-Route::prefix('admin')->middleware(['auth'])->group(function () {
+Route::prefix('admin')->middleware(['isAdmin','auth'])->group(function () {
     Route::get('dashboard', function () {
 
         return view('home');
@@ -53,7 +54,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::resource('banners', BannerController::class);
 
 
-    Route::get('orders',[OrderController::class,'index']);
+     Route::get('orders/{id}',[OrderController::class,'index']);
+    Route::get('delete/{id}',[MediaController::class,'destroy']);
 
     Route::any('getSubCategory', [ProductController::class, 'getSubCategory'])->name('getSubCategory');
 });

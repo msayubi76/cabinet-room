@@ -132,7 +132,8 @@
                         <h3 class="account-sub-title d-none d-md-block"><i
                                 class="sicon-social-dropbox align-middle mr-3"></i>Orders</h3>
                         <div class="order-table-container text-center">
-                            <table class="table table-order text-left">
+                            <h4>No Order Available yet</h4>
+                            {{-- <table class="table table-order text-left">
                                 <thead>
                                     <tr>
                                         <th class="order-id">ORDER</th>
@@ -146,42 +147,14 @@
                                 </thead>
                                 <tbody>
 
-                                  @foreach ($order_detail as $orderlist)
 
+                                    No Order Available yet
 
-
-                                    <tr>
-                                        <td >
-                                            {{ $orderlist->products->name }}
-
-                                        </td>
-                                        <td >
-                                            {{ $orderlist->orders->order_status }}
-
-                                        </td>
-                                        <td >
-                                            {{ $orderlist->quantity }}
-
-                                        </td>
-                                        <td >
-                                            {{ $orderlist->price }}
-
-                                        </td>
-
-
-
-                                        <td >
-                                            {{ date('d-m-y',strtotime($orderlist->created_at))  }}
-
-                                        </td>
-
-                                    </tr>
-                                    @endforeach
                                 </tbody>
-                            </table>
+                            </table> --}}
                             <hr class="mt-0 mb-3 pb-2" />
 
-                            <a href="{{ ('/shop') }}" class="btn btn-dark">Go Shop</a>
+                            <a href="{{ ('/products') }}" class="btn btn-dark">Go Shop</a>
                         </div>
                     </div>
                 </div><!-- End .tab-pane -->

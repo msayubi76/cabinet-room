@@ -27,7 +27,7 @@
                                    <a href="{{ url('admin/dashboard') }}">
 
                                    @elseif (Auth::user()->type == 'customer')
-                                   <a href="{{ url('user-dashboard') }}">
+                                   <a href="{{ url('user-dashboard/'.Auth::id()) }}">
 
                                @else
                                    <a href="{{ url('login') }}">

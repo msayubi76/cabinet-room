@@ -38,5 +38,5 @@ Route::middleware(['auth'])->group(function () {
     Route::post('update', [CartController::class, 'update']);
     Route::get('delete', [CartController::class, 'delete']);
 
-    Route::get('user-dashboard', [UserDashboardController::class, 'index']);
+    Route::get('user-dashboard/{id?}', [UserDashboardController::class, 'index']);
 });

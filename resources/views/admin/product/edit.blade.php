@@ -93,7 +93,7 @@
                                      <div class="col-md-6">
                                         <div class="mb-8">
                                             @foreach ($product->images as $image)
-                                            <i class="fa-solid fa-xmark"></i> <img src="{{ $image->url }}" width="50px"
+                                            <i class="fa-solid fa-xmark"></i><a href=""></a> <img src="{{ $image->url }}" width="50px"
                                                 height="50px"/>
 
                                              @endforeach
