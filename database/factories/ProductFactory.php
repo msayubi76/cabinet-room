@@ -17,7 +17,14 @@ class ProductFactory extends Factory
      * @return array<string, mixed>
      */
     public function definition()
-    {
+    { 
+        $actual_price = rand(6000, 500000);
+        $discount = rand(0,40);
+
+        $percent_value = ($actual_price * $discount)/100;
+
+        $sale_price = $actual_price - $percent_value;
+        
         return [
             'name' => $this->faker->name(),
             'category_id' =>  rand(1,10),
@@ -25,9 +32,9 @@ class ProductFactory extends Factory
             'feature_image' => $this->faker->imageUrl(),
 
             'description' => $this->faker->paragraph(),
-            'actual_price' => $this->faker->numberBetween(100, 1200),
-            'discount' => $this->faker->numberBetween(0, 20),
-            'saleprice' => $this->faker->numberBetween(80,1200),
+            'actual_price' => $actual_price,
+            'discount' => $discount,
+            'saleprice' => $sale_price,
             'shipping_charge' => $this->faker->numberBetween(0, 50),
             'colour' => $this->faker->colorName(),
             'length' => $this->faker->randomDigit(1,50),
