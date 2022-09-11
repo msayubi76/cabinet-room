@@ -51,7 +51,9 @@ class SubCategoryService {
             $data['image_name'] =  $image_name;
             $data['image_url'] = url('/storage/sub_categories/' . $image_name);
         endif;
+        $data['is_active'] =  $request->is_active == true ? '1' : '0';
         $data['category_d'] = $request->category_id;
+
 
         $subcategory->update($data);
         $subcategory->load(['category']);

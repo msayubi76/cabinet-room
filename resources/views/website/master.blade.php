@@ -48,6 +48,7 @@
 
     <link rel="stylesheet" href="{{ asset('website/assets/css/demo4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('website/assets/css/jquery.ui.css') }}">
+    <link href="{{ url('admin-assets/plugins/sweetalert/css/sweetalert.css') }}" rel="stylesheet">
 
 
     <!-- Main CSS File -->
@@ -110,6 +111,7 @@
     <script src="{{ asset('website/assets/js/jquery.countdown.min.js') }}"></script>
     <script src="{{ asset('website/assets/js/nouislider.min.js') }}"></script>
     <script src="{{ asset('website/assets/js/jquery.appear.min.js') }}"></script>
+    <script src="{{ url('admin-assets/plugins/sweetalert/js/sweetalert.min.js') }}"></script>
     <script src="{{ asset('website/assets/js/jquery.ui.js') }}"></script>
      <script>
 

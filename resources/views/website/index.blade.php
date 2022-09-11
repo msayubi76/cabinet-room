@@ -146,7 +146,7 @@
                             <a href="" class="product-category">{{$featuredlist->category?$featuredlist->category->name:''}}</a>
                         </div>
                         <h3 class="product-title">
-                            <a href="{{url('products/'.$featuredlist->id)}}">{{$featuredlist->name}}</a>
+                            <a href="{{url('product/'.$featuredlist->id)}}">{{$featuredlist->name}}</a>
                         </h3>
                         <div class="ratings-container">
                             <div class="product-ratings">
@@ -453,7 +453,7 @@
                         </figure>
 
                         <div class="product-details">
-                            <h3 class="product-title"> <a href="{{url('products/'.$featuredlist->id)}}"> {{$featuredlist->name}}</a>
+                            <h3 class="product-title"> <a href="{{url('product/'.$featuredlist->id)}}"> {{$featuredlist->name}}</a>
                             </h3>
 
                             <div class="ratings-container">
@@ -488,7 +488,7 @@
                     @foreach ($arrivialProductsFooter as $arriviallist)
                     <div class="product-default left-details product-widget">
                         <figure>
-                            <a href="{{url('products/'.$arriviallist->id)}}">
+                            <a href="{{url('product/'.$arriviallist->id)}}">
                                 <img src="{{ $arriviallist->feature_image }}" width="84" height="84" alt="product">
                                 <img src="{{ $arriviallist->feature_image }}" width="84" height="84" alt="product">
                             </a>
@@ -532,7 +532,7 @@
                     @foreach ($latestrPoductsFooter as $list)
                     <div class="product-default left-details product-widget">
                         <figure>
-                            <a href="{{url('products/'.$list->id)}}">
+                            <a href="{{url('product/'.$list->id)}}">
                                 <img src="{{ $list->feature_image }}" width="84" height="84" alt="product">
                                 <img src="{{ $list->feature_image }}" width="84" height="84" alt="product">
                             </a>
@@ -577,7 +577,7 @@
                     @foreach ($latestrPoductsFooter as $list)
                     <div class="product-default left-details product-widget">
                         <figure>
-                            <a href="{{url('products/'.$list->id)}}">
+                            <a href="{{url('product/'.$list->id)}}">
                                 <img src="{{ $list->feature_image }}" width="84" height="84" alt="product">
                                 <img src="{{ $list->feature_image }}" width="84" height="84" alt="product">
                             </a>

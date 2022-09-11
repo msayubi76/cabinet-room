@@ -103,70 +103,88 @@
                                 </div>
                             </div>
 
-
-
-                            <div class="select-custom">
-                                <label>State / County <abbr class="required" title="required">*</abbr></label>
-                                <input type="text" name="country" class="form-control" value="{{ old('country') }}" />
-                                @error('country')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>State / County <abbr class="required" title="required">*</abbr></label>
+                                        <input type="text" name="country" class="form-control" value="{{ old('country') }}" />
+                                        @error('country')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Street address
+                                            <abbr class="required" title="required">*</abbr></label>
+                                        <input type="text" name="address" class="form-control"
+                                            placeholder="House number and street name" value="{{ old('address') }}" />
+                                        @error('address')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="form-group mb-1 pb-2">
-                                <label>Street address
-                                    <abbr class="required" title="required">*</abbr></label>
-                                <input type="text" name="address" class="form-control"
-                                    placeholder="House number and street name" value="{{ old('address') }}" />
-                                @error('address')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Town / City
+                                            <abbr class="required" title="required">*</abbr></label>
+                                        <input type="text" name="city" class="form-control"
+                                            value="{{ old('city') }}" />
+                                        @error('city')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Postcode / Zip
+                                            <abbr class="required" title="required">*</abbr></label>
+                                        <input type="text" name="post_code" class="form-control"
+                                            value="{{ old('post_code') }}" />
+                                        @error('post_code')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Phone <abbr class="required" title="required">*</abbr></label>
+                                        <input type="tel" name="phone_number" class="form-control"
+                                            value="{{ old('phone_number') }}" />
+                                        @error('phone_number')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Email address
+                                            <abbr class="required" title="required">*</abbr></label>
+                                        <input type="email" name="email" class="form-control"
+                                            value="{{ old('email') }}" />
+                                        @error('email')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+
+
 
                             {{-- <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Apartment, suite, unite, etc. (optional)" required />
                             </div> --}}
 
-                            <div class="form-group">
-                                <label>Town / City
-                                    <abbr class="required" title="required">*</abbr></label>
-                                <input type="text" name="city" class="form-control"
-                                    value="{{ old('city') }}" />
-                                @error('city')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
 
 
-
-                            <div class="form-group">
-                                <label>Postcode / Zip
-                                    <abbr class="required" title="required">*</abbr></label>
-                                <input type="text" name="post_code" class="form-control"
-                                    value="{{ old('post_code') }}" />
-                                @error('post_code')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label>Phone <abbr class="required" title="required">*</abbr></label>
-                                <input type="tel" name="phone_number" class="form-control"
-                                    value="{{ old('phone_number') }}" />
-                                @error('phone_number')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label>Email address
-                                    <abbr class="required" title="required">*</abbr></label>
-                                <input type="email" name="email" class="form-control"
-                                    value="{{ old('email') }}" />
-                                @error('email')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
 
 
 
@@ -236,7 +254,7 @@
                                     <div class="form-group form-group-custom-control">
                                         <div class="custom-control custom-radio d-flex">
                                             <input type="radio" class="custom-control-input" name="radio" checked />
-                                            <label class="custom-control-label">payment Delivery</label>
+                                            <label class="custom-control-label">Home Delivery</label>
                                         </div>
                                         <!-- End .custom-checkbox -->
                                     </div>

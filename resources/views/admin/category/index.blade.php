@@ -183,7 +183,8 @@
                             <label class="form-label" for="name">Image <span class="text-danger">*</span>
                             </label>
                             <input type="file" class="form-control" id="edit_category_image"
-                            name="category_image" placeholder="Enter a name.." value="">
+                            name="category_image" placeholder="Enter a name.." :value="old('category_image')">
+
                          <div id="edit_category_image_text" class="text-danger backend-error-text"></div>
 
                     </div>
@@ -368,8 +369,15 @@
    function openEditModal(category) {
 
        document.getElementById('edit_name').value = category.name;
-       $('#edit_is_active').val(category.is_active)
-            $('#edit_is_active').prop('checked', category.is_active == 1 ? true : false)
+       // $('#edit_is_active').val(category.is_active)
+            // $('#edit_is_active').prop('checked', category.is_active == 1 ? true : false)
+
+            if($('input[type=checkbox]').is(':checked')) {
+
+$('#edit_is_active').prop('checked', true);
+} else {
+$('#edit_is_active').prop('checked',false);
+}
 
        document.getElementById('category_id').value = category.id;
        var image;

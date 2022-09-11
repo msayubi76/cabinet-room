@@ -26,6 +26,7 @@ class CategoryRequest extends FormRequest
         return [
             'name' => ['required'],
             'category_image' => ['nullable', 'mimes:jpg,bmp,png'],
+            'is_active' => ['nullable'],
             'sort_order' => ['nullable'],
         ];
     }

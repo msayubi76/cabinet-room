@@ -106,18 +106,9 @@
 	</div>
 </form>
 	<div class="login-bottom">
-		<h3>Sign Up</h3>
-		<p>With your social media account</p>
+	
 	 <div class="social-icons">
-		<div class="button">
-			<a class="tw" href="#"> <i class="anc-tw"> </i> <span>Twitter</span>
-			<div class="clear"> </div></a>
-			<a class="fa" href="#"> <i class="anc-fa"> </i> <span>Facebook</span>
-			<div class="clear"> </div></a>
-			<a class="go" href="#"><i class="anc-go"> </i><span>Google+</span>
-			<div class="clear"> </div></a>
-				<div class="clear"> </div>
-		</div>
+		
 		<h4>If you have already account? <a  href="{{ route('login') }}"></a></h4>
 		<div class="reg-bwn"><a href="{{ route('login') }}">Sing In</a></div>
 	</div>
@@ -132,9 +123,6 @@ data-ad-format="auto"></ins> <script>(adsbygoogle = window.adsbygoogle || []).pu
 <script async src="{{ asset('form-assets/js/adsbygoogle.js') }}"></script>
 				</div>
 
-<div class="copyright">
-	<p>Template by <a href="https://www.designmaz.net/" target="_blank"> DesignMaz </a></p>
-</div>
 <!--login end here-->
 </body>
 </html>

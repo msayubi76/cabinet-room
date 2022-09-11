@@ -71,9 +71,8 @@
                         <p>
                             From your account dashboard you can view your
                             <a class="btn btn-link link-to-tab" href="#order">recent orders</a>,
-                            manage your
-                            <a class="btn btn-link link-to-tab" href="#address">shipping and billing
-                                addresses</a>, and
+
+                            and
                             <a class="btn btn-link link-to-tab" href="#edit">edit your password and account
                                 details.</a>
                         </p>

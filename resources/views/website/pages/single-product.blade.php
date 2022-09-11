@@ -30,18 +30,18 @@
                         </div>
 
                         <div class="product-single-carousel owl-carousel owl-theme show-nav-hover">
-                            @foreach ($product->images as $image)
+
                                 <div class="product-item">
 
 
 
 
-                                    <img class="product-single-image" src="{{ $image->url }}"
-                                        data-zoom-image="{{ $image->url }}" width="468" height="468"
+                                    <img class="product-single-image" src="{{ $product->feature_image }}"
+                                        data-zoom-image="{{ $product->feature_image }}" width="468" height="468"
                                         alt="product" />
 
                                 </div>
-                            @endforeach
+
 
                         </div>
                         <!-- End .product-single-carousel -->
@@ -64,40 +64,7 @@
                 <div class="col-lg-7 col-md-6 product-single-details">
                     <h1 class="product-title">{!! $product->name !!}</h1>
 
-                    <div class="product-nav">
-                        @foreach ($featuredProductsPrevese as $list)
-                        <div class="product-prev">
-                            <a href="{{url('products/'.$list->id)}}">
-                                <span class="product-link"></span>
-
-                                <span class="product-popup">
-                                    <span class="box-content">
-                                        <img alt="product" width="150" height="150"
-                                            src="{{ $list->feature_image }}" style="padding-top: 0px;">
-
-                                        <span>{{$list->name}}</span>
-                                    </span>
-                                </span>
-                            </a>
-                        </div>
-                        @endforeach
-                        @foreach ($latestPoductsNext as $list)
-                        <div class="product-next">
-                            <a href="{{url('products/'.$list->id)}}">
-                                <span class="product-link"></span>
-
-                                <span class="product-popup">
-                                    <span class="box-content">
-                                        <img alt="product" width="150" height="150"
-                                            src="{{ $list->feature_image }}" style="padding-top: 0px;">
-
-                                        <span>{{$list->name}}</span>
-                                    </span>
-                                </span>
-                            </a>
-                        </div>
-                        @endforeach
-                    </div>
+                  
 
 
                     {{-- <div class="ratings-container">
@@ -528,7 +495,7 @@
                     </figure>
 
                     <div class="product-details">
-                        <h3 class="product-title"> <a href="{{url('products/'.$featuredlist->id)}}"> {{$featuredlist->name}}</a>
+                        <h3 class="product-title"> <a href="{{url('product/'.$featuredlist->id)}}"> {{$featuredlist->name}}</a>
                         </h3>
 
                         <div class="ratings-container">
@@ -563,7 +530,7 @@
                 @foreach ($arrivialProductsFooter as $arriviallist)
                 <div class="product-default left-details product-widget">
                     <figure>
-                        <a href="{{url('products/'.$arriviallist->id)}}">
+                        <a href="{{url('product/'.$arriviallist->id)}}">
                             <img src="{{ $arriviallist->feature_image }}" width="84" height="84" alt="product">
                             <img src="{{ $arriviallist->feature_image }}" width="84" height="84" alt="product">
                         </a>
@@ -607,7 +574,7 @@
                 @foreach ($latestPoductsFooter as $list)
                 <div class="product-default left-details product-widget">
                     <figure>
-                        <a href="{{url('products/'.$list->id)}}">
+                        <a href="{{url('product/'.$list->id)}}">
                             <img src="{{ $list->feature_image }}" width="84" height="84" alt="product">
                             <img src="{{ $list->feature_image }}" width="84" height="84" alt="product">
                         </a>
@@ -652,7 +619,7 @@
                 @foreach ($latestPoductsFooter as $list)
                 <div class="product-default left-details product-widget">
                     <figure>
-                        <a href="{{url('products/'.$list->id)}}">
+                        <a href="{{url('product/'.$list->id)}}">
                             <img src="{{ $list->feature_image }}" width="84" height="84" alt="product">
                             <img src="{{ $list->feature_image }}" width="84" height="84" alt="product">
                         </a>
@@ -752,7 +719,7 @@
             </div>
           </div>
           <div class="modal-footer d-flex justify-content-center">
-            <div class="signup-section">Not a member yet? <a href="{{ ('') }}" class="text-info"> Sign Up</a>.</div>
+            <div class="signup-section">Not a member yet? <a href="{{ url('register') }}" class="text-info"> Sign Up</a>.</div>
           </div>
       </div>
     </div>

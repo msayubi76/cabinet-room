@@ -1,6 +1,6 @@
 
 @extends('website.master')
-@section('title' , "Products with SubCategory")
+@section('title' , "shop")
 
 
 @section('content')
@@ -78,30 +78,7 @@
             </div>
             <!-- End .toolbox-item -->
 
-            <div class="toolbox-item toolbox-show ml-auto ml-lg-0">
-                <label>Show:</label>
 
-                <div class="select-custom">
-                    <select name="count" class="form-control">
-                        <option value="20">20</option>
-                        <option value="30">30</option>
-                        <option value="40">40</option>
-                        <option value="50">50</option>
-                    </select>
-                </div>
-                <!-- End .select-custom -->
-            </div>
-            <!-- End .toolbox-item -->
-
-            <div class="toolbox-item layout-modes">
-                <a href="category.html" class="layout-btn btn-grid active" title="Grid">
-                    <i class="fa fa-th"></i>
-                </a>
-                <a href="category-list.html" class="layout-btn" title="List">
-                    <i class="fa fa-list-ul"></i>
-                </a>
-            </div>
-            <!-- End .layout-modes -->
         </nav>
 
         <div class="row main-content-wrap">
@@ -143,7 +120,7 @@
                                 </div>
                                 <!-- End .product-container -->
 
-                                <div class="price-box">
+                                <div class="price-box" style="width: max-content;">
                                     @if ($productlist->discount > 0)
                                     <span class="old-price">{{$productlist->currency}}{{$productlist->actual_price}}</span>
                                     <span class="product-price">{{$productlist->currency}}{{$productlist->saleprice }}</span>
@@ -172,38 +149,29 @@
 
                 </div>
                 <!-- End .row -->
+                <div class="text-center">
+                <nav class="toolbox toolbox-pagination" style="align-content: center;">
 
-                <nav class="toolbox toolbox-pagination">
-                    <div class="toolbox-item toolbox-show">
-                        <label>Show:</label>
 
-                        <div class="select-custom">
-                            <select name="count" class="form-control">
-                                <option value="12">12</option>
-                                <option value="24">24</option>
-                                <option value="36">36</option>
-                            </select>
-                        </div>
-                        <!-- End .select-custom -->
-                    </div>
-                    <!-- End .toolbox-item -->
+                        <ul class="pagination toolbox-item" >
+                            {{ $products->links() }}
+                            {{-- <li class="page-item disabled">
+                                <a class="page-link page-link-btn" href="#"><i class="icon-angle-left"></i></a>
+                            </li>
+                            <li class="page-item active">
+                                <a class="page-link" href="#"> <span class="sr-only"></span></a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#"></a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><span class="page-link">...</span></li>
+                            <li class="page-item">
+                                <a class="page-link page-link-btn" href="#"><i class="icon-angle-right"></i></a>
+                            </li> --}}
+                        </ul>
 
-                    <ul class="pagination toolbox-item">
-                        {{ $products->links() }}
-                        {{-- <li class="page-item disabled">
-                            <a class="page-link page-link-btn" href="#"><i class="icon-angle-left"></i></a>
-                        </li>
-                        <li class="page-item active">
-                            <a class="page-link" href="#"> <span class="sr-only"></span></a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#"></a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><span class="page-link">...</span></li>
-                        <li class="page-item">
-                            <a class="page-link page-link-btn" href="#"><i class="icon-angle-right"></i></a>
-                        </li> --}}
-                    </ul>
+
                 </nav>
+            </div>
             </div>
             <!-- End .col-lg-9 -->
 
@@ -298,10 +266,7 @@
                     <!-- End .widget -->
 
                     <div class="widget widget-block">
-                        <h3 class="widget-title">Custom HTML Block</h3>
-                        <h5>This is a custom sub-title.</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non placerat mi. Etiam non tellus </p>
-                    </div>
+                           </div>
                     <!-- End .widget -->
                 </div>
                 <!-- End .sidebar-wrapper -->
@@ -316,4 +281,3 @@
     <!-- margin -->
 
 @endsection
-

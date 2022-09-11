@@ -18,6 +18,7 @@
             </nav>
 
             <h1>My Account</h1>
+
         </div>
     </div>
 
@@ -62,18 +63,19 @@
             <div class="col-lg-9 order-lg-last order-1 tab-content">
                 <div class="tab-pane fade show active" id="dashboard" role="tabpanel">
                     <div class="dashboard-content">
+                         @if (session('message'))
+            <div class="alert alert-success"> <h6>{{ session('message') }}</h6></div>
+        @endif
                         <p>
-                            Hello <strong class="text-dark">Editor</strong> (not
-                            <strong class="text-dark">Editor</strong>?
+                            Hello <strong class="text-dark">Customer</strong> (
                             <a href="{{ route('logout')}}" class="btn btn-link ">Log out</a>)
                         </p>
 
                         <p>
                             From your account dashboard you can view your
                             <a class="btn btn-link link-to-tab" href="#order">recent orders</a>,
-                            manage your
-                            <a class="btn btn-link link-to-tab" href="#address">shipping and billing
-                                addresses</a>, and
+
+                            and
                             <a class="btn btn-link link-to-tab" href="#edit">edit your password and account
                                 details.</a>
                         </p>
@@ -138,7 +140,7 @@
                                         <th class="order-id">ORDER</th>
 
                                         <th class="order-status">STATUS</th>
-                                        <th class="order-status">Qantity</th>
+                                        <th class="order-status">Delivery</th>
                                         <th class="order-price">TOTAL</th>
                                         <th class="order-date">DATE</th>
                                         <th class="order-action">ACTIONS</th>
@@ -146,27 +148,34 @@
                                 </thead>
                                 <tbody>
 
-                                  @foreach ($order_detail as $orderlist)
+                                  @foreach ($orders as $orderlist)
 
 
 
                                     <tr>
                                         <td >
-                                            {{ $orderlist->products->name }}
+                                            {{ $orderlist->shipping->first_name }}   {{ $orderlist->shipping->last_name }}
+
+
+                                        </td>
+                                        <td class="text-center">
+                                            <span
+                                               class="badge badge-{{ $orderlist->order_status == 'padding' ? 'success' : 'warning' }}">
+                                            {{ $orderlist->order_status == 'padding' ? 'active' : 'not-active' }}</span>
+                                         </td>
+
+                                        <td >
+                                            {{ $orderlist->payments->method }}
 
                                         </td>
                                         <td >
-                                            {{ $orderlist->orders->order_status }}
+                                            {{ $orderlist->payments->payment }}
 
                                         </td>
-                                        <td >
-                                            {{ $orderlist->quantity }}
 
-                                        </td>
-                                        <td >
-                                            {{ $orderlist->price }}
 
-                                        </td>
+
+
 
 
 
@@ -246,24 +255,26 @@
                     <div class="account-content">
                         <form action="{{route('updateinfo')}}" method="POST"  id="adminIninfo">
                             @csrf
+                            {{-- <input type="hidden" value="-1" id="user_id"> --}}
                             <input type="hidden" value="PUT" name="_method">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="acc-name">First name <span class="required">*</span></label>
-                                        <input type="text" class="form-control" placeholder="Editor"
-                                        id="edit_fist_name" name="fist_name" value="{{ Auth::user()->fist_name }}" required />
+                                        <input type="text" class="form-control" id="edit_fist_name" name="fist_name"
+                                        placeholder="Enter a name.." value="{{ Auth::user()->fist_name }}">
                                         <div id="edit_fist_name_text" class="text-danger backend-error-text"></div>
-                                    </div>
+                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="acc-lastname">Last name <span
                                                 class="required">*</span></label>
-                                        <input type="text" class="form-control" id="edit_last_name"
-                                            name="last_name" value="{{ Auth::user()->last_name }}"  required />
-                                            <div id="edit_last_name_text" class="text-danger backend-error-text"></div>
+                                                <input type="text" class="form-control" id="edit_last_name" name="last_name"
+                                                placeholder="Enter a name.." value="{{ Auth::user()->last_name }}">
+                                                <div id="edit_last_name_text" class="text-danger backend-error-text"></div>
+
                                     </div>
                                 </div>
                             </div>
@@ -281,9 +292,9 @@
                             <div class="form-group mb-4">
                                 <label for="acc-email">Email address <span class="required">*</span></label>
                                 <input type="email" class="form-control" id="edit_email" name="email"
-                                    placeholder="editor@gmail.com" value="{{ Auth::user()->email }}" required />
-                                    <div id="edit_email_text" class="text-danger backend-error-text"></div>
-                            </div>
+                                placeholder="Enter a name.." value="{{ Auth::user()->email }}">
+                            <div id="edit_email_text" class="text-danger backend-error-text"></div>
+</div>
                             <div class="form-footer mt-3 mb-0">
                                 <button type="submit" name="submit" class="btn btn-dark mr-0">
                                     Save changes
@@ -527,6 +538,7 @@ $('#adminIninfo').on('submit', function(e){
               .prop("disabled", true);
       },
       success: function (data) {
+
 
           $('#adminIninfo')
               .find('[type="button"]')

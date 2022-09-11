@@ -2104,7 +2104,7 @@ aside .banner {
   border-radius: 0;
   font-size: 1.4rem;
   font-weight: 700;
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
   line-height: 1.429;
 }
 .btn:focus {
@@ -2284,7 +2284,7 @@ a.btn.disabled {
   padding-top: 0;
   padding-bottom: 0;
   color: #08C;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-size: 13px;
   letter-spacing: 0;
   text-transform: initial;
@@ -2299,7 +2299,7 @@ a.btn.disabled {
   margin-right: 10px;
   margin-left: 10px;
   background-color: #08C;
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
   text-decoration: none;
   text-transform: uppercase;
 }
@@ -2429,7 +2429,7 @@ a:focus {
   padding-left: 0;
   padding-right: 25px;
   background: transparent;
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
   font-size: 1.6rem;
   font-weight: 600;
   letter-spacing: -0.025em;
@@ -2468,14 +2468,14 @@ a:focus {
 .count-wrapper {
   margin-bottom: 0.9rem;
   color: #222529;
-  font: 400 2.8rem/1 Poppins, sans-serif;
+  font: 400 2.8rem/1 Montserrat;
   text-transform: uppercase;
 }
 
 .count-title {
   margin-bottom: 0;
   color: #777;
-  font: 600 1.6rem/1 "Open Sans", sans-serif;
+  font: 600 1.6rem/1 Montserrat;
 }
 
 @media (min-width: 992px) {
@@ -4023,7 +4023,7 @@ form h2 {
   border-radius: 0;
   background-color: #fff;
   color: #777;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-size: 1.2rem;
   font-weight: 400;
   line-height: 1.5;
@@ -4057,7 +4057,7 @@ select.form-control-sm:not([size]):not([multiple]) {
 .main .form-control:-ms-input-placeholder,
 .main .form-control::-ms-input-placeholder,
 .main .form-control::placeholder {
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
 }
 
 textarea.form-control {
@@ -4092,7 +4092,7 @@ textarea.form-control {
 label {
   margin: 0 0 0.6rem;
   color: #222529;
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
   font-size: 1.2rem;
   font-weight: 700;
 }
@@ -4168,7 +4168,7 @@ label {
   margin-top: -0.5rem;
 }
 .form-group-custom-control .custom-control-label {
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-weight: 400;
   letter-spacing: 0;
   text-transform: initial;
@@ -4496,7 +4496,7 @@ label {
   color: #777;
   font-size: 1.3rem;
   font-weight: 400;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
 }
 .toolbox .form-control {
   display: inline-block;
@@ -4550,7 +4550,7 @@ label {
   color: #706f6c;
   font-size: 1.4rem;
   font-weight: 600;
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
 }
 
 .page-item:not(:first-child) {
@@ -4697,7 +4697,7 @@ span.page-link,
   margin-bottom: 0;
 }
 .minipopup-box .product-detail {
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
   font-weight: 500;
 }
 .minipopup-box .product-detail .product-name {
@@ -4787,7 +4787,7 @@ span.page-link,
 }
 .login-popup label {
   color: #777;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-size: 1.4rem;
   font-weight: 500;
   line-height: 1.57;
@@ -4804,7 +4804,7 @@ span.page-link,
 .login-popup .forget-password {
   color: #222529;
   font-size: 1.4rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-weight: 600;
 }
 .login-popup .btn-block {
@@ -4899,7 +4899,7 @@ button.mfp-close:before {
   padding: 0 32px 0 25px;
   border-radius: 0 3rem 3rem 0;
   font-size: 1.28rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   letter-spacing: 0;
   text-align: center;
   text-transform: uppercase;
@@ -4951,7 +4951,7 @@ button.mfp-close:before {
   color: inherit;
   font-size: 1.2rem;
   font-weight: 400;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   text-transform: none;
 }
 
@@ -5125,7 +5125,7 @@ button.mfp-close:before {
 .product-panel .section-title h2 {
   font-weight: 700;
   font-size: 1.6rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   letter-spacing: -0.01em;
   line-height: 22px;
   text-transform: uppercase;
@@ -5136,7 +5136,7 @@ button.mfp-close:before {
   position: absolute;
   background-color: #333;
   color: #fff;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-weight: 400;
   letter-spacing: 0.01em;
   text-align: center;
@@ -5255,7 +5255,7 @@ figure .porto-loading-icon {
   text-align: center;
   font-weight: 400;
   font-size: 1rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrant;
   line-height: 1.7;
   opacity: 0.8;
   text-transform: uppercase;
@@ -5266,7 +5266,7 @@ figure .porto-loading-icon {
   max-width: 100%;
   font-weight: 400;
   font-size: 1.5rem;
-  font-family: Poppins, sans-serif;
+  font-family: Montserrant;
   line-height: 1.35;
   letter-spacing: 0.005em;
   margin-bottom: 0.4rem;
@@ -5340,7 +5340,7 @@ figure .porto-loading-icon {
   padding: 0 1.4rem;
   font-size: 1.2rem;
   font-weight: 600;
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
   text-align: center;
   vertical-align: top;
   cursor: pointer;
@@ -5414,7 +5414,7 @@ figure .porto-loading-icon {
 .price-box {
   margin-bottom: 1.4rem;
   font-weight: 600;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   line-height: 1;
 }
 
@@ -5568,7 +5568,7 @@ figure .porto-loading-icon {
   padding: 10px 2px;
   color: #222529;
   font-size: 1.4rem;
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
   text-align: center;
 }
 .product-single-qty .bootstrap-touchspin .form-control,
@@ -5694,7 +5694,7 @@ figure .porto-loading-icon {
 .add-cart-box .btn-actions .btn-primary {
   width: 140px;
   padding: 8px 0;
-  font: 500 16px "Open Sans", sans-serif;
+  font: 500 16px Montserrat;
   border: none;
   cursor: pointer;
 }
@@ -5832,7 +5832,7 @@ figure .porto-loading-icon {
   font-size: 1.3rem;
   font-weight: 400;
   letter-spacing: 0.025em;
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
   text-transform: uppercase;
   visibility: hidden;
   opacity: 0;
@@ -5897,7 +5897,7 @@ figure .porto-loading-icon {
   text-align: left;
 }
 .inner-icon .product-title {
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
   letter-spacing: -0.01em;
 }
 .inner-icon .ratings-container {
@@ -5905,7 +5905,7 @@ figure .porto-loading-icon {
 }
 .inner-icon .price-box {
   margin-bottom: 1.5rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
 }
 .inner-icon .btn-icon-group {
   z-index: 2;
@@ -6053,7 +6053,7 @@ figure .porto-loading-icon {
   font-size: 1.3rem;
   font-weight: 400;
   letter-spacing: 0.025em;
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
   text-transform: uppercase;
 }
 .hidden-description .btn-quickview:hover {
@@ -6071,7 +6071,7 @@ figure .porto-loading-icon {
   font-size: 1.3rem;
   font-weight: 400;
   letter-spacing: 0.025em;
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
   text-transform: uppercase;
 }
 .hidden-description .btn-add-cart:hover {
@@ -6398,7 +6398,7 @@ figure .porto-loading-icon {
   margin-bottom: 0.6rem;
   font-weight: 600;
   font-size: 1.8rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
 }
 .product-list .ratings-container {
   margin: 0 0 10px 0px;
@@ -6409,7 +6409,7 @@ figure .porto-loading-icon {
   max-width: 100%;
   font-weight: 400;
   font-size: 1.4rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   line-height: 24px;
   overflow: hidden;
   -webkit-line-clamp: 2;
@@ -7049,7 +7049,7 @@ figure .porto-loading-icon {
   font-weight: 700;
   font-size: 1.6rem;
   line-height: 1.2;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   letter-spacing: -0.05em;
   color: #282d3b;
   text-transform: uppercase;
@@ -7101,7 +7101,7 @@ figure .porto-loading-icon {
   font-weight: 700;
   font-size: 1.8rem;
   line-height: 1.35;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   letter-spacing: -0.005em;
   margin-bottom: 1rem;
   text-transform: uppercase;
@@ -7110,7 +7110,7 @@ figure .porto-loading-icon {
   font-weight: 400;
   font-size: 10.2px;
   line-height: 1.8;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   letter-spacing: normal;
   margin-top: -10px;
   text-transform: uppercase;
@@ -7414,7 +7414,7 @@ figure .porto-loading-icon {
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 1;
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
   text-transform: uppercase;
 }
 .nav-tabs .nav-item .nav-link:hover {
@@ -7506,7 +7506,7 @@ figure .porto-loading-icon {
   }
 }
 .tooltip {
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-size: 1.3rem;
 }
 .tooltip.show {
@@ -7599,7 +7599,7 @@ body {
   font-size: 1.4rem;
   font-weight: 400;
   line-height: 1.4;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -7853,7 +7853,7 @@ h6, .h6 {
   color: #222529;
   font-weight: 700;
   line-height: 1.1;
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
 }
 
 h1, .h1 {
@@ -7998,11 +7998,11 @@ a:focus {
 }
 
 .font1 {
-  font-family: "Open Sans", sans-serif !important;
+  font-family: Montserrat !important;
 }
 
 .font2 {
-  font-family: Poppins, sans-serif !important;
+  font-family: Montserrat !important;
 }
 
 .font3 {
@@ -8530,7 +8530,7 @@ img.slide-bg {
   justify-content: center;
   align-items: center;
   color: #222529;
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
   font-size: 9px;
   font-weight: 600;
   text-transform: uppercase;
@@ -8692,7 +8692,7 @@ header a {
   font-weight: 600;
   font-size: 1.1rem;
   line-height: 1.6rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   text-align: center;
 }
 
@@ -9005,7 +9005,7 @@ header .separator {
   align-items: center;
   border-bottom: 1px solid #e6ebee;
   box-shadow: none !important;
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
 }
 .cart-dropdown .product-image-container {
   position: relative;
@@ -9076,7 +9076,7 @@ header .separator {
   margin-top: 1.5rem;
   margin-bottom: 1.4rem;
   font-size: 1.3rem;
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
 }
 .dropdown-cart-total .cart-total-price {
   margin-left: auto;
@@ -9085,7 +9085,7 @@ header .separator {
 
 .dropdown-cart-header {
   font-size: 2rem;
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
 }
 .dropdown-cart-header a:hover {
   text-decoration: underline;
@@ -9098,7 +9098,7 @@ header .separator {
   height: auto;
   font-size: 1.2rem;
   font-weight: 600;
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
   letter-spacing: 0.025em;
   border-color: transparent;
 }
@@ -9598,7 +9598,7 @@ header .separator {
   padding: 3px 4px;
   border-radius: 2px;
   color: #fff;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-size: 1rem;
   line-height: 1;
   text-transform: uppercase;
@@ -10334,7 +10334,7 @@ footer .contact-info-label {
   padding: 1.2rem 2.7rem;
   border-radius: 5rem;
   font-size: inherit;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
 }
 
 .footer-copyright {
@@ -10450,7 +10450,7 @@ footer .contact-info-label {
   font-size: 3.6rem;
   font-weight: 900;
   margin-bottom: 2.4rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   letter-spacing: 0;
 }
 .page-header-bg h1 span {
@@ -10459,7 +10459,7 @@ footer .contact-info-label {
   font-size: 0.5em;
   font-weight: 700;
   line-height: 1.2;
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
   letter-spacing: 0;
 }
 .page-header-bg .btn {
@@ -10492,7 +10492,7 @@ footer .contact-info-label {
   line-height: 24px;
 }
 .about-section .lead {
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
   color: #21293c;
   font-size: 1.8rem;
   line-height: 1.5;
@@ -10506,7 +10506,7 @@ footer .contact-info-label {
   margin-bottom: 1.7rem;
 }
 .features-section h3 {
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
 }
 .features-section .feature-box {
   padding: 3rem 4rem;
@@ -10543,7 +10543,7 @@ footer .contact-info-label {
   font-size: 3.2rem;
   font-weight: 800;
   line-height: 3.2rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
 }
 .count-container span:not(.count-to) {
   font-size: 1.9rem;
@@ -10602,7 +10602,7 @@ footer .contact-info-label {
 }
 .sidebar-shop .product-widget .product-title {
   margin-bottom: 0.4rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
 }
 .sidebar-shop .product-widget .product-details {
   margin-bottom: 1px;
@@ -10622,7 +10622,7 @@ footer .contact-info-label {
 .sidebar-shop .widget-title {
   margin: 0;
   color: #313131;
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
   font-size: 1.5rem;
   font-weight: 600;
   line-height: 1.4;
@@ -10801,7 +10801,7 @@ span.toggle::before {
   padding: 5px 1.5rem 6px 1.5rem;
   font-size: 1.2rem;
   font-weight: 600;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
 }
 .filter-price-action .filter-price-text {
   font-size: 1.2rem;
@@ -10817,7 +10817,7 @@ span.toggle::before {
   color: #313131;
   font-size: 1.4rem;
   font-weight: 600;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
 }
 .widget-block p {
   font-size: 1.4rem;
@@ -10896,7 +10896,7 @@ span.toggle::before {
 }
 .horizontal-filter:not(.filter-sorts).toolbox label {
   margin: 0px 1rem 1px 0px;
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
   letter-spacing: -0.025em;
 }
 .horizontal-filter:not(.filter-sorts).toolbox .form-control {
@@ -10911,7 +10911,7 @@ span.toggle::before {
   margin-right: 3.2rem;
 }
 .horizontal-filter .filter-price-form {
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-size: 1.36rem;
 }
 .horizontal-filter .filter-price-form .btn {
@@ -11118,7 +11118,7 @@ span.toggle::before {
   margin-bottom: 0;
 }
 .boxed-slide-1 h5 {
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-size: 3rem;
   font-weight: 800;
   letter-spacing: -0.025em;
@@ -11176,7 +11176,7 @@ span.toggle::before {
 }
 
 .boxed-slide-2 h5 {
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-size: 1.8rem;
   font-weight: 800;
   margin-bottom: 0;
@@ -11186,7 +11186,7 @@ span.toggle::before {
   font-size: 2.9rem;
 }
 .boxed-slide-2 h5 i {
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
   font-style: normal;
   font-size: 1.6rem;
   margin-left: -2px;
@@ -11195,7 +11195,7 @@ span.toggle::before {
 .boxed-slide-2 h4 {
   font-size: 3.2rem;
   font-weight: 800;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   letter-spacing: -0.02em;
   margin-bottom: 3rem;
   margin-top: -3px;
@@ -11214,7 +11214,7 @@ span.toggle::before {
   padding: 1.3rem 3rem;
   border: 1px solid #e7e7e7;
   font-size: 1.2rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   color: #555;
 }
 .btn-loadmore:hover {
@@ -11225,7 +11225,7 @@ span.toggle::before {
   padding: 6.8rem 0;
 }
 .category-banner .coupon-sale-text {
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
 }
 .category-banner h3 {
   font-size: 3em;
@@ -11457,7 +11457,7 @@ span.toggle::before {
   padding: 14px 27px 13px;
   margin: 3px 0;
   height: 48px;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
 }
 
 .add-cart {
@@ -11483,7 +11483,7 @@ span.toggle::before {
   color: #222529;
   font-size: 1.2rem;
   font-weight: 700;
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
   letter-spacing: -0.015em;
   text-transform: uppercase;
   white-space: nowrap;
@@ -11530,7 +11530,7 @@ span.toggle::before {
 }
 .product-widgets-container .product-title {
   font-size: 1.4rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
 }
 .product-widgets-container .product-price {
   font-size: 1.5rem;
@@ -11674,7 +11674,7 @@ span.toggle::before {
   margin-bottom: 2.3rem;
   color: #222529;
   font-weight: 600;
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
 }
 .product-single-details .product-filtered-price {
   display: none;
@@ -11927,7 +11927,7 @@ main .sticky-header .product-ratings:before {
   margin-bottom: 0;
   color: #777;
   font-weight: 400;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   letter-spacing: 0.005em;
   text-transform: uppercase;
 }
@@ -12016,7 +12016,7 @@ main .sticky-header .product-ratings:before {
   font-weight: 600;
   font-size: 1.4rem;
   line-height: 1.1;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   letter-spacing: 0.005em;
   text-transform: uppercase;
 }
@@ -12213,7 +12213,7 @@ main .sticky-header .product-ratings:before {
   color: #222529;
 }
 .product-single-tabs .nav.nav-tabs .nav-link {
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-size: 1.3rem;
 }
 .product-single-tabs .nav.nav-tabs .nav-link:hover, .product-single-tabs .nav.nav-tabs .nav-link.active {
@@ -12402,7 +12402,7 @@ main .sticky-header .product-ratings:before {
   color: #FD5B5A;
 }
 .comment-container .comment-info {
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-size: 1.4rem;
   line-height: 1;
   letter-spacing: -0.02em;
@@ -12436,7 +12436,7 @@ main .sticky-header .product-ratings:before {
 }
 .add-product-review label {
   display: block;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-size: 1.4rem;
   line-height: 1;
   margin-bottom: 1.1rem;
@@ -12458,7 +12458,7 @@ main .sticky-header .product-ratings:before {
   padding: 0.55em 1rem 0.5em;
   font-weight: 400;
   text-transform: none;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
 }
 .add-product-review .custom-control-label {
   letter-spacing: 0.005em;
@@ -12625,7 +12625,7 @@ main .sticky-header .product-ratings:before {
   margin-bottom: 1.7rem;
   box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.1);
   margin-right: 20px;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-weight: 600;
   font-size: 1.2rem;
 }
@@ -13171,7 +13171,7 @@ main .sticky-header .product-ratings:before {
   margin-left: -5px;
 }
 .product-both-info .product-single-qty label {
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
 }
 .product-both-info .product-single-filter label {
   margin-right: 3.3rem;
@@ -13446,7 +13446,7 @@ main .sticky-header .product-ratings:before {
   color: #7a7d82;
   font-weight: 600;
   font-size: 14px;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   line-height: 24px;
 }
 .sidebar-product .widget-title a:after {
@@ -13622,7 +13622,7 @@ aside .widget-info i {
   font-weight: 600;
   font-size: 1.4rem;
   line-height: 1.286;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   text-transform: uppercase;
 }
 
@@ -14029,7 +14029,7 @@ aside .widget-info i {
   font-weight: 600;
 }
 .product-center-vertical .product-single-qty label {
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
 }
 
 @media (min-width: 992px) {
@@ -14119,7 +14119,7 @@ aside .widget-info i {
 .table.table-cart .product-title, .table.table-wishlist .product-title {
   margin-bottom: 0;
   padding: 0;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-weight: 400;
   line-height: 1.75;
 }
@@ -14149,7 +14149,7 @@ aside .widget-info i {
 }
 .table.table-cart tfoot .btn, .table.table-wishlist tfoot .btn {
   padding: 1.2rem 2.4rem 1.3rem 2.5rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-size: 1.3rem;
   font-weight: 700;
   height: 43px;
@@ -14333,7 +14333,7 @@ tbody .product-col {
 }
 
 .checkout-methods .btn {
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-size: 1.5rem;
   letter-spacing: -0.015em;
   padding: 1em 0;
@@ -14344,7 +14344,7 @@ tbody .product-col {
 
 .return-to-shop .btn {
   padding: 1.6rem 3.6rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-size: 1.5rem;
   letter-spacing: -0.02em;
 }
@@ -14362,7 +14362,7 @@ tbody .product-col {
   font-weight: 400;
   font-size: 1.4rem;
   color: #777;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
 }
 .cart-summary .form-group-sm .form-control {
   height: 3.7rem;
@@ -14375,7 +14375,7 @@ tbody .product-col {
   border: none;
   padding: 8px 12px;
   line-height: 1.5;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
 }
 .cart-summary .btn-update-total:hover {
   color: #fff;
@@ -14496,7 +14496,7 @@ tbody .product-col {
   position: relative;
   margin-bottom: 3rem;
   color: #999;
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
   font-size: 2rem;
   font-weight: 700;
   letter-spacing: -0.03em;
@@ -14681,7 +14681,7 @@ tbody .product-col {
 .table-mini-cart .product-title {
   display: block;
   margin-bottom: 0;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-size: 1.4rem;
   font-weight: 400;
 }
@@ -14752,7 +14752,7 @@ tbody .product-col {
   width: 100%;
   margin-bottom: 0.6rem;
   padding: 1.4rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
 }
 
 .login-form-container {
@@ -14791,7 +14791,7 @@ tbody .product-col {
   letter-spacing: -0.01em;
   background-color: #f4f4f4;
   font-size: 1.3rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
 }
 .login-form-container form .btn:hover,
 .checkout-discount form .btn:hover {
@@ -14824,7 +14824,7 @@ tbody .product-col {
 .checkout-discount h4 {
   margin-bottom: 1rem;
   color: #777;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-size: 1.3rem;
   font-weight: 400;
   letter-spacing: -0.025em;
@@ -14892,7 +14892,7 @@ tbody .product-col {
 .checkout-container label {
   margin-bottom: 0.6rem;
   color: #777;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-size: 1.4rem;
   font-weight: 400;
   letter-spacing: -0.01em;
@@ -15088,7 +15088,7 @@ tbody .product-col {
   padding: 1rem 0.8rem 0.8rem;
   color: #fff;
   background: #222529;
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -15156,7 +15156,7 @@ tbody .product-col {
 .post-title {
   margin-bottom: 1.3rem;
   color: #222529;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-size: 1.8rem;
   font-weight: 700;
   line-height: 1.35;
@@ -15211,7 +15211,7 @@ tbody .product-col {
   font-size: 3rem;
   color: #08C;
   font-weight: 700;
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
   line-height: 40px;
 }
 .single h3 {
@@ -15234,7 +15234,7 @@ tbody .product-col {
 }
 .single .post-content p {
   margin-bottom: 2rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
@@ -15292,7 +15292,7 @@ tbody .product-col {
   font-size: 1.6rem;
   letter-spacing: 0.03em;
   color: #08C;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
 }
 .post-author .author-content {
   font-size: 1.3rem;
@@ -15332,7 +15332,7 @@ tbody .product-col {
 .post-date-in-media .post-title {
   margin-bottom: 0.7rem;
   font-size: 1.7rem;
-  font-family: Poppins, sans-serif;
+  font-family: Montserrat;
   font-weight: 700;
   letter-spacing: -0.005em;
 }
@@ -15356,7 +15356,7 @@ tbody .product-col {
 .comment-respond label {
   margin-bottom: 0.7rem;
   font-size: 1.4rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
 }
 .comment-respond .form-control {
   height: 37px;
@@ -15378,7 +15378,7 @@ tbody .product-col {
   min-height: 170px;
 }
 .comment-respond form .form-group-custom-control .custom-control-label {
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-size: 1.4rem;
   line-height: 1.75;
   font-weight: 700;
@@ -15727,7 +15727,7 @@ tbody .product-col {
   margin-top: -2px;
 }
 .contact-us-container .btn {
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
 }
 .contact-us-container .contact-info {
   border-bottom: 1px solid #eee;
@@ -15841,7 +15841,7 @@ tbody .product-col {
 }
 .nav-tabs.list .nav-item .nav-link {
   padding: 1.3rem 0 1.5rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   text-transform: capitalize;
   font-size: 1.4rem;
   border: none;
@@ -15866,7 +15866,7 @@ tbody .product-col {
 .account-content label {
   margin-bottom: 0.7rem;
   color: #777;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-size: 1.4rem;
   font-weight: 400;
 }
@@ -15896,7 +15896,7 @@ tbody .product-col {
   letter-spacing: -0.015em;
 }
 .account-content .btn {
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-size: 1.5rem;
 }
 
@@ -15906,7 +15906,7 @@ tbody .product-col {
 }
 .change-password h3 {
   font-size: 1.6rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
 }
 .change-password .btn {
   padding: 1.6rem 4.5rem 1.5rem;
@@ -15936,7 +15936,7 @@ tbody .product-col {
   padding: 0.8rem 2.3rem 0.7rem;
   background: #f4f4f4;
   color: #222524;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
 }
 .address .address-action:hover {
   background-color: #08C;
@@ -15996,7 +15996,7 @@ tbody .product-col {
   color: #222529;
   border: none;
   font-weight: 700;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
 }
 .download-table-container .btn:hover {
   color: #fff;
@@ -16009,7 +16009,7 @@ tbody .product-col {
   font-size: 15px;
   letter-spacing: -0.015em;
   text-align: center;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-weight: 700;
 }
 
@@ -16170,7 +16170,7 @@ tbody .product-col {
   margin-right: 6px;
   background: #f4f4f4;
   color: #222529;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
 }
 .wishlist-table-container .btn-quickview:hover {
   background-color: #08C;
@@ -16325,7 +16325,7 @@ i.wishlist-empty {
 .login-container form label {
   margin-bottom: 0.7rem;
   color: #777;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-size: 1.4rem;
   font-weight: 400;
 }
@@ -16337,7 +16337,7 @@ i.wishlist-empty {
   line-height: 32px;
 }
 .login-container form .btn {
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-size: 1.6rem;
 }
 .login-container form .form-footer {
@@ -16381,7 +16381,7 @@ i.wishlist-empty {
 .reset-password-container label {
   margin-bottom: 0.7rem;
   color: inherit;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-size: 1.4rem;
 }
 .reset-password-container input {
@@ -16399,7 +16399,7 @@ i.wishlist-empty {
 }
 .reset-password-container .form-footer .btn {
   padding: 0.8rem 1.2rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: Montserrat;
   font-size: 1.4rem;
   line-height: 21px;
 }

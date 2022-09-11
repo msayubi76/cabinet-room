@@ -24,6 +24,7 @@ class CategoryController extends Controller
     }
 
     public function store(CategoryRequest $request){
+
         try {
 
             $category_response = CategoryService::store($request);
@@ -38,6 +39,7 @@ class CategoryController extends Controller
 
 
     public function update(CategoryRequest $request, Category $category){
+
         try {
 
            $category_response = CategoryService::update($request,$category);

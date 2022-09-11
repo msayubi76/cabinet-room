@@ -228,10 +228,12 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6  my-2">
-                                <label class="form-label form-check-label " for="name" style="margin-top: 35px">
-                                    Active</label>
+                                <label class="form-label form-check-label" for="name"
+                                style="margin-top: 35px; margin-left:30px;">
 
-                                <input type="checkbox" id="edit_is_active" name="is_active" value="">
+                                <input type="checkbox" class="form-check-input" id="edit_is_active" name="is_active"
+                                value="{{old('is_active')}}" @if(old('is_active', true)) checked @endif>Active </label>
+
                                 <div id="edit_is_active" class="text-danger backend-error-text"></div>
 
                             </div>
@@ -423,8 +425,15 @@
 
             document.getElementById('edit_name').value = subcategory.name;
 
-            $('#edit_is_active').val(subcategory.is_active)
-            $('#edit_is_active').prop('checked', subcategory.is_active == 1 ? true : false)
+            // $('#edit_is_active').val(subcategory.is_active)
+            // $('#edit_is_active').prop('checked', subcategory.is_active == 1 ? true : false)
+
+            if($('input[type=checkbox]').is(':checked')) {
+
+    $('#edit_is_active').prop('checked', true);
+} else {
+    $('#edit_is_active').prop('checked',false);
+}
 
             document.getElementById('sub_category_id').value = subcategory.id;
             document.getElementById('categories').value = subcategory.category_id;
@@ -464,6 +473,7 @@
 
                 },
                 success: function(data) {
+                    console.log(data);
                     $("#button-update").prop("disabled", false);
                     $("#button-update").text("Edit SubCategory");
 

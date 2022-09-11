@@ -18,7 +18,7 @@
                             <li><a href="{{ url('about-us') }}">About Us</a></li>
                             <li><a href="{{ url('contact-us') }}">Contact Us</a></li>
                             @if (Auth::user())
-                                <li><a href="{{ url('cart') }}">Cart</a></li>
+
 
                                 <li>
 
@@ -26,7 +26,7 @@
                                     @if (Auth::user()->type == 'admin')
                                         <a href="{{ url('admin/dashboard') }}">
                                         @elseif (Auth::user()->type == 'customer')
-                                            <a href="{{ url('user-dashboard/' . Auth::id()) }}">
+                                            <a href="{{ url('user-dashboard/') }}">
                                             @else
                                                 <a href="{{ url('login') }}">
                                     @endif
@@ -36,6 +36,9 @@
                             @else
                                 <li><a href="{{ url('login') }}">Log In</a></li>
                             @endif
+                            {{-- @if ( App\Models\Cart::where('user_id', Auth::id())->count() > 0)
+                            <li><a href="{{ url('cart') }}">Cart</a></li>
+                            @endif --}}
 
 
                         </ul>
@@ -184,9 +187,13 @@
                             <!-- End .dropdown-cart-total -->
 
                             <div class="dropdown-cart-action">
-                                <a href="{{ url('cart') }}" class="btn btn-gray btn-block view-cart">View
-                                    Cart</a>
-                                <a href="{{ url('check-out') }}" class="btn btn-dark btn-block">Checkout</a>
+
+                                    @if ( App\Models\Cart::where('user_id', Auth::id())->count() > 0)
+                                    <a href="{{ url('check-out') }}" class="btn btn-dark btn-block">Checkout</a>
+                                    <a href="{{ url('cart') }}" class="btn btn-gray btn-block view-cart">View
+                                        Cart</a>
+                                    @endif
+
                             </div>
                             <!-- End .dropdown-cart-total -->
                         </div>

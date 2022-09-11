@@ -86,10 +86,10 @@ class FrontendController extends Controller
     {
         try {
             $setting = SettingService::getSetting();
-            $category = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();
+            $categories = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();
 
             $cart = Cart::where('user_id', Auth::id())->get();
-            return view('website.pages.about', compact('category',  'cart', 'setting'));
+            return view('website.pages.about', compact('categories',  'cart', 'setting'));
         } catch (\Throwable $th) {
             return response()->json(['status' => false, 'message' => $th->getMessage()]);
         }

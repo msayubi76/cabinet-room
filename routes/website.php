@@ -32,11 +32,15 @@ Route::post('check-out', [CheckOutController::class, 'store'])->name('check-out'
 
 // ----------> Webste Cart <------------- //
 Route::post('add-to-cart', [CartController::class, 'addProduct']);
+
+
 Route::middleware(['auth'])->group(function () {
 
     Route::get('cart', [CartController::class, 'viewCart']);
     Route::post('update', [CartController::class, 'update']);
     Route::get('delete', [CartController::class, 'delete']);
 
-    Route::get('user-dashboard/{id?}', [UserDashboardController::class, 'index']);
+    Route::get('user-dashboard', [UserDashboardController::class, 'index'])->name('user-dashboard');
+    Route::put('update-profile', [UserDashboardController::class, 'updateinfo'])->name('updateinfo');
+Route::post('change-password', [UserDashboardController::class, 'changePassword'])->name('changePassword');
 });

@@ -28,6 +28,7 @@ class SubCategoryRequest extends FormRequest
             'name' => ['required'],
             'profile' => ['nullable', 'mimes:jpg,bmp,png'],
             'sort_order' => ['nullable'],
+            'is_active' => ['nullable'],
         ];
     }
 }

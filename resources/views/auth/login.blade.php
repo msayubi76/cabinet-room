@@ -115,15 +115,17 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Cabinet | Login</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- Custom Theme files -->
 <link href="{{ asset('form-assets/css/style.css') }}" rel="stylesheet" type="text/css" media="all"/>
 <!-- Custom Theme files -->
 <script type="text/javascript" src="{{ asset('form-assets/js/jquery.min.js') }}"></script>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 <link rel="stylesheet" href="{{asset('form-assets/css/stylelogin.css')  }}">
 
 <!--Google Fonts-->
@@ -210,7 +212,7 @@
 		<p>With your social media account</p>
 	 <div class="social-icons">
 		<div class="button">
-			<a class="tw" href="#"> <i class="anc-tw"> </i> <span>Twitter</span>
+			{{-- <a class="tw" href="#"> <i class="anc-tw"> </i> <span>Twitter</span> --}}
 			<div class="clear"> </div></a>
 			<a class="fa" href="#"> <i class="anc-fa"> </i> <span>Facebook</span>
 			<div class="clear"> </div></a>
