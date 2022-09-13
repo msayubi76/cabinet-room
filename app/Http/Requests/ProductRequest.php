@@ -41,6 +41,7 @@ class ProductRequest extends FormRequest
             'is_arrival_product' => ['nullable'],
             'currency' => ['required'],
             'short_description' => ['required'],
+            'is_active' => ['nullable'],
 
         ];
     }

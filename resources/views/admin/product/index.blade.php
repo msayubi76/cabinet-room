@@ -28,6 +28,7 @@
                                         <th>Category </th>
                                         <th>Sub Category</th>
                                         <th>Feature Image</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -42,7 +43,11 @@
                                             <td>{{ $list->subcategory?$list->subcategory->name:''}}</td>
                                             <td><img src="{{asset($list->feature_image)}}" width="50px" height="50px" alt="img">
                                             </td>
-
+                                            <td class="text-center">
+                                                <span
+                                                   class="badge badge-{{ $list->is_active == '1' ? 'success' : 'warning' }}">
+                                                {{ $list->is_active == '1' ? 'active' : 'not-active' }}</span>
+                                             </td>
                                             <td>
                                                 <div class="button-group">
                                                     <div class="btn-group">

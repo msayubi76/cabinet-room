@@ -42,7 +42,7 @@ class UserController extends Controller
 
         try {
             $user_response = UserService::store($request);
-            dd($user_response);
+
 
             return $user_response;
         } catch (\Throwable $th) {

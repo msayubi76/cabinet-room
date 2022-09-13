@@ -17,14 +17,14 @@ class ProductFactory extends Factory
      * @return array<string, mixed>
      */
     public function definition()
-    { 
+    {
         $actual_price = rand(6000, 500000);
         $discount = rand(0,40);
 
         $percent_value = ($actual_price * $discount)/100;
 
         $sale_price = $actual_price - $percent_value;
-        
+
         return [
             'name' => $this->faker->name(),
             'category_id' =>  rand(1,10),
@@ -41,6 +41,7 @@ class ProductFactory extends Factory
             'width' => $this->faker->randomDigit(1,50),
             'is_feature_product' => rand(0,1),
             'is_arrival_product' => rand(0,1),
+            'is_active' => $this->faker->boolean(),
 
         ];
     }

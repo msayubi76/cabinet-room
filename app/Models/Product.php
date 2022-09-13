@@ -34,6 +34,7 @@ class Product extends Model
         'is_arrival_product',
         'currency',
         'short_description',
+        'is_active',
         'created_by',
         'updated_by',
         'deleted_by',

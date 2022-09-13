@@ -18,16 +18,16 @@ class FrontendController extends Controller
     public function index()
     {
         try {
-            $categories = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();
+            $categories = Category::where('is_active', '1')->with('subcategories')->get();
 
 
 
 
-            $featuredProducts = Product::where('is_feature_product', '1')->get();
-            $arrivialProducts = Product::where('is_arrival_product', '1')->get();
-            $featuredProductsFooter = Product::where('is_feature_product', '1')->limit(3)->get();
-            $latestrPoductsFooter = Product::orderBy('id', 'DESC')->limit(3)->get();
-            $arrivialProductsFooter = Product::where('is_arrival_product', '1')->limit(3)->get();
+            $featuredProducts = Product::where('is_feature_product', '1')->where('is_active', '1')->get();
+            $arrivialProducts = Product::where('is_arrival_product', '1')->where('is_active', '1')->get();
+            $featuredProductsFooter = Product::where('is_feature_product', '1')->where('is_active', '1')->limit(3)->get();
+            $latestrPoductsFooter = Product::orderBy('id', 'DESC')->where('is_active', '1')->limit(3)->get();
+            $arrivialProductsFooter = Product::where('is_arrival_product', '1')->where('is_active', '1')->limit(3)->get();
             $cart = Cart::where('user_id', Auth::id())->get();
             $banners = Banner::orderBy('id', 'DESC')->get();
 
@@ -41,7 +41,7 @@ class FrontendController extends Controller
     {
         try {
 
-            $categories = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();
+            $categories = Category::where('is_active', '1')->with('subcategories')->get();
 
             $cart = Cart::where('user_id', Auth::id())->get();
             return view('website.pages.categories', compact('categories', 'subcategory', 'cart'));
@@ -52,10 +52,10 @@ class FrontendController extends Controller
     public function products()
     {
         try {
-            $products = Product::orderBy('id', 'DESC')->paginate(30);
+            $products = Product::orderBy('id', 'DESC')->where('is_active', '1')->paginate(30);
 
-            $categories = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();
-            $featuredProducts = Product::where('is_feature_product', '1')->get();
+            $categories = Category::where('is_active', '1')->with('subcategories')->where('is_active', '1')->get();
+            $featuredProducts = Product::where('is_feature_product', '1')->where('is_active', '1')->get();
             $cart = Cart::where('user_id', Auth::id())->get();
             return view('website.pages.shop', compact('categories',  'products', 'cart', 'featuredProducts'));
         } catch (\Throwable $th) {
@@ -67,13 +67,13 @@ class FrontendController extends Controller
     {
         try {
             $product = Product::find($id);
-            $relatedProducts = Product::orderBy('id', 'DESC')->limit(12)->get();
-            $featuredProductsFooter = Product::where('is_feature_product', '1')->limit(3)->get();
-            $latestPoductsFooter = Product::orderBy('id', 'DESC')->limit(3)->get();
-            $arrivialProductsFooter = Product::where('is_arrival_product', '1')->limit(3)->get();
-            $categories = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();
-            $featuredProductsPrevese = Product::where('is_feature_product', '1')->limit(1)->get();
-            $latestPoductsNext = Product::orderBy('id', 'DESC')->limit(1)->get();
+            $relatedProducts = Product::orderBy('id', 'DESC')->where('is_active', '1')->get();
+            $featuredProductsFooter = Product::where('is_feature_product', '1')->where('is_active', '1')->limit(3)->get();
+            $latestPoductsFooter = Product::orderBy('id', 'DESC')->where('is_active', '1')->limit(3)->get();
+            $arrivialProductsFooter = Product::where('is_arrival_product', '1')->where('is_active', '1')->limit(3)->get();
+            $categories = Category::where('is_active', '1')->with('subcategories')->get();
+            $featuredProductsPrevese = Product::where('is_feature_product', '1')->where('is_active', '1')->limit(1)->get();
+            $latestPoductsNext = Product::orderBy('id', 'DESC')->where('is_active', '1')->limit(1)->get();
 
             $cart = Cart::where('user_id', Auth::id())->get();
             return view('website.pages.single-product', compact('categories',  'product', 'relatedProducts', 'featuredProductsFooter', 'arrivialProductsFooter', 'cart', 'latestPoductsFooter', 'featuredProductsPrevese', 'latestPoductsNext'));
@@ -86,7 +86,7 @@ class FrontendController extends Controller
     {
         try {
             $setting = SettingService::getSetting();
-            $categories = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();
+            $categories = Category::where('is_active', '1')->with('subcategories')->get();
 
             $cart = Cart::where('user_id', Auth::id())->get();
             return view('website.pages.about', compact('categories',  'cart', 'setting'));
@@ -99,7 +99,7 @@ class FrontendController extends Controller
     {
         try {
             $setting = SettingService::getSetting();
-            $categories = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();;
+            $categories = Category::where('is_active', '1')->with('subcategories')->get();;
 
             $cart = Cart::where('user_id', Auth::id())->get();
             return view('website.pages.contact', compact('categories',  'cart', 'setting'));
@@ -112,7 +112,7 @@ class FrontendController extends Controller
     {
         try {
             $setting = SettingService::getSetting();
-            $categories = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();
+            $categories = Category::where('is_active', '1')->with('subcategories')->get();
 
             $cart = Cart::where('user_id', Auth::id())->get();
             return view('website.pages.privacy-and-policy', compact('categories',  'cart', 'setting'));
@@ -125,13 +125,13 @@ class FrontendController extends Controller
     {
         try {
 
-            $categories = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();
-            $featuredProducts = Product::where('is_feature_product', '1')->get();
+            $categories = Category::where('is_active', '1')->with('subcategories')->get();
+            $featuredProducts = Product::where('is_feature_product', '1')->where('is_active', '1')->get();
 
             $cart = Cart::where('user_id', Auth::id())->get();
             if (Category::where('name', $name)->exists()) {
                 $category = Category::where('name', $name)->first();
-                $products = Product::where('category_id', $category->id)->paginate(30);
+                $products = Product::where('category_id', $category->id)->where('is_active', '1')->paginate(30);
                 return view('website.category.product-with-category', compact('category', 'categories',  'products', 'featuredProducts', 'cart'));
             } else {
                 return redirect('/')->with('status', 'Category Dosent Exists');
@@ -145,12 +145,12 @@ class FrontendController extends Controller
     {
         try {
 
-            $categories = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();
-            $featuredProducts = Product::where('is_feature_product', '1')->get();
+            $categories = Category::where('is_active', '1')->with('subcategories')->get();
+            $featuredProducts = Product::where('is_feature_product', '1')->where('is_active', '1')->get();
             $cart = Cart::where('user_id', Auth::id())->get();
             if (SubCategory::where('name', $name)->exists()) {
                 $subcategory = SubCategory::where('name', $name)->first();
-                $products = Product::where('sub_category_id', $subcategory->id)->paginate(30);
+                $products = Product::where('sub_category_id', $subcategory->id)->where('is_active', '1')->paginate(30);
                 return view('website.category.product-with-subcategory', compact('subcategory', 'categories',  'products', 'featuredProducts', 'cart'));
             } else {
                 return redirect('/')->with('status', 'SubCategory Dosent Exists');

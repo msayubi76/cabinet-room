@@ -11,8 +11,10 @@
                                 <h4 class="card-title">Users Table</h4>
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-4 text-right">
+
                                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addUserModal">Add
                                     User</button>
+
 
                             </div>
                         </div>
@@ -23,8 +25,10 @@
                                         <th>Fist Name</th>
                                         <th>Last Name</th>
                                         <th>Email</th>
-                                        <th>Status</th>
+                                        <th>Role</th>
                                         <th>Type</th>
+                                        <th>Profile</th>
+
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -34,14 +38,23 @@
                                             <td>{{ $user->fist_name }}</td>
                                             <td>{{ $user->last_name }}</td>
                                             <td>{{ $user->email }}</td>
-                                            <td>
+                                            {{-- <td>
                                                 @if ($user->email_verified_at == null)
                                                     Not Approved
                                                 @else
                                                     Approved
                                                 @endif
-                                            </td>
+                                            </td> --}}
+                                            <td> @foreach($user->roles as $role)
+
+                                                <span class="">{{ $role->name }}</span>
+
+
+                                                @endforeach</td>
                                             <td>{{ $user->type }}</td>
+
+                                            <td><img src="{{ $user->image_url }}" height="50px" width="50px"
+                                                alt=""></td>
                                             <td>
                                                 <div class="button-group">
                                                     <div class="btn-group">
@@ -290,7 +303,23 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
+
+                                <h3 class="text-xl my-4 text-gray-600">Role</h3>
+                                <div class="grid grid-cols-3 gap-4">
+                                  @foreach($roles as $role)
+                                      <div class="flex flex-col justify-cente">
+                                          <div class="flex flex-col">
+                                              <label class="inline-flex items-center mt-3">
+                                                  <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" name="roles[]" value="{{$role->id}}"
+                                                  @if(count($user->roles->where('id',$role->id)))
+                                                      checked
+                                                  @endif
+                                                  ><span class="ml-2 text-gray-700">{{ $role->name }}</span>
+                                              </label>
+                                          </div>
+                                      </div>
+                                  @endforeach
+
 
 
                             </div>
@@ -420,13 +449,15 @@
 
                     const USER = JSON.stringify(data.user)
 
+
                     var string =
                         `<tr id="row_${data.user.id}">
                                 <td>${data.user.fist_name}</td>
                                 <td>${data.user.last_name}</td>
                                 <td>${data.user.email}</td>
-                                <td>${data.user.email_verified_at == undefined ? "Not Approved" : "Approved"}</td>
+                                <td>${data.user.roles.name}</td>
                                 <td>${data.user.type}</td>
+                                <td><img src="${data.user.image_url}" alt="" height="50px" width="50px"></td>
                                 <td>
                                     <div class="button-group">
                                         <div class="btn-group">
@@ -519,8 +550,11 @@
                             <td>${data.user.fist_name}</td>
                             <td>${data.user.last_name}</td>
                             <td>${data.user.email}</td>
-                            <td>${data.user.email_verified_at == undefined ? "Not Approved" : "Approved"}</td>
-                            <td>${data.user.type}</td>
+
+                            <td>${data.user.roles.name}</td>
+                                <td>${data.user.type}</td>
+                                <td><img src="${data.user.image_url}" alt="" height="50px" width="50px"></td>
+
                             <td>
                                 <div class="button-group">
                                     <div class="btn-group">

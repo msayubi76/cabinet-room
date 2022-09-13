@@ -134,8 +134,15 @@
 
                                </div>
                                <div class="form-group row ">
+                                <div class="col-md-2 mb-8">
+                                    <label class=" col-form-label form-check-label y-8" for="name" style="margin-top: 30px;">
 
-                                <div class="col-md-3 mb-8">
+                                        <input type="checkbox" class="form-check-input" name="is_active" checked value="1">Active<span class="text-danger">*</span> </label>
+                                        @error('is_active')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                                </div>
+                                <div class="col-md-2 mb-8">
                                     <label class=" col-form-label form-check-label y-8" for="name" style="margin-top: 30px;">
 
                                         <input type="checkbox" class="form-check-input" name="is_feature_product" value="1">Feature Product<span class="text-danger">*</span> </label>
@@ -143,7 +150,7 @@
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                                 </div>
-                                <div class="col-md-3 mb-8">
+                                <div class="col-md-2 mb-8">
                                     <label class=" col-form-label form-check-label" for="name" style="margin-top: 30px;">
 
                                         <input type="checkbox" class="form-check-input" name="is_arrival_product" value="1">Arrival Product<span class="text-danger">*</span> </label>

@@ -53,7 +53,14 @@ class UserService
     {
         DB::beginTransaction();
         $data = $request->validated();
+         if ($request->hasFile('profile')) :
+            $image_name = FileUploadTrait::fileUpload($request->profile, 'profile');
+            $data['folder_name'] = 'profile';
+            $data['image_name'] =  $image_name;
+            $data['image_url'] = url('/storage/profile/' . $image_name);
+        endif;
         $user->update($data);
+        $user->syncRoles($request->roles);
         DB::commit();
         $response = ['status' => true, 'message' => ' User profile updated successfully.', 'user' => $user];
         return $response;

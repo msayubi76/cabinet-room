@@ -174,8 +174,19 @@
                                     </div>
                                 </div>
                                 <div class="form-group row ">
+                                    <div class="col-md-2 mb-8">
+                                        <label style="margin-top: 30px;">
 
-                                    <div class="col-md-3 mb-8">
+                                            <input type="checkbox" class="form-check-input" value="1"
+                                                name="is_active"
+                                                {{ $product->is_active == '1' ? 'checked' : '' }}>Active
+                                                <span class="text-danger">*</span></label>
+                                        @error('width')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-2 mb-8">
                                         <label style="margin-top: 30px;">
 
                                             <input type="checkbox" class="form-check-input" value="1"
@@ -186,7 +197,7 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="col-md-3 mb-8">
+                                    <div class="col-md-2 mb-8">
                                         <label style="margin-top: 30px;">
 
                                             <input type="checkbox" class="form-check-input" value="1"
@@ -197,7 +208,7 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="col-md-3 mb-8">
+                                    <div class="col-md-2 mb-8">
                                         <label for="">Product Colour<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control input-default" id="edit_colour"
                                             placeholder="colour" value="{{ $product->colour }}" name="colour">
