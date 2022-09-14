@@ -11,8 +11,10 @@
                      <h4 class="card-title">Categories Table</h4>
                   </div>
                   <div class="col-lg-4 col-md-6 col-sm-4 text-right">
+                    @can('create-sub-category')
                      <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addcategory">Add
                      Category</button>
+                     @endcan
                   </div>
                </div>
                <div class="table-responsive">
@@ -46,10 +48,15 @@
                                        <div class="dropdown-menu">
                                           <a class="dropdown-item"
                                              onclick="openViewModal({{ $category }})">View</a>
+                                             @can('update-sub-category')
                                           <a class="dropdown-item"
                                              href="javascript:openEditModal({{ json_encode($category) }})">Edit</a>
+                                             @endcan
+
+                                             @can('delete-sub-category')
                                           <a class="dropdown-item"
                                              href="javascript:openDeleteDialog({{ $category->id }})">Delete</a>
+                                             @endcan
                                        </div>
                                     </div>
                                  </div>
@@ -94,8 +101,10 @@
       <div class="modal-content">
          <div class="modal-header">
             <h5 class="modal-title">Add Category</h5>
+            @can('create-sub-category')
             <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
             </button>
+            @endcan
          </div>
          <div class="modal-body">
             <form action="javascript:;" class="form-valide" id="category-form"  onsubmit="submitCategory()" enctype="multipart/form-data">
@@ -194,10 +203,13 @@
 
 
                   <div class="form-group ">
-                     <label class="col-lg-4 col-form-label form-check-label" for="name">
-                     <input type="checkbox" id="edit_is_active" name="is_active" value="1"> Status
-                     </label>
-                     <div id="edit_is_active" class="text-danger backend-error-text"></div>
+                    <label class="form-label form-check-label" for="name"
+                    style="margin-top: 35px; margin-left:30px;">
+
+                    <input type="checkbox" class="form-check-input" id="edit_is_active" name="is_active"
+                    value="{{old('is_active')}}" @if(old('is_active', true)) checked @endif>Active </label>
+
+                    <div id="edit_is_active" class="text-danger backend-error-text"></div>
                   </div>
                </div>
                <div class="modal-footer">
@@ -369,15 +381,14 @@
    function openEditModal(category) {
 
        document.getElementById('edit_name').value = category.name;
-       // $('#edit_is_active').val(category.is_active)
+
+       $('#edit_is_active').val(category.is_active)
             // $('#edit_is_active').prop('checked', category.is_active == 1 ? true : false)
-
-            if($('input[type=checkbox]').is(':checked')) {
-
-$('#edit_is_active').prop('checked', true);
-} else {
-$('#edit_is_active').prop('checked',false);
-}
+            if($("#edit_is_active").prop('checked', category.is_active == 1 )){
+          $("#edit_is_active").val('TRUE');
+     }else{
+          $("#edit_is_active").val('FALSE');
+     }
 
        document.getElementById('category_id').value = category.id;
        var image;
@@ -419,6 +430,7 @@ $('#edit_is_active').prop('checked',false);
 
            },
            success: function(data) {
+            console.log(data)
                $("#button-update").prop("disabled", false);
                $("#button-update").text("Edit Category");
 

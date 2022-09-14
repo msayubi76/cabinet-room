@@ -11,9 +11,12 @@
                                 <h4 class="card-title">Users Table</h4>
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-4 text-right">
+                                @can('create-user')
+
 
                                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addUserModal">Add
                                     User</button>
+                                    @endcan
 
 
                             </div>
@@ -65,10 +68,14 @@
                                                             <div class="dropdown-menu">
                                                                 <a class="dropdown-item"
                                                                 href="javascript:openViewModal({{ json_encode($user) }})">View</a>
+                                                                @can('update-user')
                                                                 <a class="dropdown-item"
                                                                     href="javascript:openEditModal({{ json_encode($user) }})">Edit</a>
+                                                                    @endcan
+                                                                    @can('delete-user')
                                                                 <a class="dropdown-item"
                                                                     href="javascript:openDeleteDialog({{ $user->id }})">Delete</a>
+                                                                    @endcan
                                                             </div>
                                                         </div>
                                                     </div>

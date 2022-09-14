@@ -11,8 +11,10 @@
                                 <h4 class="card-title">SubCategories Table</h4>
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-4 text-right">
+                                @can('create-category')
                                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addcategory">Add
                                     SubCategory</button>
+                                @endcan
 
                             </div>
                         </div>
@@ -57,10 +59,15 @@
                                                             <div class="dropdown-menu">
                                                                 <a class="dropdown-item"
                                                                     onclick="openViewModal({{ $cate }})">View</a>
+                                                                    @can('update-category')
                                                                 <a class="dropdown-item"
                                                                     href="javascript:openEditModal({{ json_encode($cate) }})">Edit</a>
+                                                                    @endcan
+
+                                                                    @can('delete-category')
                                                                 <a class="dropdown-item"
                                                                     href="javascript:openDeleteDialog({{ $cate->id }})">Delete</a>
+                                                                    @endcan
                                                             </div>
                                                         </div>
                                                     </div>
@@ -425,15 +432,16 @@
 
             document.getElementById('edit_name').value = subcategory.name;
 
-            // $('#edit_is_active').val(subcategory.is_active)
+            $('#edit_is_active').val(subcategory.is_active)
             // $('#edit_is_active').prop('checked', subcategory.is_active == 1 ? true : false)
+            if($("#edit_is_active").prop('checked', subcategory.is_active == 1 )){
+          $("#edit_is_active").val('TRUE');
+     }else{
+          $("#edit_is_active").val('FALSE');
+     }
 
-            if($('input[type=checkbox]').is(':checked')) {
 
-    $('#edit_is_active').prop('checked', true);
-} else {
-    $('#edit_is_active').prop('checked',false);
-}
+
 
             document.getElementById('sub_category_id').value = subcategory.id;
             document.getElementById('categories').value = subcategory.category_id;

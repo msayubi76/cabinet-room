@@ -12,8 +12,10 @@
                      <h4 class="card-title">Roles Table</h4>
                   </div>
                   <div class="col-lg-4 col-md-6 col-sm-4 text-right">
+                     @can('create-role')
                      <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addRoleModal">Add
                      Role</button>
+                     @endcan
                   </div>
                </div>
                <div class="table-responsive">
@@ -53,10 +55,14 @@
                                        <div class="dropdown-menu">
                                           <a class="dropdown-item"
                                              onclick="openViewModal({{ $role }})">View</a>
+                                             @can('update-role')
                                           <a class="dropdown-item"
                                              href="javascript:openEditModal({{ json_encode($role) }})">Edit</a>
+                                             @endcan
+                                             @can('delete-role')
                                           <a class="dropdown-item"
                                              href="javascript:openDeleteDialog({{ $role->id }})">Delete</a>
+                                             @endcan
                                        </div>
                                     </div>
                                  </div>

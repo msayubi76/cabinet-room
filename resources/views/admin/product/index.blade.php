@@ -15,8 +15,10 @@
                                 <h4 class="card-title">Products Table</h4>
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-4 text-right">
+                                @can('create-product')
                               <a href="{{url('admin/products/create')}}" class="btn btn-sm btn-primary">Add
                                     Products</a>
+                                    @endcan
 
                             </div>
                         </div>
@@ -58,9 +60,13 @@
                                                             <div class="dropdown-menu">
                                                                 <a class="dropdown-item"
                                                                     onclick="openViewModal( )">View</a>
+                                                                    @can('update-product')
                                                                 <a class="dropdown-item"
                                                                     href="{{url('admin/products/'.$list->id.'/edit')}}">Edit</a>
+                                                                    @endcan
+                                                                    @can('delete-product')
                                                                 <a class="dropdown-item" href="javascript:openDeleteDialog({{$list->id}})">Delete</a>
+                                                                @endcan
                                                             </div>
                                                         </div>
                                                     </div>

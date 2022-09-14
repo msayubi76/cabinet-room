@@ -11,8 +11,10 @@
                                 <h4 class="card-title">Permission Table</h4>
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-4 text-right">
+                                @can('create-permission')
                                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addpermissionmodal">Add
                                     Permission</button>
+                                    @endcan
 
                             </div>
                         </div>
@@ -43,9 +45,13 @@
                                                             <div class="dropdown-menu">
                                                                 <a class="dropdown-item"
                                                                     onclick="openViewModal({{ $permission }})">View</a>
+                                                                    @can('update-permission')
                                                                 <a class="dropdown-item"
                                                                     href="javascript:openEditModal({{ json_encode($permission) }})">Edit</a>
+                                                                    @endcan
+                                                                    @can('delete-permission')
                                                                 <a class="dropdown-item" href="javascript:openDeleteDialog({{ $permission->id }})">Delete</a>
+                                                                @endcan
                                                             </div>
                                                         </div>
                                                     </div>
