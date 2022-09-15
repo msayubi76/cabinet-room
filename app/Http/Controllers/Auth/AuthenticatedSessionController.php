@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Providers\RouteServiceProvider;
+use App\Http\Requests\Auth\LoginRequest;
+use Laravel\Socialite\Facades\Socialite;
+
 
 class AuthenticatedSessionController extends Controller
 {
@@ -51,4 +53,38 @@ class AuthenticatedSessionController extends Controller
 
         return redirect('/');
     }
+
+     // Google login
+     public function redirectToGoogle()
+     {
+         return Socialite::driver('google')->redirect();
+     }
+ 
+     // Google callback
+     public function handleGoogleCallback()
+     {
+         $user = Socialite::driver('google')->user();
+ 
+         $this->_registerOrLoginUser($user);
+ 
+         // Return home after login
+         return redirect()->route('/');
+     }
+ 
+     // Facebook login
+     public function redirectToFacebook()
+     {
+         return Socialite::driver('facebook')->redirect();
+     }
+ 
+     // Facebook callback
+     public function handleFacebookCallback()
+     {
+         $user = Socialite::driver('facebook')->user();
+ 
+         $this->_registerOrLoginUser($user);
+ 
+         // Return / after login
+         return redirect()->route('/');
+     }
 }

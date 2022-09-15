@@ -18,20 +18,15 @@ use Illuminate\Support\Facades\Hash;
 
 class UserDashboardController extends Controller
 {
-public function index()
+public function index($id)
 {
 try {
     $categories = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();
 
     $cart = Cart::where('user_id', Auth::id())->get();
     $orders = Order::where('user_id', Auth::id())->get();
-
-
-
-
-
-
-
+    $order = Order::find($id);
+    
 
     return view('website.userdashboard.dashoard', compact('categories',  'cart', 'orders'));
 

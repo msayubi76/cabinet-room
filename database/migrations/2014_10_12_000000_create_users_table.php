@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('fist_name');
             $table->string('last_name');
+            $table->string('provider_id')->nullable();
 
             $table->string('mobile_no')->nullable();
             $table->string('address')->nullable();
