@@ -25,7 +25,7 @@
                             <table class="table table-striped table-bordered zero-configuration">
                                 <thead>
                                     <tr>
-                                        <th>Fist Name</th>
+                                        <th>First Name</th>
                                         <th>Last Name</th>
                                         <th>Email</th>
                                         <th>Role</th>
@@ -38,7 +38,7 @@
                                 <tbody id="table_id">
                                     @foreach ($users as $user)
                                         <tr id='row_{{ $user->id }}'>
-                                            <td>{{ $user->fist_name }}</td>
+                                            <td>{{ $user->name }}</td>
                                             <td>{{ $user->last_name }}</td>
                                             <td>{{ $user->email }}</td>
                                             {{-- <td>
@@ -137,9 +137,9 @@
                             <div class="form-group row">
 
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" id="fist_name" name="fist_name"
-                                        placeholder="Fist Name" :value="old('fist_name')">
-                                    <div id="fist_name_text" class="text-danger backend-error-text"></div>
+                                    <input type="text" class="form-control" id="name" name="name"
+                                        placeholder="Fist Name" :value="old('name')">
+                                    <div id="name_text" class="text-danger backend-error-text"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="last_name" name="last_name"
@@ -260,9 +260,9 @@
                             <div class="form-group row">
 
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" id="edit_fist_name" name="fist_name"
+                                    <input type="text" class="form-control" id="edit_name" name="name"
                                         placeholder="Enter a name.." value="">
-                                    <div id="edit_fist_name_text" class="text-danger backend-error-text"></div>
+                                    <div id="edit_name_text" class="text-danger backend-error-text"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="edit_last_name" name="last_name"
@@ -362,7 +362,7 @@
                         <div class="form-validation">
                             <div class="form-group row">
                                 <div class="col-12 text-center">
-                                    <label class=" col-form-label" id="view_fist_name" for="">
+                                    <label class=" col-form-label" id="view_name" for="">
                                     </label>
                                 </div>
 
@@ -459,7 +459,7 @@
 
                     var string =
                         `<tr id="row_${data.user.id}">
-                                <td>${data.user.fist_name}</td>
+                                <td>${data.user.name}</td>
                                 <td>${data.user.last_name}</td>
                                 <td>${data.user.email}</td>
                                 <td>${data.user.roles.name}</td>
@@ -554,7 +554,7 @@
                     $("#row_" + data.user.id).remove();
                     var string =
                         `<tr id="row_${data.user.id}">
-                            <td>${data.user.fist_name}</td>
+                            <td>${data.user.name}</td>
                             <td>${data.user.last_name}</td>
                             <td>${data.user.email}</td>
 
@@ -607,7 +607,7 @@
 
             console.log('openEditModal', user);
 
-            document.getElementById('edit_fist_name').value = user.fist_name;
+            document.getElementById('edit_name').value = user.name;
             document.getElementById('edit_last_name').value = user.last_name;
             document.getElementById('edit_mobile_no').value = user.mobile_no;
             document.getElementById('edit_address').value = user.address;
@@ -633,7 +633,7 @@
         function openViewModal(user) {
             // document.getElementById('view_name').value = user.name;
             // document.getElementById('view_email').value = user.email;
-            document.getElementById("view_fist_name").innerHTML = user.fist_name;
+            document.getElementById("view_name").innerHTML = user.name;
             document.getElementById("view_last_name").innerHTML = user.last_name;
             // document.getElementById("view_mobile_no").innerHTML = user.mobile_no;
             // document.getElementById("view_address").innerHTML = user.address;

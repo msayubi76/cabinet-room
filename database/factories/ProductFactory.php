@@ -18,7 +18,7 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
-        $actual_price = rand(6000, 500000);
+        $actual_price = rand(1000, 10000);
         $discount = rand(0,40);
 
         $percent_value = ($actual_price * $discount)/100;

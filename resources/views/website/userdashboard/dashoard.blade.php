@@ -28,8 +28,8 @@
                 <h2 class="text-uppercase">My Account</h2>
                 <ul class="nav nav-tabs list flex-column mb-0" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="dashboard-tab" data-toggle="tab" href="#dashboard"
-                            role="tab" aria-controls="dashboard" aria-selected="true">Dashboard</a>
+                        <a class="nav-link active" id="dashboard-tab" data-toggle="tab" href="#dashboard" role="tab"
+                            aria-controls="dashboard" aria-selected="true">Dashboard</a>
                     </li>
 
                     <li class="nav-item">
@@ -56,19 +56,21 @@
                     </li> --}}
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('logout')}}">Logout</a>
+                        <a class="nav-link" href="{{ route('logout') }}">Logout</a>
                     </li>
                 </ul>
             </div>
             <div class="col-lg-9 order-lg-last order-1 tab-content">
                 <div class="tab-pane fade show active" id="dashboard" role="tabpanel">
                     <div class="dashboard-content">
-                         @if (session('message'))
-            <div class="alert alert-success"> <h6>{{ session('message') }}</h6></div>
-        @endif
+                        @if (session('message'))
+                            <div class="alert alert-success">
+                                <h6>{{ session('message') }}</h6>
+                            </div>
+                        @endif
                         <p>
                             Hello <strong class="text-dark">Customer</strong> (
-                            <a href="{{ route('logout')}}" class="btn btn-link ">Log out</a>)
+                            <a href="{{ route('logout') }}" class="btn btn-link ">Log out</a>)
                         </p>
 
                         <p>
@@ -85,8 +87,7 @@
                         <div class="row row-lg">
                             <div class="col-6 col-md-4">
                                 <div class="feature-box text-center pb-4">
-                                    <a href="#order" class="link-to-tab"><i
-                                            class="sicon-social-dropbox"></i></a>
+                                    <a href="#order" class="link-to-tab"><i class="sicon-social-dropbox"></i></a>
                                     <div class="feature-box-content">
                                         <h3>ORDERS</h3>
                                     </div>
@@ -137,60 +138,53 @@
                             <table class="table table-order text-left">
                                 <thead>
                                     <tr>
-                                        <th class="order-id">ORDER</th>
+                                        <th class="order-id">ORDER DATE</th>
 
                                         <th class="order-status">STATUS</th>
-                                        <th class="order-status">Delivery</th>
+                                        <th class="order-status">DELIVERY STATUS</th>
+
                                         <th class="order-price">TOTAL</th>
-                                        <th class="order-date">DATE</th>
-                                        <th class="order-action">ACTIONS</th>
+
+                                        <th class="order-status">ORDER DETAILS</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
-                                  @foreach ($orders as $orderlist)
+                                    @foreach ($orders as $orderlist)
+                                        <tr>
+                                            <td>
+                                                {{ date('d-m-y', strtotime($orderlist->created_at)) }}
 
 
+                                            </td>
+                                            <td class="text-center">
+                                                <span
+                                                    class="badge badge-{{ $orderlist->order_status == 'padding' ? 'success' : 'warning' }}">
+                                                    {{ $orderlist->order_status == 'padding' ? 'active' : 'not-active' }}</span>
+                                            </td>
 
-                                    <tr>
-                                        <td >
-                                            {{ $orderlist->shipping->first_name }}   {{ $orderlist->shipping->last_name }}
+                                            <td>
+                                                {{ $orderlist->payments->method }}
 
+                                            </td>
+                                            <td>
+                                                {{ $orderlist->payments->payment }}
 
-                                        </td>
-                                        <td class="text-center">
-                                            <span
-                                               class="badge badge-{{ $orderlist->order_status == 'padding' ? 'success' : 'warning' }}">
-                                            {{ $orderlist->order_status == 'padding' ? 'active' : 'not-active' }}</span>
-                                         </td>
+                                            </td>
 
-                                        <td >
-                                            {{ $orderlist->payments->method }}
-
-                                        </td>
-                                        <td >
-                                            {{ $orderlist->payments->payment }}
-
-                                        </td>
+                                            <td>
+                                                <a href="{{ url('user-dashboard/order-detail/'.$orderlist->id) }}" >Order Detail</a>
 
 
+                                            </td>
 
-
-
-
-
-                                        <td >
-                                            {{ date('d-m-y',strtotime($orderlist->created_at))  }}
-
-                                        </td>
-
-                                    </tr>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                             <hr class="mt-0 mb-3 pb-2" />
 
-                            <a href="{{ ('/products') }}" class="btn btn-dark">Go Shop</a>
+                            <a href="{{ '/products' }}" class="btn btn-dark">Go Shop</a>
                         </div>
                     </div>
                 </div><!-- End .tab-pane -->
@@ -253,7 +247,7 @@
                     <h3 class="account-sub-title d-none d-md-block mt-0 pt-1 ml-1"><i
                             class="icon-user-2 align-middle mr-3 pr-1"></i>Account Details</h3>
                     <div class="account-content">
-                        <form action="{{route('updateinfo')}}" method="POST"  id="adminIninfo">
+                        <form action="{{ route('updateinfo') }}" method="POST" id="adminIninfo">
                             @csrf
                             {{-- <input type="hidden" value="-1" id="user_id"> --}}
                             <input type="hidden" value="PUT" name="_method">
@@ -261,19 +255,18 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="acc-name">First name <span class="required">*</span></label>
-                                        <input type="text" class="form-control" id="edit_fist_name" name="fist_name"
-                                        placeholder="Enter a name.." value="{{ Auth::user()->fist_name }}">
-                                        <div id="edit_fist_name_text" class="text-danger backend-error-text"></div>
-                                     </div>
+                                        <input type="text" class="form-control" id="edit_name" name="name"
+                                            placeholder="Enter a name.." value="{{ Auth::user()->name }}">
+                                        <div id="edit_name_text" class="text-danger backend-error-text"></div>
+                                    </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="acc-lastname">Last name <span
-                                                class="required">*</span></label>
-                                                <input type="text" class="form-control" id="edit_last_name" name="last_name"
-                                                placeholder="Enter a name.." value="{{ Auth::user()->last_name }}">
-                                                <div id="edit_last_name_text" class="text-danger backend-error-text"></div>
+                                        <label for="acc-lastname">Last name <span class="required">*</span></label>
+                                        <input type="text" class="form-control" id="edit_last_name" name="last_name"
+                                            placeholder="Enter a name.." value="{{ Auth::user()->last_name }}">
+                                        <div id="edit_last_name_text" class="text-danger backend-error-text"></div>
 
                                     </div>
                                 </div>
@@ -282,7 +275,7 @@
                             <div class="form-group mb-2">
                                 <label for="acc-text">Display name <span class="required">*</span></label>
                                 <input type="text" class="form-control" id="acc-text" name="acc-text"
-                                    placeholder="Editor" value="{{ Auth::user()->type }}"  required />
+                                    placeholder="Editor" value="{{ Auth::user()->type }}" required />
                                 <p>This will be how your name will be displayed in the account section and
                                     in
                                     reviews</p>
@@ -292,9 +285,9 @@
                             <div class="form-group mb-4">
                                 <label for="acc-email">Email address <span class="required">*</span></label>
                                 <input type="email" class="form-control" id="edit_email" name="email"
-                                placeholder="Enter a name.." value="{{ Auth::user()->email }}">
-                            <div id="edit_email_text" class="text-danger backend-error-text"></div>
-</div>
+                                    placeholder="Enter a name.." value="{{ Auth::user()->email }}">
+                                <div id="edit_email_text" class="text-danger backend-error-text"></div>
+                            </div>
                             <div class="form-footer mt-3 mb-0">
                                 <button type="submit" name="submit" class="btn btn-dark mr-0">
                                     Save changes
@@ -303,30 +296,28 @@
                         </form>
                     </div>
                     <div class="account-content mt-3 mb-0">
-                        <form action="{{route('changePassword')}}" method="POST" id="changepassword">
+                        <form action="{{ route('changePassword') }}" method="POST" id="changepassword">
                             <div class="change-password">
                                 <h3 class="text-uppercase mb-2">Password Change</h3>
 
                                 <div class="form-group">
                                     <label for="acc-password">Current Password (leave blank to leave
                                         unchanged)</label>
-                                    <input type="password" class="form-control" id="oldpassword"
-                                    name="oldpassword" />
+                                    <input type="password" class="form-control" id="oldpassword" name="oldpassword" />
                                     <div id="edit_oldpassword_text" class="text-danger"></div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="acc-password">New Password (leave blank to leave
                                         unchanged)</label>
-                                    <input type="password" class="form-control" id="password"
-                                        name="password" />
-                                        <div id="edit_password_text" class="text-danger"></div>
+                                    <input type="password" class="form-control" id="password" name="password" />
+                                    <div id="edit_password_text" class="text-danger"></div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="acc-password">Confirm New Password</label>
                                     <input type="password" class="form-control" id="password"
-                                    name="password_confirmation" />
+                                        name="password_confirmation" />
                                     <div id="edit_password_confirmation_text" class="text-danger"></div>
                                 </div>
                             </div>
@@ -349,14 +340,16 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>First name <span class="required">*</span></label>
-                                        <input type="text" class="form-control" value="{{ Auth::user()->fist_name }}" required />
+                                        <input type="text" class="form-control" value="{{ Auth::user()->name }}"
+                                            required />
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Last name <span class="required">*</span></label>
-                                        <input type="text" class="form-control" value="{{ Auth::user()->last_name }}" required />
+                                        <input type="text" class="form-control" value="{{ Auth::user()->last_name }}"
+                                            required />
                                     </div>
                                 </div>
                             </div>
@@ -381,10 +374,11 @@
 
                             <div class="form-group">
                                 <label>Street address <span class="required">*</span></label>
+                                <input type="text" class="form-control" placeholder="House number and street name"
+                                    required />
                                 <input type="text" class="form-control"
-                                    placeholder="House number and street name" required />
-                                <input type="text" class="form-control"
-                                    placeholder="Apartment, suite, unit, etc. (optional)" value="{{ Auth::user()->address }}" required />
+                                    placeholder="Apartment, suite, unit, etc. (optional)"
+                                    value="{{ Auth::user()->address }}" required />
                             </div>
 
                             <div class="form-group">
@@ -394,7 +388,8 @@
 
                             <div class="form-group">
                                 <label>State / Country <span class="required">*</span></label>
-                                <input type="text" class="form-control" value="{{ Auth::user()->country }}" required />
+                                <input type="text" class="form-control" value="{{ Auth::user()->country }}"
+                                    required />
                             </div>
 
                             <div class="form-group">
@@ -409,8 +404,7 @@
 
                             <div class="form-group mb-3">
                                 <label>Email address <span class="required">*</span></label>
-                                <input type="email" class="form-control" placeholder="editor@gmail.com"
-                                    required />
+                                <input type="email" class="form-control" placeholder="editor@gmail.com" required />
                             </div>
 
                             <div class="form-footer mb-0">
@@ -465,8 +459,8 @@
 
                             <div class="form-group">
                                 <label>Street address <span class="required">*</span></label>
-                                <input type="text" class="form-control"
-                                    placeholder="House number and street name" required />
+                                <input type="text" class="form-control" placeholder="House number and street name"
+                                    required />
                                 <input type="text" class="form-control"
                                     placeholder="Apartment, suite, unit, etc. (optional)" required />
                             </div>
@@ -505,147 +499,139 @@
 
 @endsection
 @section('scripts')
-<script>
-
-  (function($) {
-      "use strict"
-
+    <script>
+        (function($) {
+            "use strict"
 
 
 
-  })(jQuery);
-  $.ajaxSetup({
-      headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
-  });
+
+        })(jQuery);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
 
-  $(function(){
-/* UPDATE ADMIN PERSONAL INFO */
-$('#adminIninfo').on('submit', function(e){
-  e.preventDefault();
-  $.ajax({
-     url:$(this).attr('action'),
-     method:$(this).attr('method'),
-     data:new FormData(this),
-     processData:false,
-     dataType:'json',
-     contentType:false,
-     beforeSend: function () {
-          $('#adminIninfo')
-          $('.backend-error-text').text('')
-              .prop("disabled", true);
-      },
-      success: function (data) {
+        $(function() {
+            /* UPDATE ADMIN PERSONAL INFO */
+            $('#adminIninfo').on('submit', function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: $(this).attr('action'),
+                    method: $(this).attr('method'),
+                    data: new FormData(this),
+                    processData: false,
+                    dataType: 'json',
+                    contentType: false,
+                    beforeSend: function() {
+                        $('#adminIninfo')
+                        $('.backend-error-text').text('')
+                            .prop("disabled", true);
+                    },
+                    success: function(data) {
 
 
-          $('#adminIninfo')
-              .find('[type="button"]')
-              .prop("disabled", false);
-              swal({
-                  title: "",
-                  text: data.message,
-                  icon: "success",
+                        $('#adminIninfo')
+                            .find('[type="button"]')
+                            .prop("disabled", false);
+                        swal({
+                            title: "",
+                            text: data.message,
+                            icon: "success",
+                        });
+                    },
+                    error: function(error) {
+                        $('#adminIninfo')
+                            .find('[type="button"]')
+                            .prop("disabled", false);
+                        var errorMessage = error.statusText;
+                        var sweetMessage = error.statusText;
+                        if (error.status == 422) {
+                            errorMessage = handleValidationErrors(error, 'edit')
+                            sweetMessage = 'Invalid Data'
+                        }
+                        swal({
+                            title: "Error",
+                            text: sweetMessage,
+                            icon: "error",
+                        });
+                        // toastr.error(errorMessage, "Error");
+                        // hideLoader();
+                    },
                 });
-      },
-      error: function (error) {
-          $('#adminIninfo')
-              .find('[type="button"]')
-              .prop("disabled", false);
-          var errorMessage = error.statusText;
-          var sweetMessage = error.statusText;
-          if (error.status == 422) {
-              errorMessage = handleValidationErrors(error, 'edit')
-              sweetMessage = 'Invalid Data'
-          }
-          swal({
-              title: "Error",
-              text: sweetMessage,
-              icon: "error",
             });
-          // toastr.error(errorMessage, "Error");
-          // hideLoader();
-      },
-  });
-  });
-});
-function handleValidationErrors(error, type = 'create') {
-  let errors = error.responseJSON.errors;
-  var errorMessage = error.responseJSON.message
-  var element = '';
-  $.each(errors, function (key, item) {
-      element = key.split('.')
-      if (element.length > 1) {
-          element = `${element[0]}_${element[1]}`
-      } else {
-          element = `${element}`
-      }
-      // dataAttr = $(element).closest('.tab').data('id')
-      // $(`.step-${dataAttr}`).addClass('backend-error')
-      if (type == 'edit') {
-          console.log('edit',element);
-          $(`#edit_${element}_text`).text(item[0])
-      } else if (type == 'create') {
-          $(`#${element}_text`).text(item[0])
-      }
-  });
+        });
 
-  return errorMessage;
-}
-
-$('#changepassword').on('submit', function(e){
-   e.preventDefault();
-   $.ajax({
-      url:$(this).attr('action'),
-      method:$(this).attr('method'),
-      data:new FormData(this),
-      processData:false,
-      dataType:'json',
-      contentType:false,
-      beforeSend: function () {
-          $('#changepassword')
-              .find('[type="button"]')
-              .prop("disabled", true);
-      },
-      success: function (data) {
-
-          $('#changepassword')
-              .find('[type="button"]')
-              .prop("disabled", false);
-              swal({
-                  title: "",
-                  text: data.msg,
-                  icon: "success",
-                });
-      },
-      error: function (error) {
-          $('#adminIninfo')
-              .find('[type="button"]')
-              .prop("disabled", false);
-          var errorMessage = error.statusText;
-          var sweetMessage = error.statusText;
-          if (error.status == 422) {
-              errorMessage = handleValidationErrors(error, 'edit')
-              sweetMessage = 'Invalid Data'
-          }
-          swal({
-              title: "Error",
-              text: sweetMessage,
-              icon: "error",
+        function handleValidationErrors(error, type = 'create') {
+            let errors = error.responseJSON.errors;
+            var errorMessage = error.responseJSON.message
+            var element = '';
+            $.each(errors, function(key, item) {
+                element = key.split('.')
+                if (element.length > 1) {
+                    element = `${element[0]}_${element[1]}`
+                } else {
+                    element = `${element}`
+                }
+                // dataAttr = $(element).closest('.tab').data('id')
+                // $(`.step-${dataAttr}`).addClass('backend-error')
+                if (type == 'edit') {
+                    console.log('edit', element);
+                    $(`#edit_${element}_text`).text(item[0])
+                } else if (type == 'create') {
+                    $(`#${element}_text`).text(item[0])
+                }
             });
-          // toastr.error(errorMessage, "Error");
-          // hideLoader();
-      },
-  });
-  });
 
+            return errorMessage;
+        }
 
+        $('#changepassword').on('submit', function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: $(this).attr('action'),
+                method: $(this).attr('method'),
+                data: new FormData(this),
+                processData: false,
+                dataType: 'json',
+                contentType: false,
+                beforeSend: function() {
+                    $('#changepassword')
+                        .find('[type="button"]')
+                        .prop("disabled", true);
+                },
+                success: function(data) {
 
-</script>
+                    $('#changepassword')
+                        .find('[type="button"]')
+                        .prop("disabled", false);
+                    swal({
+                        title: "",
+                        text: data.msg,
+                        icon: "success",
+                    });
+                },
+                error: function(error) {
+                    $('#adminIninfo')
+                        .find('[type="button"]')
+                        .prop("disabled", false);
+                    var errorMessage = error.statusText;
+                    var sweetMessage = error.statusText;
+                    if (error.status == 422) {
+                        errorMessage = handleValidationErrors(error, 'edit')
+                        sweetMessage = 'Invalid Data'
+                    }
+                    swal({
+                        title: "Error",
+                        text: sweetMessage,
+                        icon: "error",
+                    });
+                    // toastr.error(errorMessage, "Error");
+                    // hideLoader();
+                },
+            });
+        });
+    </script>
 @endsection
-
-
-
-
-

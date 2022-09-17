@@ -39,7 +39,7 @@ class UserRequest extends FormRequest
 
 
         $rules =  [
-            'fist_name' => [ 'required', 'alpha', 'max:255'],
+            'name' => [ 'required', 'alpha', 'max:255'],
             'last_name' => ['required', 'alpha', 'max:255'],
             'mobile_no' => ['nullable',  'max:11'],
             'address' => ['nullable'],

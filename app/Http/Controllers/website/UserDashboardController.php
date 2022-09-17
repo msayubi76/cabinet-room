@@ -18,17 +18,39 @@ use Illuminate\Support\Facades\Hash;
 
 class UserDashboardController extends Controller
 {
-public function index($id)
+public function index()
 {
 try {
     $categories = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();
 
     $cart = Cart::where('user_id', Auth::id())->get();
     $orders = Order::where('user_id', Auth::id())->get();
-    $order = Order::find($id);
-    
+
+
 
     return view('website.userdashboard.dashoard', compact('categories',  'cart', 'orders'));
+
+
+
+}
+catch (\Throwable $th) {
+    return response()->json(['status' => false, 'message' => $th->getMessage()]);
+}
+}
+
+public function orderDetail($id)
+{
+try {
+    $categories = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();
+
+    $cart = Cart::where('user_id', Auth::id())->get();
+    $orders = Order::where('id',$id)->where('user_id', Auth::id())->get();
+    // $orderdetails = OrderDetail::where('order_id', $id)->get();
+
+
+
+
+    return view('website.userdashboard.order-detail', compact('categories',  'cart', 'orders'));
 
 
 

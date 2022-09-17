@@ -19,7 +19,7 @@
                             <table class="table table-striped table-bordered zero-configuration" id="table">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
+                                        <th>Order Date</th>
                                         <th>price</th>
                                         <th>Status</th>
                                         <th>Action</th>
@@ -28,34 +28,19 @@
                                 <tbody id="table_id">
                                     @foreach ($orders as $order)
                                         <tr id='row_{{ $order->id }}'>
-                                            <td>{{ $order->users->fist_name }} {{ $order->users->last_name }}</td>
+                                            <td> {{ date('d-m-y', strtotime($order->created_at)) }}</td>
                                             <td>{{ $order->payments->payment }}</td>
                                             <td>
                                                 <span
                                                 class="badge badge-{{ $order->order_status == 'padding' ? 'success' : 'warning' }}">
                                                 {{ $order->order_status == 'padding' ? 'not-padding' : 'padding' }}</span>
                                             </td>
+                                            <a href="{{ url('view-order/'.$orde->id) }}" class="btn btn-sm btn-primary" >View</a>
 
 
 
                                             <td>
-                                                <div class="button-group">
-                                                    <div class="btn-group">
-                                                        <div class="btn-group">
-                                                            <button id="btnGroupDrop1" type="button"
-                                                                class="btn btn-primary dropdown-toggle py-0 px-2"
-                                                                data-toggle="dropdown"></button>
-                                                            <div class="dropdown-menu">
-                                                                <a class="dropdown-item"
-                                                                    onclick="openViewModal({{ $order }})">View</a>
-                                                                <a class="dropdown-item"
-                                                                    href="javascript:openEditModal({{ json_encode($order) }})">Edit</a>
-                                                                <a class="dropdown-item"
-                                                                    href="javascript:openDeleteDialog({{ $order->id }})">Delete</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+
                                             </td>
                                         </tr>
                                     @endforeach

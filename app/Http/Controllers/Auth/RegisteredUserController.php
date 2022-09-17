@@ -37,7 +37,7 @@ class RegisteredUserController extends Controller
 
 
         $request->validate([
-            'fist_name' => [ 'required', 'alpha', 'max:255'],
+            'name' => [ 'required', 'alpha', 'max:255'],
             'last_name' => ['required', 'alpha', 'max:255'],
             'mobile_no' => ['nullable'],
             'address' => ['nullable', 'string'],
@@ -48,7 +48,7 @@ class RegisteredUserController extends Controller
         ]);
 
         $user = User::create([
-            'fist_name' => $request->fist_name,
+            'name' => $request->fist_name,
             'last_name' => $request->last_name,
             'mobile_no' => $request->mobile_no,
             'address' => $request->address,

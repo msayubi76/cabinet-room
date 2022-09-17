@@ -39,20 +39,13 @@
 
 
 
-                    {{-- <li class="nav-item">
-                        <a class="nav-link" id="address-tab" data-toggle="tab" href="#address" role="tab"
-                            aria-controls="address" aria-selected="false">Addresses</a>
-                    </li> --}}
 
                     <li class="nav-item">
                         <a class="nav-link" id="edit-tab" data-toggle="tab" href="#edit" role="tab"
                             aria-controls="edit" aria-selected="false">Account
                             details</a>
                     </li>
-                    {{-- <li class="nav-item">
-                        <a class="nav-link" id="shop-address-tab" data-toggle="tab" href="#shipping" role="tab"
-                            aria-controls="edit" aria-selected="false">Shopping Addres</a>
-                    </li> --}}
+
 
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('logout')}}">Logout</a>
@@ -62,9 +55,14 @@
             <div class="col-lg-9 order-lg-last order-1 tab-content">
                 <div class="tab-pane fade show active" id="dashboard" role="tabpanel">
                     <div class="dashboard-content">
+                        {{-- <h3 class="account-sub-title d-none d-md-block"><i
+                            class="sicon-social-dropbox align-middle mr-3"></i>Orders</h3>
+
+                            <strong class="text-dark"> <b>Customer </b></strong>
                         <p>
-                            Hello <strong class="text-dark">Editor</strong> (not
-                            <strong class="text-dark">Editor</strong>?
+
+                            Hello <strong class="text-dark"></strong> (
+                            <strong class="text-dark"></strong>?
                             <a href="{{ route('logout')}}" class="btn btn-link ">Log out</a>)
                         </p>
 
@@ -75,54 +73,68 @@
                             and
                             <a class="btn btn-link link-to-tab" href="#edit">edit your password and account
                                 details.</a>
-                        </p>
+                        </p> --}}
 
                         <div class="mb-4"></div>
 
-                        <div class="row row-lg">
-                            <div class="col-6 col-md-4">
-                                <div class="feature-box text-center pb-4">
-                                    <a href="#order" class="link-to-tab"><i
-                                            class="sicon-social-dropbox"></i></a>
-                                    <div class="feature-box-content">
-                                        <h3>ORDERS</h3>
-                                    </div>
-                                </div>
+                        <div class="order-content">
+                            <h3 class="account-sub-title d-none d-md-block"><i
+                                    class="sicon-social-dropbox align-middle mr-3"></i>Orders</h3>
+                            <div class="order-table-container text-center">
+
+                                <table class="table table-order text-left">
+                                    <thead>
+                                        <tr>
+                                            <th class="order-id">ORDER</th>
+
+                                            <th class="order-status">STATUS</th>
+                                            <th class="order-status">Qantity</th>
+                                            <th class="order-price">TOTAL</th>
+                                            <th class="order-date">DATE</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+
+                                        @foreach ($orders->orderDetails as $orderlist)
+                                        <tr>
+                                            <td>
+                                                {{ $orderlist->products->name }}
+
+
+                                            </td>
+                                            <td class="text-center">
+                                                <span
+                                                    class="badge badge-{{ $orderlist->order_status == 'padding' ? 'success' : 'warning' }}">
+                                                    {{ $orderlist->order_status == 'padding' ? 'active' : 'not-active' }}</span>
+                                            </td>
+
+                                            <td>
+                                                {{ $orderlist->quantity }}
+
+                                            </td>
+                                            <td>
+                                                {{ $orderlist->price }}
+
+                                            </td>
+
+                                            <td>
+                                                {{ date('d-m-y', strtotime($orderlist->created_at)) }}
+
+                                            </td>
+
+
+                                        </tr>
+                                    @endforeach
+
+                                    </tbody>
+                                </table>
+                                <hr class="mt-0 mb-3 pb-2" />
+
+                                <a href="{{ ('/products') }}" class="btn btn-dark">Go Shop</a>
                             </div>
-
-
-
-
-                            {{-- <div class="col-6 col-md-4">
-                                <div class="feature-box text-center pb-4">
-                                    <a href="#address" class="link-to-tab"><i
-                                            class="sicon-location-pin"></i></a>
-                                    <div class="feature-box-content">
-                                        <h3>ADDRESSES</h3>
-                                    </div>
-                                </div>
-                            </div> --}}
-
-                            <div class="col-6 col-md-4">
-                                <div class="feature-box text-center pb-4">
-                                    <a href="#edit" class="link-to-tab"><i class="icon-user-2"></i></a>
-                                    <div class="feature-box-content p-0">
-                                        <h3>ACCOUNT DETAILS</h3>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-                            <div class="col-6 col-md-4">
-                                <div class="feature-box text-center pb-4">
-                                    <a href="login.html"><i class="sicon-logout"></i></a>
-                                    <div class="feature-box-content">
-                                        <h3>LOGOUT</h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- End .row -->
+                        </div>
                     </div>
                 </div><!-- End .tab-pane -->
 

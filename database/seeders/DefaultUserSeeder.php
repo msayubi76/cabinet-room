@@ -21,7 +21,7 @@ class DefaultUserSeeder extends Seeder
 
 
         $admin = User::create([
-            'fist_name' => 'admin',
+            'name' => 'admin',
                 'last_name' => 'admin',
                 'mobile_no' => '03015913636',
                 'city' => 'islamabad',
@@ -33,7 +33,7 @@ class DefaultUserSeeder extends Seeder
         ]);
 
         $customer = User::create([
-            'fist_name' => 'customer',
+            'name' => 'customer',
             'last_name' => 'customer',
             'mobile_no' => '03015913636',
             'city' => 'islamabad',

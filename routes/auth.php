@@ -33,14 +33,8 @@ Route::middleware('guest')->group(function () {
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.update');
 
-                
-                // Google login
-Route::get('login/google', [AuthenticatedSessionController::class, 'redirectToGoogle'])->name('login.google');
-Route::get('login/google/callback', [AuthenticatedSessionController::class, 'handleGoogleCallback']);
 
-// Facebook login
-Route::get('login/facebook', [AuthenticatedSessionController::class, 'redirectToFacebook'])->name('login.facebook');
-Route::get('login/facebook/callback', [AuthenticatedSessionController::class, 'handleFacebookCallback']);
+
 });
 
 Route::middleware('auth')->group(function () {
@@ -64,5 +58,13 @@ Route::middleware('auth')->group(function () {
                 ->name('logout');
 
 });
+
+  // Google login
+  Route::get('login/google', [AuthenticatedSessionController::class, 'redirectToGoogle'])->name('login.google');
+  Route::get('login/google/callback', [AuthenticatedSessionController::class, 'handleGoogleCallback']);
+
+  // Facebook login
+  Route::get('login/facebook', [AuthenticatedSessionController::class, 'redirectToFacebook'])->name('login.facebook');
+  Route::get('login/facebook/callback', [AuthenticatedSessionController::class, 'handleFacebookCallback']);
 
 

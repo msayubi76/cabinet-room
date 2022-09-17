@@ -22,4 +22,16 @@ class OrderController extends Controller
         return response()->json(['status' => false, 'message' => $th->getMessage()]);
     }
     }
+
+    public function viewOrder($id)
+    {
+    try {
+
+
+        return view('admin.orders.view', compact( 'orders'));
+    }
+    catch (\Throwable $th) {
+        return response()->json(['status' => false, 'message' => $th->getMessage()]);
+    }
+    }
 }

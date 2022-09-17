@@ -41,6 +41,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('delete', [CartController::class, 'delete']);
 
     Route::get('user-dashboard', [UserDashboardController::class, 'index'])->name('user-dashboard');
+    Route::get('user-dashboard/order-detail/{id}', [UserDashboardController::class, 'orderDetail'])->name('order-detail');
     Route::put('update-profile', [UserDashboardController::class, 'updateinfo'])->name('updateinfo');
 Route::post('change-password', [UserDashboardController::class, 'changePassword'])->name('changePassword');
 });

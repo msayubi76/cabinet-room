@@ -76,6 +76,7 @@
 
                         <form action="{{ url('check-out') }}" method="post" id="checkout-form">
                             @csrf
+                            {{ $errors }}
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">

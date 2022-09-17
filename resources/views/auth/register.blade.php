@@ -34,8 +34,8 @@
         @csrf
 
         <div>
-            <input type="text" name="fist_name" class="user active" placeholder="First Name" :value="old('fist_name')"/>
-            @error('fist_name')
+            <input type="text" name="name" class="user active" placeholder="First Name" :value="old('name')"/>
+            @error('name')
             <span class="text-danger" role="alert" style="
 
                 text-align: center;
@@ -106,9 +106,9 @@
 	</div>
 </form>
 	<div class="login-bottom">
-	
+
 	 <div class="social-icons">
-		
+
 		<h4>If you have already account? <a  href="{{ route('login') }}"></a></h4>
 		<div class="reg-bwn"><a href="{{ route('login') }}">Sing In</a></div>
 	</div>

@@ -34,15 +34,15 @@
 
                                     <div class="row">
                                         <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
-                                            <img id="edit_image_preview" src="{{ url('images/profile/62a7764c8bf14.jpg') }}" alt=""
-                                                width="120" class="rounded-circle border border-dark" />
+                                            <img id="edit_image_preview" src="{{ Auth::user()->image_url }}" alt=""
+                                                width="120" height="100" class="rounded-circle border border-dark" />
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <div class="col-md-6">
-                                            <input type="text" class="form-control" id="edit_fist_name" name="fist_name"
-                                            placeholder="Enter a name.." value="{{ Auth::user()->fist_name }}" readonly>
+                                            <input type="text" class="form-control" id="edit_name" name="name"
+                                            placeholder="Enter a name.." value="{{ Auth::user()->name }}" readonly>
 
                                          </div>
                                         <div class="col-md-6">
@@ -96,16 +96,16 @@
                                 <input type="hidden" value="PUT" name="_method">
                                 <div class="row">
                                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
-                                        <img id="edit_image_preview" src="{{ url('images/profile/62a7764c8bf14.jpg') }}" alt=""
-                                            width="120" class="rounded-circle border border-dark" />
+                                        <img id="edit_image_preview" src="{{ Auth::user()->image_url }}" alt=""
+                                            width="120" height="100" class="rounded-circle border border-dark" />
                                     </div>
                                 </div>
                                 <div class="form-validation">
                                 <div class="form-group row">
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" id="edit_fist_name" name="fist_name"
-                                        placeholder="Enter a name.." value="{{ Auth::user()->fist_name }}">
-                                        <div id="edit_fist_name_text" class="text-danger backend-error-text"></div>
+                                        <input type="text" class="form-control" id="edit_name" name="name"
+                                        placeholder="Enter a name.." value="{{ Auth::user()->name }}">
+                                        <div id="edit_name_text" class="text-danger backend-error-text"></div>
                                      </div>
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" id="edit_last_name" name="last_name"
@@ -143,7 +143,7 @@
 
                                      <input type="file" class="form-control" id="edit_profile" name="profile"
                                     placeholder="Choose File" value="">
-                                    <div id="edit_fist_profile_text" class="text-danger backend-error-text"></div>
+                                    <div id="edit_profile_text" class="text-danger backend-error-text"></div>
                                 </div>
                                 <div class="form-group">
                                     <input type="email" class="form-control" id="edit_email" name="email"
