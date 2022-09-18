@@ -52,7 +52,7 @@ class FrontendController extends Controller
     public function products()
     {
         try {
-            $products = Product::orderBy('id', 'DESC')->where('is_active', '1')->paginate(30);
+            $products = Product::orderBy('id', 'DESC')->where('is_active', '1')->paginate(10);
 
             $categories = Category::where('is_active', '1')->with('subcategories')->where('is_active', '1')->get();
             $featuredProducts = Product::where('is_feature_product', '1')->where('is_active', '1')->get();
@@ -163,7 +163,7 @@ class FrontendController extends Controller
     public function productList()
     {
         try {
-            $product = Product::select('name')->paginate(30);
+            $product = Product::select('name')->paginate(10);
             $data = [];
             foreach ($product as $product_list) {
                 $data[] = $product_list['name'];

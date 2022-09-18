@@ -76,7 +76,7 @@
 
                         <form action="{{ url('check-out') }}" method="post" id="checkout-form">
                             @csrf
-                            {{ $errors }}
+
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -245,7 +245,7 @@
 
                                 <td class="price-col">
 
-                                    <span>${{ $all_item_total }}</span>
+                                    <span>{{ $cartitem->product->currency }}{{ $all_item_total }}</span>
                                 </td>
                             </tr>
                             <tr class="order-shipping">
@@ -273,7 +273,7 @@
                                 </td>
                                 <td>
                                     <b
-                                        class="total-price"><span>${{ $all_item_total }}</span></b>
+                                        class="total-price"><span>{{ $cartitem->product->currency }}{{ $all_item_total }}</span></b>
                                 </td>
                             </tr>
                         </tfoot>
