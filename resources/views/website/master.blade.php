@@ -49,6 +49,9 @@
     <link rel="stylesheet" href="{{ asset('website/assets/css/demo4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('website/assets/css/jquery.ui.css') }}">
     <link href="{{ url('admin-assets/plugins/sweetalert/css/sweetalert.css') }}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,400;1,100&display=swap" rel="stylesheet">
 
 
     <!-- Main CSS File -->
@@ -58,6 +61,10 @@
         .pagination{
             float: right;
             margin-top: 10px;
+        }
+
+        body{
+            font-family: 'Montserrat', sans-serif;
         }
 </style>
 </head>
@@ -113,6 +120,7 @@
     <script src="{{ asset('website/assets/js/jquery.appear.min.js') }}"></script>
     <script src="{{ url('admin-assets/plugins/sweetalert/js/sweetalert.min.js') }}"></script>
     <script src="{{ asset('website/assets/js/jquery.ui.js') }}"></script>
+
      <script>
 
           var availableTags = [];

@@ -150,7 +150,7 @@
                 </div>
                 <!-- End .row -->
                 <div class="text-center">
-                <nav class="toolbox toolbox-pagination" style="align-content: center;">
+                <nav class="toolbox toolbox-pagination" style="float:right;">
 
 
                         <ul class="pagination toolbox-item" >

@@ -68,19 +68,7 @@
                                 <h6>{{ session('message') }}</h6>
                             </div>
                         @endif
-                        <p>
-                            Hello <strong class="text-dark">Customer</strong> (
-                            <a href="{{ route('logout') }}" class="btn btn-link ">Log out</a>)
-                        </p>
 
-                        <p>
-                            From your account dashboard you can view your
-                            <a class="btn btn-link link-to-tab" href="#order">recent orders</a>,
-
-                            and
-                            <a class="btn btn-link link-to-tab" href="#edit">edit your password and account
-                                details.</a>
-                        </p>
 
                         <div class="mb-4"></div>
 
@@ -135,6 +123,7 @@
                         <h3 class="account-sub-title d-none d-md-block"><i
                                 class="sicon-social-dropbox align-middle mr-3"></i>Orders</h3>
                         <div class="order-table-container text-center">
+                            @if ($orders->count() > 0)
                             <table class="table table-order text-left">
                                 <thead>
                                     <tr>
@@ -151,37 +140,43 @@
                                 <tbody>
 
                                     @foreach ($orders as $orderlist)
-                                        <tr>
-                                            <td>
-                                                {{ date('d-m-y', strtotime($orderlist->created_at)) }}
+                                    <tr>
+                                        <td>
+                                            {{ date('d-m-y', strtotime($orderlist->created_at)) }}
 
 
-                                            </td>
-                                            <td class="text-center">
-                                                <span
-                                                    class="badge badge-{{ $orderlist->order_status == 'padding' ? 'success' : 'warning' }}">
-                                                    {{ $orderlist->order_status == 'padding' ? 'active' : 'not-active' }}</span>
-                                            </td>
+                                        </td>
+                                        <td class="text-center">
+                                            <span
+                                                class="badge badge-{{ $orderlist->order_status == 'padding' ? 'success' : 'warning' }}">
+                                                {{ $orderlist->order_status == 'padding' ? 'active' : 'not-active' }}</span>
+                                        </td>
 
-                                            <td>
-                                                {{ $orderlist->payments->method }}
+                                        <td>
+                                            {{ $orderlist->payments->method }}
 
-                                            </td>
-                                            <td>
-                                                {{ $orderlist->payments->payment }}
+                                        </td>
+                                        <td>
+                                            {{ $orderlist->payments->payment }}
 
-                                            </td>
+                                        </td>
 
-                                            <td>
-                                                <a href="{{ url('user-dashboard/order-detail/'.$orderlist->id) }}" >Order Detail</a>
+                                        <td>
+                                            <a href="{{ url('user-dashboard/order-detail/'.$orderlist->id) }}" >Order Detail</a>
 
 
-                                            </td>
+                                        </td>
 
-                                        </tr>
-                                    @endforeach
+                                    </tr>
+                                @endforeach
+
+
+
                                 </tbody>
                             </table>
+                            @else
+                            <h5>No Order Available Yet</h5>
+                                @endif
                             <hr class="mt-0 mb-3 pb-2" />
 
                             <a href="{{ '/products' }}" class="btn btn-dark">Go Shop</a>
@@ -272,22 +267,10 @@
                                 </div>
                             </div>
 
-                            <div class="form-group mb-2">
-                                <label for="acc-text">Display name <span class="required">*</span></label>
-                                <input type="text" class="form-control" id="acc-text" name="acc-text"
-                                    placeholder="Editor" value="{{ Auth::user()->type }}" required />
-                                <p>This will be how your name will be displayed in the account section and
-                                    in
-                                    reviews</p>
-                            </div>
 
 
-                            <div class="form-group mb-4">
-                                <label for="acc-email">Email address <span class="required">*</span></label>
-                                <input type="email" class="form-control" id="edit_email" name="email"
-                                    placeholder="Enter a name.." value="{{ Auth::user()->email }}">
-                                <div id="edit_email_text" class="text-danger backend-error-text"></div>
-                            </div>
+
+
                             <div class="form-footer mt-3 mb-0">
                                 <button type="submit" name="submit" class="btn btn-dark mr-0">
                                     Save changes

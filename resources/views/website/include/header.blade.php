@@ -35,6 +35,7 @@
                                 <li><a href="{{ route('logout') }}">Log out</a></li>
                             @else
                                 <li><a href="{{ url('login') }}">Log In</a></li>
+                                <li><a href="{{ route('register')}}">Register</a></li>
                             @endif
                             {{-- @if ( App\Models\Cart::where('user_id', Auth::id())->count() > 0)
                             <li><a href="{{ url('cart') }}">Cart</a></li>
@@ -122,13 +123,31 @@
 
 
                 <div class="dropdown cart-dropdown">
+                    @if ( App\Models\Cart::where('user_id', Auth::id())->count() > 0 )
                     <a href="{{ url('cart') }}" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle"
-                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                        data-display="static">
-                        <i class="minicart-icon"></i>
-                        <span
-                            class="cart-count badge-circle">{{ App\Models\Cart::where('user_id', Auth::id())->count() }}</span>
-                    </a>
+                    role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                    data-display="static">
+                    <i class="minicart-icon"></i>
+                    <span
+                        class="cart-count badge-circle">
+
+
+                        {{ App\Models\Cart::where('user_id', Auth::id())->count()  }}</span>
+                </a>
+                @else
+                <a href="{{ url('cart') }}" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle"
+                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                data-display="static">
+                <i class="minicart-icon"></i>
+                <span
+                    class="cart-count badge-circle">
+
+
+                    </span>
+            </a>
+
+                    @endif
+
 
                     <div class="cart-overlay"></div>
 

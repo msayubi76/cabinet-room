@@ -279,7 +279,7 @@
                             <!-- End .product-ratings -->
                         </div>
                         <!-- End .product-container -->
-                        <div class="price-box">
+                        <div class="price-box" style="width: max-content;">
                             @if ($arriviallist->discount > 0)
                             <del class="old-price">{{$arriviallist->currency}}{{$arriviallist->actual_price}}</del>
                             <span class="product-price">{{$arriviallist->currency}}{{$arriviallist->saleprice }}</span>

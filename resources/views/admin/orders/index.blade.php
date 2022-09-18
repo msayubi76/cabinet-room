@@ -35,12 +35,12 @@
                                                 class="badge badge-{{ $order->order_status == 'padding' ? 'success' : 'warning' }}">
                                                 {{ $order->order_status == 'padding' ? 'not-padding' : 'padding' }}</span>
                                             </td>
-                                            <a href="{{ url('view-order/'.$orde->id) }}" class="btn btn-sm btn-primary" >View</a>
+
 
 
 
                                             <td>
-
+                                                <a href="{{ url('view-order/'.$order->id) }}" class="btn btn-sm btn-primary" >View</a>
                                             </td>
                                         </tr>
                                     @endforeach
