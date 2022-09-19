@@ -35,16 +35,19 @@ class UserDashboardController extends Controller
     }
 
     public function orderDetail( Order $order)
-    { 
+    {
         try {
- 
+            $categories = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();
+
+            $cart = Cart::where('user_id', Auth::id())->get();
             $order_items = $order->orderDetails()->with('products')->get();
             $payment = $order->payments;
+
             $shipping_detail = $order->shipping;
 
-            dd($order_items); 
-          
-            return view('website.userdashboard.order-detail', compact('categories',  'cart', 'orders'));
+            // dd($order_items);
+
+            return view('website.userdashboard.order-detail', compact('categories',  'cart', 'order_items','shipping_detail'));
         } catch (\Throwable $th) {
             return response()->json(['status' => false, 'message' => $th->getMessage()]);
         }

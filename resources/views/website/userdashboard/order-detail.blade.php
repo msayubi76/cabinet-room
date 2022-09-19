@@ -28,13 +28,10 @@
                 <ul class="nav nav-tabs list flex-column mb-0" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="dashboard-tab" data-toggle="tab" href="#dashboard"
-                            role="tab" aria-controls="dashboard" aria-selected="true">Dashboard</a>
+                            role="tab" aria-controls="dashboard" aria-selected="true">Order Detail</a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" id="order-tab" data-toggle="tab" href="#order" role="tab"
-                            aria-controls="order" aria-selected="true">Orders</a>
-                    </li>
+
 
 
 
@@ -79,57 +76,135 @@
 
                         <div class="order-content">
                             <h3 class="account-sub-title d-none d-md-block"><i
-                                    class="sicon-social-dropbox align-middle mr-3"></i>Orders</h3>
+                                    class="sicon-social-dropbox align-middle mr-3"></i>Order Detail</h3>
+                                    <div class="row">
+
+                                        <div class="col-md-4">
+                                            <strong>Customer Name</strong><br>
+                                            {{ $shipping_detail->first_name }}  {{ $shipping_detail->last_name }}
+                                        </div>
+
+                                    </div><br>
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <strong>Order No</strong>
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <strong>Order Date</strong><br>
+                                            {{ date('d-m-y', strtotime($shipping_detail->created_at)) }}
+                                        </div>
+                                        <div class="col-md-4"></div>
+                                    </div><br>
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <strong>Bill To</strong><br>
+                                            {{ $shipping_detail->first_name }}  {{ $shipping_detail->last_name }} <br>
+                                            {{ $shipping_detail->address }}  {{ $shipping_detail->city }}
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <strong>Shipp To</strong><br>
+                                            {{ $shipping_detail->first_name }}  {{ $shipping_detail->last_name }} <br>
+                                            {{ $shipping_detail->address }}  {{ $shipping_detail->city }}
+                                        </div>
+                                        <div class="col-md-4"></div>
+                                    </div><br>
                             <div class="order-table-container text-center">
+                                @php $total = 0; @endphp
 
                                 <table class="table table-order text-left">
                                     <thead>
                                         <tr>
-                                            <th class="order-id">ORDER</th>
+                                            <th>Sr No</th>
+                                            <th>Name</th>
+                                            <th>Status</th>
+                                            <th>Quantity</th>
 
-                                            <th class="order-status">STATUS</th>
-                                            <th class="order-status">Qantity</th>
-                                            <th class="order-price">TOTAL</th>
-                                            <th class="order-date">DATE</th>
+                                            <th>Date</th>
+                                            <th>Price</th>
 
                                         </tr>
                                     </thead>
                                     <tbody>
 
 
-                                        @foreach ($orders->orderDetails as $orderlist)
-                                        <tr>
-                                            <td>
-                                                {{ $orderlist->products->name }}
+                                        @foreach ($order_items as $orderlist)
+                                <tr>
+                                    <td>
+                                        {{ $orderlist->id }}
 
 
-                                            </td>
-                                            <td class="text-center">
-                                                <span
-                                                    class="badge badge-{{ $orderlist->order_status == 'padding' ? 'success' : 'warning' }}">
-                                                    {{ $orderlist->order_status == 'padding' ? 'active' : 'not-active' }}</span>
-                                            </td>
-
-                                            <td>
-                                                {{ $orderlist->quantity }}
-
-                                            </td>
-                                            <td>
-                                                {{ $orderlist->price }}
-
-                                            </td>
-
-                                            <td>
-                                                {{ date('d-m-y', strtotime($orderlist->created_at)) }}
-
-                                            </td>
+                                    </td>
+                                    <td>
+                                        {{ $orderlist->products->name }}
 
 
-                                        </tr>
-                                    @endforeach
+                                    </td>
+                                    <td >
+                                        @if ($orderlist->orders->order_status == 'pending')
+                                        <span
+
+                                        class="badge badge-warning text-black">
+                                        {{ $orderlist->orders->order_status  }}</span>
+                                        @elseif ($orderlist->orders->order_status == 'rejected')
+                                        <span
+
+                                        class="badge badge-danger text-black">
+                                        {{ $orderlist->orders->order_status  }}</span>
+
+                                        @else
+                                        <span
+
+                                        class=" badge badge-success text-black">
+                                        {{ $orderlist->orders->order_status  }}</span>
+
+                                        @endif
+                                    </td>
+
+                                    <td>
+                                        {{ $orderlist->quantity }}
+
+                                    </td>
+                                    <td>
+                                        {{ date('d-m-y', strtotime($orderlist->orders->created_at)) }}
+
+                                    </td>
+                                    <td>
+                                        {{ $orderlist->price }}
+
+                                    </td>
+
+                                    {{-- <td>
+                                        {{ $orderlist->payments->payment }}
+
+                                    </td> --}}
+
+
+
+
+                                </tr>
+                                @php $total +=$orderlist->price * $orderlist->quantity ; @endphp
+                            @endforeach
 
                                     </tbody>
-                                </table>
+                                </table><br>
+
+                                <div class="row">
+                                    <div class="col-md-9" >
+
+                                    </div>
+                                    <div class="col-md-3 " >  {{ $orderlist->price }} * {{ $orderlist->quantity }}
+                                    <br><br>
+                                    <div style="background-color: black;color: #fff;">
+                                        <strong style="">Total :  </strong>  {{  $total }}
+                                    </div>
+
+                                </div>
+
+                                </div>
                                 <hr class="mt-0 mb-3 pb-2" />
 
                                 <a href="{{ ('/products') }}" class="btn btn-dark">Go Shop</a>

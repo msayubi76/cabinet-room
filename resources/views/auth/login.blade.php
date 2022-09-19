@@ -189,7 +189,9 @@
 
 	<div class="forgot">
 		 <div class="login-check">
- 			 <label class="checkbox"><input type="checkbox" name="checkbox" checked><i> </i> Remember Me</label>
+
+ 			 <label class="checkbox"> <input type="checkbox" class="form-check-input" checked name="checkbox"
+                        value="1"><i> </i> Remember Me</label>
 
  		  </div>
  		  <div class="login-para">

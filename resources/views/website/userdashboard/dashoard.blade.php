@@ -127,35 +127,48 @@
                             <table class="table table-order text-left">
                                 <thead>
                                     <tr>
-                                        <th class="order-id">ORDER DATE</th>
+                                        <th class="order-id">Sr No</th>
 
-                                        <th class="order-status">STATUS</th>
-                                        <th class="order-status">DELIVERY STATUS</th>
+                                        <th class="order-status">Status</th>
 
-                                        <th class="order-price">TOTAL</th>
 
-                                        <th class="order-status">ORDER DETAILS</th>
+                                        <th class="order-price">Total Price</th>
+
+                                        <th class="order-status">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
                                     @foreach ($orders as $orderlist)
                                     <tr>
-                                        <td>
-                                            {{ date('d-m-y', strtotime($orderlist->created_at)) }}
+                                      <td>
+                                        {{ $orderlist->id }}
+                                      </td>
 
 
-                                        </td>
-                                        <td class="text-center">
+                                        <td >
+                                            @if ($orderlist->order_status == 'pending')
                                             <span
-                                                class="badge badge-{{ $orderlist->order_status == 'padding' ? 'success' : 'warning' }}">
-                                                {{ $orderlist->order_status == 'padding' ? 'active' : 'not-active' }}</span>
+
+                                            class="badge badge-warning text-black">
+                                            {{ $orderlist->order_status  }}</span>
+                                            @elseif ($orderlist->order_status == 'rejected')
+                                            <span
+
+                                            class="badge badge-danger text-black">
+                                            {{ $orderlist->order_status  }}</span>
+
+                                            @else
+                                            <span
+
+                                            class=" badge badge-success text-black">
+                                            {{ $orderlist->order_status  }}</span>
+
+                                            @endif
+
                                         </td>
 
-                                        <td>
-                                            {{ $orderlist->payments->method }}
 
-                                        </td>
                                         <td>
                                             {{ $orderlist->payments->payment }}
 

@@ -64,7 +64,7 @@
                 <div class="col-lg-7 col-md-6 product-single-details">
                     <h1 class="product-title">{!! $product->name !!}</h1>
 
-                  
+
 
 
                     {{-- <div class="ratings-container">
@@ -80,6 +80,7 @@
                     <!-- End .ratings-container -->
 
                     <hr class="short-divider">
+                    
 
                     <div class="price-box">
                         @if ($product->discount > 0)
@@ -93,9 +94,9 @@
                     <!-- End .price-box -->
 
                     <div class="product-desc">
-                        <p>
-                            {{-- {!! $product->short_description !!} --}}
-                        </p>
+                       
+                            <p>{!! $product->short_description !!}</p>
+                        
                     </div>
                     <!-- End .product-desc -->
 
@@ -137,7 +138,7 @@
 
                     <hr class="divider mb-0 mt-0">
 
-                    <div class="product-single-share mb-3">
+                    {{-- <div class="product-single-share mb-3">
                         <label class="sr-only">Share:</label>
 
                         <div class="social-icons mr-2">
@@ -154,10 +155,10 @@
                         </div>
                         <!-- End .social-icons -->
 
-                        {{-- <a href="wishlist.html" class="btn-icon-wish add-wishlist" title="Add to Wishlist"><i
+                        <a href="wishlist.html" class="btn-icon-wish add-wishlist" title="Add to Wishlist"><i
                                 class="icon-wishlist-2"></i><span>Add to
-                                Wishlist</span></a> --}}
-                    </div>
+                                Wishlist</span></a>
+                    </div> --}}
                     <!-- End .product single-share -->
                 </div>
                 <!-- End .product-single-details -->

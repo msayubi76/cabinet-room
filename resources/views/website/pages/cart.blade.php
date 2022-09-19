@@ -164,6 +164,7 @@ swal("",response.status,"success");
 
 
     });
+    
     $('.update-cart').click(function (e) {
     e.preventDefault();
 

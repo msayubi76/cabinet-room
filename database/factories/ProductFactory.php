@@ -42,6 +42,7 @@ class ProductFactory extends Factory
             'is_feature_product' => rand(0,1),
             'is_arrival_product' => rand(0,1),
             'is_active' => $this->faker->boolean(),
+            'short_description' => $this->faker->paragraph(),
 
         ];
     }

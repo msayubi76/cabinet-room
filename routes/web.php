@@ -55,7 +55,8 @@ Route::prefix('admin')->middleware(['isAdmin','auth'])->group(function () {
 
 
      Route::get('orders',[OrderController::class,'index']);
-      Route::get('view-order/{id}',[OrderController::class,'viewOrder']);
+      Route::get('view-order/{order}',[OrderController::class,'viewOrder']);
+      Route::post('update-status', [OrderController::class, 'updateStatus']);
     Route::get('delete/{id}',[MediaController::class,'destroy']);
 
     Route::any('getSubCategory', [ProductController::class, 'getSubCategory'])->name('getSubCategory');
