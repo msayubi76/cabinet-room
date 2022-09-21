@@ -56,7 +56,7 @@ class OrderController extends Controller
                 $update_status->order_status = $order_status;
                 $update_status->update();
 
-                return response()->json(['status' => true, 'message' => 'Category added successfully.']);
+                return response()->json(['status' => true, 'message' => 'Status updated successfully.']);
     }
 }
     catch (\Throwable $th) {

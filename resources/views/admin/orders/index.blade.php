@@ -39,7 +39,7 @@
                                                 background: content-box;">
                                                     <option >--Select Status--</option>
 
-                                                    <option  {{ $order->order_status =='pending' ? 'selected':'' }} value="pending">Pending</option>
+                                                    <option  {{ $order->order_status =='pending' ? 'selected':'' }} value="pending" class="update-status">Pending</option>
                                                     <option {{ $order->order_status =='accepted' ? 'selected':'' }} value="accepted">Accepted</option>
                                                     <option {{ $order->order_status =='completed' ? 'selected':'' }} value="completed">Completed</option>
                                                     <option {{ $order->order_status =='proccing' ? 'selected':'' }} value="proccing">Proccing</option>

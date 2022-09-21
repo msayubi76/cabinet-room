@@ -192,23 +192,34 @@
                                     </tbody>
                                 </table><br>
 
-                                <div class="row">
-                                    <div class="col-md-9" >
 
-                                    </div>
-                                    <div class="col-md-3 " >  {{ $orderlist->price }} * {{ $orderlist->quantity }}
+
+                            </div>
+
+                            <div class="row" style="margin-right: 0;
+                            margin-left: 0;">
+
+                                    <div class="col-md-12 " style="background-color: #f3f3f3;padding-bottom: 15px; "><strong style="float:right;padding-right: 60px;"> Price * Quantity :   {{ $orderlist->price }} * {{ $orderlist->quantity }}</strong>
                                     <br><br>
-                                    <div style="background-color: black;color: #fff;">
-                                        <strong style="">Total :  </strong>  {{  $total }}
-                                    </div>
-
+                                    <strong style="float: right;background-color: #000000;color:#ffffff;padding-left: 95px;width:240px;">Total :  {{  $total }}</strong>
                                 </div>
 
                                 </div>
-                                <hr class="mt-0 mb-3 pb-2" />
+                            <div style="margin-top: 180px;">
+                                <h5>
+                                    TERMS & CONDTION
+                                </h5>
+                                <P>Payment is due with in 30 days</P>
+                            </div>
+                            <div>
+                                <h5>
+                                   NOTES
+                                </h5>
+                                <P>Please pay due with in time</P>
+                            </div>
+                            <hr class="mt-0 mb-3 pb-2" />
 
                                 <a href="{{ ('/products') }}" class="btn btn-dark">Go Shop</a>
-                            </div>
                         </div>
                     </div>
                 </div><!-- End .tab-pane -->
