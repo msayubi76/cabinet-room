@@ -10,7 +10,7 @@ use App\Http\Requests\SubCategoryRequest;
 class SubCategoryService {
     public static function getSubCategory(){
 
-            $sub_category = SubCategory::orderBy('id', 'DESC')->paginate(30);
+            $sub_category = SubCategory::orderBy('id', 'DESC')->paginate(20);
 
             return $sub_category  ;
 

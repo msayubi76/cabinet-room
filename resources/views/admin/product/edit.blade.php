@@ -6,6 +6,10 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
+                        @if(session('message'))
+                        <div class="alert alert-success"> {{ session('message') }}</div>
+                        @endif
+
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 <strong>Whoops!</strong><br> There were some<strong> problems</strong> with your
@@ -79,25 +83,21 @@
 
                                 <div class="form-group row mb-8">
                                     <div class="col-md-6">
-                                        <div class="mb-8">
-                                            <img src="{{ asset( $product->feature_image) }}" width="50px"
-                                                height="50px" alt="img">
-                                        </div>
+
                                         <label for=""> Feature Image<span class="text-danger">*</span></label>
                                         <input type="file" class="form-control" id="edit_feature_image" name="feature_image"
                                             placeholder="feature image" :value="old('feature_image')">
                                             @error('feature_image')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
+                                        <div class="mb-8">
+                                            <img src="{{ asset( $product->feature_image) }}" width="50px"
+                                                height="50px" alt="img">
+                                        </div>
                                     </div>
                                      <div class="col-md-6">
-                                        <div class="mb-8">
-                                            @foreach ($product->images as $image)
-                                            <i class="fa-solid fa-xmark"></i><a href=""></a> <img src="{{ $image->url }}" width="50px"
-                                                height="50px"/>
 
-                                             @endforeach
-                                        </div>
+
                                         <label  for="">Multiple Images<span class="text-danger">*</span>
                                         </label>
                                         <input type="file" class="form-control" id="images" name="images[]"
@@ -105,6 +105,15 @@
                                     @error('images')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
+                                <div class="row">
+                                    @foreach ($product->images as $image)
+                                    <div class="col-md-2">
+                                        <a href=""></a> <img src="{{ $image->url }}" width="50px"
+                                        height="50px"/>
+                                        <a href="{{ url('admin/delete/'.$image->id) }}" class="d-block"> remove</a>
+                                    </div>
+                                    @endforeach
+                                </div>
                                     </div>
 
 

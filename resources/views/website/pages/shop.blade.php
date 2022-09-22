@@ -149,24 +149,13 @@
 
                 </div>
                 <!-- End .row -->
-                <div class="text-center">
+                <div class="pagination justify-content-center">
                 <nav class="toolbox toolbox-pagination" style="float:right;">
 
 
                         <ul class="pagination toolbox-item" >
                             {{ $products->links() }}
-                            {{-- <li class="page-item disabled">
-                                <a class="page-link page-link-btn" href="#"><i class="icon-angle-left"></i></a>
-                            </li>
-                            <li class="page-item active">
-                                <a class="page-link" href="#"> <span class="sr-only"></span></a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#"></a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><span class="page-link">...</span></li>
-                            <li class="page-item">
-                                <a class="page-link page-link-btn" href="#"><i class="icon-angle-right"></i></a>
-                            </li> --}}
+
                         </ul>
 
 
@@ -254,10 +243,10 @@
                                     </div>
 
                                 </div>
-                                <!-- End .featured-col -->
+
 
 @endforeach
-                                <!-- End .featured-col -->
+
                             </div>
                             <!-- End .widget-featured-slider -->
                         </div>

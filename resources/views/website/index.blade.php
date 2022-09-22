@@ -306,7 +306,7 @@
             </div>
             <!-- End .featured-proucts -->
 
-            <div class="banner banner-big-sale appear-animate" data-animation-delay="200" data-animation-name="fadeInUpShorter" style="background: #2A95CB center/cover url('assets/images/demoes/demo4/banners/banner-4.jpg');">
+            <div class="banner banner-big-sale appear-animate" data-animation-delay="200" data-animation-name="fadeInUpShorter" style="background: #2A95CB center/cover url('website/assets/images/demoes/demo4/banners/banner-4.jpg');">
                 <div class="banner-content row align-items-center mx-0">
                     <div class="col-md-9 col-sm-8">
                         <h2 class="text-white text-uppercase text-center text-sm-left ls-n-20 mb-md-0 px-4">
@@ -406,7 +406,7 @@
     </section>
     <!-- End .feature-boxes-container -->
 
-    <section class="promo-section bg-dark" data-parallax="{'speed': 2, 'enableOnMobile': true}" data-image-src="assets/images/demoes/demo4/banners/banner-5.jpg">
+    <section class="promo-section bg-dark" data-parallax="{'speed': 2, 'enableOnMobile': true}" data-image-src="website/assets/images/demoes/demo4/banners/banner-5.jpg">
         <div class="promo-banner banner container text-uppercase">
             <div class="banner-content row align-items-center text-center">
                 <div class="col-md-4 ml-xl-auto text-md-right appear-animate" data-animation-name="fadeInRightShorter" data-animation-delay="600">

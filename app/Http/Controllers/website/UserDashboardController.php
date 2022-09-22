@@ -28,6 +28,7 @@ class UserDashboardController extends Controller
 
 
 
+
             return view('website.userdashboard.dashoard', compact('categories',  'cart', 'orders'));
         } catch (\Throwable $th) {
             return response()->json(['status' => false, 'message' => $th->getMessage()]);

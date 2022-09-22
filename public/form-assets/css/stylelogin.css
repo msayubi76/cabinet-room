@@ -117,7 +117,7 @@ form {
   background: url(../images/key.png)no-repeat 15px 7px #fff;
   display: block;
 }
-label.checkbox {
+/* label.checkbox {
   float: left;
 }
 .forgot input[type="checkbox"] {
@@ -215,7 +215,7 @@ label.checkbox {
 
 .forgot .checkbox input:checked + i:after {
 	opacity: 1;
-}
+} */
 .login-bottom {
   text-align: center;
   background: rgba(236, 236, 236, 0.29);

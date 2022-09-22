@@ -11,6 +11,6 @@ class MediaController extends Controller
     {
         $media = Media::findorFail($id);
         $media->delete();
-        // return redirect('admin.products/id/edit')->with('success','Media file deleted successfully ');
+        return redirect()->back()->with('success','Media file deleted successfully ');
     }
 }

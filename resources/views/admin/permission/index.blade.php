@@ -65,6 +65,9 @@
 
                             </table>
                         </div>
+                        <div class="pagination justify-content-center">
+                            {{ $permissions->links() }}
+                        </div>
                     </div>
                 </div>
             </div>

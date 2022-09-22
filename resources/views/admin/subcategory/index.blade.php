@@ -79,6 +79,9 @@
 
                             </table>
                         </div>
+                        <div class="pagination justify-content-center">
+                            {{ $sub_categories->links() }}
+                        </div>
                     </div>
                 </div>
             </div>

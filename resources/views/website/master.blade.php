@@ -110,7 +110,7 @@
     <a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
 
     <!-- Plugins JS File -->
-    <script src="{{ asset('website/assets/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('website/assets/js/jquery.min.js')}}"></script>
     <script src="{{ asset('website/assets/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('website/assets/js/optional/isotope.pkgd.min.js') }}"></script>
     <script src="{{ asset('website/assets/js/plugins.min.js') }}"></script>

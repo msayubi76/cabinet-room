@@ -73,6 +73,9 @@
                      </tbody>
                   </table>
                </div>
+               <div class="pagination justify-content-center">
+                {{ $roles->links() }}
+            </div>
             </div>
          </div>
       </div>

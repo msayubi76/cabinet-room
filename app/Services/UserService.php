@@ -19,7 +19,7 @@ class UserService
     {
         $users = User::orderBy('id', 'DESC')
                 ->whereNotIn('type', ['super-admin'])
-                ->paginate(30);
+                ->paginate(20);
         return $users;
     }
 

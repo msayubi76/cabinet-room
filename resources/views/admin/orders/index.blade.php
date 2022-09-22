@@ -48,9 +48,7 @@
                                                   </select>
 
                                                   <a href="" class="btn btn-sm btn-primary update-status" > Update Status</a>
-                                                {{-- <span
-                                                class="badge badge-{{ $order->order_status == 'padding' ? 'success' : 'warning' }}">
-                                                {{ $order->order_status == 'padding' ? 'not-padding' : 'padding' }}</span> --}}
+
                                             </td>
 
 
@@ -63,6 +61,9 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="pagination justify-content-center">
+                            {{ $orders->links() }}
                         </div>
                     </div>
                 </div>

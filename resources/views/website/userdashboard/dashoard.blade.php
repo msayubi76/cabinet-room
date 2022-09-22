@@ -40,20 +40,14 @@
 
 
 
-                    {{-- <li class="nav-item">
-                        <a class="nav-link" id="address-tab" data-toggle="tab" href="#address" role="tab"
-                            aria-controls="address" aria-selected="false">Addresses</a>
-                    </li> --}}
+
 
                     <li class="nav-item">
                         <a class="nav-link" id="edit-tab" data-toggle="tab" href="#edit" role="tab"
                             aria-controls="edit" aria-selected="false">Account
                             details</a>
                     </li>
-                    {{-- <li class="nav-item">
-                        <a class="nav-link" id="shop-address-tab" data-toggle="tab" href="#shipping" role="tab"
-                            aria-controls="edit" aria-selected="false">Shopping Addres</a>
-                    </li> --}}
+
 
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('logout') }}">Logout</a>
@@ -77,7 +71,32 @@
                                 <div class="feature-box text-center pb-4">
                                     <a href="#order" class="link-to-tab"><i class="sicon-social-dropbox"></i></a>
                                     <div class="feature-box-content">
-                                        <h3>ORDERS</h3>
+                                        <h3> {{ $orders->count() }} ORDERS</h3>
+                                        <h3>  ORDERS Status</h3>
+                                        @foreach ($orders as $orderlist)
+                                        @if ($orderlist->order_status == 'pending')
+                                        <span
+
+                                        class="badge badge-warning text-black">
+                                        {{ $orderlist->order_status  }}</span>
+                                        @elseif ($orderlist->order_status == 'rejected')
+                                        <span
+
+                                        class="badge badge-danger text-black">
+                                        {{ $orderlist->order_status  }}</span>
+
+                                        @else
+                                        <span
+
+                                        class=" badge badge-success text-black">
+                                        {{ $orderlist->order_status  }}</span>
+
+                                        @endif
+
+                                        @endforeach
+
+
+
                                     </div>
                                 </div>
                             </div>
@@ -85,35 +104,11 @@
 
 
 
-                            {{-- <div class="col-6 col-md-4">
-                                <div class="feature-box text-center pb-4">
-                                    <a href="#address" class="link-to-tab"><i
-                                            class="sicon-location-pin"></i></a>
-                                    <div class="feature-box-content">
-                                        <h3>ADDRESSES</h3>
-                                    </div>
-                                </div>
-                            </div> --}}
-
-                            <div class="col-6 col-md-4">
-                                <div class="feature-box text-center pb-4">
-                                    <a href="#edit" class="link-to-tab"><i class="icon-user-2"></i></a>
-                                    <div class="feature-box-content p-0">
-                                        <h3>ACCOUNT DETAILS</h3>
-                                    </div>
-                                </div>
-                            </div>
 
 
 
-                            <div class="col-6 col-md-4">
-                                <div class="feature-box text-center pb-4">
-                                    <a href="login.html"><i class="sicon-logout"></i></a>
-                                    <div class="feature-box-content">
-                                        <h3>LOGOUT</h3>
-                                    </div>
-                                </div>
-                            </div>
+
+
                         </div><!-- End .row -->
                     </div>
                 </div><!-- End .tab-pane -->
@@ -199,57 +194,8 @@
 
 
 
-                <div class="tab-pane fade" id="download" role="tabpanel">
-                    <div class="download-content">
-                        <h3 class="account-sub-title d-none d-md-block"><i
-                                class="sicon-cloud-download align-middle mr-3"></i>Downloads</h3>
-                        <div class="download-table-container">
-                            <p>No downloads available yet.</p> <a href="category.html"
-                                class="btn btn-primary text-transform-none mb-2">GO SHOP</a>
-                        </div>
-                    </div>
-                </div><!-- End .tab-pane -->
 
-                <div class="tab-pane fade" id="address" role="tabpanel">
-                    <h3 class="account-sub-title d-none d-md-block mb-1"><i
-                            class="sicon-location-pin align-middle mr-3"></i>Addresses</h3>
-                    <div class="addresses-content">
-                        <p class="mb-4">
-                            The following addresses will be used on the checkout page by
-                            default.
-                        </p>
 
-                        <div class="row">
-                            <div class="address col-md-6">
-                                <div class="heading d-flex">
-                                    <h4 class="text-dark mb-0">Billing address</h4>
-                                </div>
-
-                                <div class="address-box">
-                                    You have not set up this type of address yet.
-                                </div>
-
-                                <a href="#billing" class="btn btn-default address-action link-to-tab">Add
-                                    Address</a>
-                            </div>
-
-                            <div class="address col-md-6 mt-5 mt-md-0">
-                                <div class="heading d-flex">
-                                    <h4 class="text-dark mb-0">
-                                        Shipping address
-                                    </h4>
-                                </div>
-
-                                <div class="address-box">
-                                    You have not set up this type of address yet.
-                                </div>
-
-                                <a href="#shipping" class="btn btn-default address-action link-to-tab">Add
-                                    Address</a>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- End .tab-pane -->
 
                 <div class="tab-pane fade" id="edit" role="tabpanel">
                     <h3 class="account-sub-title d-none d-md-block mt-0 pt-1 ml-1"><i
@@ -327,165 +273,8 @@
                     </div>
                 </div><!-- End .tab-pane -->
 
-                <div class="tab-pane fade" id="billing" role="tabpanel">
-                    <div class="address account-content mt-0 pt-2">
-                        <h4 class="title">Billing address</h4>
 
-                        <form class="mb-2" action="#">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>First name <span class="required">*</span></label>
-                                        <input type="text" class="form-control" value="{{ Auth::user()->name }}"
-                                            required />
-                                    </div>
-                                </div>
 
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Last name <span class="required">*</span></label>
-                                        <input type="text" class="form-control" value="{{ Auth::user()->last_name }}"
-                                            required />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Company </label>
-                                <input type="text" class="form-control">
-                            </div>
-
-                            <div class="select-custom">
-                                <label>Country / Region <span class="required">*</span></label>
-                                <select name="orderby" class="form-control">
-                                    <option value="" selected="selected">British Indian Ocean Territory
-                                    </option>
-                                    <option value="1">Brunei</option>
-                                    <option value="2">Bulgaria</option>
-                                    <option value="3">Burkina Faso</option>
-                                    <option value="4">Burundi</option>
-                                    <option value="5">Cameroon</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Street address <span class="required">*</span></label>
-                                <input type="text" class="form-control" placeholder="House number and street name"
-                                    required />
-                                <input type="text" class="form-control"
-                                    placeholder="Apartment, suite, unit, etc. (optional)"
-                                    value="{{ Auth::user()->address }}" required />
-                            </div>
-
-                            <div class="form-group">
-                                <label>Town / City <span class="required">*</span></label>
-                                <input type="text" class="form-control" value="{{ Auth::user()->city }}" required />
-                            </div>
-
-                            <div class="form-group">
-                                <label>State / Country <span class="required">*</span></label>
-                                <input type="text" class="form-control" value="{{ Auth::user()->country }}"
-                                    required />
-                            </div>
-
-                            <div class="form-group">
-                                <label>Postcode / ZIP <span class="required">*</span></label>
-                                <input type="text" class="form-control" required />
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label>Phone <span class="required">*</span></label>
-                                <input type="number" class="form-control" required />
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label>Email address <span class="required">*</span></label>
-                                <input type="email" class="form-control" placeholder="editor@gmail.com" required />
-                            </div>
-
-                            <div class="form-footer mb-0">
-                                <div class="form-footer-right">
-                                    <button type="submit" class="btn btn-dark py-4">
-                                        Save Address
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div><!-- End .tab-pane -->
-
-                <div class="tab-pane fade" id="shipping" role="tabpanel">
-                    <div class="address account-content mt-0 pt-2">
-                        <h4 class="title mb-3">Shipping Address</h4>
-
-                        <form class="mb-2" action="#">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>First name <span class="required">*</span></label>
-                                        <input type="text" class="form-control" required />
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Last name <span class="required">*</span></label>
-                                        <input type="text" class="form-control" required />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Company </label>
-                                <input type="text" class="form-control">
-                            </div>
-
-                            <div class="select-custom">
-                                <label>Country / Region <span class="required">*</span></label>
-                                <select name="orderby" class="form-control">
-                                    <option value="" selected="selected">British Indian Ocean Territory
-                                    </option>
-                                    <option value="1">Brunei</option>
-                                    <option value="2">Bulgaria</option>
-                                    <option value="3">Burkina Faso</option>
-                                    <option value="4">Burundi</option>
-                                    <option value="5">Cameroon</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Street address <span class="required">*</span></label>
-                                <input type="text" class="form-control" placeholder="House number and street name"
-                                    required />
-                                <input type="text" class="form-control"
-                                    placeholder="Apartment, suite, unit, etc. (optional)" required />
-                            </div>
-
-                            <div class="form-group">
-                                <label>Town / City <span class="required">*</span></label>
-                                <input type="text" class="form-control" required />
-                            </div>
-
-                            <div class="form-group">
-                                <label>State / Country <span class="required">*</span></label>
-                                <input type="text" class="form-control" required />
-                            </div>
-
-                            <div class="form-group">
-                                <label>Postcode / ZIP <span class="required">*</span></label>
-                                <input type="text" class="form-control" required />
-                            </div>
-
-                            <div class="form-footer mb-0">
-                                <div class="form-footer-right">
-                                    <button type="submit" class="btn btn-dark py-4">
-                                        Save Address
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div><!-- End .tab-pane -->
             </div><!-- End .tab-content -->
         </div><!-- End .row -->
     </div><!-- End .container -->

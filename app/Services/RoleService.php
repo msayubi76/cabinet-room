@@ -15,13 +15,13 @@ class RoleService
     public static function getRoles()
     {
 
-        $roles = Role::orderBy('id', 'DESC')->paginate(30);
+        $roles = Role::orderBy('id', 'DESC')->paginate(20);
         return $roles;
     }
 
     public  static function store($request)
     {
-        
+
         DB::beginTransaction();
         $data = $request->validated();
 

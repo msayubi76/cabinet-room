@@ -14,7 +14,7 @@ class ProductService
 {
     public static function getProducts(){
 
-            $product = Product::orderBy('id', 'DESC')->paginate(30);
+            $product = Product::orderBy('id', 'DESC')->paginate(20);
             return $product;
 
     }

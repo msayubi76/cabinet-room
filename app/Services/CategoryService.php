@@ -13,7 +13,7 @@ use App\Http\Requests\CategoryRequest;
 class CategoryService
 {
     public static function getCategory(){
-        return Category::orderBy('id', 'DESC')->paginate(30);
+        return Category::orderBy('id', 'DESC')->paginate(20);
     }
 
     public static function store(CategoryRequest $request)
