@@ -16,17 +16,6 @@ use App\Http\Requests\ShppingRequest;
 
 class OrderService
 {
-
-    public function placeOrder($request)
-    {
-        DB::beginTransaction();
-
-
-
-        DB::commit();
-    }
-
-
     public static function store(Request $request)
     {
         DB::beginTransaction();
@@ -67,7 +56,7 @@ class OrderService
             $OrderDetailData[] = ['product_id' => $product->id, 'quantity' => $quantity, 'price' => $saleprice, 'order_id' => $order->id];
         endforeach;
 
-        $payment->update(['payment' => $amount]);
+        $payment->update(['payment' => $amount,'remaining_amount' => $amount]);
 
         OrderDetail::insert($OrderDetailData);
 

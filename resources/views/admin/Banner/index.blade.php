@@ -15,10 +15,10 @@
                                 <h4 class="card-title">Banners Table</h4>
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-4 text-right">
-                                @can('create-banner')
+                                {{-- @can('create-banner') --}}
                               <a href="{{url('admin/banners/create')}}" class="btn btn-sm btn-primary">Add
                                     Banners</a>
-                                    @endcan
+                                    {{-- @endcan --}}
 
                             </div>
                         </div>
@@ -53,13 +53,13 @@
                                                             <div class="dropdown-menu">
                                                                 <a class="dropdown-item"
                                                                     onclick="openViewModal( )">View</a>
-                                                                    @can('update-banner')
+                                                                    {{-- @can('update-banner') --}}
                                                                 <a class="dropdown-item"
                                                                     href="{{url('admin/banners/'.$list->id.'/edit')}}">Edit</a>
-                                                                    @endcan
-                                                                    @can('delete-banner')
+                                                                    {{-- @endcan
+                                                                    @can('delete-banner') --}}
                                                                 <a class="dropdown-item" href="javascript:openDeleteDialog({{$list->id}})">Delete</a>
-                                                                @endcan
+                                                                {{-- @endcan --}}
                                                             </div>
                                                         </div>
                                                     </div>

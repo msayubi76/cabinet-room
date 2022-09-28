@@ -165,7 +165,7 @@
 
 
                                         <td>
-                                            {{ $orderlist->payments->payment }}
+                                            {{ $orderlist->payment->payment }}
 
                                         </td>
 

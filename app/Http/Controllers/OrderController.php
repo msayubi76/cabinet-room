@@ -13,7 +13,7 @@ class OrderController extends Controller
     {
     try {
 
-        $orders = Order::orderBy('id', 'DESC')->get();
+        $orders = Order::orderBy('id', 'DESC')->paginate(20);
 
         // $order_detail = OrderDetail::where('id',$orders->id)->get();
         // dd($order_detail);

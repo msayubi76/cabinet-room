@@ -11,6 +11,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SettingController;
 use PHPUnit\TextUI\XmlConfiguration\Groups;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PaymentHistoryController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SubCategoryController;
 
@@ -56,6 +57,9 @@ Route::prefix('admin')->middleware(['isAdmin','auth'])->group(function () {
 
      Route::get('orders',[OrderController::class,'index']);
       Route::get('view-order/{order}',[OrderController::class,'viewOrder']);
+      Route::post('orders/{order}',[PaymentHistoryController::class,'store']);
+    //   Route::get('orders/payment/{id}',[PaymentHistoryController::class,'payment'])->name('order.payment');
+    //   Route::post('orders/payment',[PaymentHistoryController::class,'store'])->name('order.payment');
       Route::post('update-status', [OrderController::class, 'updateStatus']);
     Route::get('delete/{id}',[MediaController::class,'destroy']);
 

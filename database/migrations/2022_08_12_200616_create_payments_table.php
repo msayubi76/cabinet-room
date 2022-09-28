@@ -18,9 +18,11 @@ return new class extends Migration
             $table->decimal('payment', 8)->nullable()->index();
             $table->string('status')->default('pending');
             $table->string('method')->nullable();
+            $table->decimal('remaining_amount', 8)->nullable();
+            $table->string('complete_at')->nullable();
             $table->foreignId('user_id')->nullable()->constrained('users');
 
-            
+
 
 
 
