@@ -270,8 +270,7 @@
                 {{-- <div class="tab-pane fade" id="product-reviews-content" role="tabpanel"
                     aria-labelledby="product-tab-reviews">
                     <div class="product-reviews-content">
-                        <h3 class="r
-                        eviews-title">1 review for Men Black Sports Shoes</h3>
+                        <h3 class="reviews-title">1 review for Men Black Sports Shoes</h3>
 
                         <div class="comment-list">
                             <div class="comments">

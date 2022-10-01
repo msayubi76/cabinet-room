@@ -59,7 +59,6 @@
                         <ul aria-expanded="false">
                             <li><a href="{{ url('admin/orders')}}">Orders List</a></li>
                         </ul>
-                        
                     </li>
  
                     <li>
