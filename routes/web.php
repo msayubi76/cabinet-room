@@ -51,7 +51,8 @@ Route::prefix('admin')->middleware(['isAdmin','auth'])->group(function () {
     Route::resource('category', CategoryController::class);
     Route::resource('subcategory', SubCategoryController::class);
     Route::resource('products', ProductController::class);
-    Route::resource('settings', SettingController::class);
+    Route::get('settings', [SettingController::class, 'edit'])->name('setting.edit');
+    Route::put('settings', [SettingController::class, 'update'])->name('setting.update');
     Route::resource('banners', BannerController::class);
 
 

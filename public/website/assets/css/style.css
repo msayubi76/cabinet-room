@@ -7063,25 +7063,13 @@ figure .porto-loading-icon {
 .product-category a:hover {
   color: inherit;
 }
-.product-category img,
-.product-category figure:after {
-  border-radius: 50%;
-}
+ 
+ 
 .product-category figure {
   margin-bottom: 0;
   position: relative;
 }
-.product-category figure:after {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  background: transparent;
-  transition: all 0.3s;
-  z-index: 1;
-  content: "";
-}
+ 
 .product-category:hover figure:after {
   background-color: rgba(27, 27, 23, 0.15);
 }
@@ -9563,7 +9551,8 @@ header .separator {
   font-size: 12px;
 }
 .main-nav .menu > li {
-  margin-right: 35px;
+  margin-right: 25px;
+    text-align: center;
 }
 .main-nav .menu > li > a {
   font-size: 12px;
@@ -9578,6 +9567,9 @@ header .separator {
 }
 .main-nav .menu.sf-arrows ul {
   border-top: none;
+}
+.menu .megamenu .submenu>li>a {
+  text-align: left;
 }
 .main-nav .menu > li > ul {
   left: -15px;
@@ -10092,7 +10084,7 @@ footer .contact-info-label {
 
 .header-top {
   padding: 8px 0;
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   font-weight: 600;
   letter-spacing: 0.025em;
   line-height: 24px;

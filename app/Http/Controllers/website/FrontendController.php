@@ -23,13 +23,15 @@ class FrontendController extends Controller
 
 
 
-            $featuredProducts = Product::where('is_feature_product', '1')->where('is_active', '1')->get();
+            $featuredProducts = Product::where('is_feature_product', '1')->limit(8)->latest()->where('is_active', '1')->get();
             $arrivialProducts = Product::where('is_arrival_product', '1')->where('is_active', '1')->get();
             $featuredProductsFooter = Product::where('is_feature_product', '1')->where('is_active', '1')->limit(3)->get();
             $latestrPoductsFooter = Product::orderBy('id', 'DESC')->where('is_active', '1')->limit(3)->get();
             $arrivialProductsFooter = Product::where('is_arrival_product', '1')->where('is_active', '1')->limit(3)->get();
             $cart = Cart::where('user_id', Auth::id())->get();
             $banners = Banner::orderBy('id', 'DESC')->get();
+
+          
 
             return view('website.index', compact('categories',  'featuredProducts', 'arrivialProducts', 'featuredProductsFooter', 'arrivialProductsFooter', 'latestrPoductsFooter', 'cart', 'banners'));
         } catch (\Throwable $th) {
@@ -49,10 +51,26 @@ class FrontendController extends Controller
             return response()->json(['status' => false, 'message' => $th->getMessage()]);
         }
     }
-    public function products()
+    public function products(Request $request, $category = null, $sub_category=null)
     {
+        // dd($request->all());
         try {
-            $products = Product::orderBy('id', 'DESC')->where('is_active', '1')->paginate(10);
+            $products = Product::latest()->where('is_active', '1');
+
+            if($category):
+                $categories =  Category::orWhere('name','like',"%{$category}%")->pluck('id');
+                $products = $products->whereIn('category_id', $categories); 
+            endif;
+
+            
+            if($sub_category):
+                $sub_categories =  SubCategory::orWhere('name','like',"%{$sub_category}%")->pluck('id');
+                $products = $products->whereIn('sub_category_id', $sub_categories); 
+            endif;
+
+
+
+            $products = $products->paginate(10);
 
             $categories = Category::where('is_active', '1')->with('subcategories')->where('is_active', '1')->get();
             $featuredProducts = Product::where('is_feature_product', '1')->where('is_active', '1')->get();
@@ -120,45 +138,8 @@ class FrontendController extends Controller
             return response()->json(['status' => false, 'message' => $th->getMessage()]);
         }
     }
-
-    public function category($name)
-    {
-        try {
-
-            $categories = Category::where('is_active', '1')->with('subcategories')->get();
-            $featuredProducts = Product::where('is_feature_product', '1')->where('is_active', '1')->get();
-
-            $cart = Cart::where('user_id', Auth::id())->get();
-            if (Category::where('name', $name)->exists()) {
-                $category = Category::where('name', $name)->first();
-                $products = Product::where('category_id', $category->id)->where('is_active', '1')->paginate(30);
-                return view('website.category.product-with-category', compact('category', 'categories',  'products', 'featuredProducts', 'cart'));
-            } else {
-                return redirect('/')->with('status', 'Category Dosent Exists');
-            }
-        } catch (\Throwable $th) {
-            return response()->json(['status' => false, 'message' => $th->getMessage()]);
-        }
-    }
-
-    public function subCategory($name)
-    {
-        try {
-
-            $categories = Category::where('is_active', '1')->with('subcategories')->get();
-            $featuredProducts = Product::where('is_feature_product', '1')->where('is_active', '1')->get();
-            $cart = Cart::where('user_id', Auth::id())->get();
-            if (SubCategory::where('name', $name)->exists()) {
-                $subcategory = SubCategory::where('name', $name)->first();
-                $products = Product::where('sub_category_id', $subcategory->id)->where('is_active', '1')->paginate(30);
-                return view('website.category.product-with-subcategory', compact('subcategory', 'categories',  'products', 'featuredProducts', 'cart'));
-            } else {
-                return redirect('/')->with('status', 'SubCategory Dosent Exists');
-            }
-        } catch (\Throwable $th) {
-            return response()->json(['status' => false, 'message' => $th->getMessage()]);
-        }
-    }
+ 
+ 
 
     public function productList()
     {

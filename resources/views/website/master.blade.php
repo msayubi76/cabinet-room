@@ -44,29 +44,30 @@
 
     <!--  CSS File -->
     <link rel="stylesheet" href="{{ asset('website/assets/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('website/assets/css/style.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('website/assets/css/style.min.css') }}"> --}}
 
-    <link rel="stylesheet" href="{{ asset('website/assets/css/demo4.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('website/assets/css/demo4.min.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('website/assets/css/jquery.ui.css') }}">
     <link href="{{ url('admin-assets/plugins/sweetalert/css/sweetalert.css') }}" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,400;1,100&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,400;1,100&display=swap"
+        rel="stylesheet">
 
 
     <!-- Main CSS File -->
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('website/assets/vendor/fontawesome-free/css/all.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('website/assets/vendor/fontawesome-free/css/all.min.css') }}">
     <style>
-        .pagination{
+        .pagination {
             float: right;
             margin-top: 10px;
         }
 
-        body{
+        body {
             font-family: 'Montserrat', sans-serif;
         }
-</style>
+    </style>
 </head>
 
 <body class="loaded sidebar-opened">
@@ -110,7 +111,7 @@
     <a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
 
     <!-- Plugins JS File -->
-    <script src="{{ asset('website/assets/js/jquery.min.js')}}"></script>
+    <script src="{{ asset('website/assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('website/assets/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('website/assets/js/optional/isotope.pkgd.min.js') }}"></script>
     <script src="{{ asset('website/assets/js/plugins.min.js') }}"></script>
@@ -121,35 +122,31 @@
     <script src="{{ url('admin-assets/plugins/sweetalert/js/sweetalert.min.js') }}"></script>
     <script src="{{ asset('website/assets/js/jquery.ui.js') }}"></script>
 
-     <script>
+    <script>
+        var availableTags = [];
 
-          var availableTags = [];
+        $.ajax({
+            method: "GET",
+            url: "/product-list",
 
-                $.ajax({
-                    method: "GET",
-                    url: "/product-list",
+            success: function(response) {
+                startAutoComplete(response);
 
-                    success: function (response) {
-                        startAutoComplete(response);
+            }
+        });
 
-                    }
-                });
-                function startAutoComplete(availableTags){
-                    $( "#search_product" ).autocomplete({
-            source: availableTags
-          });
-                }
-
-
-        </script>
+        function startAutoComplete(availableTags) {
+            $("#search_product").autocomplete({
+                source: availableTags
+            });
+        }
+    </script>
 
     <!-- Main JS File -->
     <script src="{{ asset('website/assets/js/main.min.js') }}"></script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script> --}}
     @yield('scripts')
-</body>
+</body> 
 
-
-<!-- Mirrored from portotheme.com/html/porto_ecommerce/demo4.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Jul 2022 13:50:31 GMT -->
 
 </html>

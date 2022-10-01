@@ -23,9 +23,9 @@
     <div class="about-section">
         <div class="container">
             <h2 class="subtitle">OUR STORY</h2>
-            @foreach ($setting as  $about)
-                <p>{{ $about->about_us_detail }}</p>
-            @endforeach
+        
+                <div>{!!$setting->about_us_detail!!}</div>
+         
         </div><!-- End .container -->
     </div><!-- End .about-section -->
 

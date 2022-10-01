@@ -11,20 +11,17 @@ use App\Http\Controllers\website\UserDashboardController;
 
 // ----------> Webste layout <------------- //
 Route::get('/', [FrontendController::class, 'index']);
-Route::get('/products', [FrontendController::class, 'products']);
-Route::get('/product/{id}', [FrontendController::class, 'singleProduct'])->name('website.single-product');
-Route::get('/about-us', [FrontendController::class, 'about']);
-Route::get('/contact-us', [FrontendController::class, 'contact']);
-Route::get('/privacy-and-policy', [FrontendController::class, 'policy']);
-Route::get('/categories', [FrontendController::class, 'categories']);
-
-//--> Webste display product by category <-- //
-Route::get('/category={name?}', [FrontendController::class, 'category']);
-Route::get('/sub-category={name?}', [FrontendController::class, 'subCategory']);
+Route::get('products/{category?}/{sub_category?}', [FrontendController::class, 'products'])->name('products');
+Route::get('product/{id}', [FrontendController::class, 'singleProduct'])->name('website.single-product');
+Route::get('about-us', [FrontendController::class, 'about']);
+Route::get('contact-us', [FrontendController::class, 'contact']);
+Route::get('privacy-and-policy', [FrontendController::class, 'policy']);
+Route::get('categories', [FrontendController::class, 'categories']);
+ 
 
 // -------> Webste search filter <------ //
-Route::get('/product-list', [FrontendController::class, 'productList']);
-Route::post('/search-product', [FrontendController::class, 'searchProduct']);
+Route::get('product-list', [FrontendController::class, 'productList']);
+Route::post('search-product', [FrontendController::class, 'searchProduct']);
 
 // ----------> Webste Checout <----------- //
 Route::get('check-out', [CheckOutController::class, 'index'])->name('check-out.index');

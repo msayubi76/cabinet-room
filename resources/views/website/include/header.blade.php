@@ -35,9 +35,9 @@
                                 <li><a href="{{ route('logout') }}">Log out</a></li>
                             @else
                                 <li><a href="{{ url('login') }}">Log In</a></li>
-                                <li><a href="{{ route('register')}}">Register</a></li>
+                                <li><a href="{{ route('register') }}">Register</a></li>
                             @endif
-                            {{-- @if ( App\Models\Cart::where('user_id', Auth::id())->count() > 0)
+                            {{-- @if (App\Models\Cart::where('user_id', Auth::id())->count() > 0)
                             <li><a href="{{ url('cart') }}">Cart</a></li>
                             @endif --}}
 
@@ -48,19 +48,7 @@
                 </div>
                 <!-- End .header-dropown -->
 
-                <span class="separator"></span>
 
-
-
-                <!-- End .header-dropown -->
-
-                <span class="separator"></span>
-
-                <div class="social-icons">
-                    <a href="#" class="social-icon social-facebook icon-facebook" target="_blank"></a>
-                    <a href="#" class="social-icon social-twitter icon-twitter" target="_blank"></a>
-                    <a href="#" class="social-icon social-instagram icon-instagram" target="_blank"></a>
-                </div>
                 <!-- End .social-icons -->
             </div>
             <!-- End .header-right -->
@@ -123,29 +111,26 @@
 
 
                 <div class="dropdown cart-dropdown">
-                    @if ( App\Models\Cart::where('user_id', Auth::id())->count() > 0 )
-                    <a href="{{ url('cart') }}" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle"
-                    role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                    data-display="static">
-                    <i class="minicart-icon"></i>
-                    <span
-                        class="cart-count badge-circle">
+                    @if (App\Models\Cart::where('user_id', Auth::id())->count() > 0)
+                        <a href="{{ url('cart') }}" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle"
+                            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            data-display="static">
+                            <i class="minicart-icon"></i>
+                            <span class="cart-count badge-circle">
 
 
-                        {{ App\Models\Cart::where('user_id', Auth::id())->count()  }}</span>
-                </a>
-                @else
-                <a href="{{ url('cart') }}" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle"
-                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                data-display="static">
-                <i class="minicart-icon"></i>
-                <span
-                    class="cart-count badge-circle">
+                                {{ App\Models\Cart::where('user_id', Auth::id())->count() }}</span>
+                        </a>
+                    @else
+                        <a href="{{ url('cart') }}" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle"
+                            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            data-display="static">
+                            <i class="minicart-icon"></i>
+                            <span class="cart-count badge-circle">
 
 
-                    </span>
-            </a>
-
+                            </span>
+                        </a>
                     @endif
 
 
@@ -207,11 +192,11 @@
 
                             <div class="dropdown-cart-action">
 
-                                    @if ( App\Models\Cart::where('user_id', Auth::id())->count() > 0)
+                                @if (App\Models\Cart::where('user_id', Auth::id())->count() > 0)
                                     <a href="{{ url('check-out') }}" class="btn btn-dark btn-block">Checkout</a>
                                     <a href="{{ url('cart') }}" class="btn btn-gray btn-block view-cart">View
                                         Cart</a>
-                                    @endif
+                                @endif
 
                             </div>
                             <!-- End .dropdown-cart-total -->
@@ -231,7 +216,7 @@
     <div class="header-bottom sticky-header d-none d-lg-block" data-sticky-options="{'mobile': false}">
         <div class="container">
             <nav class="main-nav w-100">
-                <ul class="menu">
+                <ul class="menu d-flex">
 
                     <li>
                         <a href="{{ url('/products') }}">All Products</a>
@@ -241,20 +226,17 @@
 
                     @foreach ($categories as $catlist)
                         <li>
-                            <a href="{{ url('category=' . $catlist->name) }}">{{ $catlist->name }}</a>
+                            <a href=" {{route('products', ['category'=>$catlist->name])}} ">{{ $catlist->name }}</a>
                             @foreach ($catlist->subcategories as $subcatlist)
-
                                 <div class="megamenu megamenu-fixed-width megamenu-3cols">
                                     <div class="row">
                                         <div class="col-lg-6">
 
                                             <ul class="submenu">
                                                 @foreach ($catlist->subcategories as $subcatlist)
-                                                    <li><a href="{{ url('sub-category=' . $subcatlist->name) }}">
+                                                    <li><a href="{{route('products', ['category'=>$catlist->name, 'sub_category'=>$subcatlist->name])}} ">
                                                             {{ $subcatlist->name }}</a></li>
-
-
-                                                            @endforeach
+                                                @endforeach
 
                                             </ul>
                                         </div>
@@ -278,8 +260,7 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                @endforeach
+                            @endforeach
 
 
 
@@ -287,24 +268,7 @@
                             <!-- End .megamenu -->
                         </li>
                     @endforeach
-                    {{-- @foreach ($categories as $catlist)
-                    <li>
 
-
-                        <a href="{{url('category=' .$catlist->name)}}">{{$catlist->name}}</a>
-                        <ul>
-                            @foreach ($catlist->subcategories as $subcatlist)
-
-
-
-                            <li><a href="{{url('sub-category=' .$subcatlist->name)}}"> {{$subcatlist->name}}</a></li>
-                            @endforeach
-
-
-                        </ul>
-
-                    </li>
-                    @endforeach --}}
 
 
                 </ul>

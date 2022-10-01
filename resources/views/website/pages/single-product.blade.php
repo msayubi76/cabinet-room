@@ -21,26 +21,26 @@
                     <div class="product-slider-container">
                         <div class="label-group">
 
-                                {{-- <div class="product-label label-hot">HOT</div> --}}
-                                @if ($product->discount > 0)
-                                <div class="product-label label-sale">{{ substr($product->discount,0,2 )}}%</div>
-                                @endif
+                            {{-- <div class="product-label label-hot">HOT</div> --}}
+                            @if ($product->discount > 0)
+                                <div class="product-label label-sale">{{ substr($product->discount, 0, 2) }}%</div>
+                            @endif
 
 
                         </div>
 
                         <div class="product-single-carousel owl-carousel owl-theme show-nav-hover">
 
-                                <div class="product-item">
+                            <div class="product-item">
 
 
 
 
-                                    <img class="product-single-image" src="{{ $product->feature_image }}"
-                                        data-zoom-image="{{ $product->feature_image }}" width="468" height="468"
-                                        alt="product" />
+                                <img class="product-single-image" src="{{ $product->feature_image }}"
+                                    data-zoom-image="{{ $product->feature_image }}" width="468" height="468"
+                                    alt="product" />
 
-                                </div>
+                            </div>
 
 
                         </div>
@@ -80,23 +80,23 @@
                     <!-- End .ratings-container -->
 
                     <hr class="short-divider">
-                    
+
 
                     <div class="price-box">
                         @if ($product->discount > 0)
-                        <span class="old-price">{{ $product->currency }}{!! $product->actual_price !!}</span>
-                        <span class="new-price">{{ $product->currency }}{!! $product->saleprice !!}</span>
+                            <span class="old-price">{{ $product->currency }}{!! $product->actual_price !!}</span>
+                            <span class="new-price">{{ $product->currency }}{!! $product->saleprice !!}</span>
                         @else
-                        <span class="new-price">{{ $product->currency }}{!! $product->saleprice !!}</span>
+                            <span class="new-price">{{ $product->currency }}{!! $product->saleprice !!}</span>
                         @endif
 
                     </div>
                     <!-- End .price-box -->
 
                     <div class="product-desc">
-                       
-                            <p>{!! $product->short_description !!}</p>
-                        
+
+                        <p>{!! $product->short_description !!}</p>
+
                     </div>
                     <!-- End .product-desc -->
 
@@ -108,9 +108,9 @@
 
                         <li>
                             CATEGORY: <strong><a href="#"
-                                    class="product-category">{!! $product->category?$product->category->name:'' !!}</a></strong>
+                                    class="product-category">{!! $product->category ? $product->category->name : '' !!}</a></strong>
                         </li>
-{{--
+                        {{--
                         <li>
                             TAGs: <strong><a href="#" class="product-category">CLOTHES</a></strong>,
                             <strong><a href="#" class="product-category">SWEATER</a></strong>
@@ -123,14 +123,15 @@
                             <input class="horizontal-quantity form-control" name="quantity" type="text">
                         </div>
                         <!-- End .product-single-qty -->
-                        @if(Auth::user())
-                        <a class="btn btn-dark add-cart mr-2" title="Add to Cart" >Add to
-                            Cart</a>
+                        @if (Auth::user())
+                            <a class="btn btn-dark add-cart mr-2" title="Add to Cart">Add to
+                                Cart</a>
 
-                        <a href="{{ url('cart') }}" class="btn btn-gray view-cart d-none">View cart</a>
+                            <a href="{{ url('cart') }}" class="btn btn-gray view-cart d-none">View cart</a>
                         @else
-                        <a class="btn btn-dark add-cart mr-2" title="Add to Cart" data-toggle="modal" data-target="#loginModal">Add to
-                            Cart</a>
+                            <a class="btn btn-dark add-cart mr-2" title="Add to Cart" data-toggle="modal"
+                                data-target="#loginModal">Add to
+                                Cart</a>
                         @endif
 
                     </div>
@@ -179,11 +180,7 @@
                         role="tab" aria-controls="product-size-content" aria-selected="true">Size Guide</a>
                 </li> --}}
 
-                <li class="nav-item">
-                    <a class="nav-link" id="product-tab-tags" data-toggle="tab" href="#product-tags-content"
-                        role="tab" aria-controls="product-tags-content" aria-selected="false">Additional
-                        Information</a>
-                </li>
+               
 
                 {{-- <li class="nav-item">
                     <a class="nav-link" id="product-tab-reviews" data-toggle="tab" href="#product-reviews-content"
@@ -196,7 +193,7 @@
                     aria-labelledby="product-tab-desc">
                     <div class="product-desc-content">
                         <p>{!! $product->description !!}</p>
-                         </div>
+                    </div>
                     <!-- End .product-desc-content -->
                 </div>
                 <!-- End .tab-pane -->
@@ -267,35 +264,7 @@
                 </div> --}}
                 <!-- End .tab-pane -->
 
-                <div class="tab-pane fade" id="product-tags-content" role="tabpanel" aria-labelledby="product-tab-tags">
-                    <table class="table table-striped mt-2">
-                        <tbody>
-                            {{-- <tr>
-                                <th>Weight</th>
-                                <td>23 kg</td>
-                            </tr> --}}
-
-                            <tr>
-                                <th>Width</th>
-                                <td>{!! $product->width !!}</td>
-                            </tr>
-                            <tr>
-                                <th>Length</th>
-                                <td>{!! $product->length !!}</td>
-                            </tr>
-
-                            <tr>
-                                <th>Color</th>
-                                <td>{!! $product->colour !!}</td>
-                            </tr>
-
-                            {{-- <tr>
-                                <th>Size</th>
-                                <td>Large, Medium, Small</td>
-                            </tr> --}}
-                        </tbody>
-                    </table>
-                </div>
+                
                 <!-- End .tab-pane -->
 
                 {{-- <div class="tab-pane fade" id="product-reviews-content" role="tabpanel"
@@ -412,62 +381,56 @@
             <h2 class="section-title">Related Products</h2>
 
             <div class="products-slider owl-carousel owl-theme dots-top dots-small">
-                @foreach ($relatedProducts as $product_item )
-
-
-                <div class="product-default">
-                    <figure>
-                        <a href="{{url('product/'.$product_item->id)}}">
-                            <img src="{{asset($product_item->feature_image)}}" width="280" height="280"
-                                alt="product">
-                            <img src="{{asset($product_item->feature_image)}}" width="280" height="280"
-                                alt="product">
-                        </a>
-                        <div class="label-group">
-                              {{-- <div class="product-label label-hot">HOT</div> --}}
-                              @if ($product_item->discount > 0)
-                              <div class="product-label label-sale">{{ substr($product_item->discount,0,2 )}}%</div>
-                              @endif
-                        </div>
-                    </figure>
-                    <div class="product-details">
-                        <div class="category-list">
-                            <a href="" class="product-category">{{$product_item->category?$product_item->category->name:''}}</a>
-                        </div>
-                        <h3 class="product-title">
-                            <a href="{{url('product/'.$product_item->id)}}">{{$product_item->name}}</a>
-                        </h3>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:80%"></span>
-                                <!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
+                @foreach ($relatedProducts as $product_item)
+                    <div class="product-default">
+                        <figure>
+                            <a href="{{ url('product/' . $product_item->id) }}">
+                                <img src="{{ asset($product_item->feature_image) }}" width="280" height="280"
+                                    alt="product">
+                                <img src="{{ asset($product_item->feature_image) }}" width="280" height="280"
+                                    alt="product">
+                            </a>
+                            <div class="label-group">
+                                {{-- <div class="product-label label-hot">HOT</div> --}}
+                                @if ($product_item->discount > 0)
+                                    <div class="product-label label-sale">{{ substr($product_item->discount, 0, 2) }}%
+                                    </div>
+                                @endif
                             </div>
-                            <!-- End .product-ratings -->
-                        </div>
-                        <!-- End .product-container -->
-                        <div class="price-box">
-                            @if ($product_item->discount > 0)
-                            <del class="old-price">{{$product_item->currency}}{{$product_item->actual_price}}</del>
-                            <span class="product-price">{{$product_item->currency}}{{$product_item->saleprice }}</span>
-                            @else
-                            <span class="product-price">{{$product_item->currency}}{{$product_item->saleprice }}</span>
-                            @endif
+                        </figure>
+                        <div class="product-details">
+                            <div class="category-list">
+                                <a href=""
+                                    class="product-category">{{ $product_item->category ? $product_item->category->name : '' }}</a>
+                            </div>
+                            <h3 class="product-title">
+                                <a href="{{ url('product/' . $product_item->id) }}">{{ $product_item->name }}</a>
+                            </h3>
+                            <div class="ratings-container">
+                                <div class="product-ratings">
+                                    <span class="ratings" style="width:80%"></span>
+                                    <!-- End .ratings -->
+                                    <span class="tooltiptext tooltip-top"></span>
+                                </div>
+                                <!-- End .product-ratings -->
+                            </div>
+                            <!-- End .product-container -->
+                            <div class="price-box">
+                                @if ($product_item->discount > 0)
+                                    <del
+                                        class="old-price">{{ $product_item->currency }}{{ $product_item->actual_price }}</del>
+                                    <span
+                                        class="product-price">{{ $product_item->currency }}{{ $product_item->saleprice }}</span>
+                                @else
+                                    <span
+                                        class="product-price">{{ $product_item->currency }}{{ $product_item->saleprice }}</span>
+                                @endif
 
+                            </div>
+                            
                         </div>
-                        <!-- End .price-box -->
-                        <div class="product-action">
-
-                            <a href="{{ url('cart') }}" class="btn-icon btn-add-cart"><i
-                                    class="fa fa-arrow-right"></i><span>SELECT
-                                    OPTIONS</span></a>
-                            <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View"><i
-                                    class="fas fa-external-link-alt"></i></a>
-                        </div>
+                        <!-- End .product-details -->
                     </div>
-                    <!-- End .product-details -->
-                </div>
-
                 @endforeach
             </div>
             <!-- End .products-slider -->
@@ -480,183 +443,196 @@
             <div class="col-lg-3 col-sm-6 pb-5 pb-md-0">
                 <h4 class="section-sub-title">Featured Products</h4>
                 @foreach ($featuredProductsFooter as $featuredlist)
-                <div class="product-default left-details product-widget">
-                    <figure>
-                        <a href="{{url('product/'.$featuredlist->id)}}">
-                            <img src="{{ $featuredlist->feature_image }}" width="74" height="74"
-                                alt="product">
-                            <img src="{{ $featuredlist->feature_image }}" width="74" height="74"
-                                alt="product">
-                        </a>
-                        {{-- <div class="product-label label-hot">HOT</div> --}}
-                        @if ($featuredlist->discount > 0)
-                        <div class="product-label label-sale">{{ substr($featuredlist->discount,0,2 )}}%</div>
-                        @endif
-
-                    </figure>
-
-                    <div class="product-details">
-                        <h3 class="product-title"> <a href="{{url('product/'.$featuredlist->id)}}"> {{$featuredlist->name}}</a>
-                        </h3>
-
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:100%"></span>
-                                <!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div>
-                            <!-- End .product-ratings -->
-                        </div>
-                        <!-- End .product-container -->
-
-                        <div class="price-box">
+                    <div class="product-default left-details product-widget">
+                        <figure>
+                            <a href="{{ url('product/' . $featuredlist->id) }}">
+                                <img src="{{ $featuredlist->feature_image }}" width="74" height="74"
+                                    alt="product">
+                                <img src="{{ $featuredlist->feature_image }}" width="74" height="74"
+                                    alt="product">
+                            </a>
+                            {{-- <div class="product-label label-hot">HOT</div> --}}
                             @if ($featuredlist->discount > 0)
-                            <span class="old-price">{{$featuredlist->currency}}{{$featuredlist->actual_price}}</span>
-                            <span class="product-price">{{$featuredlist->currency}}{{$featuredlist->saleprice }}</span>
-                            @else
-                            <span class="product-price">{{$featuredlist->currency}}{{$featuredlist->saleprice }}</span>
+                                <div class="product-label label-sale">{{ substr($featuredlist->discount, 0, 2) }}%</div>
                             @endif
 
+                        </figure>
+
+                        <div class="product-details">
+                            <h3 class="product-title"> <a href="{{ url('product/' . $featuredlist->id) }}">
+                                    {{ $featuredlist->name }}</a>
+                            </h3>
+
+                            <div class="ratings-container">
+                                <div class="product-ratings">
+                                    <span class="ratings" style="width:100%"></span>
+                                    <!-- End .ratings -->
+                                    <span class="tooltiptext tooltip-top"></span>
+                                </div>
+                                <!-- End .product-ratings -->
+                            </div>
+                            <!-- End .product-container -->
+
+                            <div class="price-box">
+                                @if ($featuredlist->discount > 0)
+                                    <span
+                                        class="old-price">{{ $featuredlist->currency }}{{ $featuredlist->actual_price }}</span>
+                                    <span
+                                        class="product-price">{{ $featuredlist->currency }}{{ $featuredlist->saleprice }}</span>
+                                @else
+                                    <span
+                                        class="product-price">{{ $featuredlist->currency }}{{ $featuredlist->saleprice }}</span>
+                                @endif
+
+                            </div>
+                            <!-- End .price-box -->
                         </div>
-                        <!-- End .price-box -->
+                        <!-- End .product-details -->
                     </div>
-                    <!-- End .product-details -->
-                </div>
-@endforeach
+                @endforeach
 
             </div>
 
-            <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="500">
+            <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter"
+                data-animation-delay="500">
                 <h4 class="section-sub-title">Arrivial Products</h4>
                 @foreach ($arrivialProductsFooter as $arriviallist)
-                <div class="product-default left-details product-widget">
-                    <figure>
-                        <a href="{{url('product/'.$arriviallist->id)}}">
-                            <img src="{{ $arriviallist->feature_image }}" width="84" height="84" alt="product">
-                            <img src="{{ $arriviallist->feature_image }}" width="84" height="84" alt="product">
-                        </a>
-                         {{-- <div class="product-label label-hot">HOT</div> --}}
-                         @if ($arriviallist->discount > 0)
-                         <div class="product-label label-sale">{{ substr($arriviallist->discount,0,2 )}}%</div>
-                         @endif
-                    </figure>
+                    <div class="product-default left-details product-widget">
+                        <figure>
+                            <a href="{{ url('product/' . $arriviallist->id) }}">
+                                <img src="{{ $arriviallist->feature_image }}" width="84" height="84"
+                                    alt="product">
+                                <img src="{{ $arriviallist->feature_image }}" width="84" height="84"
+                                    alt="product">
+                            </a>
+                            {{-- <div class="product-label label-hot">HOT</div> --}}
+                            @if ($arriviallist->discount > 0)
+                                <div class="product-label label-sale">{{ substr($arriviallist->discount, 0, 2) }}%</div>
+                            @endif
+                        </figure>
 
-                    <div class="product-details">
-                        <h3 class="product-title"> <a href="{{url('product/'.$arriviallist->id)}}">{{$arriviallist->name}}
+                        <div class="product-details">
+                            <h3 class="product-title"> <a
+                                    href="{{ url('product/' . $arriviallist->id) }}">{{ $arriviallist->name }}
                                 </a> </h3>
 
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:100%"></span>
-                                <!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top">5.00</span>
+                            <div class="ratings-container">
+                                <div class="product-ratings">
+                                    <span class="ratings" style="width:100%"></span>
+                                    <!-- End .ratings -->
+                                    <span class="tooltiptext tooltip-top">5.00</span>
+                                </div>
+                                <!-- End .product-ratings -->
                             </div>
-                            <!-- End .product-ratings -->
-                        </div>
-                        <!-- End .product-container -->
+                            <!-- End .product-container -->
 
-                        <div class="price-box">
-                            @if ($arriviallist->discount > 0)
-                            <span class="old-price">{{$arriviallist->currency}}{{$arriviallist->actual_price}}</span>
-                            <span class="product-price">{{$arriviallist->currency}}{{$arriviallist->saleprice }}</span>
-                            @else
-                            <span class="product-price">{{$arriviallist->currency}}{{$arriviallist->saleprice }}</span>
-                            @endif
+                            <div class="price-box">
+                                @if ($arriviallist->discount > 0)
+                                    <span
+                                        class="old-price">{{ $arriviallist->currency }}{{ $arriviallist->actual_price }}</span>
+                                    <span
+                                        class="product-price">{{ $arriviallist->currency }}{{ $arriviallist->saleprice }}</span>
+                                @else
+                                    <span
+                                        class="product-price">{{ $arriviallist->currency }}{{ $arriviallist->saleprice }}</span>
+                                @endif
+                            </div>
+                            <!-- End .price-box -->
                         </div>
-                        <!-- End .price-box -->
+                        <!-- End .product-details -->
                     </div>
-                    <!-- End .product-details -->
-                </div>
-  @endforeach
+                @endforeach
             </div>
 
-            <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="800">
+            <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter"
+                data-animation-delay="800">
                 <h4 class="section-sub-title">Latest Products</h4>
                 @foreach ($latestPoductsFooter as $list)
-                <div class="product-default left-details product-widget">
-                    <figure>
-                        <a href="{{url('product/'.$list->id)}}">
-                            <img src="{{ $list->feature_image }}" width="84" height="84" alt="product">
-                            <img src="{{ $list->feature_image }}" width="84" height="84" alt="product">
-                        </a>
-                         {{-- <div class="product-label label-hot">HOT</div> --}}
-                         @if ($list->discount > 0)
-                         <div class="product-label label-sale">{{ substr($list->discount,0,2 )}}%</div>
-                         @endif
-                    </figure>
+                    <div class="product-default left-details product-widget">
+                        <figure>
+                            <a href="{{ url('product/' . $list->id) }}">
+                                <img src="{{ $list->feature_image }}" width="84" height="84" alt="product">
+                                <img src="{{ $list->feature_image }}" width="84" height="84" alt="product">
+                            </a>
+                            {{-- <div class="product-label label-hot">HOT</div> --}}
+                            @if ($list->discount > 0)
+                                <div class="product-label label-sale">{{ substr($list->discount, 0, 2) }}%</div>
+                            @endif
+                        </figure>
 
-                    <div class="product-details">
-                        <h3 class="product-title"> <a href="{{url('product/'.$list->id)}}">{{$list->name}}
+                        <div class="product-details">
+                            <h3 class="product-title"> <a href="{{ url('product/' . $list->id) }}">{{ $list->name }}
                                 </a> </h3>
 
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:100%"></span>
-                                <!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top">5.00</span>
+                            <div class="ratings-container">
+                                <div class="product-ratings">
+                                    <span class="ratings" style="width:100%"></span>
+                                    <!-- End .ratings -->
+                                    <span class="tooltiptext tooltip-top">5.00</span>
+                                </div>
+                                <!-- End .product-ratings -->
                             </div>
-                            <!-- End .product-ratings -->
-                        </div>
-                        <!-- End .product-container -->
+                            <!-- End .product-container -->
 
-                        <div class="price-box">
-                            @if ($list->discount > 0)
-                            <span class="old-price">{{$list->currency}}{{$list->actual_price}}</span>
-                            <span class="product-price">{{$list->currency}}{{$list->saleprice }}</span>
-                            @else
-                            <span class="product-price">{{$list->currency}}{{$list->saleprice }}</span>
-                            @endif
+                            <div class="price-box">
+                                @if ($list->discount > 0)
+                                    <span class="old-price">{{ $list->currency }}{{ $list->actual_price }}</span>
+                                    <span class="product-price">{{ $list->currency }}{{ $list->saleprice }}</span>
+                                @else
+                                    <span class="product-price">{{ $list->currency }}{{ $list->saleprice }}</span>
+                                @endif
+                            </div>
+                            <!-- End .price-box -->
                         </div>
-                        <!-- End .price-box -->
+                        <!-- End .product-details -->
                     </div>
-                    <!-- End .product-details -->
-                </div>
-             @endforeach
+                @endforeach
 
             </div>
 
-            <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="800">
+            <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter"
+                data-animation-delay="800">
                 <h4 class="section-sub-title">Top Rated Products</h4>
                 @foreach ($latestPoductsFooter as $list)
-                <div class="product-default left-details product-widget">
-                    <figure>
-                        <a href="{{url('product/'.$list->id)}}">
-                            <img src="{{ $list->feature_image }}" width="84" height="84" alt="product">
-                            <img src="{{ $list->feature_image }}" width="84" height="84" alt="product">
-                        </a>
-                         {{-- <div class="product-label label-hot">HOT</div> --}}
-                         @if ($list->discount > 0)
-                         <div class="product-label label-sale">{{ substr($list->discount,0,2 )}}%</div>
-                         @endif
-                    </figure>
+                    <div class="product-default left-details product-widget">
+                        <figure>
+                            <a href="{{ url('product/' . $list->id) }}">
+                                <img src="{{ $list->feature_image }}" width="84" height="84" alt="product">
+                                <img src="{{ $list->feature_image }}" width="84" height="84" alt="product">
+                            </a>
+                            {{-- <div class="product-label label-hot">HOT</div> --}}
+                            @if ($list->discount > 0)
+                                <div class="product-label label-sale">{{ substr($list->discount, 0, 2) }}%</div>
+                            @endif
+                        </figure>
 
-                    <div class="product-details">
-                        <h3 class="product-title"> <a href="{{url('product/'.$list->id)}}">{{$list->name}}
+                        <div class="product-details">
+                            <h3 class="product-title"> <a href="{{ url('product/' . $list->id) }}">{{ $list->name }}
                                 </a> </h3>
 
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:100%"></span>
-                                <!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top">5.00</span>
+                            <div class="ratings-container">
+                                <div class="product-ratings">
+                                    <span class="ratings" style="width:100%"></span>
+                                    <!-- End .ratings -->
+                                    <span class="tooltiptext tooltip-top">5.00</span>
+                                </div>
+                                <!-- End .product-ratings -->
                             </div>
-                            <!-- End .product-ratings -->
-                        </div>
-                        <!-- End .product-container -->
+                            <!-- End .product-container -->
 
-                        <div class="price-box">
-                            @if ($list->discount > 0)
-                            <span class="old-price">{{$list->currency}}{{$list->actual_price}}</span>
-                            <span class="product-price">{{$list->currency}}{{$list->saleprice }}</span>
-                            @else
-                            <span class="product-price">{{$list->currency}}{{$list->saleprice }}</span>
-                            @endif
+                            <div class="price-box">
+                                @if ($list->discount > 0)
+                                    <span class="old-price">{{ $list->currency }}{{ $list->actual_price }}</span>
+                                    <span class="product-price">{{ $list->currency }}{{ $list->saleprice }}</span>
+                                @else
+                                    <span class="product-price">{{ $list->currency }}{{ $list->saleprice }}</span>
+                                @endif
+                            </div>
+                            <!-- End .price-box -->
                         </div>
-                        <!-- End .price-box -->
+                        <!-- End .product-details -->
                     </div>
-                    <!-- End .product-details -->
-                </div>
-             @endforeach
+                @endforeach
 
             </div>
         </div>
@@ -667,64 +643,71 @@
 
 
 
-<!-- Modal -->
-<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document" style=" width: 400px;
+    <!-- Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style=" width: 400px;
     margin: auto;">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle"><b>Welcome! Please Login to continue.</b></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <div class="form-title text-center">
-              <h4>Login</h4>
-            </div>
-            <div class="d-flex flex-column text-center">
-                <form class="form-valide" id="subcategory-form" method="post" action="{{ route('login') }}"
-                enctype="multipart/form-data">
-                @csrf
-                <div class="form-group">
-                  <input type="email" name="email" class="form-control" id="email1"placeholder="Your email address...">
-                  @error('email')
-                  <span class="text-danger" role="alert">
-                      {{ $message }}
-                  </span>
-              @enderror
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle"><b>Welcome! Please Login to continue.</b></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="form-group">
-                  <input type="password" name="password" class="form-control" id="password1" placeholder="Your password...">
-                  @error('password')
-                  <span class="text-danger " role="alert">
-                    {{ $message }}
-                  </span>
-              @enderror
-                </div>
-                <button type="submit" class="btn btn-info btn-block btn-round">Login</button>
-              </form>
+                <div class="modal-body">
+                    <div class="form-title text-center">
+                        <h4>Login</h4>
+                    </div>
+                    <div class="d-flex flex-column text-center">
+                        <form class="form-valide" id="subcategory-form" method="post" action="{{ route('login') }}"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group">
+                                <input type="email" name="email" class="form-control"
+                                    id="email1"placeholder="Your email address...">
+                                @error('email')
+                                    <span class="text-danger" role="alert">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="password" class="form-control" id="password1"
+                                    placeholder="Your password...">
+                                @error('password')
+                                    <span class="text-danger " role="alert">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+                            </div>
+                            <button type="submit" class="btn btn-info btn-block btn-round">Login</button>
+                        </form>
 
-              <div class="text-center text-muted delimiter">or use a social network</div>
-              <div class="d-flex justify-content-center social-buttons">
-                <button type="button" class="btn btn-gray btn-round" data-toggle="tooltip" data-placement="top" title="Twitter">
-                  <i class="fab fa-twitter"></i>
-                </button>
-                <button type="button" class="btn btn-gray btn-round" data-toggle="tooltip" data-placement="top" title="Facebook">
-                  <i class="fab fa-facebook"></i>
-                </button>
-                <button type="button" class="btn btn-gray btn-round" data-toggle="tooltip" data-placement="top" title="Linkedin">
-                  <i class="fab fa-linkedin"></i>
-                </button>
-              </div>
+                        <div class="text-center text-muted delimiter">or use a social network</div>
+                        <div class="d-flex justify-content-center social-buttons">
+                            <button type="button" class="btn btn-gray btn-round" data-toggle="tooltip"
+                                data-placement="top" title="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </button>
+                            <button type="button" class="btn btn-gray btn-round" data-toggle="tooltip"
+                                data-placement="top" title="Facebook">
+                                <i class="fab fa-facebook"></i>
+                            </button>
+                            <button type="button" class="btn btn-gray btn-round" data-toggle="tooltip"
+                                data-placement="top" title="Linkedin">
+                                <i class="fab fa-linkedin"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <div class="signup-section">Not a member yet? <a href="{{ url('register') }}" class="text-info">
+                            Sign Up</a>.</div>
+                </div>
             </div>
-          </div>
-          <div class="modal-footer d-flex justify-content-center">
-            <div class="signup-section">Not a member yet? <a href="{{ url('register') }}" class="text-info"> Sign Up</a>.</div>
-          </div>
-      </div>
+        </div>
     </div>
-  </div>
 
 
 @endsection
@@ -760,4 +743,3 @@
         });
     </script>
 @endsection
-

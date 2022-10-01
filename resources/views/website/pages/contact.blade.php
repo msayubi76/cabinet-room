@@ -18,14 +18,14 @@
 
     <div class="container contact-us-container">
         <div class="contact-info">
-            @foreach ($setting as  $contact)
+        
             <div class="row">
                 <div class="col-12">
 
 
 
 
-                <p>{{ $contact->contact_us_detail }}</p>
+                <p>{!!$setting->contact_us_detail!!}</p>
 
 
                 </div>
@@ -35,7 +35,7 @@
                         <i class="far fa-calendar-alt"></i>
                         <div class="feature-box-content">
                             <h3>  Address</h3>
-                            <h5>{{ $contact->address }}</h5>
+                            <h5>{{ $setting->address }}</h5>
                         </div>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                         <i class="fa fa-mobile-alt"></i>
                         <div class="feature-box-content">
                             <h3>Phone Number</h3>
-                            <h5>{{ $contact->mobile_no1 }}</h5>
+                            <h5>{{ $setting->mobile_no1 }}</h5>
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                         <i class="fa fa-mobile-alt"></i>
                         <div class="feature-box-content">
                             <h3>Phone Number</h3>
-                            <h5>{{ $contact->mobile_no2  }}</h5>
+                            <h5>{{ $setting->mobile_no2  }}</h5>
                         </div>
                     </div>
                 </div>
@@ -62,14 +62,13 @@
                         <i class="far fa-envelope"></i>
                         <div class="feature-box-content">
                             <h3>E-mail Address</h3>
-                            <h5>{{ $contact->email }}</h5>
+                            <h5>{{ $setting->email }}</h5>
                         </div>
                     </div>
                 </div>
 
 
-            </div>
-            @endforeach
+            </div> 
         </div>
 
         <div class="row">

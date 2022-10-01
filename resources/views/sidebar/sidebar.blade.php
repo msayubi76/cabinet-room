@@ -25,22 +25,9 @@
                             <!-- <li><a href="./index-2.html">Home 2</a></li> -->
                         </ul>
                     </li>
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" href="{{ url('/roles')}}" aria-expanded="false">
-                            <i class="icon-badge menu-icon"></i><span class="nav-text">Roles</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="{{ url('admin/roles')}}">Role List</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" href="{{ url('/permissions')}}" aria-expanded="false">
-                            <i class="icon-badge menu-icon"></i><span class="nav-text">Permissions</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="{{ url('admin/permissions')}}">permission List</a></li>
-                        </ul>
-                    </li>
+                   
+                  
+                     
                     <li>
                         <a class="has-arrow" href="javascript:void()" href="{{ url('/category')}}" aria-expanded="false">
                             <i class="icon-badge menu-icon"></i><span class="nav-text">Category</span>
@@ -73,30 +60,17 @@
                             <li><a href="{{ url('admin/orders')}}">Orders List</a></li>
                         </ul>
                     </li>
-
+ 
                     <li>
-                        <a class="has-arrow" href="javascript:void()" href="{{ url('/banners')}}" aria-expanded="false">
-                            <i class="icon-badge menu-icon"></i><span class="nav-text">Banners</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="{{ url('admin/banners')}}"> Banners</a></li>
-                        </ul>
-
-
-                    </li>
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" href="{{ url('/settings')}}" aria-expanded="false">
+                        <a class="has-arrow" href="javascript:void()"   aria-expanded="false">
                             <i class="icon-badge menu-icon"></i><span class="nav-text">Setting</span>
                         </a>
-                        <ul aria-expanded="false">
-
-
-                            <li><a href="  {{url('admin/settings/1/edit')}}"> Setting</a></li>
-
-
-
-
-
+                        <ul aria-expanded="false"> 
+                            
+                            <li><a href="{{ url('admin/banners')}}"> Banners</a></li>
+                            <li><a href="{{ url('admin/roles')}}">Role List</a></li>
+                            <li><a href="{{ url('admin/permissions')}}">permission List</a></li>
+                            <li><a href="{{route('setting.edit')}}"> Setting</a></li> 
                         </ul>
 
 
