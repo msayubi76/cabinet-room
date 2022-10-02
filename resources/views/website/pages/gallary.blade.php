@@ -28,7 +28,7 @@
             <div class="col-md-4 col-6">
                 <div class="banner overlay-effect1 mb-3">
                     <figure>
-                        <img src="{{$list->image_url }}" width="1920"
+                        <img src="{{$list->url }}" width="1920"
                             alt="element-banner" height="1080" /></figure>
                     <div class="banner-layer banner-layer-middle text-center">
                         <h3 class=" text-white mb-0">Effect 1</h3>
