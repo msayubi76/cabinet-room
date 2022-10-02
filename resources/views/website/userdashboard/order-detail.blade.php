@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Order Detail</title>
     <link rel="stylesheet" href="{{ asset('website/assets/css/bootstrap.min.css') }}">
 </head>
 <body>
@@ -33,12 +33,32 @@
 
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <strong>Order No</strong>
+                                            <strong>Order Status</strong><br>
+
+                                            @if ($order->order_status == 'pending')
+                                            <span
+
+                                            class="badge badge-warning text-black">
+                                            {{ $order->order_status  }}</span>
+                                            @elseif ($orders->order_status == 'Rejected')
+                                            <span
+
+                                            class="badge badge-danger text-black">
+                                            {{ $order->order_status  }}</span>
+
+                                            @else
+                                            <span
+
+                                            class=" badge badge-success text-black">
+                                            {{ $order->order_status  }}</span>
+
+                                            @endif
+
 
                                         </div>
                                         <div class="col-md-4">
                                             <strong>Order Date</strong><br>
-                                            {{ date('d-m-y', strtotime($shipping_detail->created_at)) }}
+                                            {{ date('d F, Y h:i A', strtotime($shipping_detail->created_at)) }}
                                         </div>
                                         <div class="col-md-4"></div>
                                     </div><br>
@@ -68,7 +88,7 @@
                                             <th>Status</th>
                                             <th>Quantity</th>
 
-                                            <th>Date</th>
+
                                             <th>Price</th>
 
                                         </tr>
@@ -79,7 +99,7 @@
                                         @foreach ($order_items as $orderlist)
                                 <tr>
                                     <td>
-                                        {{ $orderlist->id }}
+                                        {{ $loop->count }}
 
 
                                     </td>
@@ -89,22 +109,22 @@
 
                                     </td>
                                     <td >
-                                        @if ($orderlist->orders->order_status == 'pending')
+                                        @if ($orderlist->order->order_status == 'pending')
                                         <span
 
                                         class="badge badge-warning text-black">
-                                        {{ $orderlist->orders->order_status  }}</span>
-                                        @elseif ($orderlist->orders->order_status == 'rejected')
+                                        {{ $orderlist->order->order_status  }}</span>
+                                        @elseif ($orderlist->orders->order_status == 'Rejected')
                                         <span
 
                                         class="badge badge-danger text-black">
-                                        {{ $orderlist->orders->order_status  }}</span>
+                                        {{ $orderlist->order->order_status  }}</span>
 
                                         @else
                                         <span
 
                                         class=" badge badge-success text-black">
-                                        {{ $orderlist->orders->order_status  }}</span>
+                                        {{ $orderlist->order->order_status  }}</span>
 
                                         @endif
                                     </td>
@@ -113,10 +133,7 @@
                                         {{ $orderlist->quantity }}
 
                                     </td>
-                                    <td>
-                                        {{ date('d-m-y', strtotime($orderlist->orders->created_at)) }}
 
-                                    </td>
                                     <td>
                                         {{ $orderlist->price }}
 
@@ -141,13 +158,12 @@
                             <div class="row" style="margin-right: 0;
                             margin-left: 0;">
 
-                                    <div class="col-md-12 " style="background-color: #f3f3f3;padding-bottom: 15px; "><strong style="float:right;padding-right: 60px;"> Price * Quantity :   {{ $orderlist->price }} * {{ $orderlist->quantity }}</strong>
-                                    <br><br>
+                                    <div class="col-md-12 " style="background-color: #f3f3f3;padding-bottom: 15px; ">
                                     <strong style="float: right;background-color: #000000;color:#ffffff;padding-left: 95px;width:240px;">Total :  {{  $total }}</strong>
                                 </div>
 
                                 </div>
-                            <div style="margin-top: 180px;">
+                            <div style="">
                                 <h5>
                                     TERMS & CONDTION
                                 </h5>

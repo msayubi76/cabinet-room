@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -11,9 +12,9 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SettingController;
 use PHPUnit\TextUI\XmlConfiguration\Groups;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\PaymentHistoryController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\PaymentHistoryController;
 
 
 Route::get('/', function () {
@@ -31,9 +32,11 @@ Route::get('/', function () {
 Route::prefix('admin')->middleware(['isAdmin','auth'])->group(function () {
     Route::get('dashboard', function () {
 
+
         return view('home');
     })->name('dashboard');
     Route::get('/', function () {
+
         return view('home');
     })->name('home');
 
@@ -57,6 +60,7 @@ Route::prefix('admin')->middleware(['isAdmin','auth'])->group(function () {
 
 
      Route::get('orders',[OrderController::class,'index']);
+     Route::get('{order_type}/orders',[OrderController::class,'orderType'])->name('orders');
       Route::get('view-order/{order}',[OrderController::class,'viewOrder']);
       Route::post('orders/{order}',[PaymentHistoryController::class,'store']);
     //   Route::get('orders/payment/{id}',[PaymentHistoryController::class,'payment'])->name('order.payment');

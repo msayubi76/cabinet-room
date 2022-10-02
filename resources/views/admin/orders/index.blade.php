@@ -30,7 +30,7 @@
                                     @foreach ($orders as $order)
                                         <tr class="order_data" id='row_{{ $order->id }}'>
                                             <td>{{ $order->id }}</td>
-                                            <td> {{ date('d-m-y', strtotime($order->created_at)) }}</td>
+                                            <td> {{ date('d F, Y h:i A', strtotime($order->created_at)) }}</td>
                                             <td>{{ $order->payment->payment }}</td>
                                             <td>
                                                 <input type="hidden" class="id"  value={{$order->id}} >
@@ -40,10 +40,10 @@
                                                     <option >--Select Status--</option>
 
                                                     <option  {{ $order->order_status =='pending' ? 'selected':'' }} value="pending" class="update-status">Pending</option>
-                                                    <option {{ $order->order_status =='accepted' ? 'selected':'' }} value="accepted">Accepted</option>
-                                                    <option {{ $order->order_status =='completed' ? 'selected':'' }} value="completed">Completed</option>
-                                                    <option {{ $order->order_status =='proccing' ? 'selected':'' }} value="proccing">Proccing</option>
-                                                    <option {{ $order->order_status =='rejecting' ? 'selected':'' }} value="rejecting">Rejecting</option>
+                                                    <option {{ $order->order_status =='Accepted' ? 'selected':'' }} value="Accepted">Accepted</option>
+                                                    <option {{ $order->order_status =='Completed' ? 'selected':'' }} value="Completed">Completed</option>
+                                                    <option {{ $order->order_status =='Proccing' ? 'selected':'' }} value="Proccing">Proccing</option>
+                                                    <option {{ $order->order_status =='Rejecting' ? 'selected':'' }} value="Rejecting">Rejecting</option>
 
                                                   </select>
 
@@ -146,7 +146,7 @@
 
                        </div>
                        <div class="modal-body">
-                        <label class="form-label" for="name">Comment<span class="text-danger">*</span>
+                        <label class="form-label" for="name">Comment
                         </label>
                         <textarea class="form-control col-xs-12" name="comment" id="comment"  rows="7" cols="50" :value="old('comment')"></textarea>
                         <div id="comment_text" class="text-danger backend-error-text"></div>

@@ -15,6 +15,27 @@ class OrderController extends Controller
 
         $orders = Order::orderBy('id', 'DESC')->paginate(20);
 
+
+        return view('admin.orders.index', compact('orders'));
+    }
+    catch (\Throwable $th) {
+        return response()->json(['status' => false, 'message' => $th->getMessage()]);
+    }
+    }
+
+    public function orderType($order_type)
+
+    {
+
+    try {
+        // if(Order::where('order_status',$order_type)->exists()){
+        //     $orders = Order::where('order_status',$order_type)->first();
+        // }
+        $orders = Order::where('order_status',$order_type)->paginate(20);
+        // dd($orders);
+
+
+
         // $order_detail = OrderDetail::where('id',$orders->id)->get();
         // dd($order_detail);
         return view('admin.orders.index', compact( 'orders'));

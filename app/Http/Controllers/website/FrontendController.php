@@ -10,6 +10,8 @@ use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use App\Services\SettingService;
 use App\Http\Controllers\Controller;
+use App\Models\Media;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
@@ -30,10 +32,12 @@ class FrontendController extends Controller
             $arrivialProductsFooter = Product::where('is_arrival_product', '1')->where('is_active', '1')->limit(3)->get();
             $cart = Cart::where('user_id', Auth::id())->get();
             $banners = Banner::orderBy('id', 'DESC')->get();
+            $contact = Setting::orderBy('id', 'DESC')->get();
 
-          
 
-            return view('website.index', compact('categories',  'featuredProducts', 'arrivialProducts', 'featuredProductsFooter', 'arrivialProductsFooter', 'latestrPoductsFooter', 'cart', 'banners'));
+
+
+            return view('website.index', compact('categories',  'featuredProducts', 'arrivialProducts', 'featuredProductsFooter', 'arrivialProductsFooter', 'latestrPoductsFooter', 'cart', 'banners','contact'));
         } catch (\Throwable $th) {
             return response()->json(['status' => false, 'message' => $th->getMessage()]);
         }
@@ -59,13 +63,13 @@ class FrontendController extends Controller
 
             if($category):
                 $categories =  Category::orWhere('name','like',"%{$category}%")->pluck('id');
-                $products = $products->whereIn('category_id', $categories); 
+                $products = $products->whereIn('category_id', $categories);
             endif;
 
-            
+
             if($sub_category):
                 $sub_categories =  SubCategory::orWhere('name','like',"%{$sub_category}%")->pluck('id');
-                $products = $products->whereIn('sub_category_id', $sub_categories); 
+                $products = $products->whereIn('sub_category_id', $sub_categories);
             endif;
 
 
@@ -138,8 +142,8 @@ class FrontendController extends Controller
             return response()->json(['status' => false, 'message' => $th->getMessage()]);
         }
     }
- 
- 
+
+
 
     public function productList()
     {
@@ -172,5 +176,15 @@ class FrontendController extends Controller
         } catch (\Throwable $th) {
             return response()->json(['status' => false, 'message' => $th->getMessage()]);
         }
+    }
+
+    public function gallary(){
+        $setting = SettingService::getSetting();
+        $categories = Category::where('is_active', '1')->with('subcategories')->get();
+
+        $cart = Cart::where('user_id', Auth::id())->get();
+        $media = Media::orderBy('id','DESC')->get();
+        return view('website.pages.gallary', compact('categories','cart','setting','media'));
+
     }
 }
