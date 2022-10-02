@@ -25,9 +25,9 @@
                             <!-- <li><a href="./index-2.html">Home 2</a></li> -->
                         </ul>
                     </li>
-                   
-                  
-                     
+
+
+
                     <li>
                         <a class="has-arrow" href="javascript:void()" href="{{ url('/category')}}" aria-expanded="false">
                             <i class="icon-badge menu-icon"></i><span class="nav-text">Category</span>
@@ -49,6 +49,7 @@
                             <i class="icon-badge menu-icon"></i><span class="nav-text">Produts</span>
                         </a>
                         <ul aria-expanded="false">
+
                             <li><a href="{{ url('admin/products')}}">Products List</a></li>
                         </ul>
                     </li>
@@ -58,19 +59,27 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="{{ url('admin/orders')}}">Orders List</a></li>
+                            @php
+                                $orders = App\Models\Order::orderby('id','DESC')->get();
+                            @endphp
+                            @foreach ($orders as $order )
+
+                            <li><a href="{{ url('admin/' . $order->order_status . '/orders')}}">{{ $order->order_status }}</a></li>
+                            @endforeach
+
                         </ul>
                     </li>
- 
+
                     <li>
                         <a class="has-arrow" href="javascript:void()"   aria-expanded="false">
                             <i class="icon-badge menu-icon"></i><span class="nav-text">Setting</span>
                         </a>
-                        <ul aria-expanded="false"> 
-                            
+                        <ul aria-expanded="false">
+
                             <li><a href="{{ url('admin/banners')}}"> Banners</a></li>
                             <li><a href="{{ url('admin/roles')}}">Role List</a></li>
                             <li><a href="{{ url('admin/permissions')}}">permission List</a></li>
-                            <li><a href="{{route('setting.edit')}}"> Setting</a></li> 
+                            <li><a href="{{route('setting.edit')}}"> Setting</a></li>
                         </ul>
 
 

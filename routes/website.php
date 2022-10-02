@@ -17,7 +17,8 @@ Route::get('about-us', [FrontendController::class, 'about']);
 Route::get('contact-us', [FrontendController::class, 'contact']);
 Route::get('privacy-and-policy', [FrontendController::class, 'policy']);
 Route::get('categories', [FrontendController::class, 'categories']);
- 
+Route::get('gallary', [FrontendController::class, 'gallary']);
+
 
 // -------> Webste search filter <------ //
 Route::get('product-list', [FrontendController::class, 'productList']);

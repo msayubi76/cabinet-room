@@ -14,7 +14,7 @@
 
                             <li><a href="{{ url('/') }}">Home</a></li>
                             <li><a href="{{ url('products') }}">Products</a></li>
-                            <li><a href="{{ url('products') }}">Gallary</a></li>
+                            <li><a href="{{ url('gallary') }}">Gallary</a></li>
                             <li><a href="{{ url('about-us') }}">About Us</a></li>
                             <li><a href="{{ url('contact-us') }}">Contact Us</a></li>
                             @if (Auth::user())
@@ -153,7 +153,7 @@
 
                                         <div class="product-details">
                                             <h4 class="product-title">
-                                                <a href="product.html">{{ $cartlist->product->name }}</a>
+                                                <a href="">{{ $cartlist->product->name }}</a>
                                             </h4>
 
                                             <span class="cart-product-info">
@@ -166,7 +166,7 @@
 
                                         <figure class="product-image-container">
                                             <a href="product.html" class="product-image">
-                                                <img src="{{ asset('website/assets/images/products/product-1.jpg') }}"
+                                                <img src="{{  asset($cartlist->product->feature_image)  }}"
                                                     alt="product" width="80" height="80">
                                             </a>
 

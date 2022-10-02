@@ -180,7 +180,7 @@
                         role="tab" aria-controls="product-size-content" aria-selected="true">Size Guide</a>
                 </li> --}}
 
-               
+
 
                 {{-- <li class="nav-item">
                     <a class="nav-link" id="product-tab-reviews" data-toggle="tab" href="#product-reviews-content"
@@ -264,7 +264,7 @@
                 </div> --}}
                 <!-- End .tab-pane -->
 
-                
+
                 <!-- End .tab-pane -->
 
                 {{-- <div class="tab-pane fade" id="product-reviews-content" role="tabpanel"
@@ -427,7 +427,7 @@
                                 @endif
 
                             </div>
-                            
+
                         </div>
                         <!-- End .product-details -->
                     </div>
@@ -684,21 +684,8 @@
                             <button type="submit" class="btn btn-info btn-block btn-round">Login</button>
                         </form>
 
-                        <div class="text-center text-muted delimiter">or use a social network</div>
-                        <div class="d-flex justify-content-center social-buttons">
-                            <button type="button" class="btn btn-gray btn-round" data-toggle="tooltip"
-                                data-placement="top" title="Twitter">
-                                <i class="fab fa-twitter"></i>
-                            </button>
-                            <button type="button" class="btn btn-gray btn-round" data-toggle="tooltip"
-                                data-placement="top" title="Facebook">
-                                <i class="fab fa-facebook"></i>
-                            </button>
-                            <button type="button" class="btn btn-gray btn-round" data-toggle="tooltip"
-                                data-placement="top" title="Linkedin">
-                                <i class="fab fa-linkedin"></i>
-                            </button>
-                        </div>
+
+
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">

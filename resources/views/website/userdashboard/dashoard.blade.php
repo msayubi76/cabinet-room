@@ -137,7 +137,7 @@
                                     @foreach ($orders as $orderlist)
                                     <tr>
                                       <td>
-                                        {{ $orderlist->id }}
+                                        {{ $loop->count }}
                                       </td>
 
 
@@ -170,7 +170,7 @@
                                         </td>
 
                                         <td>
-                                            <a href="{{ url('user-dashboard/order-detail/'.$orderlist->id) }}" >Order Detail</a>
+                                            <a href="{{ url('user-dashboard/order-detail/'.$orderlist->id) }}" ><i class="fas fa-external-link-alt " style="margin-left: 20px;"></i> <h5 class="porto-sicon-title ">Order Detail</h5></a>
 
 
                                         </td>

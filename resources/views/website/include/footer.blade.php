@@ -6,19 +6,27 @@
                     <div class="widget">
                         <h4 class="widget-title">Contact Info</h4>
                         <ul class="contact-info">
+                           @php
+                            $contact =App\Models\Setting::OrderBy('id','DESC')->get();
+                             @endphp
+
+                             @foreach ($contact as $item)
+
+
                             <li>
-                                <span class="contact-info-label">Address:</span>123 Street Name, City, England
+                                <span class="contact-info-label">Address:</span>{{ $item->address }}
                             </li>
                             <li>
-                                <span class="contact-info-label">Phone:</span><a href="tel:">(123)
-                                    456-7890</a>
+                                <span class="contact-info-label">Phone:</span><a href="tel:">{{ $item->mobile_no1 }}</a>
                             </li>
                             <li>
-                                <span class="contact-info-label">Email:</span> <a href="mailto:mail@example.com">mail@example.com</a>
+                                <span class="contact-info-label">Phone:</span><a href="tel:">{{ $item->mobile_no2 }}</a>
                             </li>
                             <li>
-                                <span class="contact-info-label">Working Days/Hours:</span> Mon - Sun / 9:00 AM - 8:00 PM
+                                <span class="contact-info-label">Email:</span> <a href="mailto:mail@example.com">{{ $item->email }}</a>
                             </li>
+
+                            @endforeach
                         </ul>
                         <div class="social-icons">
                             <a href="#" class="social-icon social-facebook icon-facebook" target="_blank" title="Facebook"></a>

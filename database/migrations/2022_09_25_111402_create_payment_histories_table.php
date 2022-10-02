@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users');
             $table->foreignId('order_id')->nullable()->constrained('orders');
-            $table->decimal('amount', 8)->nullable();
+            $table->decimal('amount')->nullable();
             $table->string('comment')->nullable();
 
             $table->foreignId('created_by')->nullable()->constrained('users')->cascadeOnDelete() ;

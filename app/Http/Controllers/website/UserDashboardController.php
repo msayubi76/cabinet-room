@@ -42,13 +42,14 @@ class UserDashboardController extends Controller
 
             $cart = Cart::where('user_id', Auth::id())->get();
             $order_items = $order->orderDetails()->with('products')->get();
+            // dd($order_items);
             $payment = $order->payments;
 
             $shipping_detail = $order->shipping;
 
-            // dd($order_items);
+            // dd($shipping_detail);
 
-            return view('website.userdashboard.order-detail', compact('categories',  'cart', 'order_items','shipping_detail'));
+            return view('website.userdashboard.order-detail', compact('categories', 'order', 'cart', 'order_items','shipping_detail'));
         } catch (\Throwable $th) {
             return response()->json(['status' => false, 'message' => $th->getMessage()]);
         }
