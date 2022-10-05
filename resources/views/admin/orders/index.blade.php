@@ -6,6 +6,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        @if ($orders->count() > 0)
                         <div class="row">
                             <div class="col-lg-8 col-md-6 col-sm-8 text-left">
                                 <h4 class="card-title">Customers Orders </h4>
@@ -15,6 +16,7 @@
                                     Category</button>
                             </div> --}}
                         </div>
+
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered zero-configuration" id="table">
                                 <thead>
@@ -26,6 +28,7 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
+
                                 <tbody id="table_id">
                                     @foreach ($orders as $order)
                                         <tr class="order_data" id='row_{{ $order->id }}'>
@@ -81,8 +84,15 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
+
+
                             </table>
                         </div>
+                        @else
+
+                        <h4 class="card-title">No Orders Available Right Now</h4>
+
+                    @endif
                         <div class="pagination justify-content-center">
                             {{ $orders->links() }}
                         </div>

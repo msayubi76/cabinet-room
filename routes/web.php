@@ -59,8 +59,9 @@ Route::prefix('admin')->middleware(['isAdmin','auth'])->group(function () {
     Route::resource('banners', BannerController::class);
 
 
-     Route::get('orders',[OrderController::class,'index']);
+    //  Route::get('orders',[OrderController::class,'index']);
      Route::get('{order_type}/orders',[OrderController::class,'orderType'])->name('orders');
+
       Route::get('view-order/{order}',[OrderController::class,'viewOrder']);
       Route::post('orders/{order}',[PaymentHistoryController::class,'store']);
     //   Route::get('orders/payment/{id}',[PaymentHistoryController::class,'payment'])->name('order.payment');

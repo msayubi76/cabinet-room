@@ -58,14 +58,16 @@
                             <i class="icon-badge menu-icon"></i><span class="nav-text">Orders</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="{{ url('admin/orders')}}">Orders List</a></li>
-                            @php
-                                $orders = App\Models\Order::orderby('id','DESC')->get();
-                            @endphp
-                            @foreach ($orders as $order )
+                            {{-- <li><a href="{{ url('admin/orders')}}">Orders List</a></li> --}}
 
-                            <li><a href="{{ url('admin/' . $order->order_status . '/orders')}}">{{ $order->order_status }}</a></li>
-                            @endforeach
+
+
+                            <li><a href="{{ url('admin/pending/orders')}}">Pending</a></li>
+                            <li><a href="{{ url('admin/Complete/orders')}}">Complete</a></li>
+                            <li><a href="{{ url('admin/Rejected/orders')}}">Rejected</a></li>
+                            <li><a href="{{ url('admin/Accepted/orders')}}">Accepted</a></li>
+                            {{-- <li><a href="{{ route('orders')}}">Accepted</a></li> --}}
+
 
                         </ul>
                     </li>

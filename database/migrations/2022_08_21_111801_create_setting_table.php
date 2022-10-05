@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('mobile_no2')->nullable();
             $table->string('address')->nullable();
             $table->string('email')->unique()->nullable();
-            $table->mediumText('privacyAndPolicyDetail')->nullable();
+            $table->mediumText('privacy_detail')->nullable();
 
 
             $table->foreignId('created_by')->nullable()->constrained('users')->cascadeOnDelete() ;

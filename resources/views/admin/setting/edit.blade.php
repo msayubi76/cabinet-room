@@ -92,10 +92,10 @@
                                </div>
                             <div class="form-group mb-8">
                                 <label for="">Privacy And Policy Page</label>
-                                <textarea class="form-control h-150px mysummernote" id="" name="privacyAndPolicyDetail" rows="6" placeholder="Write here.......">
-                                    {{ $setting?$setting->privacyAndPolicyDetail:'' }}
+                                <textarea class="form-control h-150px mysummernote" id="" name="privacy_detail" rows="6" placeholder="Write here.......">
+                                    {{ $setting?$setting->privacy_detail:'' }}
                                    </textarea>
-                                   @error('privacyAndPolicyDetail')
+                                   @error('privacy_detail')
                                    <div class="text-danger">{{ $message }}</div>
                                @enderror
                             </div>
