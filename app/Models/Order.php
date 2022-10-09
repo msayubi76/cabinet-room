@@ -30,4 +30,7 @@ class Order extends Model
     {
         return $this->belongsTo(ShippingDetail::class, 'shipping_detail_id');
     }
+    public function paymenthistories(){
+        return $this->hasMany(paymenthistories::class,'order_id');
+    }
 }

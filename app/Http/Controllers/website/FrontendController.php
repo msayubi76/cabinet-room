@@ -148,7 +148,7 @@ class FrontendController extends Controller
     public function productList()
     {
         try {
-            $product = Product::select('name')->paginate(10);
+            $product = Product::select('name')->paginate(300);
             $data = [];
             foreach ($product as $product_list) {
                 $data[] = $product_list['name'];

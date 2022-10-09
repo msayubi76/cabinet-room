@@ -26,4 +26,19 @@ class PaymentHistoryController extends Controller
       }
 
     }
+    public function paymentHistory($order)
+    {
+        try {
+
+            $payment_history = PaymentHistory::where('order_id',$order)->get();
+            // dd($payment_history);
+
+            return view('admin.orders.paymentHistory',compact('payment_history'));
+
+
+        } catch (\Throwable $th) {
+            return response()->json(['status' => false, 'message' => $th->getMessage()]);
+      }
+
+    }
 }

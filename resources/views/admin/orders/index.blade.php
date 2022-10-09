@@ -37,18 +37,24 @@
                                             <td>{{ $order->payment->payment }}</td>
                                             <td>
                                                 <input type="hidden" class="id"  value={{$order->id}} >
-                                                <select class="form-select order_status " name="order_status" style="height: 29px;
+
+                                                <select  class="form-select order_status " name="order_status" style="height: 29px;
                                                 border-radius: 5px;
                                                 background: content-box;">
                                                     <option >--Select Status--</option>
 
-                                                    <option  {{ $order->order_status =='pending' ? 'selected':'' }} value="pending" class="update-status">Pending</option>
-                                                    <option {{ $order->order_status =='Accepted' ? 'selected':'' }} value="Accepted">Accepted</option>
-                                                    <option {{ $order->order_status =='Completed' ? 'selected':'' }} value="Completed">Completed</option>
-                                                    <option {{ $order->order_status =='Proccing' ? 'selected':'' }} value="Proccing">Proccing</option>
-                                                    <option {{ $order->order_status =='Rejecting' ? 'selected':'' }} value="Rejecting">Rejecting</option>
+
+                                                    <option {{ $order->order_status =='pending' ? 'selected':'' }} value="pending" class="update-status">
+                                                       Pending
+                                                        </option>
+
+                                                    <option {{ $order->order_status =='Accepted' ? 'selected':'' }} value="Accepted" >Accepted</option>
+                                                    <option {{ $order->order_status =='Completed' ? 'selected':'' }} value="Completed" >Completed</option>
+                                                    <option {{ $order->order_status =='Processing ' ? 'selected':'' }} value="Proccing">Proccing</option>
+                                                    <option {{ $order->order_status =='Rejecte' ? 'selected':'' }} value="Rejecting">Rejecting</option>
 
                                                   </select>
+
 
                                                   <a href="" class="btn btn-sm btn-primary update-status" > Update Status</a>
 
@@ -69,8 +75,11 @@
 
 
                                                              <a class="dropdown-item"
-                                                             href="{{ url('admin/view-order/'.$order->id) }}" class="btn btn-sm btn-primary" >View</a>
 
+                                                             href="{{ url('admin/view-order/'.$order->id) }}" class="btn btn-sm btn-primary" >View</a>
+                                                             <a class="dropdown-item"
+
+                                                             href="{{ url('admin/order/'.$order->id) }}" class="btn btn-sm btn-primary" >Payment History</a>
                                                           </div>
                                                        </div>
                                                     </div>
@@ -178,13 +187,20 @@
 @endsection
 @section('scripts')
 <script>
+    function openDeleteDialog(id) {
+    $("#deleteID").val(id);
+    $("#deleteModal").modal('show');
+ }
+
     $(document).ready(function () {
 
  $('.update-status').click(function (e) {
     e.preventDefault();
 
     var id = $(this).closest('.order_data').find('.id').val();
+
     var order_status = $(this).closest('.order_data').find('.order_status').val();
+    alert(order_status);
     console.log(id);
     console.log(order_status);
 
@@ -401,5 +417,9 @@ function payment() {
 //            },
 //        });
 //    }
+
+// document.getElementById('my_selection').onchange = function() {
+//     window.location.href = this.children[this.selectedIndex].getAttribute('href');
+// }
 </script>
 @endsection
