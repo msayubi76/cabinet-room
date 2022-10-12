@@ -61,7 +61,7 @@ Route::prefix('admin')->middleware(['isAdmin','auth'])->group(function () {
 
      Route::get('orders',[OrderController::class,'index']);
      Route::get('{order_type}/orders',[OrderController::class,'orderType'])->name('orders');
-     Route::post('update', [OrderController::class, 'updateStatus']);
+     Route::post('update', [OrderController::class, 'updateStatus'])->name('orders');
 
       Route::get('view-order/{order}',[OrderController::class,'viewOrder']);
       Route::post('orders/{order}',[PaymentHistoryController::class,'store']);

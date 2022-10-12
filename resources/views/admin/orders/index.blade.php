@@ -38,20 +38,21 @@
                                             <td>
                                                 <input type="hidden" class="id"  value={{$order->id}} >
 
-                                                <select  class="form-select order_status " name="order_status" style="height: 29px;
+                                                <select id="my_selection"  class="form-select order_status " name="order_status" style="height: 29px;
                                                 border-radius: 5px;
                                                 background: content-box;">
-                                                    <option >--Select Status--</option>
 
 
-                                                    <option {{ $order->order_status =='pending' ? 'selected':'' }} value="pending" class="update-status">
+
+                                                    <option {{ $order->order_status =='pending' ? 'selected':'' }} value="pending" class="sweet"
+                                                         >
                                                        Pending
                                                         </option>
 
-                                                    <option {{ $order->order_status =='Accepted' ? 'selected':'' }} value="Accepted" >Accepted</option>
-                                                    <option {{ $order->order_status =='Completed' ? 'selected':'' }} value="Completed" >Completed</option>
-                                                    <option {{ $order->order_status =='Processing ' ? 'selected':'' }} value="Proccing">Proccing</option>
-                                                    <option {{ $order->order_status =='Rejecte' ? 'selected':'' }} value="Rejecting">Rejecting</option>
+                                                    <option  {{ $order->order_status =='Accepted' ? 'selected':'' }} value="Accepted"  class="sweet">Accepted</option>
+                                                    <option {{ $order->order_status =='Completed' ? 'selected':'' }} value="Completed" class="sweet">Completed</option>
+                                                    <option {{ $order->order_status =='Processing ' ? 'selected':'' }} value="Proccing" class="sweet">Proccing</option>
+                                                    <option {{ $order->order_status =='Rejecte' ? 'selected':'' }} value="Rejecting" class="sweet">Rejecting</option>
 
                                                   </select>
 
@@ -187,53 +188,66 @@
 @endsection
 @section('scripts')
 <script>
-    function openDeleteDialog(id) {
-    $("#deleteID").val(id);
-    $("#deleteModal").modal('show');
- }
 
-    $(document).ready(function () {
+  $(document).ready(function () {
+    $('.sweet').click(function (e) {
+    e.preventDefault();
+
+    Swal.fire({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+    Swal.fire(
+      'Deleted!',
+      'Your file has been deleted.',
+      'success'
+    )
+  }
+})
+});
+
 
  $('.update-status').click(function (e) {
     e.preventDefault();
 
     var id = $(this).closest('.order_data').find('.id').val();
-
     var order_status = $(this).closest('.order_data').find('.order_status').val();
-    alert(order_status);
-    console.log(id);
-    console.log(order_status);
-
 
     data = {
         'id':id,
         'order_status' :order_status,
     }
-
-
     $.ajax({
            headers: {
                'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
            },
-
         method: "POST",
-        url: "update-status",
+        url: "{{ route('orders') }}",
         data: data,
 
         success: function (data) {
             console.log(data);
-            window.location.reload();
-            swal({
-                   title: "",
+            // window.location.reload();
+           swal({
+            title: "",
                    text: data.message,
                    icon: "success",
-               });
+
+           });
+
         }
     });
 
 
 
 });
+
 
 
 });
@@ -418,8 +432,8 @@ function payment() {
 //        });
 //    }
 
-// document.getElementById('my_selection').onchange = function() {
-//     window.location.href = this.children[this.selectedIndex].getAttribute('href');
-// }
+document.getElementById('my_selection').onchange = function() {
+    window.location.href = this.children[this.selectedIndex].getAttribute('href');
+}
 </script>
 @endsection
