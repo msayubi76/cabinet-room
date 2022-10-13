@@ -35,6 +35,7 @@ class Product extends Model
         'currency',
         'short_description',
         'is_active',
+        'is_for_request_quote',
         'created_by',
         'updated_by',
         'deleted_by',

@@ -153,7 +153,7 @@
 
 
                                 <div class="form-group row ">
-                                    <div class="col-md-4 mb-8">
+                                    <div class="col-md-3 mb-8">
                                         <label for="">Shipping Charge<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control input-default" id="edit_shipping_charge"
                                             placeholder="Shipping Charge" value="{{ $product->shipping_charge }}"
@@ -163,7 +163,7 @@
                                         @enderror
 
                                     </div>
-                                    <div class="col-md-4 mb-8">
+                                    <div class="col-md-3 mb-8">
                                         <label for="">Product Length<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control input-default" id="edit-length"
                                             placeholder="Length" value="{{ $product->length }}"name="length">
@@ -172,11 +172,20 @@
                                         @enderror
 
                                     </div>
-                                    <div class="col-md-4 mb-8">
+                                    <div class="col-md-3 mb-8">
                                         <label for="">Product width<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control input-default" id="edit_width"
                                             placeholder="width" value="{{ $product->width }}" name="width">
                                             @error('width')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
+                                    </div>
+                                    <div class="col-md-3 mb-8">
+                                        <label for="">Product Colour<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control input-default" id="edit_colour"
+                                            placeholder="colour" value="{{ $product->colour }}" name="colour">
+                                            @error('colour')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
 
@@ -218,14 +227,17 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-2 mb-8">
-                                        <label for="">Product Colour<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control input-default" id="edit_colour"
-                                            placeholder="colour" value="{{ $product->colour }}" name="colour">
-                                            @error('colour')
+                                        <label style="margin-top: 30px;">
+
+                                            <input type="checkbox" class="form-check-input" value="1"
+                                                name="is_feature_product"
+                                                {{ $product->is_for_request_quote == '1' ? 'checked' : '' }}>Request Quote
+                                                <span class="text-danger">*</span></label>
+                                        @error('is_for_request_quote')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
-
                                     </div>
+
                                     <div class="col-md-3 mb-8">
                                         <label for="">Product Currency<span class="text-danger">*</span></label>
                                     <select name="currency" class="form-control" id="currency">

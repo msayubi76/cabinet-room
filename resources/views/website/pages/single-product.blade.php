@@ -133,8 +133,12 @@
                                 data-target="#loginModal">Add to
                                 Cart</a>
                         @endif
-
+                        @if($product->is_for_request_quote == 1)
+                        <a class="btn btn-dark"  data-toggle="modal"
+                        data-target="#requestModal">Request Quote</a>
+                        @endif
                     </div>
+
                     <!-- End .product-action -->
 
                     <hr class="divider mb-0 mt-0">
@@ -691,6 +695,94 @@
                 <div class="modal-footer d-flex justify-content-center">
                     <div class="signup-section">Not a member yet? <a href="{{ url('register') }}" class="text-info">
                             Sign Up</a>.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Request Quote Modal -->
+    <div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style=" width: 550px;
+    margin: auto;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle"><b>Welcome! to the Request Quote.</b></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-title text-center">
+
+                    </div>
+                    <div class="d-flex flex-column text-center">
+                        <form class="form-valide"  method="post" action="{{ route('requestQuote') }}"
+                            enctype="multipart/form-data">
+                            @csrf
+                            {{ $errors }}
+                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <input type="email" name="email" class="form-control"
+                                    id="email1"placeholder="Your email address...">
+                                @error('email')
+                                    <span class="text-danger" role="alert">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <input type="name" name="name" class="form-control"
+                                id="name"placeholder="Your name address...">
+                            @error('name')
+                                <span class="text-danger" role="alert">
+                                    {{ $message }}
+                                </span>
+                            @enderror
+                        </div>
+
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <input type="address" name="address" class="form-control"
+                                    id="address"placeholder="Your address address...">
+                                @error('address')
+                                    <span class="text-danger" role="alert">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <input type="phone" name="phone" class="form-control"
+                                id="phone"placeholder="Your phone address...">
+                            @error('phone')
+                                <span class="text-danger" role="alert">
+                                    {{ $message }}
+                                </span>
+                            @enderror
+                        </div>
+
+                            </div>
+                            <div class="form-group">
+                                <textarea name="discription" id="" cols="30" rows="10"></textarea>
+
+                                @error('password')
+                                    <span class="text-danger " role="alert">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+                            </div>
+                            <button type="submit" class="btn btn-info btn-block btn-round">Submit</button>
+                        </form>
+
+
+
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+
                 </div>
             </div>
         </div>

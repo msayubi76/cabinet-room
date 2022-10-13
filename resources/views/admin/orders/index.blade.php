@@ -195,17 +195,17 @@
 
     Swal.fire({
   title: 'Are you sure?',
-  text: "You won't be able to revert this!",
+  text: "You want to  be change the order status !",
   icon: 'warning',
   showCancelButton: true,
   confirmButtonColor: '#3085d6',
   cancelButtonColor: '#d33',
-  confirmButtonText: 'Yes, delete it!'
+  confirmButtonText: 'Yes!'
 }).then((result) => {
   if (result.isConfirmed) {
     Swal.fire(
-      'Deleted!',
-      'Your file has been deleted.',
+      'Changed!',
+      'Your order status  has been changed.',
       'success'
     )
   }

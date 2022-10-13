@@ -6,6 +6,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CheckOutController;
+use App\Http\Controllers\RequestQuoteController;
 use App\Http\Controllers\website\FrontendController;
 use App\Http\Controllers\website\UserDashboardController;
 
@@ -30,6 +31,7 @@ Route::post('check-out', [CheckOutController::class, 'store'])->name('check-out'
 
 // ----------> Webste Cart <------------- //
 Route::post('add-to-cart', [CartController::class, 'addProduct']);
+Route::post('add-quote', [RequestQuoteController::class, 'store'])->name('requestQuote');
 
 
 Route::middleware(['auth'])->group(function () {

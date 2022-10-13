@@ -102,6 +102,7 @@
     <script src="{{ url('admin-assets/js/myScript.js') }}"></script>
     {{-- <script src="{{ url('admin-assets/js/dashboard/dashboard-1.js') }}"></script> --}}
     <script src="{{ url('admin-assets/js/summernote-lite.min.js') }}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
     <script>

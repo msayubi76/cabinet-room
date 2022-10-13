@@ -42,7 +42,7 @@ class ProductRequest extends FormRequest
             'currency' => ['required'],
             'short_description' => ['required'],
             'is_active' => ['nullable'],
-
+            'is_for_request_quote' => ['nullable'],
         ];
     }
 }

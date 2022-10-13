@@ -110,28 +110,34 @@
                                </div>
 
                             <div class="form-group row ">
-                                <div class="col-md-4 mb-8">
+                                <div class="col-md-3 mb-8">
                                     <label for="">Shipping Charge <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control input-default" placeholder="Shipping Charge" :value="old('shipping_charge')" name="shipping_charge">
                                     @error('shipping_charge')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                                 </div>
-                                <div class="col-md-4 mb-8">
+                                <div class="col-md-3 mb-8">
                                     <label for="">Product Length <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control input-default" placeholder="Product Length" :value="old('length')" name="length">
                                     @error('length')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                                 </div>
-                                <div class="col-md-4 mb-8">
+                                <div class="col-md-3 mb-8">
                                     <label for="">Product Width <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control input-default" placeholder="Product Width" :value="old('width')" name="width">
                                     @error('width')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                                 </div>
-
+                                <div class="col-md-3 mb-8">
+                                    <label for="">Product Colour <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control input-default" placeholder="Product Colour" :value="old('colour')" name="colour">
+                                    @error('colour')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                                </div>
                                </div>
                                <div class="form-group row ">
                                 <div class="col-md-2 mb-8">
@@ -158,13 +164,15 @@
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="col-md-3 mb-8">
-                                    <label for="">Product Colour <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control input-default" placeholder="Product Colour" :value="old('colour')" name="colour">
-                                    @error('colour')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                                <div class="col-md-2 mb-8">
+                                    <label class=" col-form-label form-check-label" for="name" style="margin-top: 30px;">
+
+                                        <input type="checkbox" class="form-check-input" name="is_for_request_quote" value="1">Request Quote<span class="text-danger">*</span> </label>
+                                        @error('is_for_request_quote')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
+
                                 <div class="col-md-3 mb-8">
                                     <label for="">Product Currency<span class="text-danger">*</span></label>
                                     <select name="currency" class="form-control" id="currency">
