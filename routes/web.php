@@ -14,6 +14,7 @@ use PHPUnit\TextUI\XmlConfiguration\Groups;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\RequestQuoteController;
 use App\Http\Controllers\PaymentHistoryController;
 
 
@@ -70,6 +71,7 @@ Route::prefix('admin')->middleware(['isAdmin','auth'])->group(function () {
     //   Route::post('orders/payment',[PaymentHistoryController::class,'store'])->name('order.payment');
 
     Route::get('delete/{id}',[MediaController::class,'destroy']);
+    Route::get('quote',[RequestQuoteController::class,'index']);
 
     Route::any('getSubCategory', [ProductController::class, 'getSubCategory'])->name('getSubCategory');
 });

@@ -133,7 +133,7 @@
                                 data-target="#loginModal">Add to
                                 Cart</a>
                         @endif
-                        @if($product->is_for_request_quote == 1)
+                        @if(Auth::user() && $product->is_for_request_quote == 1)
                         <a class="btn btn-dark"  data-toggle="modal"
                         data-target="#requestModal">Request Quote</a>
                         @endif
@@ -722,7 +722,7 @@
                             enctype="multipart/form-data">
                             @csrf
                             {{ $errors }}
-                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                            <input type="hidden" name="user_id" value="{{Auth::user()?Auth::user()->id:'' }}">
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     <input type="email" name="email" class="form-control"

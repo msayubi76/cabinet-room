@@ -54,6 +54,15 @@
                         </ul>
                     </li>
                     <li>
+                        <a class="has-arrow" href="javascript:void()" href="{{ url('/quote')}}" aria-expanded="false">
+                            <i class="icon-badge menu-icon"></i><span class="nav-text">Request Quote</span>
+                        </a>
+                        <ul aria-expanded="false">
+
+                            <li><a href="{{ url('admin/quote')}}">Quote List</a></li>
+                        </ul>
+                    </li>
+                    <li>
                         <a class="has-arrow" href="javascript:void()" href="{{ url('/orders')}}" aria-expanded="false">
                             <i class="icon-badge menu-icon"></i><span class="nav-text">Orders</span>
                         </a>
