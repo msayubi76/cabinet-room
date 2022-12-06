@@ -43,7 +43,7 @@ class DefaultUserSeeder extends Seeder
             'email' => 'customer@gmail.com',
             'password' => Hash::make(12345678)
         ]);
-        $admin_role = Role::create(['name' => 'admin']);
+        $admin_role = Role::create(['name' => 'super-admin']);
 
 
 

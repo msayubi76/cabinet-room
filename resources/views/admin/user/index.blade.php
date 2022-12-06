@@ -12,11 +12,9 @@
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-4 text-right">
                                 @can('create-user')
-
-
-                                <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addUserModal">Add
-                                    User</button>
-                                    @endcan
+                                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addUserModal">Add
+                                        User</button>
+                                @endcan
 
 
                             </div>
@@ -48,16 +46,15 @@
                                                     Approved
                                                 @endif
                                             </td> --}}
-                                            <td> @foreach($user->roles as $role)
-
-                                                <span class="">{{ $role->name }}</span>
-
-
-                                                @endforeach</td>
+                                            <td>
+                                                @foreach ($user->roles as $role)
+                                                    <span class="">{{ $role->name }}</span>
+                                                @endforeach
+                                            </td>
                                             <td>{{ $user->type }}</td>
 
                                             <td><img src="{{ $user->image_url }}" height="50px" width="50px"
-                                                alt=""></td>
+                                                    alt=""></td>
                                             <td>
                                                 <div class="button-group">
                                                     <div class="btn-group">
@@ -67,15 +64,15 @@
                                                                 data-toggle="dropdown"></button>
                                                             <div class="dropdown-menu">
                                                                 <a class="dropdown-item"
-                                                                href="javascript:openViewModal({{ json_encode($user) }})">View</a>
+                                                                    href="javascript:openViewModal({{ json_encode($user) }})">View</a>
                                                                 @can('update-user')
-                                                                <a class="dropdown-item"
-                                                                    href="javascript:openEditModal({{ json_encode($user) }})">Edit</a>
-                                                                    @endcan
-                                                                    @can('delete-user')
-                                                                <a class="dropdown-item"
-                                                                    href="javascript:openDeleteDialog({{ $user->id }})">Delete</a>
-                                                                    @endcan
+                                                                    <a class="dropdown-item"
+                                                                        href="javascript:openEditModal({{ json_encode($user) }})">Edit</a>
+                                                                @endcan
+                                                                @can('delete-user')
+                                                                    <a class="dropdown-item"
+                                                                        href="javascript:openDeleteDialog({{ $user->id }})">Delete</a>
+                                                                @endcan
                                                             </div>
                                                         </div>
                                                     </div>
@@ -133,7 +130,7 @@
                         <div class="row">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
                                 <img id="image_preview" src="{{ url('images/profile/default_image.png') }}" alt=""
-                                   width="120" height="100" class="rounded-circle border border-dark" />
+                                    width="120" height="100" class="rounded-circle border border-dark" />
                             </div>
                         </div>
                         <div class="form-validation">
@@ -209,17 +206,17 @@
                             </div>
                             <h3 class="text-xl my-4 text-gray-600">Role</h3>
                             <div class="grid grid-cols-3 gap-4">
-                              @foreach($roles as $role)
-
-                                  <div class="flex flex-col justify-cente">
-                                      <div class="flex flex-col">
-                                          <label class="inline-flex items-center mt-3">
-                                              <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" name="roles[]" value="{{$role->id}}"
-                                              ><span class="ml-2 text-gray-700">{{ $role->name }}</span>
-                                          </label>
-                                      </div>
-                                  </div>
-                              @endforeach
+                                @foreach ($roles as $role)
+                                    <div class="flex flex-col justify-cente">
+                                        <div class="flex flex-col">
+                                            <label class="inline-flex items-center mt-3">
+                                                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600"
+                                                    name="roles[]" value="{{ $role->id }}"><span
+                                                    class="ml-2 text-gray-700">{{ $role->name }}</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
 
 
@@ -314,21 +311,20 @@
                             </div>
 
 
-                                <h3 class="text-xl my-4 text-gray-600">Role</h3>
-                                <div class="grid grid-cols-3 gap-4">
-                                  @foreach($roles as $role)
-                                      <div class="flex flex-col justify-cente">
-                                          <div class="flex flex-col">
-                                              <label class="inline-flex items-center mt-3">
-                                                  <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" name="roles[]" value="{{$role->id}}"
-                                                  @if(count($user->roles->where('id',$role->id)))
-                                                      checked
-                                                  @endif
-                                                  ><span class="ml-2 text-gray-700">{{ $role->name }}</span>
-                                              </label>
-                                          </div>
-                                      </div>
-                                  @endforeach
+                            <h3 class="text-xl my-4 text-gray-600">Role</h3>
+                            <div class="grid grid-cols-3 gap-4">
+                                @foreach ($roles as $role)
+                                    <div class="flex flex-col justify-cente">
+                                        <div class="flex flex-col">
+                                            <label class="inline-flex items-center mt-3">
+                                                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600"
+                                                    name="roles[]" value="{{ $role->id }}"
+                                                    @if (count($user->roles->where('id', $role->id))) checked @endif><span
+                                                    class="ml-2 text-gray-700">{{ $role->name }}</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                @endforeach
 
 
 
