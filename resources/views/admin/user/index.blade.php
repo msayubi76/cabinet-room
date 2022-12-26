@@ -12,11 +12,8 @@
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-4 text-right">
                                 @can('create-user')
-                                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addUserModal">Add
-                                        User</button>
+                                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addUserModal">Add User</button>
                                 @endcan
-
-
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -477,7 +474,7 @@
                                     </div>
                                 </td>
                             </tr>`
-                    $("#table_id").append(string);
+                    $("#table_id").prepend(string);
 
                     $('#addUserModal').modal('hide');
 
@@ -574,7 +571,7 @@
                                 </div>
                             </td>
                         </tr>`
-                    $("#table_id").append(string);
+                    $("#table_id").prepend(string);
 
 
                     $('#editModalUser').modal('hide');

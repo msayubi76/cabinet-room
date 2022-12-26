@@ -10,13 +10,14 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\ProductRequest;
 use App\Models\SubCategory;
 use App\Traits\FileUploadTrait;
+
 class ProductService
 {
-    public static function getProducts(){
+    public static function getProducts()
+    {
 
-            $product = Product::orderBy('id', 'DESC')->paginate(20);
-            return $product;
-
+        $product = Product::orderBy('id', 'DESC')->paginate(20);
+        return $product;
     }
 
 
@@ -27,6 +28,12 @@ class ProductService
 
         DB::beginTransaction();
         $data = $request->validated();
+        $id = Product::orderBy('id', 'desc')->first()->id;
+        if ($id==null) {
+        $data['sku'] = sprintf('CB01'."%'06d", 1 );
+        }else{
+            $data['sku'] = sprintf('CB01'."%'06d", $id+1 );
+        }
 
         if ($request->hasFile('feature_image')) :
             $image_name = FileUploadTrait::fileUpload($request->feature_image, 'products');
@@ -34,24 +41,17 @@ class ProductService
             $data['feature_image_name'] =  $image_name;
             $data['feature_image'] = url('/storage/products/' . $image_name);
         endif;
-
         $product = Product::create($data);
 
-
         $image_name = FileUploadTrait::uploadMultipleFiles($request->images, $product, 'products');
-
-
-
-
-
         DB::commit();
 
         $response = ['status' => true, 'message' => 'product added successfully.', 'product' => $product];
         return $response;
-
     }
 
-    public static function update(ProductRequest $request, Product $product){
+    public static function update(ProductRequest $request, Product $product)
+    {
 
         DB::beginTransaction();
         $data = $request->validated();
@@ -92,10 +92,9 @@ class ProductService
         $product->load('images');
 
 
-        $sub_categories = SubCategory::where('category_id',$product->category_id)->cursor();
+        $sub_categories = SubCategory::where('category_id', $product->category_id)->cursor();
 
 
         return ['product' => $product, 'sub_categories' => $sub_categories];
     }
-
 }

@@ -17,6 +17,6 @@ class Setting extends Model
         'about_us_detail',
         'contact_us_detail',
         'name','email','mobile_no1','mobile_no2','address',
-        'privacyAndPolicyDetail',
+        'privacy_detail',
     ];
 }

@@ -32,6 +32,8 @@ Route::post('check-out', [CheckOutController::class, 'store'])->name('check-out'
 // ----------> Webste Cart <------------- //
 Route::post('add-to-cart', [CartController::class, 'addProduct']);
 Route::post('add-quote', [RequestQuoteController::class, 'store'])->name('requestQuote');
+Route::get('update-quote-status/{id}/{status}', [RequestQuoteController::class, 'updateStatus'])->name('updateQuoteStatus');
+Route::post('add-quote', [RequestQuoteController::class, 'store'])->name('requestQuote');
 
 
 Route::middleware(['auth'])->group(function () {

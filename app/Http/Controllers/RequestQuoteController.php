@@ -17,9 +17,13 @@ class RequestQuoteController extends Controller
     }
 
     public function store(QuoteRequest $request)
-    {
+    {   
             $requestQuote = RequestQuoteService::store($request);
 
-
+            return redirect()->back()->with('success', 'Quote requested successfully');
+    }
+    public function updateStatus($id,$status){
+        $requestQuote = RequestQuoteService::updateQuoteStatus($id,$status);
+        return redirect()->back()->with('success', 'Quote accepted successfully');
     }
 }

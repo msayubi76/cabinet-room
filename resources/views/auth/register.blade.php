@@ -34,13 +34,14 @@
         @csrf
 
         <div>
+            <input type="hidden" name="product_id" value="{{$product_id}}">
             <input type="text" name="name" class="user active" placeholder="First Name" :value="old('name')"/>
             @error('name')
             <span class="text-danger" role="alert" style="
 
                 text-align: center;
                     color: rgb(219, 0, 0);
-                margin-left: 40px;">
+                margin-left: 50px;font-size:13px;">
                 {{ $message }}
             </span>
             @enderror
@@ -54,7 +55,7 @@
 
             text-align: center;
                 color: rgb(219, 0, 0);
-            margin-left: 40px;">
+            margin-left: 50px;font-size:13px;">
             {{ $message }}
         </span>
             @enderror
@@ -67,7 +68,7 @@
 
                 text-align: center;
                     color: rgb(219, 0, 0);
-                margin-left: 40px;">
+                margin-left: 50px;font-size:13px;">
                 {{ $message }}
             </span>
         @enderror
@@ -77,7 +78,7 @@
 
         text-align: center;
             color: rgb(219, 0, 0);
-        margin-left: 40px;">
+        margin-left: 50px;font-size:13px;">
         {{ $message }}
     </span>
         @enderror
@@ -87,7 +88,7 @@
 
         text-align: center;
             color: rgb(219, 0, 0);
-        margin-left: 40px;">
+        margin-left: 50px;font-size:13px;">
         {{ $message }}
     </span>
         @enderror
@@ -110,7 +111,7 @@
 	 <div class="social-icons">
 
 		<h4>If you have already account? <a  href="{{ route('login') }}"></a></h4>
-		<div class="reg-bwn"><a href="{{ route('login') }}">Sing In</a></div>
+		<div class="reg-bwn"><a href="{{ route('login') }}">Sign In</a></div>
 	</div>
   </div>
 </div>

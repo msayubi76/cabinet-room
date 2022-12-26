@@ -33,10 +33,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
+        
         $request->authenticate();
 
         $request->session()->regenerate();
-
+        if (isset($request->product_page)) {
+            return redirect()->route('website.single-product',$request->product_page);
+        }
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 

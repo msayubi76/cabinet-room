@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProductRequest extends FormRequest
@@ -23,8 +24,10 @@ class ProductRequest extends FormRequest
      */
     public function rules()
     {
+
+
         return [
-            'name' => ['required','max:255'],
+            'name' => ['required', 'max:255'],
             'category_id' => ['required'],
             'sub_category_id' => ['required'],
             'description' => ['required'],
@@ -43,6 +46,10 @@ class ProductRequest extends FormRequest
             'short_description' => ['required'],
             'is_active' => ['nullable'],
             'is_for_request_quote' => ['nullable'],
+            'delivered_in' => ['nullable', 'string'],
+            'rating' => ['required', 'min:1', 'max:5', 'numeric'],
+            'is_installment_available' => ['nullable','boolean'],
+
         ];
     }
 }

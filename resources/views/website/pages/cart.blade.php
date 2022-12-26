@@ -2,23 +2,23 @@
 @section('title', 'Shopping Cart')
 @section('content')
 
-    <div class="container">
-        <ul class="checkout-progress-bar d-flex justify-content-center flex-wrap">
-            <li class="active">
-                <a href="">Shopping Cart</a>
-            </li>
-            <li>
-                <a href="">Checkout</a>
-            </li>
-            <li class="disabled">
-                <a href="cart.html">Order Complete</a>
-            </li>
-        </ul>
+<div class="container">
+    <ul class="checkout-progress-bar d-flex justify-content-center flex-wrap">
+        <li class="active">
+            <a href="">Shopping Cart</a>
+        </li>
+        <li>
+            <a href="">Checkout</a>
+        </li>
+        <li class="disabled">
+            <a href="cart.html">Order Complete</a>
+        </li>
+    </ul>
 
-        <div class="row">
-            <div class="col-lg-8 ">
-                <div class="cart-table-container ">
-                    {{-- <div class="row">
+    <div class="row">
+        <div class="col-lg-8 ">
+            <div class="cart-table-container ">
+                {{-- <div class="row">
                         <div class="col-md-2"> Image</div>
                         <div class="col-md-2"><strong class="text-center">Nmae</strong> </div>
                         <div class="col-md-2">Nmae</div>
@@ -27,11 +27,8 @@
                         <div class="col-md-2">Nmae</div>
 
                     </div> --}}
-                    @php $total = 0; @endphp
-                    @php $alltotal = 0; @endphp
-                    @foreach ($cart as $cartlist)
-                        <table class="table table-cart product_data ">
-                            {{-- <thead>
+                    <table class="table table-cart product_data ">
+                    {{-- <thead>
                             <tr>
                                 <th class="thumbnail-col"></th>
                                 <th class="product-col">Product</th>
@@ -41,169 +38,216 @@
                             </tr>
                         </thead> --}}
 
-                            <tbody>
+                    <tbody>
 
-                                <tr class="product-row ">
-                                    <div class="">
+                @php $total = 0; @endphp
+                @php $alltotal = 0; @endphp
+                @forelse ($cart as $cartlist)
+              
 
-                                        <td>
-                                            <figure class="product-image-container">
+                        <tr class="product-row ">
+                            <div class="">
 
-                                                <a href="product.html" class="product-image">
-                                                    <img src="{{ asset($cartlist->product->feature_image) }}"
-                                                        alt="product">
-                                                </a>
+                                <td>
+                                    <figure class="product-image-container">
 
-                                                <a href="#" class=" btn-remove icon-cancel delete-cart-item"
-                                                    title="Remove Product"></a>
-                                            </figure>
-                                        </td>
-                                        <td class="text-center">
-                                            <h5 class="product-title">
-                                                <a href="product.html">{{ $cartlist->product->name }}</a>
-                                            </h5>
-                                        </td>
-                                        <td class="text-center">
-                                            {{ $cartlist->product->currency }}{{ $cartlist->product->saleprice }}</td>
-                                        <td class="text-center">
-                                            <input type="hidden" class="product_id" value={{ $cartlist->product_id }}>
-                                            <div class="product-single-qty">
+                                        <a href="product.html" class="product-image">
+                                            <img src="{{ asset($cartlist->product->feature_image) }}" alt="product">
+                                        </a>
 
-                                                <input class="horizontal-quantity form-control" name="quantity"
-                                                    type="text" value="{{ $cartlist->quantity }}">
-                                            </div><!-- End .product-single-qty -->
-                                        </td>
-                                        @php $total =$cartlist->product->saleprice * $cartlist->quantity ; @endphp
-                                        <td class="text-center"><span
-                                                class="subtotal-price"></span>{{ $cartlist->product->currency }}{{ $total }}
-                                        </td>
+                                        <a href="javascript:openDeleteDialog({{$cartlist->product_id}})" class=" btn-remove icon-cancel" title="Remove Product"></a>
+                                    </figure>
+                                </td>
+                                <td class="text-center">
+                                    <h5 class="product-title">
+                                        <a href="product.html">{{ $cartlist->product->name }}</a>
+                                    </h5>
+                                </td>
+                                <td class="text-center">
+                                    {{ $cartlist->product->currency }}{{ $cartlist->product->saleprice }}
+                                </td>
+                                <td class="text-center">
+                                    <input type="hidden" class="product_id" value='{{ $cartlist->product_id }}'>
+                                    <div class="product-single-qty">
 
-                                        <td class="text-center">
+                                        <input class="horizontal-quantity form-control" name="quantity" onchange="updatePrice(this,'{{$cartlist->product->id}}','{{$cartlist->product->saleprice}}')" type="text" value="{{ $cartlist->quantity }}">
+                                    </div><!-- End .product-single-qty -->
+                                </td>
+                                @php $total =$cartlist->product->saleprice * $cartlist->quantity ; @endphp
+                                <td class="text-center"><span class="subtotal-price">{{ $cartlist->product->currency }}<span id="quantity_total_{{$cartlist->product->id}}">{{ $total }}</span></span>
+                                </td>
 
-
-                                            <div class="float-right">
-                                                <button type="submit" class="btn btn-shop update-cart">
-                                                    Update
-                                                </button>
-                                            </div><!-- End .float-right -->
-                                        </td>
-                                    </div>
-                                </tr>
+                                <td class="text-center">
 
 
-                                @php $alltotal +=$cartlist->product->saleprice * $cartlist->quantity ; @endphp
-
-                            </tbody>
-
-
-
-                            <tfoot>
-                                <tr>
-
-                                </tr>
-                            </tfoot>
-                        </table>
-                    @endforeach
-                </div><!-- End .cart-table-container -->
-            </div><!-- End .col-lg-8 -->
-
-            <div class="col-lg-4">
-                <div class="cart-summary">
-                    <h3>CART TOTALS</h3>
-
-                    <table class="table table-totals">
-                        <tbody>
-                            <tr>
-                                <td>Subtotal</td>
-                                <td>{{ $cartlist->product->currency }}{{ $alltotal }}</td>
-                            </tr>
+                                    <div class="float-right">
+                                        <button type="submit" class="btn btn-shop update-cart">
+                                            Update
+                                        </button>
+                                    </div><!-- End .float-right -->
+                                </td>
+                            </div>
+                        </tr>
 
 
-                        </tbody>
+                        @php $alltotal +=$cartlist->product->saleprice * $cartlist->quantity ; @endphp
 
-                        <tfoot>
-                            <tr>
-                                <td>Total</td>
-                                <td>{{ $cartlist->product->currency }}{{ $alltotal }}</td>
-                            </tr>
-                        </tfoot>
-                    </table>
+                  
+                @empty
+                <h4 class="text-left">No item in the Cart</h4>
+                @endforelse
+                </tbody>
+             <tfoot>
+             </tfoot>
+        </table>
+            </div><!-- End .cart-table-container -->
+        </div><!-- End .col-lg-8 -->
+        @if (isset($cartlist))
+        <div class="col-lg-4">
+            <div class="cart-summary">
+                <h3>CART TOTALS</h3>
 
-                    <div class="checkout-methods">
-                        <a href="{{ url('check-out') }}" class="btn btn-block btn-dark ">Proceed to Checkout
-                            <i class="fa fa-arrow-right"></i></a>
-                    </div>
-                </div><!-- End .cart-summary -->
-            </div><!-- End .col-lg-4 -->
-        </div><!-- End .row -->
-    </div><!-- End .container -->
+                <table class="table table-totals">
+                    <tbody>
+                        <tr>
+                            <td>Subtotal</td>
+                            <td>{{ $cartlist->product->currency }}<span id="subtotal">{{ $alltotal }}</span></td>
+                        </tr>
 
-    <div class="mb-6"></div><!-- margin -->
 
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <td>Total</td>
+                            <td>{{ $cartlist->product->currency }}<span id="totalAmount">{{ $alltotal }}</span></td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <div class="checkout-methods">
+                    <a href="{{ url('check-out') }}" class="btn btn-block btn-dark ">Proceed to Checkout
+                        <i class="fa fa-arrow-right"></i></a>
+                </div>
+            </div><!-- End .cart-summary -->
+        </div>
+        @else
+
+        @endif
+        <!-- End .col-lg-4 -->
+    </div><!-- End .row -->
+</div><!-- End .container -->
+
+<div class="mb-6"></div><!-- margin -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input type="hidden" value="-1" id="deleteID">
+
+                <h5 class="modal-title" id="exampleModalLongTitle">Delete Cart Item
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this Cart Item?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" id="button-delete" class="btn btn-primary" onclick="deleteCartItem()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @section('scripts')
-    <script>
-        $(document).ready(function() {
-            $('.delete-cart-item').click(function(e) {
-                e.preventDefault();
-                var product_id = $(this).closest('.product_data').find('.product_id').val();
-                // alert(product_id);
+<script>
+    function openDeleteDialog(id) {
+        $("#deleteID").val(id);
+        $("#deleteModal").modal('show');
+    }
 
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
-                    method: "GET",
-                    url: "delete",
-                    data: {
-                        'product_id': product_id,
-                    },
+    function deleteCartItem() {
+        $("#button-delete").text('Loading...');
 
-                    success: function(response) {
-                        window.location.reload();
-                        // alert(response);
-                        swal("", response.status, "success");
-                    }
-                });
+        var product_id = $('#deleteID').val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            method: "GET",
+            url: "delete",
+            data: {
+                'product_id': product_id,
+            },
+
+            success: function(response) {
+                $('#deleteModal').modal('hide');
+
+                window.location.reload();
+                // alert(response);
+                swal("", response.status, "success");
+            }
+        });
+    }
+    
+    $(document).ready(function() {
 
 
-            });
+        $('.update-cart').click(function(e) {
+            e.preventDefault();
 
-            $('.update-cart').click(function(e) {
-                e.preventDefault();
-
-                var product_id = $(this).closest('.product_data').find('.product_id').val();
-                var quantity = $(this).closest('.product_data').find('.horizontal-quantity').val();
+            var product_id = $(this).closest('.product_data').find('.product_id').val();
+            var quantity = $(this).closest('.product_data').find('.horizontal-quantity').val();
 
 
-                data = {
-                    'product_id': product_id,
-                    'quantity': quantity,
+            data = {
+                'product_id': product_id,
+                'quantity': quantity,
+            }
+
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
 
-
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-
-                });
-                $.ajax({
-                    method: "POST",
-                    url: "update",
-                    data: data,
-
-                    success: function(response) {
-                        window.location.reload();
-                        toster.success("", response.status, "success");
-                    }
-                });
-
-
-
             });
+            $.ajax({
+                method: "POST",
+                url: "update",
+                data: data,
+
+                success: function(response) {
+                    // window.location.reload();
+                    console.log('response', response.data);
+                    // toster.success("", response.status, "success");
+                    swal({
+                        title: "Success",
+                        text: response.status,
+                        icon: "success",
+                    });
+                }
+            });
+
+
+
         });
-    </script>
+    });
+
+    function updatePrice(data, id, price) {
+        let priceVal = data.value * price
+        let oldTotal = $('#quantity_total_' + id).html()
+        let subTotal = $('#subtotal').html()
+
+        let newTotal = (subTotal - oldTotal) + priceVal
+        $('#subtotal').html(newTotal.toFixed(2))
+        $('#totalAmount').html(newTotal.toFixed(2))
+        $('#quantity_total_' + id).html(priceVal.toFixed(2))
+    }
+</script>
 @endsection

@@ -67,16 +67,17 @@
                             <i class="icon-badge menu-icon"></i><span class="nav-text">Orders</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="{{ url('admin/orders')}}">Orders List</a></li>
+                            <!-- <li><a href="{{ url('admin/orders')}}">Orders List</a></li> -->
 
 
 
                             <li><a href="{{ url('admin/pending/orders')}}">Pending</a></li>
-                            <li><a href="{{ url('admin/Completed/orders')}}">Complete</a></li>
-                            <li><a href="{{ url('admin/Rejecte/orders')}}">Rejected</a></li>
                             <li><a href="{{ url('admin/Accepted/orders')}}">Accepted</a></li>
-                            <li><a href="{{ url('admin/Processing/orders')}}">Accepted</a></li>
-                            {{-- <li><a href="{{ route('orders')}}">Accepted</a></li> --}}
+                            <li><a href="{{ url('admin/Completed/orders')}}">Complete</a></li>
+                            <li><a href="{{ url('admin/Rejected/orders')}}">Rejected</a></li>
+                            <li><a href="{{ url('admin/Canceled/orders')}}">Canceled</a></li>
+                            <!-- <li><a href="{{ url('admin/Processing/orders')}}">Processing</a></li> -->
+                            <!-- {{-- <li><a href="{{ route('orders')}}">Accepted</a></li> --}} -->
 
 
                         </ul>

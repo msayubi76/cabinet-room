@@ -65,10 +65,11 @@ class CartController extends Controller
 
             if (Cart::where('product_id', $product_id)->where('user_id', Auth::id())->exists()) {
                 $update_cart = Cart::where('product_id', $product_id)->where('user_id', Auth::id())->first();
-
+                $cart_id = $update_cart->id;
                 $update_cart->quantity = $quantity;
                 $update_cart->update();
-                return response()->json(['status' => 'Cart item updated successfully.']);
+                $cart = Cart::where('user_id', Auth::id())->with('product')->get();
+                return response()->json(['status' => 'Cart item updated successfully.' ,'data'=>$cart]);
             }
 
             return response()->json(['status' => 'Login  to continue']);

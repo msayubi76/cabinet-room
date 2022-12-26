@@ -11452,7 +11452,7 @@ span.toggle::before {
   font-family: Montserrat;
 }
 
-.add-cart {
+.add-cart,.request-quote {
   padding: 12px 27px 10px 26px;
   font-size: 1.4rem;
   font-weight: 700;

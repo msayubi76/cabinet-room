@@ -122,19 +122,21 @@
                         <div class="product-single-qty">
                             <input class="horizontal-quantity form-control" name="quantity" type="text">
                         </div>
+
                         <!-- End .product-single-qty -->
                         @if (Auth::user())
-                            <a class="btn btn-dark add-cart mr-2" title="Add to Cart">Add to
-                                Cart</a>
-
-                            <a href="{{ url('cart') }}" class="btn btn-gray view-cart d-none">View cart</a>
+                            @if ( $productCheck==1)
+                                 <a class="btn btn-dark add-cart mr-2" title="Add to Cart">Add to Cart </a>
+                            @endif
+                            @if ( $productCheck==0)
+                                <a href="{{ url('cart') }}" class="btn btn-gray view-cart">View cart</a>
+                            @endif
                         @else
-                            <a class="btn btn-dark add-cart mr-2" title="Add to Cart" data-toggle="modal"
-                                data-target="#loginModal">Add to
-                                Cart</a>
+                            <a class="btn btn-dark  mr-2" title="Add to Cart" data-toggle="modal"
+                                data-target="#loginModal">Add to Cart</a>
                         @endif
                         @if(Auth::user() && $product->is_for_request_quote == 1)
-                        <a class="btn btn-dark"  data-toggle="modal"
+                        <a class="btn btn-dark request-quote"  data-toggle="modal"
                         data-target="#requestModal">Request Quote</a>
                         @endif
                     </div>
@@ -649,25 +651,28 @@
 
     <!-- Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true">
+        aria-hidden="true" style="background-color: rgba(0,0,0,0.4);">
         <div class="modal-dialog modal-dialog-centered" role="document" style=" width: 400px;
     margin: auto;">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle"><b>Welcome! Please Login to continue.</b></h5>
+                     <img src="{{ asset('website/assets/images/logo.png') }}" width="111" height="44" alt="Porto Logo">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-title text-center">
-                        <h4>Login</h4>
+                     <h4>Login</h4>
+
+                    <h5 class="modal-title" id=""><b>Welcome! Please Login to continue.</b></h5>
                     </div>
                     <div class="d-flex flex-column text-center">
                         <form class="form-valide" id="subcategory-form" method="post" action="{{ route('login') }}"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
+                            <input type="hidden" name="product_page" value="{{$product->id}}" class="form-control" >
                                 <input type="email" name="email" class="form-control"
                                     id="email1"placeholder="Your email address...">
                                 @error('email')
@@ -693,7 +698,7 @@
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
-                    <div class="signup-section">Not a member yet? <a href="{{ url('register') }}" class="text-info">
+                    <div class="signup-section">Not a member yet? <a href="{{ url('register/'.$product->id) }}" class="text-info">
                             Sign Up</a>.</div>
                 </div>
             </div>
@@ -708,22 +713,21 @@
     margin: auto;">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle"><b>Welcome! to the Request Quote.</b></h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle"><b>Request a Quote.</b></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <div class="form-title text-center">
-
-                    </div>
-                    <div class="d-flex flex-column text-center">
-                        <form class="form-valide"  method="post" action="{{ route('requestQuote') }}"
+                <form class="form-valide"  method="post" action="{{ route('requestQuote') }}"
                             enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="form-title text-center"> </div>
+                    <div class="d-flex flex-column text-center">
+                        
                             @csrf
-                            {{ $errors }}
+                            <!-- {{ $errors }} -->
                             <input type="hidden" name="user_id" value="{{Auth::user()?Auth::user()->id:'' }}">
-                            <div class="form-group row">
+                            <div class="row">
                                 <div class="col-md-6">
                                     <input type="email" name="email" class="form-control"
                                     id="email1"placeholder="Your email address...">
@@ -744,7 +748,7 @@
                         </div>
 
                             </div>
-                            <div class="form-group row">
+                            <div class="row">
                                 <div class="col-md-6">
                                     <input type="address" name="address" class="form-control"
                                     id="address"placeholder="Your address address...">
@@ -765,8 +769,8 @@
                         </div>
 
                             </div>
-                            <div class="form-group">
-                                <textarea name="discription" id="" cols="30" rows="10"></textarea>
+                            <div class="">
+                                <textarea name="discription" id="" class="form-control" cols="30" rows="6"></textarea>
 
                                 @error('password')
                                     <span class="text-danger " role="alert">
@@ -774,16 +778,17 @@
                                     </span>
                                 @enderror
                             </div>
-                            <button type="submit" class="btn btn-info btn-block btn-round">Submit</button>
-                        </form>
 
 
 
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
+                    <button type="submit" class="btn btn-info btn-sm btn-round">Submit</button>
 
                 </div>
+                </form>
+
             </div>
         </div>
     </div>
@@ -793,7 +798,9 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
+
             $('.add-cart').click(function(e) {
+                $(".add-cart").css("display", "none");
                 e.preventDefault();
                 var product_id = $(this).closest('.product_data').find('.product_id').val();
                 var quantity = $(this).closest('.product_data').find('.horizontal-quantity').val();
@@ -815,6 +822,7 @@
                     success: function(response) {
 
                         swal("", response.status, "success");
+                        setTimeout(location.reload(), 20000);
                     }
                 });
 

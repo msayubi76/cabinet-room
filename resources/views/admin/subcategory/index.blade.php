@@ -12,8 +12,7 @@
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-4 text-right">
                                 @can('create-category')
-                                <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addcategory">Add
-                                    SubCategory</button>
+                                <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addcategory">Add SubCategory</button>
                                 @endcan
 
                             </div>
@@ -57,11 +56,9 @@
                                                                 class="btn btn-primary dropdown-toggle py-0 px-2"
                                                                 data-toggle="dropdown"></button>
                                                             <div class="dropdown-menu">
-                                                                <a class="dropdown-item"
-                                                                    onclick="openViewModal({{ $cate }})">View</a>
+                                                                <!-- <a class="dropdown-item" onclick="openViewModal({{ $cate }})">View</a> -->
                                                                     @can('update-category')
-                                                                <a class="dropdown-item"
-                                                                    href="javascript:openEditModal({{ json_encode($cate) }})">Edit</a>
+                                                                <a class="dropdown-item" href="javascript:openEditModal({{ json_encode($cate) }})">Edit</a>
                                                                     @endcan
 
                                                                     @can('delete-category')
@@ -349,7 +346,7 @@
                         <div class="btn-group">
                             <div class="btn-group"><button id="btnGroupDrop${data.sub_category.id}" type="button"
                                     class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button>
-                                <div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal(${data.sub_category})">View</a>
+                                <div class="dropdown-menu"> 
                                     <a class="dropdown-item" href="javascript:;" onclick='openEditModal(${SUBCATEGORY})'>Edit</a><a
                                         class="dropdown-item" href="javascript:openDeleteDialog(${data.sub_category.id});">Delete</a></div>
                             </div>
@@ -357,7 +354,7 @@
                     </div>
                 </td>
             </tr>`
-                    $("#table_id").append(string);
+                    $("#table_id").prepend(string);
 
 
                     $('#addcategory').modal('hide');
@@ -519,7 +516,7 @@
                         <div class="btn-group">
                             <div class="btn-group"><button id="btnGroupDrop${data.sub_category.id}" type="button"
                                     class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button>
-                                <div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal(${data.sub_category})">View</a>
+                                <div class="dropdown-menu"> 
                                     <a class="dropdown-item" href="javascript:;" onclick='openEditModal(${SUBCATEGORY})'>Edit</a><a
                                         class="dropdown-item" href="javascript:openDeleteDialog(${data.sub_category.id});">Delete</a></div>
                             </div>
@@ -527,7 +524,7 @@
                     </div>
                 </td>
             </tr>`
-                    $("#table_id").append(string);
+                    $("#table_id").prepend(string);
 
                     $('#editsubcategory').modal('hide');
 

@@ -33,7 +33,7 @@ class SettingRequest extends FormRequest
             'mobile_no2' => ['required'],
 
             'address' => ['required'],
-            'privacyAndPolicyDetail' => ['nullable'],
+            'privacy_detail' => ['nullable'],
 
         ];
     }

@@ -20,22 +20,22 @@
                             @if (Auth::user())
 
 
-                                <li>
+                            <li>
 
 
-                                    @if (Auth::user()->type == 'admin')
-                                        <a href="{{ url('admin/dashboard') }}">
-                                        @elseif (Auth::user()->type == 'customer')
-                                            <a href="{{ url('user-dashboard/') }}">
-                                            @else
-                                                <a href="{{ url('login') }}">
-                                    @endif
-                                    My Account</a>
-                                </li>
-                                <li><a href="{{ route('logout') }}">Log out</a></li>
+                                @if (Auth::user()->type == 'admin')
+                                <a href="{{ url('admin/dashboard') }}">
+                                    @elseif (Auth::user()->type == 'customer')
+                                    <a href="{{ url('user-dashboard/') }}">
+                                        @else
+                                        <a href="{{ url('login') }}">
+                                            @endif
+                                            My Account</a>
+                            </li>
+                            <li><a href="{{ route('logout') }}">Log out</a></li>
                             @else
-                                <li><a href="{{ url('login') }}">Log In</a></li>
-                                <li><a href="{{ route('register') }}">Register</a></li>
+                            <li><a href="{{ url('login') }}">Log In</a></li>
+                            <li><a href="{{ route('register') }}">Register</a></li>
                             @endif
                             {{-- @if (App\Models\Cart::where('user_id', Auth::id())->count() > 0)
                             <li><a href="{{ url('cart') }}">Cart</a></li>
@@ -64,31 +64,29 @@
                     <i class="fas fa-bars"></i>
                 </button>
                 <a href="{{ url('/') }}" class="logo">
-                    <img src="{{ asset('website/assets/images/logo.png') }}" width="111" height="44"
-                        alt="Porto Logo">
+                    <img src="{{ asset('website/assets/images/logo.png') }}" width="111" height="44" alt="Porto Logo">
                 </a>
             </div>
             <!-- End .header-left -->
 
             <div class="header-right w-lg-max">
-                <div
-                    class="header-icon header-search header-search-inline header-search-category w-lg-max text-right mt-0">
+                <div class="header-icon header-search header-search-inline header-search-category w-lg-max text-right mt-0">
                     <a href="#" class="search-toggle" role="button"><i class="icon-search-3"></i></a>
                     <form action="{{ url('search-product') }}" method="POST">
                         @csrf
                         <div class="header-search-wrapper">
-                            <input type="search" class="form-control" name="name" id="search_product"
-                                placeholder="Search..." required>
+                            <input type="search" class="form-control" name="name" id="search_product" placeholder="Search..." required>
                             <div class="select-custom">
                                 <select id="cat" name="cat">
                                     <option value="">All Categories</option>
                                     @foreach ($categories as $catitem)
-                                        <option value="">{{ $catitem->name }}</option>
+                                    <option value="">{{ $catitem->name }}</option>
 
-                                        @foreach ($catitem->subcategories as $subcatlist)
-                                            <option value="">-
-                                                {{ $subcatlist->name }}</option>
-                                        @endforeach
+                                    @foreach ($catitem->subcategories as $subcatlist)
+                                    <option value="">-
+                                        {{ $subcatlist->name }}
+                                    </option>
+                                    @endforeach
                                     @endforeach
                                 </select>
                             </div>
@@ -101,8 +99,7 @@
                 <!-- End .header-search -->
 
                 <div class="header-contact d-none d-lg-flex pl-4 pr-4">
-                    <img alt="phone" src="{{ asset('website/assets/images/phone.png') }}" width="30"
-                        height="30" class="pb-1">
+                    <img alt="phone" src="{{ asset('website/assets/images/phone.png') }}" width="30" height="30" class="pb-1">
                     <h6><span>Call us now</span><a href="tel:#" class="text-dark font1">+123 5678 890</a></h6>
                 </div>
 
@@ -112,32 +109,28 @@
 
                 <div class="dropdown cart-dropdown">
                     @if (App\Models\Cart::where('user_id', Auth::id())->count() > 0)
-                        <a href="{{ url('cart') }}" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle"
-                            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                            data-display="static">
-                            <i class="minicart-icon"></i>
-                            <span class="cart-count badge-circle">
+                    <a href="{{ url('cart') }}" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                        <i class="minicart-icon"></i>
+                        <span class="cart-count badge-circle">
 
 
-                                {{ App\Models\Cart::where('user_id', Auth::id())->count() }}</span>
-                        </a>
+                            {{ App\Models\Cart::where('user_id', Auth::id())->count() }}</span>
+                    </a>
                     @else
-                        <a href="{{ url('cart') }}" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle"
-                            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                            data-display="static">
-                            <i class="minicart-icon"></i>
-                            <span class="cart-count badge-circle">
+                    <a href="{{ url('cart') }}" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                        <i class="minicart-icon"></i>
+                        <span class="cart-count badge-circle">
 
 
-                            </span>
-                        </a>
+                        </span>
+                    </a>
                     @endif
 
 
                     <div class="cart-overlay"></div>
 
                     <div class="dropdown-menu mobile-cart">
-                        <a href="#" title="Close (Esc)" class="btn-close">×</a>
+                        <a href="#" title="Close (Esc)" class="btn-close" >×</a>
 
                         <div class="dropdownmenu-wrapper custom-scrollbar">
                             <div class="dropdown-cart-header">Shopping Cart</div>
@@ -147,34 +140,33 @@
                                 @php $total = 0; @endphp
 
                                 @foreach ($cart as $cartlist)
-                                    <div class="product">
+                                <div class="product">
 
 
 
-                                        <div class="product-details">
-                                            <h4 class="product-title">
-                                                <a href="">{{ $cartlist->product->name }}</a>
-                                            </h4>
+                                    <div class="product-details">
+                                        <h4 class="product-title">
+                                            <a href="">{{ $cartlist->product->name }}</a>
+                                        </h4>
 
-                                            <span class="cart-product-info">
-                                                <span class="cart-product-qty">{{ $cartlist->quantity }}</span> ×
-                                                {{ $cartlist->product->saleprice }}
-                                            </span>
-                                        </div>
-
-                                        <!-- End .product-details -->
-
-                                        <figure class="product-image-container">
-                                            <a href="product.html" class="product-image">
-                                                <img src="{{  asset($cartlist->product->feature_image)  }}"
-                                                    alt="product" width="80" height="80">
-                                            </a>
-
-                                            <a href="#" class="btn-remove"
-                                                title="Remove Product"><span>×</span></a>
-                                        </figure>
+                                        <span class="cart-product-info">
+                                            <span class="cart-product-qty">{{ $cartlist->quantity }}</span> ×
+                                            {{ $cartlist->product->saleprice }}
+                                        </span>
                                     </div>
-                                    @php $total += $cartlist->product->saleprice * $cartlist->quantity; @endphp
+
+                                    <!-- End .product-details -->
+
+                                    <figure class="product-image-container">
+                                        <a href="product.html" class="product-image">
+                                            <img src="{{  asset($cartlist->product->feature_image)  }}" alt="product" width="80" height="80">
+                                        </a>
+                                        <input type="hidden" class="product_id" value='{{ $cartlist->product_id }}'>
+                                        
+                                        <a   class=" btn-remove" title="Remove Product" href="javascript:openDeleteDialog({{$cartlist->product_id}})"><span>×</span></a>
+                                    </figure>
+                                </div>
+                                @php $total += $cartlist->product->saleprice * $cartlist->quantity; @endphp
                                 @endforeach
                                 <!-- End .product -->
 
@@ -193,9 +185,9 @@
                             <div class="dropdown-cart-action">
 
                                 @if (App\Models\Cart::where('user_id', Auth::id())->count() > 0)
-                                    <a href="{{ url('check-out') }}" class="btn btn-dark btn-block">Checkout</a>
-                                    <a href="{{ url('cart') }}" class="btn btn-gray btn-block view-cart">View
-                                        Cart</a>
+                                <a href="{{ url('check-out') }}" class="btn btn-dark btn-block">Checkout</a>
+                                <a href="{{ url('cart') }}" class="btn btn-gray btn-block view-cart">View
+                                    Cart</a>
                                 @endif
 
                             </div>
@@ -225,48 +217,47 @@
                     </li>
 
                     @foreach ($categories as $catlist)
-                        <li>
-                            <a href=" {{route('products', ['category'=>$catlist->name])}} ">{{ $catlist->name }}</a>
-                            @foreach ($catlist->subcategories as $subcatlist)
-                                <div class="megamenu megamenu-fixed-width megamenu-3cols">
-                                    <div class="row">
-                                        <div class="col-lg-6">
+                    <li>
+                        <a href=" {{route('products', ['category'=>$catlist->name])}} ">{{ $catlist->name }}</a>
+                        @foreach ($catlist->subcategories as $subcatlist)
+                        <div class="megamenu megamenu-fixed-width megamenu-3cols">
+                            <div class="row">
+                                <div class="col-lg-6">
 
-                                            <ul class="submenu">
-                                                @foreach ($catlist->subcategories as $subcatlist)
-                                                    <li><a href="{{route('products', ['category'=>$catlist->name, 'sub_category'=>$subcatlist->name])}} ">
-                                                            {{ $subcatlist->name }}</a></li>
-                                                @endforeach
+                                    <ul class="submenu">
+                                        @foreach ($catlist->subcategories as $subcatlist)
+                                        <li><a href="{{route('products', ['category'=>$catlist->name, 'sub_category'=>$subcatlist->name])}} ">
+                                                {{ $subcatlist->name }}</a></li>
+                                        @endforeach
 
-                                            </ul>
-                                        </div>
+                                    </ul>
+                                </div>
 
 
-                                        <div class="col-lg-6 p-0">
-                                            <div class="menu-banner">
-                                                <figure>
-                                                    <img src="{{ $catlist->image_url }}" width="192"
-                                                        height="313" alt="Menu banner">
-                                                </figure>
-                                                <div class="banner-content">
-                                                    <h4>
-                                                        <span class="">UP TO</span><br />
-                                                        <b class="">50%</b>
-                                                        <i>OFF</i>
-                                                    </h4>
-                                                    <a href="category.html" class="btn btn-sm btn-dark">SHOP NOW</a>
-                                                </div>
-                                            </div>
+                                <div class="col-lg-6 p-0">
+                                    <div class="menu-banner">
+                                        <figure>
+                                            <img src="{{ $catlist->image_url }}" width="192" height="313" alt="Menu banner">
+                                        </figure>
+                                        <div class="banner-content">
+                                            <h4>
+                                                <span class="">UP TO</span><br />
+                                                <b class="">50%</b>
+                                                <i>OFF</i>
+                                            </h4>
+                                            <a href="category.html" class="btn btn-sm btn-dark">SHOP NOW</a>
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
+                            </div>
+                        </div>
+                        @endforeach
 
 
 
 
-                            <!-- End .megamenu -->
-                        </li>
+                        <!-- End .megamenu -->
+                    </li>
                     @endforeach
 
 
@@ -277,5 +268,103 @@
         <!-- End .container -->
     </div>
     <!-- End .header-bottom -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input type="hidden" value="-1" id="deleteID">
+
+                <h5 class="modal-title" id="exampleModalLongTitle">Delete Cart Item
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this Cart Item?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" id="button-delete" class="btn btn-primary" onclick="deleteCartItem()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
 </header>
+@section('scripts')
+<script>
+    function openDeleteDialog(id) {
+        $("#deleteID").val(id);
+        $("#deleteModal").modal('show');
+    }
+    function deleteCartItem() {
+        $("#button-delete").text('Loading...');
+                // alert(product_id);
+                var product_id = $('#deleteID').val();
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    method: "GET",
+                    url: "delete",
+                    data: {
+                        'product_id': product_id,
+                    },
+
+                    success: function(response) {
+                        window.location.reload();
+                        // alert(response);
+                        swal("", response.status, "success");
+                    }
+                });
+    }
+    
+    $(document).ready(function() {
+
+            $('.update-cart').click(function(e) {
+                e.preventDefault();
+
+                var product_id = $(this).closest('.product_data').find('.product_id').val();
+                var quantity = $(this).closest('.product_data').find('.horizontal-quantity').val();
+
+
+                data = {
+                    'product_id': product_id,
+                    'quantity': quantity,
+                }
+
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+
+                });
+                $.ajax({
+                    method: "POST",
+                    url: "update",
+                    data: data,
+
+                    success: function(response) {
+                        // window.location.reload();
+                        console.log('response',response.data);
+                        // toster.success("", response.status, "success");
+                        swal({
+                        title: "Success",
+                        text:  response.status,
+                        icon: "success",
+                    });
+                    }
+                });
+
+
+
+            });
+        });
+</script>
+@endsection
+
 <!-- End .header -->

@@ -31,7 +31,7 @@ class QuoteRequest extends FormRequest
             'phone' => ['required'],
             'address' => ['required'],
 
-            'discription' => ['required'],
+            'discription' => ['required', 'max:255'],
 
         ];
     }

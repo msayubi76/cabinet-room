@@ -18,10 +18,9 @@ class RegisteredUserController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function create()
+    public function create($product_id=null)
     {
-
-        return view('auth.register');
+        return view('auth.register',compact('product_id'));
     }
 
     /**
@@ -34,11 +33,9 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-
-
         $request->validate([
-            'name' => [ 'required', 'alpha', 'max:255'],
-            'last_name' => ['required', 'alpha', 'max:255'],
+            'name' => [ 'required', 'max:255'],
+            'last_name' => ['required', 'max:255'],
             'mobile_no' => ['nullable'],
             'address' => ['nullable', 'string'],
             'city' => ['nullable'],
@@ -61,7 +58,9 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
-
+        if (isset($request->product_id)) {
+           return redirect()->route('website.single-product',$request->product_id);
+        }
         return redirect(RouteServiceProvider::HOME);
     }
 }

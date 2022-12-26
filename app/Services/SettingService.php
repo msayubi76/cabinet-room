@@ -20,7 +20,6 @@ class SettingService
  
 
     public static function update(SettingRequest $request){
-         
         $data = $request->validated(); 
         $setting = Setting::first();
        

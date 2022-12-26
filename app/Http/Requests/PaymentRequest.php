@@ -36,7 +36,7 @@ class PaymentRequest extends FormRequest
             'user_id'=> ['required'],
             'order_id' => ['required'],
 
-            'amount'=> ['required', 'integer', 'min:1'],
+            'amount'=> ['required', 'integer', 'min:1' ,'max:'.$amount],
               'comment'=> ['nullable'],
               'created_by'=> ['nullable'],
               'updated_by'=> ['nullable'],

@@ -36,9 +36,15 @@ class Product extends Model
         'short_description',
         'is_active',
         'is_for_request_quote',
+        
         'created_by',
         'updated_by',
         'deleted_by',
+
+        'delivered_in',
+        'rating',
+        'sku',
+        'is_installment_available',
 
 
     ];

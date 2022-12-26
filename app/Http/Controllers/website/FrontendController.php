@@ -98,7 +98,13 @@ class FrontendController extends Controller
             $latestPoductsNext = Product::orderBy('id', 'DESC')->where('is_active', '1')->limit(1)->get();
 
             $cart = Cart::where('user_id', Auth::id())->get();
-            return view('website.pages.single-product', compact('categories',  'product', 'relatedProducts', 'featuredProductsFooter', 'arrivialProductsFooter', 'cart', 'latestPoductsFooter', 'featuredProductsPrevese', 'latestPoductsNext'));
+            $productCheck = 1;
+            foreach ($cart as $cartItem ) {
+                if ($cartItem->product_id == $id) {
+                    $productCheck=0;
+                }
+            }
+            return view('website.pages.single-product', compact('categories',  'product', 'relatedProducts', 'featuredProductsFooter', 'arrivialProductsFooter', 'cart', 'latestPoductsFooter', 'featuredProductsPrevese', 'latestPoductsNext','productCheck'));
         } catch (\Throwable $th) {
             return response()->json(['status' => false, 'message' => $th->getMessage()]);
         }

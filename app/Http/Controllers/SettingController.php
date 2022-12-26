@@ -20,7 +20,6 @@ class SettingController extends Controller
     public function update(SettingRequest $request )
     { 
         try {
-           
             SettingService::update($request ); 
             return redirect()->back()->with('success', 'Setting updated successfully.');
         } catch (\Throwable $th) {

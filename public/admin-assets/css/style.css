@@ -14700,3 +14700,8 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
       color: #fff; }
 
 /*# sourceMappingURL=style.css.map */
+.order-page .table-responsive{
+  min-height: 210px;
+}
+
+

@@ -84,7 +84,7 @@
 
                                <div class="col-lg-12  mb-8">
                                 <label for="">Address</label>
-                                <input type="text" class="form-control input-default" placeholder="Address" value="{{$setting? $setting->address:"" }}" name="address">
+                                <input type="text" class="form-control input-default" placeholder="Address" value="{{$setting? $setting->address:'' }}" name="address">
                                 @error('address')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror

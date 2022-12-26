@@ -60,7 +60,9 @@ class UserService
             $data['image_url'] = url('/storage/profile/' . $image_name);
         endif;
         $user->update($data);
-        $user->syncRoles($request->roles);
+        if($request->roles):
+            $user->syncRoles($request->roles);
+        endif;
         DB::commit();
         $response = ['status' => true, 'message' => ' User profile updated successfully.', 'user' => $user];
         return $response;
