@@ -72,6 +72,7 @@ Route::prefix('admin')->middleware(['isAdmin','auth'])->group(function () {
 
     Route::get('delete/{id}',[MediaController::class,'destroy']);
     Route::get('quote',[RequestQuoteController::class,'index']);
+    Route::post('quote', [RequestQuoteController::class, 'update'])->name('updateQuote');
 
     Route::any('getSubCategory', [ProductController::class, 'getSubCategory'])->name('getSubCategory');
 });

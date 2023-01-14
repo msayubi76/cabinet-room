@@ -16409,3 +16409,14 @@ i.wishlist-empty {
     margin-bottom: 50px;
   }
 }
+
+
+/* huma  */
+
+#viewDetailModal .modal-content , #deleteModal .modal-content{
+  width: 550px;
+  margin: auto;
+}
+#viewDetailModal , #deleteModal, #requestModal{
+  background-color: rgba(0,0,0,0.4);
+}

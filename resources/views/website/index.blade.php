@@ -102,16 +102,20 @@
                             <h3 class="product-title">
                                 <a href="{{ url('product/' . $featuredlist->id) }}">{{ $featuredlist->name }}</a>
                             </h3>
+                            @if($featuredlist->rating>0)
+                                <div class="ratings-container">
+                                    <div class="product-ratings">
+                                        <span class="ratings" style="width:{{ (($featuredlist->rating)/5)*100}}%"></span>
+                                        <!-- End .ratings -->
+                                        <span class="tooltiptext tooltip-top"></span>
+                                    </div>
+                                </div> 
+                            @else
                             <div class="ratings-container">
-                                <div class="product-ratings">
-                                    <span class="ratings" style="width:80%"></span>
-                                    <!-- End .ratings -->
-                                    <span class="tooltiptext tooltip-top"></span>
+                                <div class="" style="height:11px">
                                 </div>
-                                <!-- End .product-ratings -->
-                            </div>
-
-                            <!-- End .product-container -->
+                            </div>                         
+                            @endif
                             <div class="price-box">
                                 @if ($featuredlist->discount > 0)
                                     <del
@@ -179,15 +183,20 @@
                             <h3 class="product-title">
                                 <a href="{{ url('product/' . $arriviallist->id) }}">{{ $arriviallist->name }}</a>
                             </h3>
+                            @if($arriviallist->rating>0)
+                                <div class="ratings-container">
+                                    <div class="product-ratings">
+                                        <span class="ratings" style="width:{{ (($arriviallist->rating)/5)*100}}%"></span>
+                                        <!-- End .ratings -->
+                                        <span class="tooltiptext tooltip-top"></span>
+                                    </div>
+                                </div> 
+                            @else
                             <div class="ratings-container">
-                                <div class="product-ratings">
-                                    <span class="ratings" style="width:80%"></span>
-                                    <!-- End .ratings -->
-                                    <span class="tooltiptext tooltip-top"></span>
+                                <div class="" style="height:11px">
                                 </div>
-                                <!-- End .product-ratings -->
-                            </div>
-                            <!-- End .product-container -->
+                            </div>                         
+                            @endif
                             <div class="price-box" style="width: max-content;">
                                 @if ($arriviallist->discount > 0)
                                     <del

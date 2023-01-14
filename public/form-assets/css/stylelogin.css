@@ -351,8 +351,8 @@ i.anc-tw {
 i.anc-fa {
 float: left;
   background: url(../images/facebook.png)no-repeat 6px 9px #37528C;
-  width: 26px;
-  height: 19px;
+  width: 35px;
+  height: 35px;
   display: inline-block;
   padding: 10px 6px;
 
@@ -360,8 +360,8 @@ float: left;
 }
 i.anc-go {
   background: url(../images/google.png)no-repeat 9px 9px #C74534;
-  width: 26px;
-  height: 19px;
+  width: 35px;
+  height: 35px;
   display: inline-block;
   padding: 10px 6px;
  float: left;

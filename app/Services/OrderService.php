@@ -47,17 +47,16 @@ class OrderService
             $quantity = $item->quantity;
 
             $saleprice = (float) $product->saleprice;
-
+            $shipping_charges = $product->shipping_charge;
             $price = $saleprice * $quantity;
 
             $amount =  $amount + round($price, 4);
 
 
-            $OrderDetailData[] = ['product_id' => $product->id, 'quantity' => $quantity, 'price' => $saleprice, 'order_id' => $order->id];
+            $OrderDetailData[] = ['product_id' => $product->id, 'quantity' => $quantity, 'price' => $saleprice, 'order_id' => $order->id,'shipping_charges'=>$shipping_charges];
         endforeach;
 
         $payment->update(['payment' => $amount,'remaining_amount' => $amount]);
-
         OrderDetail::insert($OrderDetailData);
 
         $user->cartItems()->delete();

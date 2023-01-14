@@ -1,6 +1,5 @@
 @extends('website.master')
 @section('title', 'Single product')
-
 @section('content')
     <div class="container">
         <nav aria-label="breadcrumb" class="breadcrumb-nav">
@@ -63,21 +62,36 @@
 
                 <div class="col-lg-7 col-md-6 product-single-details">
                     <h1 class="product-title">{!! $product->name !!}</h1>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td width="120">SKU:</td>
+                                <td>{{$product->sku?$product->sku:'N/A'}}</td>
+                                <td width="50"></td>
+                                <td>Availability:</td>
+                                <td>{{$product->is_active?$product->is_active:'N/A'}}</td>
+                            </tr>
+                            <tr>
+                                <td width="120">Delivered In:</td>
+                                <td>{{$product->delivered_in?$product->delivered_in:'N/A'}}</td>
+                                <td width="50"></td>
+                                @if($product->rating)
+                                    <div class="ratings-container">
+                                        <div class="product-ratings">
+                                            <span class="ratings" style="width:{{ (($product->rating)/5)*100}}%"></span>
+                                            <!-- End .ratings -->
+                                            <span class="tooltiptext tooltip-top"></span>
+                                        </div>
+                                    </div> 
+                                @else
+                                    <td></td>
+                                    <td></td>
+                                @endif
+                            </tr>
+                        </tbody>
+                    </table>
 
-
-
-
-                    {{-- <div class="ratings-container">
-                        <div class="product-ratings">
-                            <span class="ratings" style="width:60%"></span>
-                            <!-- End .ratings -->
-                            <span class="tooltiptext tooltip-top"></span>
-                        </div>
-                        <!-- End .product-ratings -->
-
-                        <a href="#" class="rating-link">( 6 Reviews )</a>
-                    </div> --}}
-                    <!-- End .ratings-container -->
+                   
 
                     <hr class="short-divider">
 
@@ -97,6 +111,13 @@
 
                         <p>{!! $product->short_description !!}</p>
 
+                    </div>
+                    <div class="product-desc">
+                    <a href="https://www.facebook.com/" class="social-icon social-facebook icon-facebook text-white" target="_blank" title="Facebook"></a>
+                    <!-- <a href="#" class="social-icon  text-white" target="_blank" title="Facebook">
+                        <i class="fa fa-whatsapp"></i>
+                    </a> -->
+                        
                     </div>
                     <!-- End .product-desc -->
 
@@ -135,7 +156,7 @@
                             <a class="btn btn-dark  mr-2" title="Add to Cart" data-toggle="modal"
                                 data-target="#loginModal">Add to Cart</a>
                         @endif
-                        @if(Auth::user() && $product->is_for_request_quote == 1)
+                        @if(Auth::user() && $product->is_for_request_quote == 1 && $quoteCheck ==true)
                         <a class="btn btn-dark request-quote"  data-toggle="modal"
                         data-target="#requestModal">Request Quote</a>
                         @endif
@@ -412,14 +433,21 @@
                             <h3 class="product-title">
                                 <a href="{{ url('product/' . $product_item->id) }}">{{ $product_item->name }}</a>
                             </h3>
+                            @if($product_item->rating>0)
+                                <div class="ratings-container">
+                                    <div class="product-ratings">
+                                        <span class="ratings" style="width:{{ (($product_item->rating)/5)*100}}%"></span>
+                                        <!-- End .ratings -->
+                                        <span class="tooltiptext tooltip-top"></span>
+                                    </div>
+                                </div> 
+                            @else
                             <div class="ratings-container">
-                                <div class="product-ratings">
-                                    <span class="ratings" style="width:80%"></span>
-                                    <!-- End .ratings -->
-                                    <span class="tooltiptext tooltip-top"></span>
+                                <div class="" style="height:11px">
                                 </div>
-                                <!-- End .product-ratings -->
-                            </div>
+                            </div>                         
+                            @endif
+                            
                             <!-- End .product-container -->
                             <div class="price-box">
                                 @if ($product_item->discount > 0)
@@ -469,16 +497,20 @@
                                     {{ $featuredlist->name }}</a>
                             </h3>
 
+                            @if($featuredlist->rating>0)
+                                <div class="ratings-container">
+                                    <div class="product-ratings">
+                                        <span class="ratings" style="width:{{ (($featuredlist->rating)/5)*100}}%"></span>
+                                        <!-- End .ratings -->
+                                        <span class="tooltiptext tooltip-top"></span>
+                                    </div>
+                                </div> 
+                            @else
                             <div class="ratings-container">
-                                <div class="product-ratings">
-                                    <span class="ratings" style="width:100%"></span>
-                                    <!-- End .ratings -->
-                                    <span class="tooltiptext tooltip-top"></span>
+                                <div class="" style="height:11px">
                                 </div>
-                                <!-- End .product-ratings -->
-                            </div>
-                            <!-- End .product-container -->
-
+                            </div>     
+                            @endif
                             <div class="price-box">
                                 @if ($featuredlist->discount > 0)
                                     <span
@@ -522,16 +554,20 @@
                                     href="{{ url('product/' . $arriviallist->id) }}">{{ $arriviallist->name }}
                                 </a> </h3>
 
-                            <div class="ratings-container">
-                                <div class="product-ratings">
-                                    <span class="ratings" style="width:100%"></span>
-                                    <!-- End .ratings -->
-                                    <span class="tooltiptext tooltip-top">5.00</span>
-                                </div>
-                                <!-- End .product-ratings -->
-                            </div>
-                            <!-- End .product-container -->
-
+                                @if($arriviallist->rating>0)
+                                    <div class="ratings-container">
+                                        <div class="product-ratings">
+                                            <span class="ratings" style="width:{{ (($arriviallist->rating)/5)*100}}%"></span>
+                                            <!-- End .ratings -->
+                                            <span class="tooltiptext tooltip-top"></span>
+                                        </div>
+                                    </div> 
+                                @else
+                                <div class="ratings-container">
+                                    <div class="" style="height:11px">
+                                    </div>
+                                </div>     
+                                @endif
                             <div class="price-box">
                                 @if ($arriviallist->discount > 0)
                                     <span
@@ -570,15 +606,20 @@
                             <h3 class="product-title"> <a href="{{ url('product/' . $list->id) }}">{{ $list->name }}
                                 </a> </h3>
 
+                            @if($list->rating>0)
+                                <div class="ratings-container">
+                                    <div class="product-ratings">
+                                        <span class="ratings" style="width:{{ (($list->rating)/5)*100}}%"></span>
+                                        <!-- End .ratings -->
+                                        <span class="tooltiptext tooltip-top"></span>
+                                    </div>
+                                </div> 
+                            @else
                             <div class="ratings-container">
-                                <div class="product-ratings">
-                                    <span class="ratings" style="width:100%"></span>
-                                    <!-- End .ratings -->
-                                    <span class="tooltiptext tooltip-top">5.00</span>
+                                <div class="" style="height:11px">
                                 </div>
-                                <!-- End .product-ratings -->
-                            </div>
-                            <!-- End .product-container -->
+                            </div>     
+                            @endif
 
                             <div class="price-box">
                                 @if ($list->discount > 0)
@@ -616,15 +657,21 @@
                             <h3 class="product-title"> <a href="{{ url('product/' . $list->id) }}">{{ $list->name }}
                                 </a> </h3>
 
-                            <div class="ratings-container">
-                                <div class="product-ratings">
-                                    <span class="ratings" style="width:100%"></span>
-                                    <!-- End .ratings -->
-                                    <span class="tooltiptext tooltip-top">5.00</span>
-                                </div>
-                                <!-- End .product-ratings -->
-                            </div>
-                            <!-- End .product-container -->
+                                @if($list->rating>0)
+                                <div class="ratings-container">
+                                    <div class="product-ratings">
+                                        <span class="ratings" style="width:{{ (($list->rating)/5)*100}}%"></span>
+                                        <!-- End .ratings -->
+                                        <span class="tooltiptext tooltip-top"></span>
+                                    </div>
+                                </div> 
+                                @else
+                                <div class="ratings-container">
+                                    <div class="" style="height:11px">
+                                       
+                                    </div>
+                                </div>     
+                                @endif
 
                             <div class="price-box">
                                 @if ($list->discount > 0)
@@ -645,10 +692,6 @@
         <!-- End .row -->
     </div>
     <!-- End .container -->
-
-
-
-
     <!-- Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
         aria-hidden="true" style="background-color: rgba(0,0,0,0.4);">
@@ -668,29 +711,21 @@
                     <h5 class="modal-title" id=""><b>Welcome! Please Login to continue.</b></h5>
                     </div>
                     <div class="d-flex flex-column text-center">
-                        <form class="form-valide" id="subcategory-form" method="post" action="{{ route('login') }}"
+                        <form class="form-valide" id="subcategory-form" method="post" 
                             enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                             <input type="hidden" name="product_page" value="{{$product->id}}" class="form-control" >
                                 <input type="email" name="email" class="form-control"
-                                    id="email1"placeholder="Your email address...">
-                                @error('email')
-                                    <span class="text-danger" role="alert">
-                                        {{ $message }}
-                                    </span>
-                                @enderror
+                                    id="email" placeholder="Your email address...">
+                                    <div id="email_text" class="text-danger backend-error-text"></div>
                             </div>
                             <div class="form-group">
-                                <input type="password" name="password" class="form-control" id="password1"
+                                <input type="password" name="password" class="form-control" id="password"
                                     placeholder="Your password...">
-                                @error('password')
-                                    <span class="text-danger " role="alert">
-                                        {{ $message }}
-                                    </span>
-                                @enderror
+                                    <div id="password_text" class="text-danger backend-error-text"></div>
                             </div>
-                            <button type="submit" class="btn btn-info btn-block btn-round">Login</button>
+                            <button type="submit" class="btn btn-info btn-block btn-round login-btn" onclick="loginUser()">Login</button>
                         </form>
 
 
@@ -704,8 +739,6 @@
             </div>
         </div>
     </div>
-
-
     <!--Request Quote Modal -->
     <div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
         aria-hidden="true">
@@ -718,7 +751,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form class="form-valide"  method="post" action="{{ route('requestQuote') }}"
+                <form  class="form-valide" id="request-quote-form" method="post"
                             enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="form-title text-center"> </div>
@@ -726,65 +759,51 @@
                         
                             @csrf
                             <!-- {{ $errors }} -->
-                            <input type="hidden" name="user_id" value="{{Auth::user()?Auth::user()->id:'' }}">
+                            <input type="text" id="user_id" name="user_id" value="{{Auth::user()?Auth::user()->id:'' }}">
+                            <input type="text" id="product_id" name="product_id" value="{{ $product->id }}">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <input type="email" name="email" class="form-control"
-                                    id="email1"placeholder="Your email address...">
-                                @error('email')
-                                    <span class="text-danger" role="alert">
-                                        {{ $message }}
-                                    </span>
-                                @enderror
+                                    <input type="email" id="email" name="email" class="form-control"
+                                    id="email"placeholder="Your email address..." required>
+                                    <div id="email_text" class="text-danger backend-error-text"></div>
+
                             </div>
                             <div class="col-md-6">
-                                <input type="name" name="name" class="form-control"
-                                id="name"placeholder="Your name address...">
-                            @error('name')
-                                <span class="text-danger" role="alert">
-                                    {{ $message }}
-                                </span>
-                            @enderror
+                                <input type="name" id="name" name="name" class="form-control"
+                                id="name"placeholder="Your name..." required>
+                                <div id="name_text" class="text-danger backend-error-text"></div>
+
                         </div>
 
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <input type="address" name="address" class="form-control"
-                                    id="address"placeholder="Your address address...">
-                                @error('address')
-                                    <span class="text-danger" role="alert">
-                                        {{ $message }}
-                                    </span>
-                                @enderror
+                                    <input type="address" id="address" name="address" class="form-control"
+                                    id="address" placeholder="Your address..." required>
+                                    <div id="address_text" class="text-danger backend-error-text"></div>
+
                             </div>
                             <div class="col-md-6">
-                                <input type="phone" name="phone" class="form-control"
-                                id="phone"placeholder="Your phone address...">
-                            @error('phone')
-                                <span class="text-danger" role="alert">
-                                    {{ $message }}
-                                </span>
-                            @enderror
+                                <input type="phone" id="phone" name="phone" class="form-control"
+                                id="phone" placeholder="Your phone..." required>
+                                <div id="phone_text" class="text-danger backend-error-text"></div>
+
                         </div>
 
                             </div>
                             <div class="">
-                                <textarea name="discription" id="" class="form-control" cols="30" rows="6"></textarea>
+                                <textarea name="discription" id="discription"  placeholder="Your description..." class="form-control" cols="30" rows="6" required></textarea>
+                             <div id="discription_text" class="text-danger backend-error-text"></div>
 
-                                @error('password')
-                                    <span class="text-danger " role="alert">
-                                        {{ $message }}
-                                    </span>
-                                @enderror
                             </div>
 
 
 
                     </div>
                 </div>
+              
                 <div class="modal-footer d-flex justify-content-center">
-                    <button type="submit" class="btn btn-info btn-sm btn-round">Submit</button>
+                    <button  type="button"  onclick="requestQuote()" class="btn btn-info btn-sm btn-round add-quote">Request Quote</button>
 
                 </div>
                 </form>
@@ -793,12 +812,137 @@
         </div>
     </div>
 
-
 @endsection
 @section('scripts')
-    <script>
-        $(document).ready(function() {
+<script>
+        function requestQuote(){
+            console.log(' i m here');
+            $(".add-quote").attr('disabled','disabled');
+            $(".add-quote").html("Requesting a quote");
+            // e.preventDefault();
+            var user_id = $('#user_id').val();
+            var product_id = $('#product_id').val();
+            var email = $('#email').val();
+            var name = $('#name').val();
+            var address = $('#address').val();
+            var phone = $('#phone').val();
+            var discription = $('#discription').val();
+            console.log('product_id',product_id);
 
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: "/add-quote",
+                data: {
+                    'user_id': user_id,
+                    'product_id': product_id,
+                    'email': email,
+                    'name': name,
+                    'address': address,
+                    'phone': phone,
+                    'discription': discription,
+                },
+
+                success: function(response) {
+                    $(".add-quote").html("Quote Requested");
+                    swal("", response.status, "success");
+                    setTimeout(location.reload(), 25000);
+                },
+                error: function(error) {
+                // $(form)
+                $(".add-quote").html("Request Quote");
+                $(".add-quote").attr('disabled',false);
+
+                var errorMessage = error.statusText;
+                var sweetMessage = error.statusText;
+                if (error.status == 422) {
+                    errorMessage = handleValidationErrors(error)
+                    sweetMessage = 'Invalid Data'
+                }
+                swal({
+                    title: "Error",
+                    text: sweetMessage,
+                    icon: "error",
+                });
+
+            },
+            });
+        }
+        function loginUser(){
+            $(".login-btn").attr('disabled','disabled');
+            $(".login-btn").html("Checking..");
+            // e.preventDefault();
+            var password = $('#password').val();
+            var email = $('#email').val();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: "/login",
+                data: {
+                    'password': password,
+                    'email': email,
+                },
+
+                success: function(response) {
+                    $(".login-btn").html("Login");
+                    swal("", response.status, "success");
+                    setTimeout(location.reload(), 25000);
+                },
+                error: function(error) {
+                // $(form)
+                $(".login-btn").html("Login");
+                $(".login-btn").attr('disabled',false);
+
+                var errorMessage = error.statusText;
+                var sweetMessage = error.statusText;
+                if (error.status == 422) {
+                    errorMessage = handleValidationErrors(error)
+                    sweetMessage = 'Invalid Data'
+                }
+                swal({
+                    title: "Error",
+                    text: sweetMessage,
+                    icon: "error",
+                });
+
+            },
+            });
+        }
+
+        function handleValidationErrors(error, type = 'create') {
+            let errors = error.responseJSON.errors;
+            var errorMessage = error.responseJSON.message
+            var element = '';
+            $.each(errors, function(key, item) {
+                element = key.split('.')
+                if (element.length > 1) {
+                    element = `${element[0]}_${element[1]}`
+                } else {
+                    element = `${element}`
+                }
+                // dataAttr = $(element).closest('.tab').data('id')
+                // $(`.step-${dataAttr}`).addClass('backend-error')
+                if (type == 'edit') {
+                    console.log('edit', element);
+                    $(`#edit_${element}_text`).text(item[0])
+                } else if (type == 'create') {
+                    $(`#${element}_text`).text(item[0])
+                }
+            });
+
+            return errorMessage;
+        }
+        $(document).ready(function() {
+            console.log('hi');
             $('.add-cart').click(function(e) {
                 $(".add-cart").css("display", "none");
                 e.preventDefault();
@@ -827,6 +971,8 @@
                 });
 
             });
+           
         });
-    </script>
+        </script>
+
 @endsection

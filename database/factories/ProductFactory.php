@@ -24,7 +24,6 @@ class ProductFactory extends Factory
         $percent_value = ($actual_price * $discount)/100;
 
         $sale_price = $actual_price - $percent_value;
-
         return [
             'name' => $this->faker->name(),
             'category_id' =>  rand(1,10),
@@ -43,7 +42,10 @@ class ProductFactory extends Factory
             'is_arrival_product' => rand(0,1),
             'is_active' => $this->faker->boolean(),
             'short_description' => $this->faker->paragraph(),
-
+            'delivered_in' => rand(0,40),
+            'rating' => rand(0,5),
+            'sku' =>  sprintf('CB01'."%'06d",  rand(0,40)),
+            'is_installment_available' => rand(0,1),                                                                             
         ];
     }
 }

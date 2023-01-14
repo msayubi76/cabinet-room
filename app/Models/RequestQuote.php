@@ -13,6 +13,6 @@ class RequestQuote extends Model
     protected $fillable = [
 
         'user_id','email','name','phone','address',
-        'discription',
+        'discription','status','product_id'
     ];
 }

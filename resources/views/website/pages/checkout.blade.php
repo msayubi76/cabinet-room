@@ -248,6 +248,21 @@
                                     <span>{{ $cartitem->product->currency }}{{ $all_item_total }}</span>
                                 </td>
                             </tr>
+                           
+                            <tr class="order-shipping">
+                            @php $shippingTotal = 0; @endphp
+                            @foreach ($cart as $cartitem)
+                                        @php $shippingTotal = $shippingTotal+$cartitem->product->shipping_charge; @endphp
+                            @endforeach
+                            @php $all_item_total = $all_item_total+$shippingTotal; @endphp
+                                <td>
+                                    <h4>Shipping Charges</h4>
+                                </td>
+                                <td class="price-col">
+
+                                    <span>{{ $cartitem->product->currency }}{{ $shippingTotal }}</span>
+                                </td>
+                            </tr>
                             <tr class="order-shipping">
                                 <td class="text-left" colspan="2">
                                     <h4 class="m-b-sm">Shipping</h4>

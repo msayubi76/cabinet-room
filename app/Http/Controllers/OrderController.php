@@ -59,9 +59,9 @@ class OrderController extends Controller
         {
                 try {
                         $order_items = $order->orderDetails()->with('products')->get();
-                        $payment = $order->payments;
-                        $shipping_detail = $order->shipping;
-                        return view('admin.orders.view-orderdetail', compact('order_items', 'shipping_detail', 'payment'));
+                        $payment = $order->payment;
+                        $shipping_detail = $order->shipping;    
+                        return view('admin.orders.view-orderdetail', compact('order_items', 'shipping_detail', 'payment', 'order'));
                 } catch (\Throwable $th) {
                         return response()->json(['status' => false, 'message' => $th->getMessage()]);
                 }

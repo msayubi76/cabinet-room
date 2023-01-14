@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Category;
 use App\Models\OrderDetail;
+use App\Models\RequestQuote;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use App\Services\UserService;
@@ -25,11 +26,9 @@ class UserDashboardController extends Controller
 
             $cart = Cart::where('user_id', Auth::id())->get();
             $orders = Order::where('user_id', Auth::id())->get();
-
-
-
-
-            return view('website.userdashboard.dashoard', compact('categories',  'cart', 'orders'));
+            $requestQuotes = RequestQuote::where('user_id', Auth::id())->get();
+            
+            return view('website.userdashboard.dashoard', compact('categories',  'cart', 'orders','requestQuotes'));
         } catch (\Throwable $th) {
             return response()->json(['status' => false, 'message' => $th->getMessage()]);
         }

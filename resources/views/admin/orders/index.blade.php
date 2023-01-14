@@ -158,7 +158,7 @@
                             <div class="col-md-12">
                                 <label class="form-label" for="name">Amount<span class="text-danger">*</span>
                                 </label>
-                                <input type="text" class="form-control" id="amount" name="amount" placeholder="Enter a name.." value="">
+                                <input type="text" class="form-control" id="amount" name="amount" placeholder="Enter ammount.." value="">
                                 <div id="amount_text" class="text-danger backend-error-text"></div>
                                 @error('amount')
                                         <div class="text-danger">{{ $message }}</div>
@@ -171,7 +171,7 @@
                         <div class="modal-body">
                             <label class="form-label" for="name">Comment
                             </label>
-                            <textarea class="form-control col-xs-12" name="comment" id="comment" rows="7" cols="50" :value="old('comment')"></textarea>
+                            <textarea class="form-control col-xs-12" name="comment" placeholder="Order here" id="comment" rows="7" cols="50" :value="old('comment')"></textarea>
                             <div id="comment_text" class="text-danger backend-error-text"></div>
                         </div>
 

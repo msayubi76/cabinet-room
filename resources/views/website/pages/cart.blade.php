@@ -81,8 +81,11 @@
 
 
                                     <div class="float-right">
-                                        <button type="submit" class="btn btn-shop update-cart">
+                                        <button type="submit" class="btn btn-shop update-cart p-4">
                                             Update
+                                        </button>
+                                        <button type="button" class="btn btn-shop p-4" onclick="viewDetailDialog({{$cartlist}})" >
+                                            Detail
                                         </button>
                                     </div><!-- End .float-right -->
                                 </td>
@@ -161,6 +164,65 @@
         </div>
     </div>
 </div>
+<!-- Detail Modal -->
+<div class="modal fade" id="viewDetailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input type="hidden" value="-1" id="deleteID">
+
+                <h5 class="modal-title" id="exampleModalLongTitle">Product Detail
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex justify-content-center">
+                    <img id="productImage" alt="product" width=150 >
+                </div>
+                <table class="table-responsive">
+                    <tbody>
+                      
+                        <tr>
+                            <td width="120">Name</td>
+                            <td>
+                            <h5 class="m-0" id="productName"></h5>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Sku</td>
+                            <td>
+                            <p class="m-0" id="productSku"></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Rating</td>
+                            <td>
+                            <p class="m-0" id="productRating"></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Delivered In</td>
+                            <td>
+                            <p class="m-0" id="productDeliveredIn"></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td>
+                            <p class="m-0" id="productSmallDescription"></p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @section('scripts')
 <script>
@@ -168,7 +230,17 @@
         $("#deleteID").val(id);
         $("#deleteModal").modal('show');
     }
-
+    function viewDetailDialog(product) {
+        console.log('product',product);
+        $("#productImage").attr("src", product.product.feature_image);
+        $("#productName").html( product.product.name);
+        $("#productSku").html( product.product.sku);
+        $("#productRating").html( product.product.rating);
+        $("#productDeliveredIn").html( product.product.delivered_in);
+        $("#productSmallDescription").html( product.product.short_description);
+        $("#viewDetailModal").modal('show');
+    }
+    
     function deleteCartItem() {
         $("#button-delete").text('Loading...');
 

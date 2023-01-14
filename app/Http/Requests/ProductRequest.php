@@ -24,10 +24,10 @@ class ProductRequest extends FormRequest
      */
     public function rules()
     {
-
+        
 
         return [
-            'name' => ['required', 'max:255'],
+            'name' => ['required','max:255'],
             'category_id' => ['required'],
             'sub_category_id' => ['required'],
             'description' => ['required'],
@@ -44,11 +44,11 @@ class ProductRequest extends FormRequest
             'is_arrival_product' => ['nullable'],
             'currency' => ['required'],
             'short_description' => ['required'],
-            'is_active' => ['nullable'],
-            'is_for_request_quote' => ['nullable'],
-            'delivered_in' => ['nullable', 'string'],
-            'rating' => ['required', 'min:1', 'max:5', 'numeric'],
-            'is_installment_available' => ['nullable','boolean'],
+            'is_active' => ['nullable','boolean'],
+            'is_for_request_quote' => ['nullable','boolean'],
+            'delivered_in' => ['nullable','string'],
+            'rating' => ['required','min:1','max:5','numeric'],
+            'is_installment_available' =>['nullable', 'boolean'],
 
         ];
     }

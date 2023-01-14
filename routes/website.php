@@ -9,10 +9,14 @@ use App\Http\Controllers\Api\CheckOutController;
 use App\Http\Controllers\RequestQuoteController;
 use App\Http\Controllers\website\FrontendController;
 use App\Http\Controllers\website\UserDashboardController;
+use App\Http\Controllers\website\GoogleAuthController;
+use App\Http\Controllers\website\FacebookAuthController;
 
 // ----------> Webste layout <------------- //
 Route::get('/', [FrontendController::class, 'index']);
 Route::get('products/{category?}/{sub_category?}', [FrontendController::class, 'products'])->name('products');
+Route::post('products/{category?}/{sub_category?}', [FrontendController::class, 'productsFilter'])->name('productsFilter');
+
 Route::get('product/{id}', [FrontendController::class, 'singleProduct'])->name('website.single-product');
 Route::get('about-us', [FrontendController::class, 'about']);
 Route::get('contact-us', [FrontendController::class, 'contact']);
@@ -23,7 +27,8 @@ Route::get('gallary', [FrontendController::class, 'gallary']);
 
 // -------> Webste search filter <------ //
 Route::get('product-list', [FrontendController::class, 'productList']);
-Route::post('search-product', [FrontendController::class, 'searchProduct']);
+Route::post('search', [FrontendController::class, 'searchProduct'])->name('searchProduct');
+Route::post('search-filter', [FrontendController::class, 'searchProductFilter'])->name('searchProductFilter');
 
 // ----------> Webste Checout <----------- //
 Route::get('check-out', [CheckOutController::class, 'index'])->name('check-out.index');
@@ -47,3 +52,8 @@ Route::middleware(['auth'])->group(function () {
     Route::put('update-profile', [UserDashboardController::class, 'updateinfo'])->name('updateinfo');
 Route::post('change-password', [UserDashboardController::class, 'changePassword'])->name('changePassword');
 });
+Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
+Route::get('auth/google/call-back', [GoogleAuthController::class, 'callBackGoogle']);
+
+Route::get('auth/facebook', [FacebookAuthController::class, 'redirect'])->name('facebook-auth');
+Route::get('auth/facebook/call-back', [FacebookAuthController::class, 'callBackFacebook']);

@@ -34,13 +34,12 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <strong>Order Status</strong><br>
-
                                             @if ($order->order_status == 'pending')
                                             <span
 
                                             class="badge badge-warning text-black">
                                             {{ $order->order_status  }}</span>
-                                            @elseif ($orders->order_status == 'Rejected')
+                                            @elseif ($order->order_status == 'Rejected')
                                             <span
 
                                             class="badge badge-danger text-black">
@@ -78,7 +77,7 @@
                                         <div class="col-md-4"></div>
                                     </div><br>
                             <div class="order-table-container text-center">
-                                @php $total = 0; @endphp
+                                @php $total = 0;$total_shipping=0; @endphp
 
                                 <table class="table table-order text-left">
                                     <thead>
@@ -89,7 +88,7 @@
                                             <th>Quantity</th>
 
 
-                                            <th>Price</th>
+                                            <th  class="text-right">Price</th>
 
                                         </tr>
                                     </thead>
@@ -114,7 +113,7 @@
 
                                         class="badge badge-warning text-black">
                                         {{ $orderlist->order->order_status  }}</span>
-                                        @elseif ($orderlist->orders->order_status == 'Rejected')
+                                        @elseif ($orderlist->order->order_status == 'Rejected')
                                         <span
 
                                         class="badge badge-danger text-black">
@@ -134,7 +133,7 @@
 
                                     </td>
 
-                                    <td>
+                                    <td  class="text-right">
                                         {{ $orderlist->price }}
 
                                     </td>
@@ -145,24 +144,35 @@
 
 
                                 </tr>
-                                @php $total +=$orderlist->price * $orderlist->quantity ; @endphp
-                            @endforeach
 
+                                @php 
+                                $total_shipping+=  $orderlist->shipping_charges;  
+                                $total +=$orderlist->price * $orderlist->quantity ;
+                                $total = $total +$total_shipping;
+                                @endphp
+                            @endforeach
+                                   
+                                    <tr>
+                                        <td colspan=4 class="text-right"> Shipping charges :   </td>
+                                        <td  class="text-right">  {{ $total_shipping }}   </td>
+                                    </tr>
+                                    <tr style="background-color: #f3f3f3;padding-bottom: 15px; ">
+                                        <td colspan=3 class="text-right"> </td>
+                                        <td  class="text-right text-light bg-dark"><b> Total : </b>  </td>
+                                        <td  class="text-right  text-light bg-dark"> <b> {{ $total }} </b>  </td>
+                                    </tr>
                                     </tbody>
                                 </table><br>
-
-
-
                             </div>
-
-                            <div class="row" style="margin-right: 0;
+                         
+                            <!-- <div class="row" style="margin-right: 0;
                             margin-left: 0;">
 
                                     <div class="col-md-12 " style="background-color: #f3f3f3;padding-bottom: 15px; ">
                                     <strong style="float: right;background-color: #000000;color:#ffffff;padding-left: 95px;width:240px;">Total :  {{  $total }}</strong>
                                 </div>
 
-                                </div>
+                                </div> -->
                             <div style="">
                                 <h5>
                                     TERMS & CONDTION

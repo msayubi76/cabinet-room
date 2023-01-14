@@ -47,6 +47,10 @@
                             aria-controls="edit" aria-selected="false">Account
                             details</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="quotes-tab" data-toggle="tab" href="#quotes" role="tab"
+                            aria-controls="quotes" aria-selected="false">Request Quotes</a>
+                    </li>
 
 
                     <li class="nav-item">
@@ -272,7 +276,60 @@
                         </form>
                     </div>
                 </div><!-- End .tab-pane -->
+                <div class="tab-pane fade" id="quotes" role="tabpanel">
+                    <h3 class="account-sub-title d-none d-md-block mt-0 pt-1 ml-1"><i
+                            class="icon-user-2 align-middle mr-3 pr-1"></i>Request Quotes</h3>
+                    <div class="account-content">
+                        <div class="table-responsive" style="min-height: 145px;">
+                            <table class="table table-striped table-bordered zero-configuration" id="table">
+                                <thead>
+                                    <tr>
+                                        <th>Sr No</th>
+                                        <th>Date</th>
+                                        <th>Name</th>
+                                        <th>Status</th>
+                                        <th>Details</th>
 
+                                    </tr>
+                                </thead>
+
+                                <tbody id="table_id">
+                                    @foreach ($requestQuotes as $list)
+                                    <tr class="order_data" id='row_{{ $list->id }}'>
+                                        <td>{{ $list->id }}</td>
+                                        <td> {{ date('d F, Y h:i A', strtotime($list->created_at)) }}</td>
+                                        <td>{{ $list->name }}</td>
+                                        <td>
+                                            @if ($list->status==1)
+                                            <span class="badge badge-success">Accepted</span>
+                                            @elseif($list->status==2)
+                                            <span class="badge badge-danger">Rejected</span>
+                                            @else
+                                            <span class="badge badge-warning">Pending</span>
+                                            @endif
+                                        </td>
+
+
+                                        <td>
+                                            <div class="button-group">
+                                                <div class="btn-group">
+                                                    <div class="btn-group">
+                                                      <a class="dropdown-item" href="javascript:openQuoteModal({{ json_encode($list) }})">View</a>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </div>
+                                @endforeach
+                                </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                  
+                </div>
 
 
             </div><!-- End .tab-content -->
@@ -280,11 +337,63 @@
     </div><!-- End .container -->
 
     <div class="mb-5"></div><!-- margin -->
+    <div class="modal fade" id="quoteModal">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Quote Detail</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table-responsive">
+                    <tbody>
+                        <tr>
+                            <td width="100">Name</td>
+                            <td><span id="quote_name"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td><span id="quote_email"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Mobile no</td>
+                            <td> <span id="quote_phone"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Address</td>
+                            <td> <span id="quote_address"></span></td>
+                        </tr>
+                        <tr>
+                            <td>discription</td>
+                            <td> <span id="quote_description"></span></td>
+                        </tr>
 
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 @endsection
 @section('scripts')
     <script>
+            function openQuoteModal(quote) {
+                console.log('quote', quote.discription);
+
+                document.getElementById('quote_name').innerHTML = quote.name;
+                document.getElementById('quote_email').innerHTML = quote.email;
+                document.getElementById('quote_phone').innerHTML = quote.phone;
+                document.getElementById('quote_address').innerHTML = quote.address;
+                document.getElementById('quote_description').innerHTML = quote.discription;
+
+                $("#quoteModal").modal()
+            }
         (function($) {
             "use strict"
 

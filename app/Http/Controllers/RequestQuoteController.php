@@ -26,4 +26,13 @@ class RequestQuoteController extends Controller
         $requestQuote = RequestQuoteService::updateQuoteStatus($id,$status);
         return redirect()->back()->with('success', 'Quote accepted successfully');
     }
+    public function update(QuoteRequest $request)
+    {
+        try {
+        $requestQuote = RequestQuoteService::update($request);
+        return $requestQuote;
+        } catch (\Throwable $th) {
+        return $th;
+        }
+    }
 }
