@@ -14,6 +14,7 @@ class Banner extends Model
     protected $table = 'banners';
 
     protected $fillable = [
+        'page_name',
         'name',
 
         'image_folder',

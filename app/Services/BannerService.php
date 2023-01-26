@@ -41,8 +41,6 @@ class BannerService
     }
 
     public static function update(BannerRequest $request, Banner $banner){
-        dd($banner);
-
         DB::beginTransaction();
 
         $data = $request->validated();

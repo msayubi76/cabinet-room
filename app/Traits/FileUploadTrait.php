@@ -51,8 +51,8 @@ trait FileUploadTrait {
                     $array[] = $data;
 
 
-            endforeach;
 
+            endforeach;
             $media = Media::insert($array);
             DB::commit();
             return $media;

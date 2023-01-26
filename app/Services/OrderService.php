@@ -39,6 +39,7 @@ class OrderService
         $order = Order::create($OrderData);
 
         $amount = 0;
+        $shippingTotal = 0;
         $OrderDetailData = [];
         foreach ($user->cartItems as  $item) :
 
@@ -51,12 +52,12 @@ class OrderService
             $price = $saleprice * $quantity;
 
             $amount =  $amount + round($price, 4);
-
+            $shippingTotal = $amount + round($shipping_charges, 4);
 
             $OrderDetailData[] = ['product_id' => $product->id, 'quantity' => $quantity, 'price' => $saleprice, 'order_id' => $order->id,'shipping_charges'=>$shipping_charges];
         endforeach;
 
-        $payment->update(['payment' => $amount,'remaining_amount' => $amount]);
+        $payment->update(['payment' => $amount,'remaining_amount' => $amount ,'shipping_charges'=>$shippingTotal]);
         OrderDetail::insert($OrderDetailData);
 
         $user->cartItems()->delete();

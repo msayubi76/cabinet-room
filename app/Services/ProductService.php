@@ -61,13 +61,20 @@ class ProductService
             $data['feature_image_name'] =  $image_name;
             $data['feature_image'] = url('/storage/products/' . $image_name);
         endif;
+        $data['is_active']  = $request->is_active?1:0;
+        $data['is_for_request_quote']  = $request->is_for_request_quote?1:0;
+        $data['is_installment_available']  = $request->is_installment_available?1:0;
+        $data['is_feature_product']  = $request->is_feature_product?1:0;
+        $data['is_arrival_product']  = $request->is_arrival_product?1:0;
+
+       
+ 
 
         $product->update($data);
 
         if ($request->hasFile('images')) :
             $image_name = FileUploadTrait::uploadMultipleFiles($request->images, $product, 'products');
-        endif;
-
+        endif; 
 
         DB::commit();
         $response = ['status' => true, 'message' => 'Product updated successfully.', 'product' => $product];

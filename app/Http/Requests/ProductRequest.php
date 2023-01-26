@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class ProductRequest extends FormRequest
 {
@@ -22,7 +23,7 @@ class ProductRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(Request $request)
     {
         
 
@@ -40,14 +41,14 @@ class ProductRequest extends FormRequest
             'images' => ['nullable'],
             'length' => ['required'],
             'width' => ['required'],
-            'is_feature_product' => ['nullable'],
-            'is_arrival_product' => ['nullable'],
+            'is_feature_product' => ['nullable','boolean'],
+            'is_arrival_product' => ['nullable','boolean'],
             'currency' => ['required'],
             'short_description' => ['required'],
             'is_active' => ['nullable','boolean'],
             'is_for_request_quote' => ['nullable','boolean'],
             'delivered_in' => ['nullable','string'],
-            'rating' => ['required','min:1','max:5','numeric'],
+            'rating' => ['nullable','min:1','max:5','numeric'],
             'is_installment_available' =>['nullable', 'boolean'],
 
         ];

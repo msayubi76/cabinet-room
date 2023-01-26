@@ -13,8 +13,10 @@ class SettingController extends Controller
 {  
     public function edit()
     {
-        $setting = SettingService::getSetting(); 
-        return view('admin.setting.edit', compact('setting'));
+        $setting = SettingService::getSetting();
+        $productBanner = SettingService::getProductBanner();
+        $searchBanner = SettingService::getSearchBanner();
+        return view('admin.setting.edit', compact('setting','productBanner','searchBanner'));
     }
 
     public function update(SettingRequest $request )

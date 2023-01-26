@@ -4,10 +4,12 @@ namespace App\Http\Controllers\website;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Traits\FileUploadTrait;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-
+use Carbon\Carbon;
 
 class GoogleAuthController extends Controller
 {
@@ -19,15 +21,28 @@ class GoogleAuthController extends Controller
     {
         try {
             $google_user = Socialite::driver('google')->user();
-            $user = User::where('google_id',$google_user->getId())->first();
-
+            $userData = $google_user->user;
+            $user = User::where('email',$google_user->getEmail())->orwhere('google_id',$google_user->getId())->first();
             if (!$user) {
+                $date = Carbon::now();
+                $date =date_format($date,"Y-m-d H:i:s");
+                // if ($userData['picture']) :
+                //     $fileContents = file_get_contents($userData['picture']);
+                //     $image_name = $google_user->getId() . ".jpg";
+                //     Storage::put( $image_name, $fileContents);
+                //     $new_user['folder_name'] = 'profile';
+                //     $new_user['image_name'] =  $image_name;
+                //     $new_user['image_url'] = url('/storage/profile/' . $image_name);
+                // endif;
                 $new_user = User::create([
-                    'name' =>$google_user->getName(),
+                    'name' =>$userData['given_name'],
+                    'last_name' =>$userData['family_name'],
                     'email'=>$google_user->getEmail(),
-                    'google_id'=>$google_user->getId(),
+                    'google_id'=>$userData['id'],
+                    'email_verified_at'=>$userData['email_verified']==true? $date:'',
+                    'type'=>'customer',
                     ]);
-                Auth::login($new_user);
+                    Auth::login($new_user);
                 return redirect()->intended('user-dashboard');    
             }
             else{

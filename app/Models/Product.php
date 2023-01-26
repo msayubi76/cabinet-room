@@ -60,7 +60,7 @@ class Product extends Model
 
     public function subCategories()
     {
-        return $this->category()->subcategories;
+        return $this->category->subcategories;
     }
 
 

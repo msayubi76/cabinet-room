@@ -53,7 +53,7 @@ class ProductController extends Controller
     public function update(ProductRequest $request, Product $product)
     {
      try {
-            $product_response = ProductService::update($request, $product);
+        $product_response = ProductService::update($request, $product);
             return redirect(route('products.index'))->with('success', 'Product updated successfully.');
         } catch (\Throwable $th) {
            return redirect(route('products.index'))->with('error', $th->getMessage());

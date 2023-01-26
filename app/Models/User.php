@@ -34,6 +34,9 @@ class User extends Authenticatable
         'image_folder',
         'image_name',
         'image_url',
+        'email_verified_at',
+        'google_id',
+        'facebook_id',
     ];
 
     /**

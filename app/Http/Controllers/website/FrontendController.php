@@ -57,23 +57,26 @@ class FrontendController extends Controller
     }
     public function products(Request $request, $category = null, $sub_category=null)
     {
-        // dd($request->all());
         try {
-            $products = Product::latest()->where('is_active', '1');
+            $min_price = $request->minPrice?$request->minPrice:'';
+            $max_price = $request->maxPrice?$request->maxPrice:'';
+            $products = new Product;
+            if($min_price!=""){
+              $products =  $products->where('saleprice','>',$min_price); 
+            }
+            if($max_price!=""){
+                $products =  $products->where('saleprice','<',$max_price); 
+            }
+            $products = $products->latest()->where('is_active', '1');
 
             if($category):
                 $categories =  Category::orWhere('name','like',"%{$category}%")->pluck('id');
                 $products = $products->whereIn('category_id', $categories);
             endif;
-
-
             if($sub_category):
                 $sub_categories =  SubCategory::orWhere('name','like',"%{$sub_category}%")->pluck('id');
                 $products = $products->whereIn('sub_category_id', $sub_categories);
             endif;
-
-
-
             $products = $products->paginate(10);
 
             $categories = Category::where('is_active', '1')->with('subcategories')->where('is_active', '1')->get();
@@ -81,7 +84,10 @@ class FrontendController extends Controller
             $cart = Cart::where('user_id', Auth::id())->get();
             $min = round(Product::min('saleprice'));
             $max = round(Product::max('saleprice'));
-            return view('website.pages.shop', compact('categories',  'products', 'cart', 'featuredProducts','min','max'));
+
+            $banner = Banner::where('page_name','products')->orderBy('id', 'DESC')->first();
+
+            return view('website.pages.shop', compact('categories',  'products', 'cart', 'featuredProducts','min','max','min_price','max_price','banner'));
         } catch (\Throwable $th) {
             return response()->json(['status' => false, 'message' => $th->getMessage()]);
         }
@@ -89,8 +95,8 @@ class FrontendController extends Controller
     public function productsFilter(Request $request)
     {
         try {
-            $min_price = $request->minPrice;
-            $max_price = $request->maxPrice;
+            $min_price = $request->minPrice?$request->minPrice:'';
+            $max_price = $request->maxPrice?$request->maxPrice:'';
             $products = Product::latest()->where('is_active', '1')->where('saleprice','>',$min_price)->where('saleprice','<',$max_price);
 
             $products = $products->paginate(10);
@@ -99,7 +105,10 @@ class FrontendController extends Controller
             $cart = Cart::where('user_id', Auth::id())->get();
             $min = round(Product::min('saleprice'));
             $max = round(Product::max('saleprice'));
-            return view('website.pages.shop', compact('categories',  'products', 'cart', 'featuredProducts','min','max'));
+
+            $banner = Banner::where('page_name','products')->orderBy('id', 'DESC')->first();
+
+            return view('website.pages.shop', compact('categories',  'products', 'cart', 'featuredProducts','min','max','min_price','max_price','banner'));
         } catch (\Throwable $th) {
             return response()->json(['status' => false, 'message' => $th->getMessage()]);
         }
@@ -130,6 +139,7 @@ class FrontendController extends Controller
                     $productCheck=0;
                 }
             }
+            
             return view('website.pages.single-product', compact('categories',  'product', 'relatedProducts', 'featuredProductsFooter', 'arrivialProductsFooter', 'cart', 'latestPoductsFooter', 'featuredProductsPrevese', 'latestPoductsNext','productCheck','quoteCheck'));
         } catch (\Throwable $th) {
             return response()->json(['status' => false, 'message' => $th->getMessage()]);
@@ -194,17 +204,30 @@ class FrontendController extends Controller
     public function searchProduct(Request $request)
     {
         try {
-
             $product_search = $request->name;
+            $minPrice = $request->minPrice?$request->minPrice:'';
+            $maxPrice = $request->maxPrice?$request->maxPrice:'';
+            $products = new Product;
+            if($minPrice!=""){
+              $products =  $products->where('saleprice','>',$minPrice); 
+            }
+            if($maxPrice!=""){
+                $products =  $products->where('saleprice','<',$maxPrice); 
+            }
+
             if ($product_search != "") {
-               $productlist = Product::where("name", "like", "%$product_search%")->with('category')->paginate(50);
+              $productlist =  $products->where("name", "like", "%$product_search%")->with('category')->paginate(50);
                 if ($productlist) {
                     $categories = Category::where('is_active', '1')->with('subcategories')->get();
                     $cart = Cart::where('user_id', Auth::id())->get();
                     $featuredProducts = Product::where('is_feature_product', '1')->limit(8)->latest()->where('is_active', '1')->get();
                     $min = round(Product::min('saleprice'));
                     $max = round(Product::max('saleprice'));
-                    return view('website.pages.search',compact(['productlist','categories','cart','featuredProducts','product_search','min','max']));
+
+                    $banner = Banner::where('page_name','search')->orderBy('id', 'DESC')->first();
+
+
+                    return view('website.pages.search',compact(['productlist','categories','cart','featuredProducts','product_search','min','max','minPrice','maxPrice','banner']));
                 } else {
                     return redirect()->back()->with("status", "No product match your search");
                 }
@@ -216,32 +239,32 @@ class FrontendController extends Controller
         }
     }
 
-    public function searchProductFilter(Request $request){
-        try {
-            $product_search = $request->search;
-            $minPrice = $request->minPrice;
-            $maxPrice = $request->maxPrice;
-            if ($product_search != "") {
-                $productlist = Product::where("name", "like", "%$product_search%")
-                ->where('saleprice','>',$minPrice)->where('saleprice','<',$maxPrice)->with('category')->paginate(50);
-                if ($productlist) {
-                    $categories = Category::where('is_active', '1')->with('subcategories')->get();
-                    $cart = Cart::where('user_id', Auth::id())->get();
-                    $featuredProducts = Product::where('is_feature_product', '1')->limit(8)->latest()->where('is_active', '1')->get();
-                    $min = round(Product::min('saleprice'));
-                    $max = round(Product::max('saleprice'));
-                    return view('website.pages.search',compact('productlist','categories','cart','featuredProducts','product_search','min','max'));
-                } else {
-                    return redirect()->back()->with("status", "No product match your search");
-                }
-            } else {
-                return redirect()->back();
-            }
-        }
-        catch (\Throwable $th) {
-            return response()->json(['status' => false, 'message' => $th->getMessage()]);
-        }
-    }
+    // public function searchProductFilter(Request $request){
+    //     try {
+    //         $product_search = $request->search;
+    //         $minPrice = $request->minPrice;
+    //         $maxPrice = $request->maxPrice;
+    //         if ($product_search != "") {
+    //             $productlist = Product::where("name", "like", "%$product_search%")
+    //             ->where('saleprice','>',$minPrice)->where('saleprice','<',$maxPrice)->with('category')->paginate(50);
+    //             if ($productlist) {
+    //                 $categories = Category::where('is_active', '1')->with('subcategories')->get();
+    //                 $cart = Cart::where('user_id', Auth::id())->get();
+    //                 $featuredProducts = Product::where('is_feature_product', '1')->limit(8)->latest()->where('is_active', '1')->get();
+    //                 $min = round(Product::min('saleprice'));
+    //                 $max = round(Product::max('saleprice'));
+    //                 return view('website.pages.search',compact('productlist','categories','cart','featuredProducts','product_search','min','max'));
+    //             } else {
+    //                 return redirect()->back()->with("status", "No product match your search");
+    //             }
+    //         } else {
+    //             return redirect()->back();
+    //         }
+    //     }
+    //     catch (\Throwable $th) {
+    //         return response()->json(['status' => false, 'message' => $th->getMessage()]);
+    //     }
+    // }
 
     public function gallary(){
         $setting = SettingService::getSetting();
