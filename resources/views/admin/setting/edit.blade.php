@@ -1,0 +1,177 @@
+@extends('layouts.theme')
+@section('title', 'Home')
+@section('content')
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    @if(session('message'))
+                    <div class="alert alert-success"> {{ session('message') }}</div>
+                    @endif
+
+                  @if ($errors->any())
+            <div class="text-danger">
+                <strong>Whoops!</strong><br> There were some<strong> problems</strong> with your input.<br><br>
+
+            </div>
+                @endif
+                    <h4 class="card-title"> Pages Setting</h4>
+
+                    <div class="basic-form">
+                        <form action="{{route('setting.update')}}"  method="Post" id="product-form" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" value="-1" id="setting_id">
+                            <input type="hidden" value="PUT" name="_method">
+
+                            <div class="form-group mb-8">
+                                <label for="">About Us Page</label>
+                                <textarea class="form-control h-150px mysummernote" id="" name="about_us_detail" rows="6" placeholder="Write here.......">
+                                    {{ $setting?$setting->about_us_detail:'' }}
+                                   </textarea>
+                                   @error('about_us_detail')
+                                   <div class="text-danger">{{ $message }}</div>
+                               @enderror
+                            </div>
+
+                            <div class="form-group mb-8">
+                                <label for="">Contact Us Page</label>
+                                <textarea class="form-control h-150px mysummernote" id="" name="contact_us_detail" rows="6" placeholder="Write here.......">
+                                    {{$setting? $setting->contact_us_detail:"" }}
+                                   </textarea>
+                                   @error('contact_us_detail')
+                                   <div class="text-danger">{{ $message }}</div>
+                               @enderror
+                            </div>
+                            <div class="form-group row ">
+
+                                <div class="col-md-6 mb-8">
+                                    <label for=""> Name</label>
+                                    <input type="text" class="form-control input-default" placeholder="Etere Name" value="{{ $setting?$setting->name:'' }}" name="name">
+                                    @error('name')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                                </div>
+                                <div class="col-md-6 mb-8">
+                                    <label for=""> Mobile Number</label>
+                                    <input type="text" class="form-control input-default" placeholder="Mobile Number" value="{{ $setting?$setting->mobile_no1:'' }}" name="mobile_no1">
+                                    @error('mobile_no1')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                                </div>
+
+
+                               </div>
+                               <div class="form-group row ">
+                                <div class="col-md-6 mb-8">
+                                    <label for=""> Email</label>
+                                    <input type="text" class="form-control input-default" placeholder="Email" value="{{ $setting?$setting->email:'' }}" name="email">
+                                    @error('email')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                                </div>
+                                <div class="col-md-6 mb-8">
+                                    <label for=""> Mobile Number</label>
+                                    <input type="text" class="form-control input-default" placeholder="Mobile Number" value="{{ $setting?$setting->mobile_no2:'' }}" name="mobile_no2">
+                                    @error('mobile_no2')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                                </div>
+
+
+                               </div>
+                               <div class="form-group row mb-8">
+
+                               <div class="col-lg-12  mb-8">
+                                <label for="">Address</label>
+                                <input type="text" class="form-control input-default" placeholder="Address" value="{{$setting? $setting->address:'' }}" name="address">
+                                @error('address')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                            </div>
+                               </div>
+                            <div class="form-group mb-8">
+                                <label for="">Privacy And Policy Page</label>
+                                <textarea class="form-control h-150px mysummernote" id="" name="privacy_detail" rows="6" placeholder="Write here.......">
+                                    {{ $setting?$setting->privacy_detail:'' }}
+                                   </textarea>
+                                   @error('privacy_detail')
+                                   <div class="text-danger">{{ $message }}</div>
+                               @enderror
+                            </div>
+                            <div class="form-group mb-8">
+                                <label for="">Product Page Banner</label>
+                                <div class="basic-form">
+                                        <div class="form-group  row mb-8">
+                                            <div class="col-md-12">
+                                                <input type="text" class="form-control input-default" placeholder="Banner Name" value="products" name="product_page_name" disabled>
+                                        </div>
+                                        </div>
+                                        <div class="form-group row mb-8">
+                                            <div class="col-md-12">
+                                                <label class="col-lg-4 col-form-label" for="name">Banner Image <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="file" class="form-control" id="banner_image" name="product_banner_image"
+                                                    placeholder="Banner image" :value="old('product_banner_image')">
+                                                @error('product_banner_image')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                                @if($productBanner)
+                                                <img src="{{asset($productBanner->image_url)}}" width="50px" height="50px" alt="img">
+                                                @endif
+                                            </div>
+                                        </div>
+                                </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group mb-8">
+                                <label for="">Search Page Banner</label>
+                                <div class="basic-form">
+                                        <div class="form-group  row mb-8">
+                                            <div class="col-md-12">
+                                                <input type="text" class="form-control input-default" placeholder="Banner Name" value="search" name="page_name" disabled>
+                                        </div>
+                                        </div>
+                                        <div class="form-group row mb-8">
+                                            <div class="col-md-12">
+                                                <label class="col-lg-4 col-form-label" for="name">Banner Image <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="file" class="form-control" id="search_banner_image" name="search_banner_image"
+                                                    placeholder="Banner image" :value="old('search_banner_image')">
+                                                @error('search_banner_image')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                                @if($searchBanner)
+                                                <img src="{{asset($searchBanner->image_url)}}" width="50px" height="50px" alt="img">
+                                                @endif
+                                            </div>
+                                        </div>
+                                </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+                               <div class="modal-footer">
+                               <a href="{{url('/admin/settings')}}"  type="button" class="btn btn-secondary"> Close </a>
+                               <button type="submit"  id="button-save"  class="btn btn-primary">Update Setting</button>
+                            </div><br>
+
+
+
+                            </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+ </div>
+</div>
+
+@endsection
+
