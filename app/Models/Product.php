@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
@@ -36,7 +37,7 @@ class Product extends Model
         'short_description',
         'is_active',
         'is_for_request_quote',
-        
+
         'created_by',
         'updated_by',
         'deleted_by',
@@ -50,11 +51,11 @@ class Product extends Model
     ];
     public function category()
     {
-        return $this->belongsTo(Category::class, 'category_id','id');
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
     public function subcategory()
     {
-        return $this->belongsTo(SubCategory::class, 'sub_category_id','id');
+        return $this->belongsTo(SubCategory::class, 'sub_category_id', 'id');
     }
 
 
@@ -79,7 +80,8 @@ class Product extends Model
         return $this->hasmany(OrderDetail::class, 'product_id');
     }
 
-
-
-
+    public function variations(): HasMany
+    {
+        return $this->hasMany(Variation::class);
+    }
 }

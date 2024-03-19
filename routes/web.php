@@ -56,7 +56,9 @@ Route::prefix('admin')->middleware(['isAdmin','auth'])->group(function () {
     Route::resource('subcategory', SubCategoryController::class);
     Route::resource('products', ProductController::class);
     Route::put('products/{product}', [ProductController::class, 'update'])->name('products.update');
-    
+    Route::put('product/variation/{variation?}', [ProductController::class, 'updateVariation'])->name('products.updateVariation');
+    Route::delete('product/variation/{variation}', [ProductController::class, 'destroyVariation'])->name('products.destroyVariation');
+
     Route::get('settings', [SettingController::class, 'edit'])->name('setting.edit');
     Route::put('settings', [SettingController::class, 'update'])->name('setting.update');
     Route::resource('banners', BannerController::class);

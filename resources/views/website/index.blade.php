@@ -36,7 +36,7 @@
     </div>
     <!-- End .home-slider -->
 
-  
+
     <!-- End .container -->
 
     <section class="featured-products-section">
@@ -48,38 +48,47 @@
 
             <div class="row">
                 @foreach ($categories as $catitem)
-                    <div class=" col-md-3 " >
+                    <div class="col-md-3 col-xl-2 col-2">
                         <div class="product-category p-3 border">
-                            <a href="{{route('products', $catitem->name ) }}">
+                            <a href="{{ route('products', $catitem->name) }}">
                                 <figure>
-                                    <img src="{{ asset($catitem->image_url) }}" alt="category" width="260" height="200" />
+                                    <img src="{{ asset($catitem->image_url) }}" alt="category" width="260"
+                                        height="200" />
                                 </figure>
                                 <div class="category-content py-2 px-0">
-                                    <a href="{{ route('products', $catitem->name ) }}">
+                                    <a href="{{ route('products', $catitem->name) }}">
                                         <h5 class="mb-0">{{ $catitem->name }}</h5>
-                                    </a> 
+                                    </a>
                                 </div>
                             </a>
                         </div>
-                       
+
                     </div>
                 @endforeach
 
             </div>
             <h2 class="section-title heading-border ls-20 border-0  text-center">
-                
-                <span  style="border-bottom: 2px solid;">Featured Products</span>
-                </h2>
 
-            <div class="products-slider custom-products owl-carousel owl-theme nav-outer show-nav-hover nav-image-center"
+                <span style="border-bottom: 2px solid;">Featured Products</span>
+            </h2>
+
+            <div class="products-slider  custom-products owl-carousel owl-theme nav-outer show-nav-hover nav-image-center"
                 data-owl-options="{
                 'dots': false,
-                'nav': true
+                'nav': true,
+                'responsive': {
+                    '992': {
+                        'items': 4
+                    },
+                    '1200': {
+                        'items': 6
+                    }
+                }
             }">
 
 
                 @foreach ($featuredProducts as $featuredlist)
-                    <div class="product-default  ">
+                    <div class="product-default feature-product ">
                         <figure>
                             <a href="{{ url('product/' . $featuredlist->id) }}">
                                 <img src="{{ $featuredlist->feature_image }}" width="280" height="280" alt="product">
@@ -102,19 +111,20 @@
                             <h3 class="product-title">
                                 <a href="{{ url('product/' . $featuredlist->id) }}">{{ $featuredlist->name }}</a>
                             </h3>
-                            @if($featuredlist->rating>0)
+                            @if ($featuredlist->rating > 0)
                                 <div class="ratings-container">
                                     <div class="product-ratings">
-                                        <span class="ratings" style="width:{{ (($featuredlist->rating)/5)*100}}%"></span>
+                                        <span class="ratings"
+                                            style="width:{{ ($featuredlist->rating / 5) * 100 }}%"></span>
                                         <!-- End .ratings -->
                                         <span class="tooltiptext tooltip-top"></span>
                                     </div>
-                                </div> 
-                            @else
-                            <div class="ratings-container">
-                                <div class="" style="height:11px">
                                 </div>
-                            </div>                         
+                            @else
+                                <div class="ratings-container">
+                                    <div class="" style="height:11px">
+                                    </div>
+                                </div>
                             @endif
                             <div class="price-box">
                                 @if ($featuredlist->discount > 0)
@@ -143,8 +153,8 @@
     <section class="new-products-section">
         <div class="container">
 
-            <h2 class="section-title heading-border ls-20 border-0 text-center" >
-                <span  style="border-bottom: 2px solid;">New Arrivals</span>
+            <h2 class="section-title heading-border ls-20 border-0 text-center">
+                <span style="border-bottom: 2px solid;">New Arrivals</span>
             </h2>
 
             <div class="products-slider custom-products owl-carousel owl-theme nav-outer show-nav-hover nav-image-center mb-2"
@@ -161,7 +171,7 @@
                 }
             }">
                 @foreach ($arrivialProducts as $arriviallist)
-                    <div class="product-default  ">
+                    <div class="product-default  new-arrival">
                         <figure>
                             <a href="{{ url('product/' . $arriviallist->id) }}">
                                 <img src="{{ $arriviallist->feature_image }}" width="220" height="220" alt="product">
@@ -183,19 +193,20 @@
                             <h3 class="product-title">
                                 <a href="{{ url('product/' . $arriviallist->id) }}">{{ $arriviallist->name }}</a>
                             </h3>
-                            @if($arriviallist->rating>0)
+                            @if ($arriviallist->rating > 0)
                                 <div class="ratings-container">
                                     <div class="product-ratings">
-                                        <span class="ratings" style="width:{{ (($arriviallist->rating)/5)*100}}%"></span>
+                                        <span class="ratings"
+                                            style="width:{{ ($arriviallist->rating / 5) * 100 }}%"></span>
                                         <!-- End .ratings -->
                                         <span class="tooltiptext tooltip-top"></span>
                                     </div>
-                                </div> 
-                            @else
-                            <div class="ratings-container">
-                                <div class="" style="height:11px">
                                 </div>
-                            </div>                         
+                            @else
+                                <div class="ratings-container">
+                                    <div class="" style="height:11px">
+                                    </div>
+                                </div>
                             @endif
                             <div class="price-box" style="width: max-content;">
                                 @if ($arriviallist->discount > 0)
@@ -223,7 +234,4 @@
 
         </div>
     </section>
- 
- 
- 
 @endsection

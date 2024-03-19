@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
                 DefaultUserSeeder::class,
                 UserSeeder::class,
                 CategorySeeder::class,
-                SubCategorySeeder::class,
+                // SubCategorySeeder::class,
                 ProductSeeder::class,
             ]
         );

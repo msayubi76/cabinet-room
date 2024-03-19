@@ -19,16 +19,16 @@ class ProductFactory extends Factory
     public function definition()
     {
         $actual_price = rand(1000, 10000);
-        $discount = rand(0,40);
+        $discount = rand(0, 40);
 
-        $percent_value = ($actual_price * $discount)/100;
+        $percent_value = ($actual_price * $discount) / 100;
 
         $sale_price = $actual_price - $percent_value;
         return [
             'name' => $this->faker->name(),
-            'category_id' =>  rand(1,10),
-            'sub_category_id' =>  rand(1,10),
-            'feature_image' => $this->faker->imageUrl(),
+            'category_id' =>  rand(1, 8),
+            'sub_category_id' =>  NULL, // rand(1, 10),
+            'feature_image' =>  '/images/air-buds/' . rand(1, 20) . '.jpg',
 
             'description' => $this->faker->paragraph(),
             'actual_price' => $actual_price,
@@ -36,16 +36,16 @@ class ProductFactory extends Factory
             'saleprice' => $sale_price,
             'shipping_charge' => $this->faker->numberBetween(0, 50),
             'colour' => $this->faker->colorName(),
-            'length' => $this->faker->randomDigit(1,50),
-            'width' => $this->faker->randomDigit(1,50),
-            'is_feature_product' => rand(0,1),
-            'is_arrival_product' => rand(0,1),
+            'length' => $this->faker->randomDigit(1, 50),
+            'width' => $this->faker->randomDigit(1, 50),
+            'is_feature_product' => rand(0, 1),
+            'is_arrival_product' => rand(0, 1),
             'is_active' => $this->faker->boolean(),
             'short_description' => $this->faker->paragraph(),
-            'delivered_in' => rand(0,40),
-            'rating' => rand(0,5),
-            'sku' =>  sprintf('CB01'."%'06d",  rand(0,40)),
-            'is_installment_available' => rand(0,1),                                                                             
+            'delivered_in' => rand(0, 40),
+            'rating' => rand(0, 5),
+            'sku' =>  sprintf('CB01' . "%'06d",  rand(0, 40)),
+            'is_installment_available' => rand(0, 1),
         ];
     }
 }

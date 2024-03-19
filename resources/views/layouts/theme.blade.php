@@ -13,12 +13,13 @@
     <link href="{{ url('admin-assets/plugins/pg-calendar/css/pignose.calendar.min.css') }}" rel="stylesheet">
     <!-- Chartist -->
     <link rel="stylesheet" href="{{ url('admin-assets/plugins/chartist/css/chartist.min.css') }}">
-    <link rel="stylesheet" href="{{ url('admin-assets/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css') }}">
+    <link rel="stylesheet"
+        href="{{ url('admin-assets/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css') }}">
     <link rel="stylesheet" href="{{ url('admin-assets/plugins/highlightjs/styles/darkula.css') }}">
 
-       {{-- -- Summernote link -- --}}
-       <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-       <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    {{-- -- Summernote link -- --}}
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 
     <link href="{{ url('admin-assets/plugins/sweetalert/css/sweetalert.css') }}" rel="stylesheet">
     <!-- Custom Stylesheet -->
@@ -72,7 +73,7 @@
     {{-- datatables --}}
     {{-- <script src="{{ url('admin-assets/plugins/tables/js/jquery.dataTables.min.js') }}"></script>
      <script src="{{ url('admin-assets/plugins/tables/js/datatable/dataTables.bootstrap4.min.js') }}"></script>
-     <script src="{{ url('admin-assets/plugins/tables/js/datatable-init/datatable-basic.min.js') }}"></script>--}}
+     <script src="{{ url('admin-assets/plugins/tables/js/datatable-init/datatable-basic.min.js') }}"></script> --}}
     <!-- Chartjs -->
     <script src="{{ url('admin-assets/plugins/chart.js/Chart.bundle.min.js') }}"></script>
     <!-- Circle progress -->
@@ -92,6 +93,14 @@
     <script src="{{ url('admin-assets/plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js') }}"></script>
     <script src="{{ url('admin-assets/plugins/validation/jquery.validate.min.js') }}"></script>
     <script src="{{ url('admin-assets/plugins/validation/jquery.validate-init.js') }}"></script>
+
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
+            }
+        });
+    </script>
     <!-- Toastr -->
     <script src="{{ url('admin-assets/plugins/toastr/js/toastr.min.js') }}"></script>
     <script src="{{ url('admin-assets/plugins/toastr/js/toastr.init.js') }}"></script>
@@ -106,7 +115,7 @@
     <script>
         $(document).ready(function() {
             $(".mysummernote").summernote({
-                height:150,
+                height: 150,
             });
 
             $('.dropdown-toggle').dropdown();

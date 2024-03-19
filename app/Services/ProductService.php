@@ -8,7 +8,9 @@ use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\ProductRequest;
+use App\Http\Requests\ProductVariationRequest;
 use App\Models\SubCategory;
+use App\Models\Variation;
 use App\Traits\FileUploadTrait;
 
 class ProductService
@@ -28,12 +30,7 @@ class ProductService
 
         DB::beginTransaction();
         $data = $request->validated();
-        $id = Product::orderBy('id', 'desc')->first()->id;
-        if ($id==null) {
-        $data['sku'] = sprintf('CB01'."%'06d", 1 );
-        }else{
-            $data['sku'] = sprintf('CB01'."%'06d", $id+1 );
-        }
+
 
         if ($request->hasFile('feature_image')) :
             $image_name = FileUploadTrait::fileUpload($request->feature_image, 'products');
@@ -43,10 +40,30 @@ class ProductService
         endif;
         $product = Product::create($data);
 
-        $image_name = FileUploadTrait::uploadMultipleFiles($request->images, $product, 'products');
+        $product->update(['sku' => sprintf('CB01' . "%'06d", $product->id)]);
+        $have_variations = $request->have_variations;
+
+        if ($have_variations) :
+            $Variations = $request->Variation;
+            foreach ($Variations as $key => $variation) :
+                $array = [
+                    "name" =>  $variation['name'],
+                    "value" => $variation['value'],
+                    "price" => $variation['price'],
+                    "stock" => $variation['stock'],
+                    "product_id" => $product->id,
+                ];
+                $var =    Variation::create($array);
+                if (isset($variation['images']) && count($variation['images']) > 0) :
+                    $image_name = FileUploadTrait::uploadMultipleFiles($variation['images'], $var, 'variations');
+                endif;
+            endforeach;
+        endif;
+
+        $image_name = FileUploadTrait::uploadMultipleFiles($request->images ? $request->images : [], $product, 'products');
         DB::commit();
 
-        $response = ['status' => true, 'message' => 'product added successfully.', 'product' => $product];
+        $response = ['status' => true, 'message' => 'Product added successfully.', 'product' => $product];
         return $response;
     }
 
@@ -61,20 +78,17 @@ class ProductService
             $data['feature_image_name'] =  $image_name;
             $data['feature_image'] = url('/storage/products/' . $image_name);
         endif;
-        $data['is_active']  = $request->is_active?1:0;
-        $data['is_for_request_quote']  = $request->is_for_request_quote?1:0;
-        $data['is_installment_available']  = $request->is_installment_available?1:0;
-        $data['is_feature_product']  = $request->is_feature_product?1:0;
-        $data['is_arrival_product']  = $request->is_arrival_product?1:0;
-
-       
- 
+        $data['is_active']  = $request->is_active ? 1 : 0;
+        $data['is_for_request_quote']  = $request->is_for_request_quote ? 1 : 0;
+        $data['is_installment_available']  = $request->is_installment_available ? 1 : 0;
+        $data['is_feature_product']  = $request->is_feature_product ? 1 : 0;
+        $data['is_arrival_product']  = $request->is_arrival_product ? 1 : 0;
 
         $product->update($data);
 
         if ($request->hasFile('images')) :
             $image_name = FileUploadTrait::uploadMultipleFiles($request->images, $product, 'products');
-        endif; 
+        endif;
 
         DB::commit();
         $response = ['status' => true, 'message' => 'Product updated successfully.', 'product' => $product];
@@ -91,17 +105,27 @@ class ProductService
         return $response;
     }
 
+    public static function updateVariation(ProductVariationRequest $request, Variation $variation = null)
+    {
+        DB::beginTransaction();
+        if ($variation) :
+            $variation->update($request->validated());
+        else :
+            $variation = Variation::create($request->validated());
+        endif;
+        FileUploadTrait::uploadMultipleFiles($request->images ? $request->images : [], $variation);
+        DB::commit();
+        $response = ['status' => true, 'message' => 'Variation updated successfully.'];
+        return $response;
+    }
+
 
 
     public static function detail(int $id)
     {
         $product = Product::findOrFail($id);
-        $product->load('images');
-
-
+        $product->load(['images', 'variations.media']);
         $sub_categories = SubCategory::where('category_id', $product->category_id)->cursor();
-
-
         return ['product' => $product, 'sub_categories' => $sub_categories];
     }
 }
