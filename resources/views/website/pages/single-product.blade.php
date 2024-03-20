@@ -18,43 +18,39 @@
             <div class="row">
                 <div class="col-lg-5 col-md-6 product-single-gallery">
                     <div class="product-slider-container">
-                        <div class="label-group">
-
-                            {{-- <div class="product-label label-hot">HOT</div> --}}
-                            @if ($product->discount > 0)
-                                <div class="product-label label-sale">{{ substr($product->discount, 0, 2) }}%</div>
-                            @endif
 
 
+                        <div class="product-single-carousel owl-carousel owl-theme show-nav-hover  ">
+                            @foreach ($colors as $key => $color)
+                                @foreach ($color->media as $color_media)
+                                    <div class="product-item">
+                                        <img class="product-single-image" src="{{ $color_media->url }}"
+                                            data-zoom-image="{{ $color_media->url }}" width="468" height="468"
+                                            alt="product" />
+                                    </div>
+                                @endforeach
+                            @endforeach
                         </div>
 
-                        <div class="product-single-carousel owl-carousel owl-theme show-nav-hover">
-
-                            <div class="product-item"> 
-                                <img class="product-single-image" src="{{ $product->feature_image }}"
-                                    data-zoom-image="{{ $product->feature_image }}" width="468" height="468"
-                                    alt="product" /> 
-                            </div>
-
-
-                        </div>
                         <!-- End .product-single-carousel -->
                         <span class="prod-full-screen">
                             <i class="icon-plus"></i>
                         </span>
                     </div>
 
-                    @php
-                        $images = isset($colors[1]->media) ? $colors[1]->media : [];
-                    @endphp
-                    <div class="prod-thumbnail owl-dots" id="product-images">
-                        @foreach ($images as $image)
-                            <div class="owl-dot">
-                                <img src="{{ $image->url }}" width="110" height="110" alt="product-thumbnail" />
-                            </div>
+                    <div class="prod-thumbnail owl-dots  ">
+                        @foreach ($colors as $key => $color)
+                            @foreach ($color->media as $color_media)
+                                <div class="owl-dot">
+                                    <img src="{{ $color_media->url }}" width="110" height="110"
+                                        alt="product-thumbnail" />
+                                </div>
+                            @endforeach
                         @endforeach
-
                     </div>
+
+
+
                 </div>
                 <!-- End .product-single-gallery -->
 
@@ -114,8 +110,8 @@
                         <a href="https://www.facebook.com/" class="social-icon social-facebook icon-facebook text-white"
                             target="_blank" title="Facebook"></a>
                         <!-- <a href="#" class="social-icon  text-white" target="_blank" title="Facebook">
-                                                    <i class="fa fa-whatsapp"></i>
-                                                </a> -->
+                                                                                                                        <i class="fa fa-whatsapp"></i>
+                                                                                                                    </a> -->
 
                     </div>
                     <!-- End .product-desc -->
@@ -139,13 +135,14 @@
 
                     <div class="product-filters-container">
                         <div class="product-single-filter"><label>Color:</label>
-                            <ul class="config-size-list config-color-list config-filter-list">
-                                @foreach ($colors as $color)
-                                    <li class="">
+                            <ul class="config-size-list config-color-list config-filter-list" id="color-list">
+                                @foreach ($colors as $key => $color)
+                                    <li data-id="{{ $color->id }}" class="{{ $key == 0 ? 'active' : '' }}">
                                         <a href="javascript:;" class="filter-color border"
-                                            style="background-color: {{ $color->value }};" onclick="changeImages({{ $color }})"></a>
+                                            style="background-color: {{ $color->value }};"></a>
                                     </li>
                                 @endforeach
+
 
                             </ul>
                         </div>
@@ -187,27 +184,7 @@
 
                     <hr class="divider mb-0 mt-0">
 
-                    {{-- <div class="product-single-share mb-3">
-                        <label class="sr-only">Share:</label>
 
-                        <div class="social-icons mr-2">
-                            <a href="#" class="social-icon social-facebook icon-facebook" target="_blank"
-                                title="Facebook"></a>
-                            <a href="#" class="social-icon social-twitter icon-twitter" target="_blank"
-                                title="Twitter"></a>
-                            <a href="#" class="social-icon social-linkedin fab fa-linkedin-in" target="_blank"
-                                title="Linkedin"></a>
-                            <a href="#" class="social-icon social-gplus fab fa-google-plus-g" target="_blank"
-                                title="Google +"></a>
-                            <a href="#" class="social-icon social-mail icon-mail-alt" target="_blank"
-                                title="Mail"></a>
-                        </div>
-                        <!-- End .social-icons -->
-
-                        <a href="wishlist.html" class="btn-icon-wish add-wishlist" title="Add to Wishlist"><i
-                                class="icon-wishlist-2"></i><span>Add to
-                                Wishlist</span></a>
-                    </div> --}}
                     <!-- End .product single-share -->
                 </div>
                 <!-- End .product-single-details -->
@@ -246,179 +223,13 @@
                 </div>
                 <!-- End .tab-pane -->
 
-                <div class="tab-pane fade" id="product-size-content" role="tabpanel" aria-labelledby="product-tab-size">
-                    <div class="product-size-content">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <img src="assets/images/products/single/body-shape.png" alt="body shape" width="217"
-                                    height="398">
-                            </div>
-                            <!-- End .col-md-4 -->
 
-                            <div class="col-md-8">
-                                <table class="table table-size">
-                                    <thead>
-                                        <tr>
-                                            <th>SIZE</th>
-                                            <th>CHEST(in.)</th>
-                                            <th>WAIST(in.)</th>
-                                            <th>HIPS(in.)</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>XS</td>
-                                            <td>34-36</td>
-                                            <td>27-29</td>
-                                            <td>34.5-36.5</td>
-                                        </tr>
-                                        <tr>
-                                            <td>S</td>
-                                            <td>36-38</td>
-                                            <td>29-31</td>
-                                            <td>36.5-38.5</td>
-                                        </tr>
-                                        <tr>
-                                            <td>M</td>
-                                            <td>38-40</td>
-                                            <td>31-33</td>
-                                            <td>38.5-40.5</td>
-                                        </tr>
-                                        <tr>
-                                            <td>L</td>
-                                            <td>40-42</td>
-                                            <td>33-36</td>
-                                            <td>40.5-43.5</td>
-                                        </tr>
-                                        <tr>
-                                            <td>XL</td>
-                                            <td>42-45</td>
-                                            <td>36-40</td>
-                                            <td>43.5-47.5</td>
-                                        </tr>
-                                        <tr>
-                                            <td>XXL</td>
-                                            <td>45-48</td>
-                                            <td>40-44</td>
-                                            <td>47.5-51.5</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <!-- End .row -->
-                    </div>
-                    <!-- End .product-size-content -->
-                </div>
                 <!-- End .tab-pane -->
 
 
                 <!-- End .tab-pane -->
 
-                {{-- <div class="tab-pane fade" id="product-reviews-content" role="tabpanel"
-                    aria-labelledby="product-tab-reviews">
-                    <div class="product-reviews-content">
-                        <h3 class="reviews-title">1 review for Men Black Sports Shoes</h3>
 
-                        <div class="comment-list">
-                            <div class="comments">
-                                <figure class="img-thumbnail">
-                                    <img src="assets/images/blog/author.jpg" alt="author" width="80"
-                                        height="80">
-                                </figure>
-
-                                <div class="comment-block">
-                                    <div class="comment-header">
-                                        <div class="comment-arrow"></div>
-
-                                        <div class="ratings-container float-sm-right">
-                                            <div class="product-ratings">
-                                                <span class="ratings" style="width:60%"></span>
-                                                <!-- End .ratings -->
-                                                <span class="tooltiptext tooltip-top"></span>
-                                            </div>
-                                            <!-- End .product-ratings -->
-                                        </div>
-
-                                        <span class="comment-by">
-                                            <strong>Joe Doe</strong> – April 12, 2018
-                                        </span>
-                                    </div>
-
-                                    <div class="comment-content">
-                                        <p>Excellent.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="divider"></div>
-
-                        <div class="add-product-review">
-                            <h3 class="review-title">Add a review</h3>
-
-                            <form action="#" class="comment-form m-0">
-                                <div class="rating-form">
-                                    <label for="rating">Your rating <span class="required">*</span></label>
-                                    <span class="rating-stars">
-                                        <a class="star-1" href="#">1</a>
-                                        <a class="star-2" href="#">2</a>
-                                        <a class="star-3" href="#">3</a>
-                                        <a class="star-4" href="#">4</a>
-                                        <a class="star-5" href="#">5</a>
-                                    </span>
-
-                                    <select name="rating" id="rating" required="" style="display: none;">
-                                        <option value="">Rate…</option>
-                                        <option value="5">Perfect</option>
-                                        <option value="4">Good</option>
-                                        <option value="3">Average</option>
-                                        <option value="2">Not that bad</option>
-                                        <option value="1">Very poor</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Your review <span class="required">*</span></label>
-                                    <textarea cols="5" rows="6" class="form-control form-control-sm"></textarea>
-                                </div>
-                                <!-- End .form-group -->
-
-
-                                <div class="row">
-                                    <div class="col-md-6 col-xl-12">
-                                        <div class="form-group">
-                                            <label>Name <span class="required">*</span></label>
-                                            <input type="text" class="form-control form-control-sm" required>
-                                        </div>
-                                        <!-- End .form-group -->
-                                    </div>
-
-                                    <div class="col-md-6 col-xl-12">
-                                        <div class="form-group">
-                                            <label>Email <span class="required">*</span></label>
-                                            <input type="text" class="form-control form-control-sm" required>
-                                        </div>
-                                        <!-- End .form-group -->
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="save-name" />
-                                            <label class="custom-control-label mb-0" for="save-name">Save my
-                                                name, email, and website in this browser for the next time I
-                                                comment.</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <input type="submit" class="btn btn-primary" value="Submit">
-                            </form>
-                        </div>
-                        <!-- End .add-product-review -->
-                    </div>
-                    <!-- End .product-reviews-content -->
-                </div> --}}
                 <!-- End .tab-pane -->
             </div>
             <!-- End .tab-content -->
@@ -975,11 +786,13 @@
         $(document).ready(function() {
             console.log('hi');
             $('.add-cart').click(function(e) {
-                $(".add-cart").css("display", "none");
                 e.preventDefault();
+                const color = $('#color-list').find('li.active').data('id')
                 var product_id = $(this).closest('.product_data').find('.product_id').val();
                 var quantity = $(this).closest('.product_data').find('.horizontal-quantity').val();
+                console.log('color', color); 
 
+                 
 
                 $.ajaxSetup({
                     headers: {
@@ -992,10 +805,11 @@
                     data: {
                         'product_id': product_id,
                         'quantity': quantity,
+                        'color': color,
                     },
 
                     success: function(response) {
-
+                        $(".add-cart").css("display", "none"); 
                         swal("", response.status, "success");
                         setTimeout(location.reload(), 20000);
                     }

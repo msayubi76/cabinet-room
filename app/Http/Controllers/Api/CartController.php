@@ -19,25 +19,19 @@ class CartController extends Controller
         try {
             $product_id = $request->product_id;
             $quantity = $request->quantity;
-            if(Auth::check()){
-            $product = Product::where('id', $product_id)->first();
-            if ($product) {
-                if (Cart::where('product_id', $product_id)->where('user_id', Auth::id())->exists()) {
-                    return response()->json(['status' => 'Item is Alredy Added']);
-                } else {
-                    $cart = new Cart();
-                    $cart->product_id = $product_id;
-                    $cart->user_id = Auth::id();
-                    $cart->quantity = $quantity;
-                    $cart->save();
-                    return response()->json(['status' =>  'Item added to your cart']);
-                }
+            $variation_id = $request->color;
+
+            if (Cart::where('product_id', $product_id)->where('user_id', Auth::id())->exists()) {
+                return response()->json(['status' => 'Item is Alredy Added']);
+            } else {
+                $cart = new Cart();
+                $cart->product_id = $product_id;
+                $cart->user_id = Auth::id();
+                $cart->quantity = $quantity;
+                $cart->variation_id = $variation_id;
+                $cart->save();
+                return response()->json(['status' =>  'Item added to your cart']);
             }
-        }else{
-            return response()->json(['status' => 'loggin to continue']);
-
-        }
-
         } catch (\Throwable $th) {
             return $th;
         }
@@ -69,7 +63,7 @@ class CartController extends Controller
                 $update_cart->quantity = $quantity;
                 $update_cart->update();
                 $cart = Cart::where('user_id', Auth::id())->with('product')->get();
-                return response()->json(['status' => 'Cart item updated successfully.' ,'data'=>$cart]);
+                return response()->json(['status' => 'Cart item updated successfully.', 'data' => $cart]);
             }
 
             return response()->json(['status' => 'Login  to continue']);
@@ -92,6 +86,4 @@ class CartController extends Controller
             return $th;
         }
     }
-
-
 }
