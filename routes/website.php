@@ -17,7 +17,7 @@ Route::get('/', [FrontendController::class, 'index']);
 Route::get('products/{category?}/{sub_category?}', [FrontendController::class, 'products'])->name('products');
 // Route::get('products-filter/{category?}/{sub_category?}', [FrontendController::class, 'productsFilter'])->name('productsFilter');
 
-Route::get('product/{id}', [FrontendController::class, 'singleProduct'])->name('website.single-product');
+Route::get('product/{product}', [FrontendController::class, 'singleProduct'])->name('website.single-product');
 Route::get('about-us', [FrontendController::class, 'about']);
 Route::get('contact-us', [FrontendController::class, 'contact']);
 Route::get('privacy-and-policy', [FrontendController::class, 'policy']);
@@ -50,7 +50,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('user-dashboard', [UserDashboardController::class, 'index'])->name('user-dashboard');
     Route::get('user-dashboard/order-detail/{order}', [UserDashboardController::class, 'orderDetail'])->name('order-detail');
     Route::put('update-profile', [UserDashboardController::class, 'updateinfo'])->name('updateinfo');
-Route::post('change-password', [UserDashboardController::class, 'changePassword'])->name('changePassword');
+    Route::post('change-password', [UserDashboardController::class, 'changePassword'])->name('changePassword');
 });
 Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
 Route::get('auth/google/call-back', [GoogleAuthController::class, 'callBackGoogle']);

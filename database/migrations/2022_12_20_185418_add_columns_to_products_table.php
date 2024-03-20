@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             $table->string('delivered_in')->nullable()->after('is_for_request_quote');
-            $table->integer('rating')->default(5)->after('delivered_in');
+            $table->integer('rating')->default(5)->nullable()->after('delivered_in');
             $table->boolean('is_installment_available')->default(0)->after('rating');
             $table->string('sku')->nullable()->after('is_installment_available');
         });

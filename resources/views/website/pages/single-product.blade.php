@@ -30,15 +30,10 @@
 
                         <div class="product-single-carousel owl-carousel owl-theme show-nav-hover">
 
-                            <div class="product-item">
-
-
-
-
+                            <div class="product-item"> 
                                 <img class="product-single-image" src="{{ $product->feature_image }}"
                                     data-zoom-image="{{ $product->feature_image }}" width="468" height="468"
-                                    alt="product" />
-
+                                    alt="product" /> 
                             </div>
 
 
@@ -49,8 +44,11 @@
                         </span>
                     </div>
 
-                    <div class="prod-thumbnail owl-dots">
-                        @foreach ($product->images as $image)
+                    @php
+                        $images = isset($colors[1]->media) ? $colors[1]->media : [];
+                    @endphp
+                    <div class="prod-thumbnail owl-dots" id="product-images">
+                        @foreach ($images as $image)
                             <div class="owl-dot">
                                 <img src="{{ $image->url }}" width="110" height="110" alt="product-thumbnail" />
                             </div>
@@ -116,8 +114,8 @@
                         <a href="https://www.facebook.com/" class="social-icon social-facebook icon-facebook text-white"
                             target="_blank" title="Facebook"></a>
                         <!-- <a href="#" class="social-icon  text-white" target="_blank" title="Facebook">
-                            <i class="fa fa-whatsapp"></i>
-                        </a> -->
+                                                    <i class="fa fa-whatsapp"></i>
+                                                </a> -->
 
                     </div>
                     <!-- End .product-desc -->
@@ -138,6 +136,28 @@
                             <strong><a href="#" class="product-category">SWEATER</a></strong>
                         </li> --}}
                     </ul>
+
+                    <div class="product-filters-container">
+                        <div class="product-single-filter"><label>Color:</label>
+                            <ul class="config-size-list config-color-list config-filter-list">
+                                @foreach ($colors as $color)
+                                    <li class="">
+                                        <a href="javascript:;" class="filter-color border"
+                                            style="background-color: {{ $color->value }};" onclick="changeImages({{ $color }})"></a>
+                                    </li>
+                                @endforeach
+
+                            </ul>
+                        </div>
+
+
+
+                        <div class="product-single-filter">
+                            <label></label>
+                            <a class="font1 text-uppercase clear-btn" href="#">Clear</a>
+                        </div>
+                        <!---->
+                    </div>
 
                     <div class="product-action">
                         <input type="hidden" value="{{ $product->id }}" class="product_id">
@@ -226,7 +246,7 @@
                 </div>
                 <!-- End .tab-pane -->
 
-                {{-- <div class="tab-pane fade" id="product-size-content" role="tabpanel" aria-labelledby="product-tab-size">
+                <div class="tab-pane fade" id="product-size-content" role="tabpanel" aria-labelledby="product-tab-size">
                     <div class="product-size-content">
                         <div class="row">
                             <div class="col-md-4">
@@ -289,7 +309,7 @@
                         <!-- End .row -->
                     </div>
                     <!-- End .product-size-content -->
-                </div> --}}
+                </div>
                 <!-- End .tab-pane -->
 
 
@@ -763,7 +783,7 @@
                         <div class="form-title text-center"> </div>
                         <div class="d-flex flex-column text-center">
 
-                            @csrf 
+                            @csrf
                             <input type="hidden" id="user_id" name="user_id"
                                 value="{{ Auth::user() ? Auth::user()->id : '' }}">
                             <input type="hidden" id="product_id" name="product_id" value="{{ $product->id }}">
@@ -822,6 +842,8 @@
 
 @endsection
 @section('scripts')
+
+    <script src="{{ asset('website/assets/js/products.js') }}"></script>
     <script>
         function requestQuote() {
             console.log(' i m here');

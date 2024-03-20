@@ -113,37 +113,37 @@ class FrontendController extends Controller
             return response()->json(['status' => false, 'message' => $th->getMessage()]);
         }
     }
-    public function singleProduct($id)
+    public function singleProduct(Product $product)
     {
-        try {
-            $product = Product::find($id);
-            $relatedProducts = Product::orderBy('id', 'DESC')->where('is_active', '1')->get();
-            $featuredProductsFooter = Product::where('is_feature_product', '1')->where('is_active', '1')->limit(3)->get();
-            $latestPoductsFooter = Product::orderBy('id', 'DESC')->where('is_active', '1')->limit(3)->get();
-            $arrivialProductsFooter = Product::where('is_arrival_product', '1')->where('is_active', '1')->limit(3)->get();
-            $categories = Category::where('is_active', '1')->with('subcategories')->get();
-            $featuredProductsPrevese = Product::where('is_feature_product', '1')->where('is_active', '1')->limit(1)->get();
-            $latestPoductsNext = Product::orderBy('id', 'DESC')->where('is_active', '1')->limit(1)->get();
-            $quoteCheck = true;
-            if (Auth::user()) {
-                $user_id = Auth::user()->id;
-                $resultQuote = RequestQuote::where('user_id', $user_id)->where('product_id', $id)->orderBy('created_at', 'desc')->first();
-                if ($resultQuote) {
-                    $resultQuote->status == 2 ? $quoteCheck = true : $quoteCheck = false;
-                }
-            }
-            $cart = Cart::where('user_id', Auth::id())->get();
-            $productCheck = 1;
-            foreach ($cart as $cartItem) {
-                if ($cartItem->product_id == $id) {
-                    $productCheck = 0;
-                }
-            }
+        $relatedProducts = Product::orderBy('id', 'DESC')->where('is_active', '1')->where('category_id', $product->category_id)->get();
+        $featuredProductsFooter = Product::where('is_feature_product', '1')->where('is_active', '1')->limit(3)->get();
+        $latestPoductsFooter = Product::orderBy('id', 'DESC')->where('is_active', '1')->limit(3)->get();
+        $arrivialProductsFooter = Product::where('is_arrival_product', '1')->where('is_active', '1')->limit(3)->get();
+        $categories = Category::where('is_active', '1')->with('subcategories')->get();
+        $featuredProductsPrevese = Product::where('is_feature_product', '1')->where('is_active', '1')->limit(1)->get();
+        $latestPoductsNext = Product::orderBy('id', 'DESC')->where('is_active', '1')->limit(1)->get();
 
-            return view('website.pages.single-product', compact('categories',  'product', 'relatedProducts', 'featuredProductsFooter', 'arrivialProductsFooter', 'cart', 'latestPoductsFooter', 'featuredProductsPrevese', 'latestPoductsNext', 'productCheck', 'quoteCheck'));
-        } catch (\Throwable $th) {
-            return response()->json(['status' => false, 'message' => $th->getMessage()]);
+        $colors = $product->variations()->where('name', 'color')->with('media')->get();
+
+
+
+        $quoteCheck = true;
+        if (Auth::user()) {
+            $user_id = Auth::user()->id;
+            $resultQuote = RequestQuote::where('user_id', $user_id)->where('product_id', $product->id)->orderBy('created_at', 'desc')->first();
+            if ($resultQuote) {
+                $resultQuote->status == 2 ? $quoteCheck = true : $quoteCheck = false;
+            }
         }
+        $cart = Cart::where('user_id', Auth::id())->get();
+        $productCheck = 1;
+        foreach ($cart as $cartItem) {
+            if ($cartItem->product_id == $product->id) {
+                $productCheck = 0;
+            }
+        }
+
+        return view('website.pages.single-product', compact('categories', 'colors', 'product', 'relatedProducts', 'featuredProductsFooter', 'arrivialProductsFooter', 'cart', 'latestPoductsFooter', 'featuredProductsPrevese', 'latestPoductsNext', 'productCheck', 'quoteCheck'));
     }
 
     public function about()

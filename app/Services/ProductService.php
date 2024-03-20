@@ -113,7 +113,8 @@ class ProductService
         else :
             $variation = Variation::create($request->validated());
         endif;
-        FileUploadTrait::uploadMultipleFiles($request->images ? $request->images : [], $variation);
+
+        FileUploadTrait::uploadMultipleFiles($request->images ? $request->images : [], $variation, 'variations');
         DB::commit();
         $response = ['status' => true, 'message' => 'Variation updated successfully.'];
         return $response;
