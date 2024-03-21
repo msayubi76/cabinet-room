@@ -30,9 +30,8 @@ Route::get('product-list', [FrontendController::class, 'productList']);
 Route::get('search', [FrontendController::class, 'searchProduct'])->name('searchProduct');
 Route::post('search-filter', [FrontendController::class, 'searchProductFilter'])->name('searchProductFilter');
 
-// ----------> Webste Checout <----------- //
-Route::get('check-out', [CheckOutController::class, 'index'])->name('check-out.index');
-Route::post('check-out', [CheckOutController::class, 'store'])->name('check-out');
+
+
 
 // ----------> Webste Cart <------------- //
 Route::post('add-to-cart', [CartController::class, 'addProduct']);
@@ -42,7 +41,9 @@ Route::post('add-quote', [RequestQuoteController::class, 'store'])->name('reques
 
 
 Route::middleware(['auth'])->group(function () {
-
+    // ----------> Webste Checout <----------- //
+    Route::get('check-out', [CheckOutController::class, 'index'])->name('check-out.index');
+    Route::post('check-out', [CheckOutController::class, 'store'])->name('check-out');
     Route::get('cart', [CartController::class, 'viewCart']);
     Route::post('update', [CartController::class, 'update']);
     Route::get('delete', [CartController::class, 'delete']);

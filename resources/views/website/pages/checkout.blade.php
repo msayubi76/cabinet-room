@@ -3,6 +3,7 @@
 
 @section('content')
     <div class="container checkout-container">
+        @include('alerts')
         <ul class="checkout-progress-bar d-flex justify-content-center flex-wrap">
             <li>
                 <a href="">Shopping Cart</a>
@@ -15,53 +16,6 @@
             </li>
         </ul>
 
-        <div class="login-form-container">
-            <h4>Returning customer?
-                <button data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
-                    class="btn btn-link btn-toggle">Login</button>
-            </h4>
-
-            <div id="collapseOne" class="collapse">
-                <div class="login-section feature-box">
-                    <div class="feature-box-content">
-                        <form action="#" id="login-form">
-                            <p>
-                                If you have shopped with us before, please enter your details below. If you are a new
-                                customer, please proceed to the Billing & Shipping section.
-                            </p>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="mb-0 pb-1">Username or email <span class="required">*</span></label>
-                                        <input type="email" class="form-control" required />
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="mb-0 pb-1">Password <span class="required">*</span></label>
-                                        <input type="password" class="form-control" required />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <button type="submit" class="btn">LOGIN</button>
-
-                            <div class="form-footer mb-1">
-                                <div class="custom-control custom-checkbox mb-0 mt-0">
-                                    <input type="checkbox" class="custom-control-input" id="lost-password" />
-                                    <label class="custom-control-label mb-0" for="lost-password">Remember
-                                        me</label>
-                                </div>
-
-                                <a href="forgot-password.html" class="forget-password">Lost your password?</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
 
 
 
@@ -107,9 +61,17 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>State / County <abbr class="required" title="required">*</abbr></label>
-                                        <input type="text" name="country" class="form-control" value="{{ old('country') }}" />
-                                        @error('country')
+                                        <label>City <abbr class="required" title="required">*</abbr></label>
+
+                                        <select name="city" id="city" class="form-control"
+                                            onchange="selectCity(this)">
+                                            <option value="">Select City</option>
+                                            @foreach ($cities as $city)
+                                                <option {{ old('city') == $city['name'] ? 'selected' : '' }}
+                                                    value="{{ $city['name'] }}">{{ $city['name'] }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('city')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -129,35 +91,12 @@
 
 
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Town / City
-                                            <abbr class="required" title="required">*</abbr></label>
-                                        <input type="text" name="city" class="form-control"
-                                            value="{{ old('city') }}" />
-                                        @error('city')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Postcode / Zip
-                                            <abbr class="required" title="required">*</abbr></label>
-                                        <input type="text" name="post_code" class="form-control"
-                                            value="{{ old('post_code') }}" />
-                                        @error('post_code')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="row">
+
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Phone <abbr class="required" title="required">*</abbr></label>
-                                        <input type="tel" name="phone_number" class="form-control"
+                                        <input type="tel" name="phone_number" class="form-control" placeholder="Phone"
                                             value="{{ old('phone_number') }}" />
                                         @error('phone_number')
                                             <div class="text-danger">{{ $message }}</div>
@@ -175,7 +114,9 @@
                                         @enderror
                                     </div>
                                 </div>
+
                             </div>
+
 
 
 
@@ -223,8 +164,13 @@
                                 <tr>
                                     <td class="product-col">
                                         <h3 class="product-title">
-                                            {{ $cartitem->product->name }} ×
+                                            {{ $cartitem->product->name }}
+                                            @if ($cartitem->variation)
+                                                ({{ $cartitem->variation->value }})
+                                            @endif
+                                            ×
                                             <span class="product-qty">{{ $cartitem->quantity }}</span>
+
                                         </h3>
                                     </td>
 
@@ -248,19 +194,18 @@
                                     <span>{{ $cartitem->product->currency }}{{ $all_item_total }}</span>
                                 </td>
                             </tr>
-                           
+
                             <tr class="order-shipping">
-                            @php $shippingTotal = 0; @endphp
-                            @foreach ($cart as $cartitem)
-                                        @php $shippingTotal = $shippingTotal+$cartitem->product->shipping_charge; @endphp
-                            @endforeach
-                            @php $all_item_total = $all_item_total+$shippingTotal; @endphp
+                                @php $shippingTotal = 0; @endphp
+                                @foreach ($cart as $cartitem)
+                                    @php $shippingTotal = $shippingTotal+$cartitem->product->shipping_charge; @endphp
+                                @endforeach
+                                @php $all_item_total = $all_item_total+$shippingTotal; @endphp
                                 <td>
                                     <h4>Shipping Charges</h4>
                                 </td>
                                 <td class="price-col">
-
-                                    <span>{{ $cartitem->product->currency }}{{ $shippingTotal }}</span>
+                                    <span id="shipment-charges">--</span>
                                 </td>
                             </tr>
                             <tr class="order-shipping">
@@ -287,22 +232,13 @@
                                     <h4>Total</h4>
                                 </td>
                                 <td>
-                                    <b
-                                        class="total-price"><span>{{ $cartitem->product->currency }}{{ $all_item_total }}</span></b>
+                                    <b class="total-price">Rs <span id="total-price">{{ $all_item_total }}</span></b>
                                 </td>
                             </tr>
                         </tfoot>
                     </table>
 
-                    <div class="payment-methods">
-                        <h4 class="">Payment methods</h4>
-                        <div class="info-box with-icon p-0">
-                            <p>
-                                Sorry, it seems that there are no available payment methods for your state. Please contact
-                                us if you require assistance or wish to make alternate arrangements.
-                            </p>
-                        </div>
-                    </div>
+                    
 
                     <button type="submit" class="btn btn-dark btn-place-order" form="checkout-form">
                         Place order
@@ -315,4 +251,12 @@
         <!-- End .row -->
     </div>
     <!-- End .container -->
+@endsection
+
+@section('scripts')
+    <script>
+        const CITIES = @json($cities);
+        const totalPrice = @json($all_item_total);
+    </script>
+    <script src="{{ url('website/assets/js/checkout.js') }}"></script>
 @endsection

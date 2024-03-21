@@ -24,10 +24,13 @@ class CheckOutController extends Controller
         try {
             $categories = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();
 
-            $cart = Cart::where('user_id', Auth::id())->get();
-            return view('website.pages.checkout', compact('categories',  'cart'));
+            $cart = Cart::where('user_id', Auth::id())->with(['product', 'variation'])->get();
+            $cities = config('constant.cities');
+            
+            
+            return view('website.pages.checkout', compact('categories',  'cart', 'cities'));
         } catch (\Throwable $th) {
-            return redirect(route('website.pages.checkout'))->with('error', $th->getMessage());
+            return redirect()->back()->with('error', $th->getMessage());
         }
     }
 
@@ -36,11 +39,7 @@ class CheckOutController extends Controller
 
         try {
             $order = OrderService::store($request);
-
-
             return redirect(route('user-dashboard'))->with('message', 'Order placed successfully.');
-
-
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }

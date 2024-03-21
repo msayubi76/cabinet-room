@@ -43,10 +43,11 @@ class CartController extends Controller
 
             $categories = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();
 
-            $cart = Cart::where('user_id', Auth::id())->get();
+            $cart = Cart::where('user_id', Auth::id())->with(['product', 'variation'])->get();
+          
             return view('website.pages.cart', compact('categories',  'cart'));
         } catch (\Throwable $th) {
-            return $th;
+            return redirect()->back()->with('error', $th->getMessage());
         }
     }
 

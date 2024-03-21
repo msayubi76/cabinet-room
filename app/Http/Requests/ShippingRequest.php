@@ -24,21 +24,16 @@ class ShippingRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => [ 'required', 'alpha', 'max:255'],
-            'last_name' => ['required', 'alpha', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
             'phone_number' => ['required'],
             'address' => ['required'],
             'city' => ['required'],
 
-            'post_code' => ['required'],
-            'country' => ['required'],
             'email' => ['required'],
 
-            // 'password' => ['required', 'confirmed'],
-            'notes' => ['nullable'],
+            'notes' => ['nullable', 'max:400'],
 
         ];
-
-
     }
 }
