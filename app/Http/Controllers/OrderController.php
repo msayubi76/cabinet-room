@@ -58,9 +58,10 @@ class OrderController extends Controller
         public function viewOrder(Order $order)
         {
                 try {
-                        $order_items = $order->orderDetails()->with('products')->get();
+                        $order_items = $order->orderDetails()->with('products', 'variation')->get();
                         $payment = $order->payment;
-                        $shipping_detail = $order->shipping;    
+                        $shipping_detail = $order->shipping;
+                        
                         return view('admin.orders.view-orderdetail', compact('order_items', 'shipping_detail', 'payment', 'order'));
                 } catch (\Throwable $th) {
                         return response()->json(['status' => false, 'message' => $th->getMessage()]);

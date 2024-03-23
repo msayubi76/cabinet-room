@@ -41,6 +41,7 @@ class CheckOutController extends Controller
             $order = OrderService::store($request);
             return redirect(route('user-dashboard'))->with('message', 'Order placed successfully.');
         } catch (\Throwable $th) {
+            dd($$th);
             return back()->with('error', $th->getMessage());
         }
     }

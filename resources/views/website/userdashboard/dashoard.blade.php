@@ -23,6 +23,8 @@
     </div>
 
     <div class="container account-container custom-account-container">
+
+        @include('alerts')
         <div class="row">
             <div class="sidebar widget widget-dashboard mb-lg-0 mb-3 col-lg-3 order-0">
                 <h2 class="text-uppercase">My Account</h2>
@@ -76,27 +78,18 @@
                                     <a href="#order" class="link-to-tab"><i class="sicon-social-dropbox"></i></a>
                                     <div class="feature-box-content">
                                         <h3> {{ $orders->count() }} ORDERS</h3>
-                                        <h3>  ORDERS Status</h3>
+                                        <h3> ORDERS Status</h3>
                                         @foreach ($orders as $orderlist)
-                                        @if ($orderlist->order_status == 'pending')
-                                        <span
-
-                                        class="badge badge-warning text-black">
-                                        {{ $orderlist->order_status  }}</span>
-                                        @elseif ($orderlist->order_status == 'rejected')
-                                        <span
-
-                                        class="badge badge-danger text-black">
-                                        {{ $orderlist->order_status  }}</span>
-
-                                        @else
-                                        <span
-
-                                        class=" badge badge-success text-black">
-                                        {{ $orderlist->order_status  }}</span>
-
-                                        @endif
-
+                                            @if ($orderlist->order_status == 'pending')
+                                                <span class="badge badge-warning text-black">
+                                                    {{ $orderlist->order_status }}</span>
+                                            @elseif ($orderlist->order_status == 'rejected')
+                                                <span class="badge badge-danger text-black">
+                                                    {{ $orderlist->order_status }}</span>
+                                            @else
+                                                <span class=" badge badge-success text-black">
+                                                    {{ $orderlist->order_status }}</span>
+                                            @endif
                                         @endforeach
 
 
@@ -123,72 +116,68 @@
                                 class="sicon-social-dropbox align-middle mr-3"></i>Orders</h3>
                         <div class="order-table-container text-center">
                             @if ($orders->count() > 0)
-                            <table class="table table-order text-left">
-                                <thead>
-                                    <tr>
-                                        <th class="order-id">Sr No</th>
+                                <table class="table table-order text-left">
+                                    <thead>
+                                        <tr>
+                                            <th class="order-id">Sr No</th>
 
-                                        <th class="order-status">Status</th>
-
-
-                                        <th class="order-price">Total Price</th>
-
-                                        <th class="order-status">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    @foreach ($orders as $orderlist)
-                                    <tr>
-                                      <td>
-                                        {{ $loop->count }}
-                                      </td>
+                                            <th class="order-status">Status</th>
 
 
-                                        <td >
-                                            @if ($orderlist->order_status == 'pending')
-                                            <span
+                                            <th class="order-price">Total Price</th>
 
-                                            class="badge badge-warning text-black">
-                                            {{ $orderlist->order_status  }}</span>
-                                            @elseif ($orderlist->order_status == 'rejected')
-                                            <span
+                                            <th class="order-status">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                                            class="badge badge-danger text-black">
-                                            {{ $orderlist->order_status  }}</span>
-
-                                            @else
-                                            <span
-
-                                            class=" badge badge-success text-black">
-                                            {{ $orderlist->order_status  }}</span>
-
-                                            @endif
-
-                                        </td>
+                                        @foreach ($orders as $orderlist)
+                                            <tr>
+                                                <td>
+                                                    {{ $loop->count }}
+                                                </td>
 
 
-                                        <td>
-                                            {{ $orderlist->payment->payment }}
+                                                <td>
+                                                    @if ($orderlist->order_status == 'pending')
+                                                        <span class="badge badge-warning text-black">
+                                                            {{ $orderlist->order_status }}</span>
+                                                    @elseif ($orderlist->order_status == 'rejected')
+                                                        <span class="badge badge-danger text-black">
+                                                            {{ $orderlist->order_status }}</span>
+                                                    @else
+                                                        <span class=" badge badge-success text-black">
+                                                            {{ $orderlist->order_status }}</span>
+                                                    @endif
 
-                                        </td>
-
-                                        <td>
-                                            <a href="{{ url('user-dashboard/order-detail/'.$orderlist->id) }}" ><i class="fas fa-external-link-alt " style="margin-left: 20px;"></i> <h5 class="porto-sicon-title ">Order Detail</h5></a>
+                                                </td>
 
 
-                                        </td>
+                                                <td>
+                                                    {{ $orderlist->payment->payment }}
 
-                                    </tr>
-                                @endforeach
+                                                </td>
+
+                                                <td>
+                                                    <a href="{{ url('user-dashboard/order-detail/' . $orderlist->id) }}"><i
+                                                            class="fas fa-external-link-alt "
+                                                            style="margin-left: 20px;"></i>
+                                                        <h5 class="porto-sicon-title ">Order Detail</h5>
+                                                    </a>
+
+
+                                                </td>
+
+                                            </tr>
+                                        @endforeach
 
 
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
                             @else
-                            <h5>No Order Available Yet</h5>
-                                @endif
+                                <h5>No Order Available Yet</h5>
+                            @endif
                             <hr class="mt-0 mb-3 pb-2" />
 
                             <a href="{{ '/products' }}" class="btn btn-dark">Go Shop</a>
@@ -295,105 +284,106 @@
 
                                 <tbody id="table_id">
                                     @foreach ($requestQuotes as $list)
-                                    <tr class="order_data" id='row_{{ $list->id }}'>
-                                        <td>{{ $list->id }}</td>
-                                        <td> {{ date('d F, Y h:i A', strtotime($list->created_at)) }}</td>
-                                        <td>{{ $list->name }}</td>
-                                        <td>
-                                            @if ($list->status==1)
-                                            <span class="badge badge-success">Accepted</span>
-                                            @elseif($list->status==2)
-                                            <span class="badge badge-danger">Rejected</span>
-                                            @else
-                                            <span class="badge badge-warning">Pending</span>
-                                            @endif
-                                        </td>
+                                        <tr class="order_data" id='row_{{ $list->id }}'>
+                                            <td>{{ $list->id }}</td>
+                                            <td> {{ date('d F, Y h:i A', strtotime($list->created_at)) }}</td>
+                                            <td>{{ $list->name }}</td>
+                                            <td>
+                                                @if ($list->status == 1)
+                                                    <span class="badge badge-success">Accepted</span>
+                                                @elseif($list->status == 2)
+                                                    <span class="badge badge-danger">Rejected</span>
+                                                @else
+                                                    <span class="badge badge-warning">Pending</span>
+                                                @endif
+                                            </td>
 
 
-                                        <td>
-                                            <div class="button-group">
-                                                <div class="btn-group">
+                                            <td>
+                                                <div class="button-group">
                                                     <div class="btn-group">
-                                                      <a class="dropdown-item" href="javascript:openQuoteModal({{ json_encode($list) }})">View</a>
+                                                        <div class="btn-group">
+                                                            <a class="dropdown-item"
+                                                                href="javascript:openQuoteModal({{ json_encode($list) }})">View</a>
 
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </div>
-                                @endforeach
-                                </tbody>
-                                </table>
-                            </div>
+                                            </td>
+                                        </tr>
                         </div>
+                        @endforeach
+                        </tbody>
+                        </table>
                     </div>
-                  
                 </div>
+            </div>
+
+        </div>
 
 
-            </div><!-- End .tab-content -->
-        </div><!-- End .row -->
+    </div><!-- End .tab-content -->
+    </div><!-- End .row -->
     </div><!-- End .container -->
 
     <div class="mb-5"></div><!-- margin -->
     <div class="modal fade" id="quoteModal">
-    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Quote Detail</h5>
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <table class="table-responsive">
-                    <tbody>
-                        <tr>
-                            <td width="100">Name</td>
-                            <td><span id="quote_name"></span></td>
-                        </tr>
-                        <tr>
-                            <td>Email</td>
-                            <td><span id="quote_email"></span></td>
-                        </tr>
-                        <tr>
-                            <td>Mobile no</td>
-                            <td> <span id="quote_phone"></span></td>
-                        </tr>
-                        <tr>
-                            <td>Address</td>
-                            <td> <span id="quote_address"></span></td>
-                        </tr>
-                        <tr>
-                            <td>discription</td>
-                            <td> <span id="quote_description"></span></td>
-                        </tr>
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Quote Detail</h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table-responsive">
+                        <tbody>
+                            <tr>
+                                <td width="100">Name</td>
+                                <td><span id="quote_name"></span></td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td><span id="quote_email"></span></td>
+                            </tr>
+                            <tr>
+                                <td>Mobile no</td>
+                                <td> <span id="quote_phone"></span></td>
+                            </tr>
+                            <tr>
+                                <td>Address</td>
+                                <td> <span id="quote_address"></span></td>
+                            </tr>
+                            <tr>
+                                <td>discription</td>
+                                <td> <span id="quote_description"></span></td>
+                            </tr>
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-            </form>
         </div>
     </div>
-</div>
 
 @endsection
 @section('scripts')
     <script>
-            function openQuoteModal(quote) {
-                console.log('quote', quote.discription);
+        function openQuoteModal(quote) {
+            console.log('quote', quote.discription);
 
-                document.getElementById('quote_name').innerHTML = quote.name;
-                document.getElementById('quote_email').innerHTML = quote.email;
-                document.getElementById('quote_phone').innerHTML = quote.phone;
-                document.getElementById('quote_address').innerHTML = quote.address;
-                document.getElementById('quote_description').innerHTML = quote.discription;
+            document.getElementById('quote_name').innerHTML = quote.name;
+            document.getElementById('quote_email').innerHTML = quote.email;
+            document.getElementById('quote_phone').innerHTML = quote.phone;
+            document.getElementById('quote_address').innerHTML = quote.address;
+            document.getElementById('quote_description').innerHTML = quote.discription;
 
-                $("#quoteModal").modal()
-            }
+            $("#quoteModal").modal()
+        }
         (function($) {
             "use strict"
 

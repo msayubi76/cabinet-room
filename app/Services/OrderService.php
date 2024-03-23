@@ -21,8 +21,8 @@ class OrderService
         DB::beginTransaction();
         $user = auth()->user();
 
-        $shipping_detail = ShippingService::store($request);
 
+        $shipping_detail = ShippingService::store($request);
 
         $payment = Payment::create(['user_id' => $user->id, 'amount' => 0, 'method' => 'cash_on_delivery']);
 
@@ -41,23 +41,34 @@ class OrderService
         $amount = 0;
         $shippingTotal = 0;
         $OrderDetailData = [];
-        foreach ($user->cartItems as  $item) :
+        $cartItems = $user->cartItems;
+
+        $cities = config('constant.cities');
+
+        $filteredCity = array_filter($cities, function ($city) use ($shipping_detail) {
+            return $city['name'] === $shipping_detail->city;
+        });
+        $foundCity = reset($filteredCity);
+        $city_charges = $foundCity['charges'];
+
+        foreach ($cartItems as  $item) :
 
             $product = $item->product;
 
             $quantity = $item->quantity;
 
             $saleprice = (float) $product->saleprice;
-            $shipping_charges = $product->shipping_charge;
+            $shipping_charges = $product->shipping_charge + $city_charges;
+
             $price = $saleprice * $quantity;
+            $variation_id = $item->variation_id;
 
             $amount =  $amount + round($price, 4);
-            $shippingTotal = $amount + round($shipping_charges, 4);
+            $total_amount = $amount + round($shipping_charges, 4);
 
-            $OrderDetailData[] = ['product_id' => $product->id, 'quantity' => $quantity, 'price' => $saleprice, 'order_id' => $order->id,'shipping_charges'=>$shipping_charges];
+            $OrderDetailData[] = ['product_id' => $product->id, 'quantity' => $quantity, 'price' => $saleprice, 'order_id' => $order->id,  'variation_id' => $variation_id];
         endforeach;
-
-        $payment->update(['payment' => $amount,'remaining_amount' => $amount ,'shipping_charges'=>$shippingTotal]);
+        $payment->update(['payment' => $amount, 'remaining_amount' => $amount, 'shipping_charges' => $shipping_charges, 'total_amount' => $total_amount]);
         OrderDetail::insert($OrderDetailData);
 
         $user->cartItems()->delete();

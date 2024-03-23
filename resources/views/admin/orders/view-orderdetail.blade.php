@@ -82,6 +82,10 @@
                                             </td>
                                             <td>
                                                 {{ $orderlist->products->name }}
+
+                                                @if ($orderlist->variation)
+                                                   ( {{ $orderlist->variation->value }})
+                                                @endif
                                             </td>
                                             <td>
                                                 {{ $orderlist->quantity }}
@@ -104,9 +108,27 @@
 
                                         </td>
                                         <td>
-                                            <b>Total</b>
+                                            <b>Shipping Charges</b>
+                                        </td>
+                                        <td>{{number_format($payment->shipping_charges, 2)}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+
+                                        </td>
+                                        <td>
+                                            <b>Sub Total</b>
                                         </td>
                                         <td>{{number_format($payment->payment, 2)}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+
+                                        </td>
+                                        <td>
+                                            <b>Total Amount</b>
+                                        </td>
+                                        <td>{{number_format($payment->total_amount, 2)}}</td>
                                     </tr>
                                 </tfoot>
 
@@ -115,16 +137,10 @@
                         </div>
                         
                         <div style="margin-top: 180px;">
-                            <h5>
-                                TERMS & CONDTION
-                            </h5>
-                            <P>Payment is due with in 30 days</P>
+                             
                         </div>
                         <div>
-                            <h5>
-                                NOTES
-                            </h5>
-                            <P>Please pay due with in time</P>
+                            
                         </div>
                     </div>
                 </div>

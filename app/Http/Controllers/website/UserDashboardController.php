@@ -27,30 +27,26 @@ class UserDashboardController extends Controller
             $cart = Cart::where('user_id', Auth::id())->get();
             $orders = Order::where('user_id', Auth::id())->get();
             $requestQuotes = RequestQuote::where('user_id', Auth::id())->get();
-            
-            return view('website.userdashboard.dashoard', compact('categories',  'cart', 'orders','requestQuotes'));
+
+            return view('website.userdashboard.dashoard', compact('categories',  'cart', 'orders', 'requestQuotes'));
         } catch (\Throwable $th) {
-            return response()->json(['status' => false, 'message' => $th->getMessage()]);
+            return redirect()->back()->with('error', $th->getMessage());
         }
     }
 
-    public function orderDetail( Order $order)
+    public function orderDetail(Order $order)
     {
         try {
             $categories = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();
 
             $cart = Cart::where('user_id', Auth::id())->get();
-            $order_items = $order->orderDetails()->with('products')->get();
-            // dd($order_items);
-            $payment = $order->payments;
-
+            $order_items = $order->orderDetails()->with(['products', 'variation'])->get();
+            $payment = $order->payment;
             $shipping_detail = $order->shipping;
 
-            // dd($shipping_detail);
-
-            return view('website.userdashboard.order-detail', compact('categories', 'order', 'cart', 'order_items','shipping_detail'));
+            return view('website.userdashboard.order-detail', compact('categories', 'order', 'cart', 'order_items', 'shipping_detail', 'payment'));
         } catch (\Throwable $th) {
-            return response()->json(['status' => false, 'message' => $th->getMessage()]);
+            return redirect()->back()->with('error', $th->getMessage());
         }
     }
 

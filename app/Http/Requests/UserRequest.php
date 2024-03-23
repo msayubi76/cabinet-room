@@ -31,7 +31,7 @@ class UserRequest extends FormRequest
         $route_id = $request->route('user');
 
 
-        if(empty($route_id) && $request->isMethod('put') ):
+        if (empty($route_id) && $request->isMethod('put')) :
             $route_id = auth()->user()->id;
         endif;
 
@@ -39,31 +39,25 @@ class UserRequest extends FormRequest
 
 
         $rules =  [
-            'name' => [ 'required', 'max:255'],
+            'name' => ['required', 'max:255'],
             'last_name' => ['required', 'max:255'],
             'mobile_no' => ['nullable',  'max:11'],
             'address' => ['nullable'],
             'city' => ['nullable'],
             'region' => ['nullable'],
-            'email' => ['required',Rule::unique('users')->ignore($route_id)],
-
-            // 'password' => ['required', 'confirmed'],
+            'email' => ['required', Rule::unique('users')->ignore($route_id)],
             'profile' => ['nullable', 'mimes:jpg,bmp,png'],
-
         ];
 
-
-        if((!empty($request->route('user') || !$request->isMethod('put') ) ) &&   !$request->isMethod('put') )  :
-
-            // $rules['password'] = ['required', 'confirmed'];
-
-
-
+        if ((!empty($request->route('user') || !$request->isMethod('put'))) &&   !$request->isMethod('put')) :
+        // $rules['password'] = ['required', 'confirmed'];
+        endif;
+        if (empty($request->route('user'))) :
+            $rules['email'] = ['nullable'];
         endif;
 
 
 
         return $rules;
-
     }
 }
