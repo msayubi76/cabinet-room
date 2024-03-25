@@ -179,6 +179,7 @@ class FrontendController extends Controller
             $categories = Category::where('is_active', '1')->with('subcategories')->get();
 
             $cart = Cart::where('user_id', Auth::id())->get();
+        
             return view('website.pages.privacy-and-policy', compact('categories',  'cart', 'setting'));
         } catch (\Throwable $th) {
             return response()->json(['status' => false, 'message' => $th->getMessage()]);
@@ -238,33 +239,7 @@ class FrontendController extends Controller
             return response()->json(['status' => false, 'message' => $th->getMessage()]);
         }
     }
-
-    // public function searchProductFilter(Request $request){
-    //     try {
-    //         $product_search = $request->search;
-    //         $minPrice = $request->minPrice;
-    //         $maxPrice = $request->maxPrice;
-    //         if ($product_search != "") {
-    //             $productlist = Product::where("name", "like", "%$product_search%")
-    //             ->where('saleprice','>',$minPrice)->where('saleprice','<',$maxPrice)->with('category')->paginate(50);
-    //             if ($productlist) {
-    //                 $categories = Category::where('is_active', '1')->with('subcategories')->get();
-    //                 $cart = Cart::where('user_id', Auth::id())->get();
-    //                 $featuredProducts = Product::where('is_feature_product', '1')->limit(8)->latest()->where('is_active', '1')->get();
-    //                 $min = round(Product::min('saleprice'));
-    //                 $max = round(Product::max('saleprice'));
-    //                 return view('website.pages.search',compact('productlist','categories','cart','featuredProducts','product_search','min','max'));
-    //             } else {
-    //                 return redirect()->back()->with("status", "No product match your search");
-    //             }
-    //         } else {
-    //             return redirect()->back();
-    //         }
-    //     }
-    //     catch (\Throwable $th) {
-    //         return response()->json(['status' => false, 'message' => $th->getMessage()]);
-    //     }
-    // }
+ 
 
     public function gallary()
     {

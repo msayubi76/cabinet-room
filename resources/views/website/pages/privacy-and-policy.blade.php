@@ -24,7 +24,7 @@
         <div class="container">
             <h2 class="subtitle">Privacy and policy</h2>
             
-                <div>{!!$setting->privacyAndPolicyDetail!!}</div>
+                <div>{!!$setting->privacy_detail!!}</div>
            
         </div><!-- End .container -->
     </div><!-- End .about-section -->

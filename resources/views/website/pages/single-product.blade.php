@@ -110,8 +110,8 @@
                         <a href="https://www.facebook.com/" class="social-icon social-facebook icon-facebook text-white"
                             target="_blank" title="Facebook"></a>
                         <!-- <a href="#" class="social-icon  text-white" target="_blank" title="Facebook">
-                                                                                                                        <i class="fa fa-whatsapp"></i>
-                                                                                                                    </a> -->
+                                                                                                                                <i class="fa fa-whatsapp"></i>
+                                                                                                                            </a> -->
 
                     </div>
                     <!-- End .product-desc -->
@@ -168,11 +168,14 @@
                         <!-- End .product-single-qty -->
                         @if (Auth::user() && !$product->is_for_request_quote)
                             @if ($productCheck == 1)
-                                <a class="btn btn-dark add-cart mr-2" title="Add to Cart">Add to Cart </a>
+                                <a class="btn btn-dark add-cart mr-2 btn-sm" title="Add to Cart">Add to Cart </a>
                             @endif
                             @if ($productCheck == 0)
-                                <a href="{{ url('cart') }}" class="btn btn-gray view-cart">View cart</a>
+                                <a href="{{ url('cart') }}" class="btn btn-gray view-cart btn-sm">View cart</a>
                             @endif
+                        @else
+                            <a class="btn btn-dark  mr-2 btn-sm" title="Add to Cart" data-toggle="modal"
+                                data-target="#loginModal">Add to Cart</a>
                         @endif
                         @if (Auth::user() && $product->is_for_request_quote == 1 && $quoteCheck == true)
                             <a class="btn btn-dark request-quote" data-toggle="modal" data-target="#requestModal">Request
@@ -546,7 +549,7 @@
 
                         <h5 class="modal-title" id=""><b>Welcome! Please Login to continue.</b></h5>
                     </div>
-                    <div class="d-flex flex-column text-center">
+                    <div class="d-flex flex-column  ">
                         <form class="form-valide" id="subcategory-form" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
@@ -561,7 +564,7 @@
                                     placeholder="Your password...">
                                 <div id="password_text" class="text-danger backend-error-text"></div>
                             </div>
-                            <button type="submit" class="btn btn-info btn-block btn-round login-btn"
+                            <button type="submit" class="btn btn-info btn-block btn-round login-btn btn-sm"
                                 onclick="loginUser()">Login</button>
                         </form>
 
@@ -790,9 +793,10 @@
                 const color = $('#color-list').find('li.active').data('id')
                 var product_id = $(this).closest('.product_data').find('.product_id').val();
                 var quantity = $(this).closest('.product_data').find('.horizontal-quantity').val();
-                console.log('color', color); 
+                
+                $(".add-cart").prop('disabled', true)
 
-                 
+
 
                 $.ajaxSetup({
                     headers: {
@@ -806,12 +810,13 @@
                         'product_id': product_id,
                         'quantity': quantity,
                         'color': color,
-                    },
-
+                    }, 
                     success: function(response) {
-                        $(".add-cart").css("display", "none"); 
                         swal("", response.status, "success");
                         setTimeout(location.reload(), 20000);
+                    },
+                    error: function(res){
+                        $(".add-cart").prop('disabled', false)
                     }
                 });
 

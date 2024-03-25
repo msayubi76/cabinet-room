@@ -25,16 +25,14 @@ class SettingRequest extends FormRequest
     {
         return [
 
-            'about_us_detail' => ['required'],
-            'contact_us_detail' => ['required'],
-            'name' => ['required'],
-            'email' => ['required'],
-            'mobile_no1' => ['required'],
-            'mobile_no2' => ['required'],
-
-            'address' => ['required'],
+            'about_us_detail' => ['nullable'],
+            'contact_us_detail' => ['nullable'],
+            'name' => ['nullable'],
+            'email' => ['nullable'],
+            'mobile_no1' => ['nullable'],
+            'mobile_no2' => ['nullable'],
+            'address' => ['nullable'],
             'privacy_detail' => ['nullable'],
-
         ];
     }
 }

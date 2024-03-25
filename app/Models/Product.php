@@ -28,7 +28,7 @@ class Product extends Model
         'feature_image_name',
         'folder_name',
         // 'images',
-
+        'stock',
         'length',
         'width',
         'is_feature_product',

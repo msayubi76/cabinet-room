@@ -93,7 +93,7 @@
                 <div class="testimonial">
                     <div class="testimonial-owner">
                         <figure>
-                            <img src="assets/images/clients/client1.png" alt="client">
+                            <img src="/website/assets/images/clients/client1.png" alt="client">
                         </figure>
 
                         <div>
@@ -111,7 +111,7 @@
                 <div class="testimonial">
                     <div class="testimonial-owner">
                         <figure>
-                            <img src="assets/images/clients/client2.png" alt="client">
+                            <img src="/website/assets/images/clients/client2.png" alt="client">
                         </figure>
 
                         <div>
@@ -129,7 +129,7 @@
                 <div class="testimonial">
                     <div class="testimonial-owner">
                         <figure>
-                            <img src="assets/images/clients/client1.png" alt="client">
+                            <img src="/website/assets/images/clients/client1.png" alt="client">
                         </figure>
 
                         <div>
