@@ -39,7 +39,7 @@ class ProductService
             $data['feature_image'] = url('/storage/products/' . $image_name);
         endif;
         $product = Product::create($data);
-
+       
         $product->update(['sku' => sprintf('CB01' . "%'06d", $product->id)]);
         $have_variations = $request->have_variations;
 

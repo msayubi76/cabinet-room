@@ -25,15 +25,16 @@ class ProductRequest extends FormRequest
      * @return array<string, mixed>
      */
     public function rules(Request $request)
-    { 
+    {  
         return [
             'name' => ['required', 'max:255'],
             'category_id' => ['required'],
             'sub_category_id' => ['nullable'],
             'description' => ['required'],
-            'actual_price' => ['required'],
+            'actual_price' => ['required_without:is_for_request_quote', 'nullable', 'integer'],
             'discount' => ['nullable', 'integer', 'max:100', 'min:0'],
-            'saleprice' => ['required'],
+            'saleprice' => ['required_without:is_for_request_quote', 'nullable', 'integer'],
+            'stock' => ['required', 'integer'],
             'have_variations' => ['nullable', 'boolean'],
             'feature_image' => [
                 'nullable', File::image()
@@ -55,6 +56,7 @@ class ProductRequest extends FormRequest
             'delivered_in' => ['nullable', 'string'],
             'rating' => ['nullable', 'min:1', 'max:5', 'numeric'],
             'is_installment_available' => ['nullable', 'boolean'],
+            'shipping_charge' =>['nullable', 'numeric']
 
         ];
     }

@@ -8,6 +8,8 @@ const priceIp = $('.price')
 const stockIp = $('.stock')
 const imagesIp = $('.images')
 
+const availableStock = $('#available-stock')
+
 $("#actualprice,#discount").keyup(function (e) {
     var actual = $("#actualprice").val();
     var discount = $("#discount").val();
@@ -84,7 +86,7 @@ function addMoreVariation(showSave = false) {
         </td>
         <td>
             <input class="form-control stock" type="number" required
-                name="Variation[${length}][stock]"
+                name="Variation[${length}][stock]"  onkeyup="updateStock()" onchange="updateStock()"
                 placeholder="Stock" />
                 <span class="error_stock text-danger Err"></span>
         </td>
@@ -111,6 +113,7 @@ function deleteVariation(element, variation = null) {
     if (variation == null) {
         row.remove()
         updateSerial()
+        updateStock()
         return
     }
 
@@ -154,6 +157,7 @@ function deleteVariation(element, variation = null) {
                     swal("Message", response.message, "success");
                     row.remove()
                     updateSerial()
+                    updateStock()
                 } else {
                     swal("Message", response.message, "error");
                 }
@@ -173,11 +177,14 @@ function enableDisableVariations(element) {
         productVariations.removeClass('d-none')
 
         $('#product-variations input').attr('required', true);
+        availableStock.attr('readonly', true)
+
 
     }
     if ($(element).length > 0 && !$(element).is(":checked")) {
         productVariations.addClass('d-none')
         $('#product-variations input').attr('required', false);
+        availableStock.attr('readonly', false)
     }
 }
 
@@ -244,4 +251,13 @@ function editVariation(element, variation = '') {
             row.find(".error_" + key).text(item[0])
         })
     });
+}
+
+function updateStock(){
+    let stock = 0
+    $.each($('.stock'), function (key, item) {
+        stock = stock + parseInt($(this).val())  || 0
+    })
+
+   availableStock.val(stock)
 }

@@ -49,7 +49,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-4">
-                                        <label for=""> Product SubCategory<span class="text-danger">*</span></label>
+                                        <label for=""> Product Sub Category</label>
                                         <select name="sub_category_id" id="subcategory" class="form-control">
                                             <option value="">-- Select sub Category --</option>
                                         </select>
@@ -161,8 +161,8 @@
                                                 value="{{ old('delivered_in') }}" name="delivered_in"
                                                 aria-label="Recipient's username" aria-describedby="basic-addon2">
                                             <!-- <div class="input-group-append">
-                                                                                                                                                                                                                        <span class="input-group-text" id="basic-addon2">Working days</span>
-                                                                                                                                                                                                                    </div> -->
+                                                                                                                                                                                                                            <span class="input-group-text" id="basic-addon2">Working days</span>
+                                                                                                                                                                                                                        </div> -->
                                         </div>
                                         @error('delivered_in')
                                             <div class="text-danger">{{ $message }}</div>
@@ -174,6 +174,15 @@
                                             max="5" placeholder="Rate" value="{{ old('rating') }}"
                                             name="rating">
                                         @error('rating')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="">Available Stock </label>
+                                        <input type="number" class="form-control input-default" min="1"
+                                            id="available-stock"  placeholder="Available Stock"
+                                            value="{{ old('stock') }}" name="stock">
+                                        @error('stock')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -295,9 +304,10 @@
                                                                 value="{{ old('Variation.' . $i . '.price', $variation['price']) }}">
                                                         </td>
                                                         <td>
-                                                            <input class="form-control" type="number"
+                                                            <input class="form-control stock" type="number"
                                                                 name="Variation[{{ $i }}][stock]" required
-                                                                placeholder="Stock"
+                                                                placeholder="Stock" onkeyup="updateStock()"
+                                                                onchange="updateStock()"
                                                                 value="{{ old('Variation.' . $i . '.stock', $variation['stock']) }}">
                                                         </td>
                                                         <td>

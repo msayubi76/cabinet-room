@@ -31,9 +31,7 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         try {
-            ProductService::store($request);
-
-
+            ProductService::store($request); 
             return redirect(route('products.index'))->with('success', 'Product added successfully.');
         } catch (\Throwable $th) {
             dd($th);

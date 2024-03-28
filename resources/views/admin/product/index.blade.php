@@ -26,6 +26,7 @@
                             <thead>
                                 <tr>
                                     <th>Name</th>
+                                    <th>Stock</th>
                                     <th>Category </th>
                                     <th>Sub Category</th>
                                     <th>Feature Image</th>
@@ -40,6 +41,7 @@
                                 @foreach ($products as $list)
                                 <tr id='row_{{$list->id}}'>
                                     <td>{{$list->name}}</td>
+                                    <td>{{$list->stock>0?$list->stock:'Out'}}</td>
                                     <td>{{ $list->category?$list->category->name:''}}</td>
                                     <td>{{ $list->subcategory?$list->subcategory->name:''}}</td>
                                     <td><img src="{{asset($list->feature_image)}}" width="50px" height="50px" alt="img">

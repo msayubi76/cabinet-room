@@ -160,11 +160,17 @@
 
                                     </div>
 
-                                </div>
+                                    <div class="col-md-4 mb-8">
+                                        <label for="">Shipping Charge </label>
+                                        <input type="text" class="form-control input-default" id="edit_shipping_charge"
+                                            placeholder="Shipping Charge" value="{{ $product->shipping_charge }}"
+                                            name="shipping_charge">
+                                            @error('shipping_charge')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
 
-
-
-                                <div class="form-group row ">
+                                    </div>
+                                   
 
                                     <div class="col-md-3 mb-8">
                                         <label for="">Product Currency<span class="text-danger">*</span></label>
@@ -204,7 +210,15 @@
                                         @enderror
                                     </div>
 
-
+                                    <div class="col-md-4">
+                                        <label for="">Available Stock </label>
+                                        <input type="number" class="form-control input-default" min="1"
+                                            id="available-stock"  placeholder="Available Stock"
+                                            value="{{ $product->stock }}" name="stock">
+                                        @error('stock')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
 
                                 </div>
 
@@ -341,7 +355,7 @@
                                                     </td>
                                                     <td>
                                                         <input class="form-control stock" type="number"
-                                                            name="Variation[{{ $i }}][stock]"
+                                                            name="Variation[{{ $i }}][stock]"  onkeyup="updateStock()" onchange="updateStock()"
                                                             placeholder="Stock" value="{{ $variation['stock'] }}">
                                                         <span class="error_stock text-danger Err"></span>
                                                     </td>

@@ -21,9 +21,10 @@
 
         <div class="row">
             <div class="col-lg-7">
+                {{ $errors }}
                 <ul class="checkout-steps">
                     <li>
-                        <h2 class="step-title">Billing details</h2>
+                        <h2 class="step-title">Billing Details</h2>
                         @if (session('message'))
                             <div class="alert alert-success"> {{ session('message') }}</div>
                         @endif
@@ -186,7 +187,7 @@
                         <tfoot>
                             <tr class="cart-subtotal">
                                 <td>
-                                    <h4>Subtotal</h4>
+                                    <h4>Sub Total</h4>
                                 </td>
 
                                 <td class="price-col">

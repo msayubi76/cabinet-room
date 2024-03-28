@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ShippingRequest extends FormRequest
+class   ShippingRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,10 +28,8 @@ class ShippingRequest extends FormRequest
             'last_name' => ['required', 'string', 'max:255'],
             'phone_number' => ['required'],
             'address' => ['required'],
-            'city' => ['required'],
-
+            'city' => ['required'], 
             'email' => ['required'],
-
             'notes' => ['nullable', 'max:400'],
 
         ];

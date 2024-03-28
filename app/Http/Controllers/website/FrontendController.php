@@ -46,9 +46,7 @@ class FrontendController extends Controller
     public function categories()
     {
         try {
-
             $categories = Category::where('is_active', '1')->with('subcategories')->get();
-
             $cart = Cart::where('user_id', Auth::id())->get();
             return view('website.pages.categories', compact('categories', 'subcategory', 'cart'));
         } catch (\Throwable $th) {
@@ -122,6 +120,7 @@ class FrontendController extends Controller
         $categories = Category::where('is_active', '1')->with('subcategories')->get();
         $featuredProductsPrevese = Product::where('is_feature_product', '1')->where('is_active', '1')->limit(1)->get();
         $latestPoductsNext = Product::orderBy('id', 'DESC')->where('is_active', '1')->limit(1)->get();
+        $product->load('variations');
 
         $colors = $product->variations()->where('name', 'color')->with('media')->get();
 
@@ -141,7 +140,7 @@ class FrontendController extends Controller
             if ($cartItem->product_id == $product->id) {
                 $productCheck = 0;
             }
-        }
+        } 
 
         return view('website.pages.single-product', compact('categories', 'colors', 'product', 'relatedProducts', 'featuredProductsFooter', 'arrivialProductsFooter', 'cart', 'latestPoductsFooter', 'featuredProductsPrevese', 'latestPoductsNext', 'productCheck', 'quoteCheck'));
     }

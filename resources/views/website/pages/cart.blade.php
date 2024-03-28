@@ -161,8 +161,8 @@
                 <div class="modal-header">
                     <input type="hidden" value="-1" id="deleteID">
 
-                    <h5 class="modal-title" id="exampleModalLongTitle">Delete Cart Item
-                    </h5>
+                    <h3 class="modal-title" id="exampleModalLongTitle">Delete Cart Item
+                    </h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -171,8 +171,8 @@
                     Are you sure you want to delete this Cart Item?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                    <button type="button" id="button-delete" class="btn btn-primary"
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+                    <button type="button" id="button-delete" class="btn btn-primary btn-sm"
                         onclick="deleteCartItem()">Yes</button>
                 </div>
             </div>

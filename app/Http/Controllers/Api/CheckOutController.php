@@ -26,6 +26,8 @@ class CheckOutController extends Controller
 
             $cart = Cart::where('user_id', Auth::id())->with(['product', 'variation'])->get();
             $cities = config('constant.cities');
+
+             
             
             
             return view('website.pages.checkout', compact('categories',  'cart', 'cities'));
@@ -36,7 +38,7 @@ class CheckOutController extends Controller
 
     public function store(ShippingRequest $request)
     {
-
+ 
         try {
             $order = OrderService::store($request);
             return redirect(route('user-dashboard'))->with('message', 'Order placed successfully.');

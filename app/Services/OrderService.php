@@ -13,6 +13,7 @@ use App\Models\ShippingDetails;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ShppingRequest;
+use App\Models\Variation;
 
 class OrderService
 {
@@ -51,6 +52,8 @@ class OrderService
         $foundCity = reset($filteredCity);
         $city_charges = $foundCity['charges'];
 
+        $total_quantity = 0;
+
         foreach ($cartItems as  $item) :
 
             $product = $item->product;
@@ -65,8 +68,14 @@ class OrderService
 
             $amount =  $amount + round($price, 4);
             $total_amount = $amount + round($shipping_charges, 4);
-
             $OrderDetailData[] = ['product_id' => $product->id, 'quantity' => $quantity, 'price' => $saleprice, 'order_id' => $order->id,  'variation_id' => $variation_id];
+
+            // inventory
+             
+            $variation = Variation::find($variation_id);
+            $variation->update(['stock' => $variation->stock - $quantity]);
+            $product->update(['stock' => $product->stock - $quantity]);
+
         endforeach;
         $payment->update(['payment' => $amount, 'remaining_amount' => $amount, 'shipping_charges' => $shipping_charges, 'total_amount' => $total_amount]);
         OrderDetail::insert($OrderDetailData);

@@ -16,7 +16,7 @@
             </div>
 
             <div class="row">
-                <div class="col-lg-5 col-md-6 product-single-gallery">
+                <div class="col-lg-5 col-md-6 product-single-gallery hidden-overflow">
                     <div class="product-slider-container">
 
 
@@ -29,6 +29,14 @@
                                             alt="product" />
                                     </div>
                                 @endforeach
+                            @endforeach
+
+                            @foreach ($product->images as $image)
+                                <div class="product-item">
+                                    <img class="product-single-image" src="{{ $image->url }}"
+                                        data-zoom-image="{{ $image->url }}" width="468" height="468"
+                                        alt="product" />
+                                </div>
                             @endforeach
                         </div>
 
@@ -47,6 +55,12 @@
                                 </div>
                             @endforeach
                         @endforeach
+
+                        @foreach ($product->images as $image)
+                            <div class="owl-dot">
+                                <img src="{{ $image->url }}" width="110" height="110" alt="product-thumbnail" />
+                            </div>
+                        @endforeach
                     </div>
 
 
@@ -54,7 +68,7 @@
                 </div>
                 <!-- End .product-single-gallery -->
 
-                <div class="col-lg-7 col-md-6 product-single-details">
+                <div class="col-lg-7 col-md-6 product-single-details ">
                     <h1 class="product-title">{!! $product->name !!}</h1>
                     <table>
                         <tbody>
@@ -62,12 +76,19 @@
                                 <td width="120">SKU:</td>
                                 <td>{{ $product->sku ? $product->sku : 'N/A' }}</td>
                                 <td width="50"></td>
-                                <td>Availability:</td>
-                                <td>{{ $product->is_active ? $product->is_active : 'N/A' }}</td>
+                                <td></td>
+                                @if ($product->is_active)
+                                    <td id="stock-text"></td>
+                                @else
+                                    <td>Not Available</td>
+                                @endif
                             </tr>
                             <tr>
-                                <td width="120">Delivered In:</td>
-                                <td>{{ $product->delivered_in ? $product->delivered_in : 'N/A' }}</td>
+                                @if ($product->delivered_in)
+                                    <td width="120">Delivered In:</td>
+                                    <td>{{ $product->delivered_in ? $product->delivered_in . ' Days' : 'N/A' }}</td>
+                                @endif
+
                                 <td width="50"></td>
                                 @if ($product->rating)
                                     <div class="ratings-container">
@@ -110,8 +131,8 @@
                         <a href="https://www.facebook.com/" class="social-icon social-facebook icon-facebook text-white"
                             target="_blank" title="Facebook"></a>
                         <!-- <a href="#" class="social-icon  text-white" target="_blank" title="Facebook">
-                                                                                                                                <i class="fa fa-whatsapp"></i>
-                                                                                                                            </a> -->
+                                                                                                                                                                <i class="fa fa-whatsapp"></i>
+                                                                                                                                                            </a> -->
 
                     </div>
                     <!-- End .product-desc -->
@@ -137,7 +158,7 @@
                         <div class="product-single-filter"><label>Color:</label>
                             <ul class="config-size-list config-color-list config-filter-list" id="color-list">
                                 @foreach ($colors as $key => $color)
-                                    <li data-id="{{ $color->id }}" class="{{ $key == 0 ? 'active' : '' }}">
+                                    <li data-id="{{ $color->id }}" class="{{ $key == 0 ? 'active' : '' }}" onclick="onChangeVariation({{ $color->id }})">
                                         <a href="javascript:;" class="filter-color border"
                                             style="background-color: {{ $color->value }};"></a>
                                     </li>
@@ -168,17 +189,17 @@
                         <!-- End .product-single-qty -->
                         @if (Auth::user() && !$product->is_for_request_quote)
                             @if ($productCheck == 1)
-                                <a class="btn btn-dark add-cart mr-2 btn-sm" title="Add to Cart">Add to Cart </a>
+                                <button class="btn btn-dark add-cart mr-2 btn-sm" id="add-to-cart" title="Add to Cart">Add to Cart </button>
                             @endif
                             @if ($productCheck == 0)
                                 <a href="{{ url('cart') }}" class="btn btn-gray view-cart btn-sm">View cart</a>
                             @endif
                         @else
-                            <a class="btn btn-dark  mr-2 btn-sm" title="Add to Cart" data-toggle="modal"
+                            <a class="btn btn-dark  mr-2 btn-sm" title="Add to Cart" data-toggle="modal" id="add-to-cart"
                                 data-target="#loginModal">Add to Cart</a>
                         @endif
                         @if (Auth::user() && $product->is_for_request_quote == 1 && $quoteCheck == true)
-                            <a class="btn btn-dark request-quote" data-toggle="modal" data-target="#requestModal">Request
+                            <a class="btn btn-dark  btn-sm" data-toggle="modal" data-target="#requestModal">Request
                                 Quote</a>
                         @endif
                     </div>
@@ -645,7 +666,7 @@
 
                     <div class="modal-footer d-flex justify-content-center">
                         <button type="button" onclick="requestQuote()"
-                            class="btn btn-info btn-sm btn-round add-quote">Request Quote</button>
+                            class="btn btn-info btn-sm btn-round add-quote btn-sm">Request Quote</button>
 
                     </div>
                 </form>
@@ -657,6 +678,9 @@
 @endsection
 @section('scripts')
 
+    <script>
+        const PRODUCT = @json($product);
+    </script>
     <script src="{{ asset('website/assets/js/products.js') }}"></script>
     <script>
         function requestQuote() {
@@ -793,7 +817,7 @@
                 const color = $('#color-list').find('li.active').data('id')
                 var product_id = $(this).closest('.product_data').find('.product_id').val();
                 var quantity = $(this).closest('.product_data').find('.horizontal-quantity').val();
-                
+
                 $(".add-cart").prop('disabled', true)
 
 
@@ -810,12 +834,12 @@
                         'product_id': product_id,
                         'quantity': quantity,
                         'color': color,
-                    }, 
+                    },
                     success: function(response) {
                         swal("", response.status, "success");
                         setTimeout(location.reload(), 20000);
                     },
-                    error: function(res){
+                    error: function(res) {
                         $(".add-cart").prop('disabled', false)
                     }
                 });
