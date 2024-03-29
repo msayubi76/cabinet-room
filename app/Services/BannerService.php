@@ -12,7 +12,8 @@ use App\Http\Requests\BannerRequest;
 
 class BannerService
 {
-    public static function getBanners(){
+    public static function getBanners()
+    {
         return Banner::orderBy('id', 'DESC')->paginate(30);
     }
 
@@ -40,10 +41,22 @@ class BannerService
         return $response;
     }
 
-    public static function update(BannerRequest $request, Banner $banner){
+    public static function update(BannerRequest $request, Banner $banner)
+    {
         DB::beginTransaction();
 
         $data = $request->validated();
+        
+        if ($request->hasFile('banner_image')) :
+            $image_name = FileUploadTrait::fileUpload($request->banner_image, 'banners');
+
+            $data['image_folder'] = 'banners';
+            $data['image_name'] =  $image_name;
+            $data['image_url'] = url('/storage/banners/' . $image_name);
+          
+
+            FileUploadTrait::fileDeleted($banner->image_name, $banner->image_folder);
+        endif;
 
         $banner->update($data);
 
@@ -65,7 +78,4 @@ class BannerService
         $response = ['status' => true, 'message' => 'Banner removed  successfully.'];
         return $response;
     }
-
-
-
 }

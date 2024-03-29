@@ -14,6 +14,7 @@
                 {{-- <strong class="single-cart-notice">“{{ $product->name }}”</strong>
                 <span>has been added to your cart.</span> --}}
             </div>
+            @include('alerts')
 
             <div class="row">
                 <div class="col-lg-5 col-md-6 product-single-gallery hidden-overflow">
@@ -624,9 +625,9 @@
                             <input type="hidden" id="product_id" name="product_id" value="{{ $product->id }}">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <input type="email" id="email" name="email" class="form-control"
+                                    <input type="email" id="user_email" name="email" class="form-control"
                                         id="email"placeholder="Your email address..." required>
-                                    <div id="email_text" class="text-danger backend-error-text"></div>
+                                    <div id="user_email_text" class="text-danger backend-error-text"></div>
 
                                 </div>
                                 <div class="col-md-6">
@@ -690,7 +691,7 @@
             // e.preventDefault();
             var user_id = $('#user_id').val();
             var product_id = $('#product_id').val();
-            var email = $('#email').val();
+            var email = $('#user_email').val();
             var name = $('#name').val();
             var address = $('#address').val();
             var phone = $('#phone').val();
@@ -708,7 +709,7 @@
                 data: {
                     'user_id': user_id,
                     'product_id': product_id,
-                    'email': email,
+                    'user_email': email,
                     'name': name,
                     'address': address,
                     'phone': phone,
@@ -800,12 +801,15 @@
                 }
                 // dataAttr = $(element).closest('.tab').data('id')
                 // $(`.step-${dataAttr}`).addClass('backend-error')
+
+                console.log(type, $(`#${element}_text`));
                 if (type == 'edit') {
-                    console.log('edit', element);
+                   
                     $(`#edit_${element}_text`).text(item[0])
                 } else if (type == 'create') {
                     $(`#${element}_text`).text(item[0])
                 }
+                
             });
 
             return errorMessage;

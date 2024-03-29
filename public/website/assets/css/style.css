@@ -5729,6 +5729,12 @@ figure .porto-loading-icon {
 .hidden-overflow{
     overflow: hidden;
 }
+.category-container figure img {
+    height: 99px !important;
+    width: 100%;
+    object-fit: cover;
+}
+ 
 
 .modal#addCartModal {
     width: 340px;

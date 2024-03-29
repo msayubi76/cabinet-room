@@ -19,6 +19,7 @@ class RequestQuoteService
     {
         DB::beginTransaction();
         $data = $request->validated();
+        $data['email'] = $request->user_email;
         $requestQuote = RequestQuote::create($data);
        
         DB::commit();

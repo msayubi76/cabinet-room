@@ -17,7 +17,7 @@ trait FileUploadTrait
         return $filename;
     }
 
-    public function fileDeleted($photo, $path = null)
+    public static function fileDeleted($photo, $path = null)
     {
         $image_path = public_path('images/' . $path . '/' . $photo);
         if (File::exists($image_path)) {

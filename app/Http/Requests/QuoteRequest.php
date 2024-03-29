@@ -28,7 +28,7 @@ class QuoteRequest extends FormRequest
             'product_id' => ['required'],
 
             'name' => ['required'],
-            'email' => ['required'],
+            'user_email' => ['required'],
             'phone' => ['required'],
             'address' => ['required'],
 
