@@ -14,6 +14,7 @@ use App\Http\Controllers\website\FacebookAuthController;
 
 // ----------> Webste layout <------------- //
 Route::get('/', [FrontendController::class, 'index']);
+ 
 Route::get('products/{category?}/{sub_category?}', [FrontendController::class, 'products'])->name('products');
 // Route::get('products-filter/{category?}/{sub_category?}', [FrontendController::class, 'productsFilter'])->name('productsFilter');
 

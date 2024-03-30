@@ -24,60 +24,60 @@
                                 <div class="form-group row mb-8">
 
                                     <div class="col-md-12">
-                                        <input type="text" class="form-control input-default" id="edit_name"
-                                        placeholder="Banner Name" value="{{ $banner->name }}" name="name">
+                                        <select name="name" id="name">
+                                            <option value="home" class="form-control input-default">Home</option>
+                                        </select>
+                                         
                                         @error('name')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                    </div>
-
-
-                                    </div>
-
-
-                                </div>
-
-
-
-                                <div class="form-group row mb-8">
-                                    <div class="col-md-12">
-                                        <div class="mb-8">
-                                            <img src="{{ asset( $banner->image_url) }}" width="50px"
-                                                height="50px" alt="img">
-                                        </div>
-                                        <input type="file" class="form-control" id="edit_banner_image" name="banner_image"
-                                            placeholder="banner image" :value="old('banner_image')">
-                                            @error('banner_image')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
 
 
-
                                 </div>
 
 
-
-
-
-
-
-                                <div class="modal-footer">
-                                    <a href="{{ url('/admin/banners') }}" type="button" class="btn btn-secondary">
-                                        Close </a>
-                                    <button type="submit" id="button-update"
-                                        class="btn btn-primary">Update Banner</button>
-                                </div><br>
-
-
-
-                            </form>
                         </div>
+
+
+
+                        <div class="form-group row mb-8">
+                            <div class="col-md-12">
+                                <div class="mb-8">
+                                    <img src="{{ asset($banner->image_url) }}" width="50px" height="50px"
+                                        alt="img">
+                                </div>
+                                <input type="file" class="form-control" id="edit_banner_image" name="banner_image"
+                                    placeholder="banner image" :value="old('banner_image')">
+                                @error('banner_image')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+
+
+
+                        <div class="modal-footer">
+                            <a href="{{ url('/admin/banners') }}" type="button" class="btn btn-secondary">
+                                Close </a>
+                            <button type="submit" id="button-update" class="btn btn-primary">Update Banner</button>
+                        </div><br>
+
+
+
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
 
 @endsection
-

@@ -21,26 +21,22 @@ class FrontendController extends Controller
 
     public function index()
     {
-        try {
-            $categories = Category::where('is_active', '1')->with('subcategories')->get();
+        $categories = Category::where('is_active', '1')->with(['subcategories', 'products.category' => function ($query) {
+            return $query->where('is_active', 1)->limit(18);
+        }])->get();
+        $featuredProducts = Product::where('is_feature_product', '1')->limit(12)->latest()->where('is_active', '1')->get();
+        $arrivialProducts = Product::latest()->where('is_active', '1')->limit(12)->get();
+
+        $cart = Cart::where('user_id', Auth::id())->get();
+        $banners = Banner::orderBy('id', 'DESC')->where('name', 'home')->get();
+        $saleItems = Product::where('discount', '>', '0')->with(['category'])->limit(24)->latest()->where('is_active', '1')->limit(36)->get();
+
+        $categoriesWithProducts = $categories->filter((function ($category) {
+            return $category->products()->count() > 0;
+        })); 
 
 
-
-
-            $featuredProducts = Product::where('is_feature_product', '1')->limit(8)->latest()->where('is_active', '1')->get();
-            $arrivialProducts = Product::where('is_arrival_product', '1')->where('is_active', '1')->get();
-            $featuredProductsFooter = Product::where('is_feature_product', '1')->where('is_active', '1')->limit(3)->get();
-            $latestrPoductsFooter = Product::orderBy('id', 'DESC')->where('is_active', '1')->limit(3)->get();
-            $arrivialProductsFooter = Product::where('is_arrival_product', '1')->where('is_active', '1')->limit(3)->get();
-            $cart = Cart::where('user_id', Auth::id())->get();
-            $banners = Banner::orderBy('id', 'DESC')->get();
-            $contact = Setting::orderBy('id', 'DESC')->get();
-
-
-            return view('website.index', compact('categories',  'featuredProducts', 'arrivialProducts', 'featuredProductsFooter', 'arrivialProductsFooter', 'latestrPoductsFooter', 'cart', 'banners', 'contact'));
-        } catch (\Throwable $th) {
-            return response()->json(['status' => false, 'message' => $th->getMessage()]);
-        }
+        return view('website.index', compact('categories',  'featuredProducts', 'arrivialProducts',   'cart', 'banners', 'saleItems', 'categoriesWithProducts'));
     }
 
     public function categories()
@@ -140,7 +136,7 @@ class FrontendController extends Controller
             if ($cartItem->product_id == $product->id) {
                 $productCheck = 0;
             }
-        } 
+        }
 
         return view('website.pages.single-product', compact('categories', 'colors', 'product', 'relatedProducts', 'featuredProductsFooter', 'arrivialProductsFooter', 'cart', 'latestPoductsFooter', 'featuredProductsPrevese', 'latestPoductsNext', 'productCheck', 'quoteCheck'));
     }
@@ -178,7 +174,7 @@ class FrontendController extends Controller
             $categories = Category::where('is_active', '1')->with('subcategories')->get();
 
             $cart = Cart::where('user_id', Auth::id())->get();
-        
+
             return view('website.pages.privacy-and-policy', compact('categories',  'cart', 'setting'));
         } catch (\Throwable $th) {
             return response()->json(['status' => false, 'message' => $th->getMessage()]);
@@ -238,7 +234,7 @@ class FrontendController extends Controller
             return response()->json(['status' => false, 'message' => $th->getMessage()]);
         }
     }
- 
+
 
     public function gallary()
     {

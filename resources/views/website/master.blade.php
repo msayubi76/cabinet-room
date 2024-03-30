@@ -53,6 +53,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,400;1,100&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" href="https://kenwheeler.github.io/slick/slick/slick-theme.css" type="text/css">
 
 
     <!-- Main CSS File -->
@@ -66,6 +68,48 @@
 
         body {
             font-family: 'Montserrat', sans-serif;
+        }
+
+        .sale-items .slick-slide img {
+            height: 150px !important;
+        }
+
+        .sale-items .slick-slide {
+            padding-right: 4px;
+        }
+
+        .sale-items .slick-prev {
+            left: -40px;
+        }
+
+        .slick-next:before,
+        .slick-prev:before {
+            content: '';
+        }
+
+        .slick-prev,
+        .slick-next {
+            font-size: 36px;
+            color: black;
+        }
+
+        .slick-prev:hover,
+        .slick-prev:focus,
+        .slick-next:hover,
+        .slick-next:focus {
+            color: black;
+        }
+
+        .just-launched img {
+            height: 200px !important;
+        }
+
+        .featured-products img {
+            height: 150px !important;
+        }
+
+        .categories-products img {
+            height: 220px !important;
         }
     </style>
 </head>
@@ -121,6 +165,7 @@
     <script src="{{ asset('website/assets/js/jquery.appear.min.js') }}"></script>
     <script src="{{ url('admin-assets/plugins/sweetalert/js/sweetalert.min.js') }}"></script>
     <script src="{{ asset('website/assets/js/jquery.ui.js') }}"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
     <script>
         var availableTags = [];
@@ -146,7 +191,7 @@
     <script src="{{ asset('website/assets/js/main.min.js') }}"></script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script> --}}
     @yield('scripts')
-</body> 
+</body>
 
 
 </html>
