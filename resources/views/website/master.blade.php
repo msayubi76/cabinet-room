@@ -53,8 +53,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,400;1,100&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-    <link rel="stylesheet" href="https://kenwheeler.github.io/slick/slick/slick-theme.css" type="text/css">
+    <link href="{{ url('admin-assets/plugins/slick.css') }}" rel="stylesheet">
+    <link href="{{ url('admin-assets/plugins/slick-theme.css') }}" rel="stylesheet">
 
 
     <!-- Main CSS File -->
@@ -165,7 +165,7 @@
     <script src="{{ asset('website/assets/js/jquery.appear.min.js') }}"></script>
     <script src="{{ url('admin-assets/plugins/sweetalert/js/sweetalert.min.js') }}"></script>
     <script src="{{ asset('website/assets/js/jquery.ui.js') }}"></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="{{ url('admin-assets/plugins/slick.min.js') }}"></script> 
 
     <script>
         var availableTags = [];
