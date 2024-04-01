@@ -87,15 +87,7 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="col-md-6 mb-8">
-                                        <label for=""> Mobile Number</label>
-                                        <input type="text" class="form-control input-default" placeholder="Mobile Number"
-                                            value="{{ old('mobile_no2') ? old('mobile_no2') : $setting->mobile_no2 }}"
-                                            name="mobile_no2">
-                                        @error('mobile_no2')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+                                   
 
 
                                 </div>

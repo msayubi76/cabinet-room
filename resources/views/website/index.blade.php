@@ -106,7 +106,8 @@
                             </h3>
                             <!-- End .product-container -->
                             <div class="price-box">
-                                <span class="product-price">{{ $saleItem->currency }}{{  (int)$saleItem->saleprice }}</span>
+                                <span
+                                    class="product-price">{{ $saleItem->currency }}{{ (int) $saleItem->saleprice }}</span>
                             </div>
 
                         </div>
@@ -147,20 +148,32 @@
                     }
                 }">
                 @foreach ($arrivialProducts as $arriviallist)
-                    <div class="product-default  new-arrival">
-                        <figure>
+                    <div class="  new-arrival product-default inner-quickview inner-icon appear-animate animated fadeInUpShorter appear-animation-visible"
+                        data-animation-name="fadeInUpShorter">
+                        <figure class="img-effect">
                             <a href="{{ url('product/' . $arriviallist->id) }}">
                                 <img src="{{ $arriviallist->feature_image }}" alt="product">
                                 <img src="{{ $arriviallist->feature_image }}" alt="product">
                             </a>
-                            <div class="label-group">
-                                {{-- <div class="product-label label-hot">HOT</div> --}}
-                                @if ($arriviallist->discount > 0)
+                            @if ($arriviallist->is_for_request_quote)
+                                <div class="label-group">
+                                    {{-- <div class="product-label label-hot">HOT</div> --}}
+                                    <div class="product-label label-sale">
+                                        request for quote
+                                    </div>
+                                </div>
+                            @elseif ($arriviallist->discount > 0)
+                                <div class="label-group">
+                                    {{-- <div class="product-label label-hot">HOT</div> --}}
                                     <div class="product-label label-sale">
                                         {{ substr($arriviallist->discount, 0, 2) }}%
                                     </div>
-                                @endif
-                            </div>
+                                </div>
+                            @endif
+                            @if ($arriviallist->is_for_request_quote)
+                                <span class="btn-quickview pointer" title="Quote Request"
+                                    onclick="showQuoteRequestModal({{ $arriviallist }})"> Quote Request</span>
+                            @endif
                         </figure>
                         <div class="product-details">
                             <div class="category-list">
@@ -174,12 +187,12 @@
                             <div class="price-box" style="width: max-content;">
                                 @if ($arriviallist->discount > 0)
                                     <del
-                                        class="old-price">{{ $arriviallist->currency }}{{  (int)$arriviallist->actual_price }}</del>
+                                        class="old-price">{{ $arriviallist->currency }}{{ (int) $arriviallist->actual_price }}</del>
                                     <span
-                                        class="product-price">{{ $arriviallist->currency }}{{ (int)$arriviallist->saleprice }}</span>
-                                @else
+                                        class="product-price">{{ $arriviallist->currency }}{{ (int) $arriviallist->saleprice }}</span>
+                                @elseif($arriviallist->saleprice > 0)
                                     <span
-                                        class="product-price">{{ $arriviallist->currency }}{{  (int)$arriviallist->saleprice }}</span>
+                                        class="product-price">{{ $arriviallist->currency }}{{ (int) $arriviallist->saleprice }}</span>
                                 @endif
 
                             </div>
@@ -228,19 +241,31 @@
 
 
                 @foreach ($featuredProducts as $featuredlist)
-                    <div class="product-default feature-product ">
+                    <div class="product-default feature-product inner-quickview inner-icon">
                         <figure>
                             <a href="{{ url('product/' . $featuredlist->id) }}">
                                 <img src="{{ $featuredlist->feature_image }}" width="280" height="280" alt="product">
                                 <img src="{{ $featuredlist->feature_image }}" width="280" height="280" alt="product">
                             </a>
-                            <div class="label-group">
-                                {{-- <div class="product-label label-hot">HOT</div> --}}
-                                @if ($featuredlist->discount > 0)
+                            @if ($featuredlist->is_for_request_quote)
+                                <div class="label-group">
+                                    {{-- <div class="product-label label-hot">HOT</div> --}}
+                                    <div class="product-label label-sale">
+                                        request for quote
+                                    </div>
+                                </div>
+                            @elseif($featuredlist->discount > 0)
+                                <div class="label-group">
+                                    {{-- <div class="product-label label-hot">HOT</div> --}}
                                     <div class="product-label label-sale">{{ substr($featuredlist->discount, 0, 2) }}%
                                     </div>
-                                @endif
-                            </div>
+                                </div>
+                            @endif
+
+                            @if ($featuredlist->is_for_request_quote)
+                                <span class="btn-quickview pointer" title="Quote Request"
+                                    onclick="showQuoteRequestModal({{ $arriviallist }})"> Quote Request</span>
+                            @endif
                         </figure>
                         <div class="product-details">
                             <div class="category-list">
@@ -266,12 +291,12 @@
                                     </div>
                                 </div>
                             @endif
-                            <div class="price-box">
-
-                                <span
-                                    class="product-price">{{ $featuredlist->currency }}{{ (int) $featuredlist->saleprice }}</span>
-
-                            </div>
+                            @if ($featuredlist->saleprice > 0)
+                                <div class="price-box">
+                                    <span
+                                        class="product-price">{{ $featuredlist->currency }}{{ (int) $featuredlist->saleprice }}</span>
+                                </div>
+                            @endif
 
                         </div>
 
@@ -317,21 +342,31 @@
                     }
                 }">
                     @foreach ($category->products as $featuredlist)
-                        <div class="product-default feature-product ">
-                            <figure>
+                        <div class="product-default feature-product inner-quickview inner-icon">
+                            <figure class="img-effect">
                                 <a href="{{ url('product/' . $featuredlist->id) }}">
                                     <img src="{{ $featuredlist->feature_image }}" width="280" height="280"
                                         alt="product">
                                     <img src="{{ $featuredlist->feature_image }}" width="280" height="280"
                                         alt="product">
                                 </a>
-                                <div class="label-group">
-                                    {{-- <div class="product-label label-hot">HOT</div> --}}
-                                    @if ($featuredlist->discount > 0)
+                                @if ($featuredlist->is_for_request_quote)
+                                    <div class="label-group">
+                                        {{-- <div class="product-label label-hot">HOT</div> --}}
+                                        <div class="product-label label-sale">
+                                            request for quote
+                                        </div>
+                                    </div>
+                                @elseif ($featuredlist->discount > 0)
+                                    <div class="label-group">
                                         <div class="product-label label-sale">{{ substr($featuredlist->discount, 0, 2) }}%
                                         </div>
-                                    @endif
-                                </div>
+                                    </div>
+                                @endif
+                                @if ($featuredlist->is_for_request_quote)
+                                    <span class="btn-quickview pointer" title="Quote Request"
+                                        onclick="showQuoteRequestModal({{ $arriviallist }})"> Quote Request</span>
+                                @endif
                             </figure>
                             <div class="product-details">
                                 <div class="category-list">
@@ -349,7 +384,7 @@
                                             class="old-price">{{ $featuredlist->currency }}{{ (int) $featuredlist->actual_price }}</del>
                                         <span
                                             class="product-price">{{ $featuredlist->currency }}{{ (int) $featuredlist->saleprice }}</span>
-                                    @else
+                                    @elseif($featuredlist->saleprice > 0)
                                         <span
                                             class="product-price">{{ $featuredlist->currency }}{{ (int) $featuredlist->saleprice }}</span>
                                     @endif
@@ -365,7 +400,13 @@
             </div>
         </section>
     @endforeach
+
+    @include('website.include.quote-request-modal')
 @endsection
 @section('scripts')
+    <script>
+        const PRODUCT = {}
+    </script>
     <script src="{{ url('website/assets/js/silk-slider.js') }}"></script>
+    <script src="{{ url('website/assets/js/products.js') }}"></script>
 @endsection

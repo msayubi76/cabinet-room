@@ -5729,6 +5729,9 @@ figure .porto-loading-icon {
 .hidden-overflow{
     overflow: hidden;
 }
+.pointer{
+    cursor: pointer;
+}
 .category-container figure img {
     height: 99px !important;
     width: 100%;

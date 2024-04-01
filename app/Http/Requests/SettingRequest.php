@@ -29,8 +29,7 @@ class SettingRequest extends FormRequest
             'contact_us_detail' => ['nullable'],
             'name' => ['nullable'],
             'email' => ['nullable'],
-            'mobile_no1' => ['nullable'],
-            'mobile_no2' => ['nullable'],
+            'mobile_no1' => ['nullable'], 
             'address' => ['nullable'],
             'privacy_detail' => ['nullable'],
         ];

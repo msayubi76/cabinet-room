@@ -116,7 +116,7 @@
                         @if ($product->discount > 0)
                             <span class="old-price">{{ $product->currency }}{!! $product->actual_price !!}</span>
                             <span class="new-price">{{ $product->currency }}{!! $product->saleprice !!}</span>
-                        @else
+                        @elseif($product->saleprice > 0)
                             <span class="new-price">{{ $product->currency }}{!! $product->saleprice !!}</span>
                         @endif
 
@@ -132,8 +132,8 @@
                         <a href="https://www.facebook.com/" class="social-icon social-facebook icon-facebook text-white"
                             target="_blank" title="Facebook"></a>
                         <!-- <a href="#" class="social-icon  text-white" target="_blank" title="Facebook">
-                                                                                                                                                                <i class="fa fa-whatsapp"></i>
-                                                                                                                                                            </a> -->
+                                                                                                                                                                                                                                            <i class="fa fa-whatsapp"></i>
+                                                                                                                                                                                                                                        </a> -->
 
                     </div>
                     <!-- End .product-desc -->
@@ -155,29 +155,27 @@
                         </li> --}}
                     </ul>
 
-                    <div class="product-filters-container">
-                        <div class="product-single-filter"><label>Color:</label>
-                            <ul class="config-size-list config-color-list config-filter-list" id="color-list">
-                                @foreach ($colors as $key => $color)
-                                    <li data-id="{{ $color->id }}" class="{{ $key == 0 ? 'active' : '' }}" onclick="onChangeVariation({{ $color->id }})">
-                                        <a href="javascript:;" class="filter-color border"
-                                            style="background-color: {{ $color->value }};"></a>
-                                    </li>
-                                @endforeach
+                    @if (count($colors) > 0)
+                        <div class="product-filters-container">
+                            <div class="product-single-filter"><label>Color:</label>
+                                <ul class="config-size-list config-color-list config-filter-list" id="color-list">
+                                    @foreach ($colors as $key => $color)
+                                        <li data-id="{{ $color->id }}" class="{{ $key == 0 ? 'active' : '' }}"
+                                            onclick="onChangeVariation({{ $color->id }})">
+                                            <a href="javascript:;" class="filter-color border"
+                                                style="background-color: {{ $color->value }};"></a>
+                                        </li>
+                                    @endforeach
 
 
-                            </ul>
+                                </ul>
+                            </div>
+                            <div class="product-single-filter">
+                                <label></label>
+                                <a class="font1 text-uppercase clear-btn" href="#">Clear</a>
+                            </div>
                         </div>
-
-
-
-                        <div class="product-single-filter">
-                            <label></label>
-                            <a class="font1 text-uppercase clear-btn" href="#">Clear</a>
-                        </div>
-                        <!---->
-                    </div>
-
+                    @endif
                     <div class="product-action">
                         <input type="hidden" value="{{ $product->id }}" class="product_id">
                         @if (!$product->is_for_request_quote)
@@ -190,16 +188,17 @@
                         <!-- End .product-single-qty -->
                         @if (Auth::user() && !$product->is_for_request_quote)
                             @if ($productCheck == 1)
-                                <button class="btn btn-dark add-cart mr-2 btn-sm" id="add-to-cart" title="Add to Cart">Add to Cart </button>
+                                <button class="btn btn-dark add-cart mr-2 btn-sm" id="add-to-cart" title="Add to Cart">Add
+                                    to Cart </button>
                             @endif
                             @if ($productCheck == 0)
                                 <a href="{{ url('cart') }}" class="btn btn-gray view-cart btn-sm">View cart</a>
                             @endif
-                        @else
+                        @elseif(!$product->is_for_request_quote)
                             <a class="btn btn-dark  mr-2 btn-sm" title="Add to Cart" data-toggle="modal" id="add-to-cart"
                                 data-target="#loginModal">Add to Cart</a>
                         @endif
-                        @if (Auth::user() && $product->is_for_request_quote == 1 && $quoteCheck == true)
+                        @if ($product->is_for_request_quote == 1 && $quoteCheck == true)
                             <a class="btn btn-dark  btn-sm" data-toggle="modal" data-target="#requestModal">Request
                                 Quote</a>
                         @endif
@@ -274,13 +273,20 @@
                                 <img src="{{ asset($product_item->feature_image) }}" width="280" height="280"
                                     alt="product">
                             </a>
-                            <div class="label-group">
-                                {{-- <div class="product-label label-hot">HOT</div> --}}
-                                @if ($product_item->discount > 0)
+                            @if ($product_item->is_for_request_quote)
+                                <div class="label-group">
+                                    {{-- <div class="product-label label-hot">HOT</div> --}}
+                                    <div class="product-label label-sale">
+                                        request for quote
+                                    </div>
+                                </div>
+                            @elseif ($product_item->discount > 0)
+                                <div class="label-group">
                                     <div class="product-label label-sale">{{ substr($product_item->discount, 0, 2) }}%
                                     </div>
-                                @endif
-                            </div>
+                                </div>
+                            @endif
+
                         </figure>
                         <div class="product-details">
                             <div class="category-list">
@@ -313,7 +319,7 @@
                                         class="old-price">{{ $product_item->currency }}{{ $product_item->actual_price }}</del>
                                     <span
                                         class="product-price">{{ $product_item->currency }}{{ $product_item->saleprice }}</span>
-                                @else
+                                @elseif($product_item->saleprice > 0)
                                     <span
                                         class="product-price">{{ $product_item->currency }}{{ $product_item->saleprice }}</span>
                                 @endif
@@ -344,7 +350,14 @@
                                     alt="product">
                             </a>
                             {{-- <div class="product-label label-hot">HOT</div> --}}
-                            @if ($featuredlist->discount > 0)
+                            @if ($featuredlist->is_for_request_quote)
+                                <div class="label-group">
+                                    {{-- <div class="product-label label-hot">HOT</div> --}}
+                                    <div class="product-label label-sale">
+                                        quote
+                                    </div>
+                                </div>
+                            @elseif ($featuredlist->discount > 0)
                                 <div class="product-label label-sale">{{ substr($featuredlist->discount, 0, 2) }}%</div>
                             @endif
 
@@ -376,7 +389,7 @@
                                         class="old-price">{{ $featuredlist->currency }}{{ $featuredlist->actual_price }}</span>
                                     <span
                                         class="product-price">{{ $featuredlist->currency }}{{ $featuredlist->saleprice }}</span>
-                                @else
+                                @elseif($featuredlist->saleprice > 0)
                                     <span
                                         class="product-price">{{ $featuredlist->currency }}{{ $featuredlist->saleprice }}</span>
                                 @endif
@@ -403,8 +416,18 @@
                                     alt="product">
                             </a>
                             {{-- <div class="product-label label-hot">HOT</div> --}}
-                            @if ($arriviallist->discount > 0)
-                                <div class="product-label label-sale">{{ substr($arriviallist->discount, 0, 2) }}%</div>
+                            @if ($arriviallist->is_for_request_quote)
+                                <div class="label-group">
+                                    {{-- <div class="product-label label-hot">HOT</div> --}}
+                                    <div class="product-label label-sale">
+                                        quote
+                                    </div>
+                                </div>
+                            @elseif ($arriviallist->discount > 0)
+                                <div class="label-group">
+                                    <div class="product-label label-sale">{{ substr($arriviallist->discount, 0, 2) }}%
+                                    </div>
+                                </div>
                             @endif
                         </figure>
 
@@ -434,7 +457,7 @@
                                         class="old-price">{{ $arriviallist->currency }}{{ $arriviallist->actual_price }}</span>
                                     <span
                                         class="product-price">{{ $arriviallist->currency }}{{ $arriviallist->saleprice }}</span>
-                                @else
+                                @elseif($arriviallist->saleprice > 0)
                                     <span
                                         class="product-price">{{ $arriviallist->currency }}{{ $arriviallist->saleprice }}</span>
                                 @endif
@@ -457,7 +480,14 @@
                                 <img src="{{ $list->feature_image }}" width="84" height="84" alt="product">
                             </a>
                             {{-- <div class="product-label label-hot">HOT</div> --}}
-                            @if ($list->discount > 0)
+                            @if ($list->is_for_request_quote)
+                                <div class="label-group">
+                                    {{-- <div class="product-label label-hot">HOT</div> --}}
+                                    <div class="product-label label-sale">
+                                        quote
+                                    </div>
+                                </div>
+                            @elseif ($list->discount > 0)
                                 <div class="product-label label-sale">{{ substr($list->discount, 0, 2) }}%</div>
                             @endif
                         </figure>
@@ -485,7 +515,7 @@
                                 @if ($list->discount > 0)
                                     <span class="old-price">{{ $list->currency }}{{ $list->actual_price }}</span>
                                     <span class="product-price">{{ $list->currency }}{{ $list->saleprice }}</span>
-                                @else
+                                @elseif($list->saleprice > 0)
                                     <span class="product-price">{{ $list->currency }}{{ $list->saleprice }}</span>
                                 @endif
                             </div>
@@ -508,7 +538,14 @@
                                 <img src="{{ $list->feature_image }}" width="84" height="84" alt="product">
                             </a>
                             {{-- <div class="product-label label-hot">HOT</div> --}}
-                            @if ($list->discount > 0)
+                            @if ($list->is_for_request_quote)
+                                <div class="label-group">
+                                    {{-- <div class="product-label label-hot">HOT</div> --}}
+                                    <div class="product-label label-sale">
+                                        quote
+                                    </div>
+                                </div>
+                            @elseif ($list->discount > 0)
                                 <div class="product-label label-sale">{{ substr($list->discount, 0, 2) }}%</div>
                             @endif
                         </figure>
@@ -537,7 +574,7 @@
                                 @if ($list->discount > 0)
                                     <span class="old-price">{{ $list->currency }}{{ $list->actual_price }}</span>
                                     <span class="product-price">{{ $list->currency }}{{ $list->saleprice }}</span>
-                                @else
+                                @elseif($list->saleprice > 0)
                                     <span class="product-price">{{ $list->currency }}{{ $list->saleprice }}</span>
                                 @endif
                             </div>
@@ -553,130 +590,11 @@
     </div>
     <!-- End .container -->
     <!-- Modal -->
-    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true" style="background-color: rgba(0,0,0,0.4);">
-        <div class="modal-dialog modal-dialog-centered" role="document" style=" width: 400px;
-    margin: auto;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <img src="{{ asset('website/assets/images/logo.png') }}" width="111" height="44"
-                        alt="Porto Logo">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-title text-center">
-                        <h4>Login</h4>
-
-                        <h5 class="modal-title" id=""><b>Welcome! Please Login to continue.</b></h5>
-                    </div>
-                    <div class="d-flex flex-column  ">
-                        <form class="form-valide" id="subcategory-form" method="post" enctype="multipart/form-data">
-                            @csrf
-                            <div class="form-group">
-                                <input type="hidden" name="product_page" value="{{ $product->id }}"
-                                    class="form-control">
-                                <input type="email" name="email" class="form-control" id="email"
-                                    placeholder="Your email address...">
-                                <div id="email_text" class="text-danger backend-error-text"></div>
-                            </div>
-                            <div class="form-group">
-                                <input type="password" name="password" class="form-control" id="password"
-                                    placeholder="Your password...">
-                                <div id="password_text" class="text-danger backend-error-text"></div>
-                            </div>
-                            <button type="submit" class="btn btn-info btn-block btn-round login-btn btn-sm"
-                                onclick="loginUser()">Login</button>
-                        </form>
-
-
-
-                    </div>
-                </div>
-                <div class="modal-footer d-flex justify-content-center">
-                    <div class="signup-section">Not a member yet? <a href="{{ url('register/' . $product->id) }}"
-                            class="text-info">
-                            Sign Up</a>.</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--Request Quote Modal -->
-    <div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document" style=" width: 550px;
-    margin: auto;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle"><b>Request a Quote.</b></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form class="form-valide" id="request-quote-form" method="post" enctype="multipart/form-data">
-                    <div class="modal-body">
-                        <div class="form-title text-center"> </div>
-                        <div class="d-flex flex-column text-center">
-
-                            @csrf
-                            <input type="hidden" id="user_id" name="user_id"
-                                value="{{ Auth::user() ? Auth::user()->id : '' }}">
-                            <input type="hidden" id="product_id" name="product_id" value="{{ $product->id }}">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <input type="email" id="user_email" name="email" class="form-control"
-                                        id="email"placeholder="Your email address..." required>
-                                    <div id="user_email_text" class="text-danger backend-error-text"></div>
-
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="name" id="name" name="name" class="form-control"
-                                        id="name"placeholder="Your name..." required>
-                                    <div id="name_text" class="text-danger backend-error-text"></div>
-
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <input type="address" id="address" name="address" class="form-control"
-                                        id="address" placeholder="Your address..." required>
-                                    <div id="address_text" class="text-danger backend-error-text"></div>
-
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="phone" id="phone" name="phone" class="form-control"
-                                        id="phone" placeholder="Your phone..." required>
-                                    <div id="phone_text" class="text-danger backend-error-text"></div>
-
-                                </div>
-
-                            </div>
-                            <div class="">
-                                <textarea name="discription" id="discription" placeholder="Your description..." class="form-control" cols="30"
-                                    rows="6" required></textarea>
-                                <div id="discription_text" class="text-danger backend-error-text"></div>
-
-                            </div>
-
-
-
-                        </div>
-                    </div>
-
-                    <div class="modal-footer d-flex justify-content-center">
-                        <button type="button" onclick="requestQuote()"
-                            class="btn btn-info btn-sm btn-round add-quote btn-sm">Request Quote</button>
-
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
-
+    
+    @include('website.include.quote-request-modal')
 @endsection
+
+
 @section('scripts')
 
     <script>
@@ -684,63 +602,7 @@
     </script>
     <script src="{{ asset('website/assets/js/products.js') }}"></script>
     <script>
-        function requestQuote() {
-            console.log(' i m here');
-            $(".add-quote").attr('disabled', 'disabled');
-            $(".add-quote").html("Requesting a quote");
-            // e.preventDefault();
-            var user_id = $('#user_id').val();
-            var product_id = $('#product_id').val();
-            var email = $('#user_email').val();
-            var name = $('#name').val();
-            var address = $('#address').val();
-            var phone = $('#phone').val();
-            var discription = $('#discription').val();
-            console.log('product_id', product_id);
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                type: "POST",
-                url: "/add-quote",
-                data: {
-                    'user_id': user_id,
-                    'product_id': product_id,
-                    'user_email': email,
-                    'name': name,
-                    'address': address,
-                    'phone': phone,
-                    'discription': discription,
-                },
-
-                success: function(response) {
-                    $(".add-quote").html("Quote Requested");
-                    swal("", response.status, "success");
-                    setTimeout(location.reload(), 25000);
-                },
-                error: function(error) {
-                    // $(form)
-                    $(".add-quote").html("Request Quote");
-                    $(".add-quote").attr('disabled', false);
-
-                    var errorMessage = error.statusText;
-                    var sweetMessage = error.statusText;
-                    if (error.status == 422) {
-                        errorMessage = handleValidationErrors(error)
-                        sweetMessage = 'Invalid Data'
-                    }
-                    swal({
-                        title: "Error",
-                        text: sweetMessage,
-                        icon: "error",
-                    });
-
-                },
-            });
-        }
+         
 
         function loginUser() {
             $(".login-btn").attr('disabled', 'disabled');
@@ -804,12 +666,12 @@
 
                 console.log(type, $(`#${element}_text`));
                 if (type == 'edit') {
-                   
+
                     $(`#edit_${element}_text`).text(item[0])
                 } else if (type == 'create') {
                     $(`#${element}_text`).text(item[0])
                 }
-                
+
             });
 
             return errorMessage;

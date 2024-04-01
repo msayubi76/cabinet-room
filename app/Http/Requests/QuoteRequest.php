@@ -24,7 +24,7 @@ class QuoteRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => ['required'],
+            // 'user_id' => ['nullable'],
             'product_id' => ['required'],
 
             'name' => ['required'],
