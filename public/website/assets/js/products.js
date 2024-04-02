@@ -71,9 +71,10 @@ function requestQuote() {
         },
 
         success: function(response) {
-            $(".add-quote").html("Quote Requested");
-            swal("", response.status, "success");
-            setTimeout(location.reload(), 25000);
+            requestModal.modal('hide') 
+            $(".add-quote").html("Request Quote");
+            $(".add-quote").attr('disabled', false);
+            swal("", response.message, "success");
         },
         error: function(error) {
             // $(form)

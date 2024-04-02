@@ -12,9 +12,9 @@
 
     <title>@yield('title')</title>
 
-    <meta name="keywords" content="HTML5 Template" />
-    <meta name="description" content="Porto - Bootstrap eCommerce Template">
-    <meta name="author" content="SW-THEMES">
+    <meta name="keywords" content="Cabinet Room" />
+    <meta name="description" content="online ecommerce digital store">
+    <meta name="author" content="Salah-ud-Din">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('website/assets/images/icons/favicon.png') }}">
@@ -100,7 +100,8 @@
             color: black;
         }
 
-        .just-launched img {
+        .just-launched img,
+        .shop-products img {
             height: 200px !important;
         }
 
@@ -111,7 +112,11 @@
         .categories-products img {
             height: 220px !important;
         }
+        .widget-featured .widget-featured-products img{
+            height: 75px;
+        }
     </style>
+    @yield('style')
 </head>
 
 <body class="loaded sidebar-opened">
@@ -165,7 +170,8 @@
     <script src="{{ asset('website/assets/js/jquery.appear.min.js') }}"></script>
     <script src="{{ url('admin-assets/plugins/sweetalert/js/sweetalert.min.js') }}"></script>
     <script src="{{ asset('website/assets/js/jquery.ui.js') }}"></script>
-    <script src="{{ url('admin-assets/plugins/slick.min.js') }}"></script> 
+    <script src="{{ url('admin-assets/plugins/slick.min.js') }}"></script>
+
 
     <script>
         var availableTags = [];

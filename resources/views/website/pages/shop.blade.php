@@ -1,121 +1,136 @@
 @extends('website.master')
 @section('title', 'shop')
 @section('content')
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-::selection{
-  color: #fff;
-  background: #0088cc;
-}
-.wrapper{
-  width: 400px;
-  background: #fff;
-  border-radius: 10px;
-  padding: 20px 25px 40px;
-  box-shadow: 0 12px 35px rgba(0,0,0,0.1);
-}
-header h2{
-  font-size: 24px;
-  font-weight: 600;
-}
-header p{
-  margin-top: 5px;
-  font-size: 16px;
-}
-.price-input{
-  width: 100%;
-  display: flex;
-  margin: 30px 0 35px;
-}
-.price-input .field{
-  display: flex;
-  width: 100%;
-  height: 45px;
-  align-items: center;
-}
-.field input{
-  width: inherit;
-  height: 100%;
-  outline: none;
-  font-size: 19px;
-  margin-left: 12px;
-  border-radius: 5px;
-  text-align: center;
-  border: 1px solid #999;
-  -moz-appearance: textfield;
-}
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-}
-.price-input .separator{
-  width: 130px;
-  display: flex;
-  font-size: 19px;
-  align-items: center;
-  justify-content: center;
-}
-.slider{
-  height: 5px;
-  position: relative;
-  background: #ddd;
-  border-radius: 5px;
-}
-.slider .progress{
-  height: 100%;
-  left: 25%;
-  right: 25%;
-  position: absolute;
-  border-radius: 5px;
-  background: #dddddd;
-}
-.range-input{
-  position: relative;
-}
-.range-input input{
-  position: absolute;
-  width: 100%;
-  height: 5px;
-  top: -5px;
-  background: none;
-  pointer-events: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-}
-input[type="range"]::-webkit-slider-thumb{
-  height: 17px;
-  width: 17px;
-  border-radius: 50%;
-  background: #0088cc;
-  pointer-events: auto;
-  -webkit-appearance: none;
-  box-shadow: 0 0 6px rgba(0,0,0,0.05);
-}
-input[type="range"]::-moz-range-thumb{
-  height: 17px;
-  width: 17px;
-  border: none;
-  border-radius: 50%;
-  background: #0088cc;
-  pointer-events: auto;
-  -moz-appearance: none;
-  box-shadow: 0 0 6px rgba(0,0,0,0.05);
-}
-</style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        ::selection {
+            color: #fff;
+            background: #0088cc;
+        }
+
+        .wrapper {
+            width: 400px;
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px 25px 40px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        header h2 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        header p {
+            margin-top: 5px;
+            font-size: 16px;
+        }
+
+        .price-input {
+            width: 100%;
+            display: flex;
+            margin: 30px 0 35px;
+        }
+
+        .price-input .field {
+            display: flex;
+            width: 100%;
+            height: 45px;
+            align-items: center;
+        }
+
+        .field input {
+            width: inherit;
+            height: 100%;
+            outline: none;
+            font-size: 19px;
+            margin-left: 12px;
+            border-radius: 5px;
+            text-align: center;
+            border: 1px solid #999;
+            -moz-appearance: textfield;
+        }
+
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+
+        .price-input .separator {
+            width: 130px;
+            display: flex;
+            font-size: 19px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider {
+            height: 5px;
+            position: relative;
+            background: #ddd;
+            border-radius: 5px;
+        }
+
+        .slider .progress {
+            height: 100%;
+            left: 25%;
+            right: 25%;
+            position: absolute;
+            border-radius: 5px;
+            background: #dddddd;
+        }
+
+        .range-input {
+            position: relative;
+        }
+
+        .range-input input {
+            position: absolute;
+            width: 100%;
+            height: 5px;
+            top: -5px;
+            background: none;
+            pointer-events: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            height: 17px;
+            width: 17px;
+            border-radius: 50%;
+            background: #0088cc;
+            pointer-events: auto;
+            -webkit-appearance: none;
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            height: 17px;
+            width: 17px;
+            border: none;
+            border-radius: 50%;
+            background: #0088cc;
+            pointer-events: auto;
+            -moz-appearance: none;
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+        }
+    </style>
     <div class="category-banner-container bg-gray">
         <div class="category-banner banner text-uppercase"
-            style="background: no-repeat 60%/cover url('{{ $banner?$banner->image_url:asset('website/assets/images/banners/banner-top.jpg') }}');">
+            style="background: no-repeat 60%/cover url('{{ $banner ? $banner->image_url : asset('website/assets/images/banners/banner-top.jpg') }}');">
             <div class="container position-relative">
-                <div class="row">
+                <div class="row invisible">
                     <div class="pl-lg-5 pb-5 pb-md-0 col-md-5 col-xl-4 col-lg-4 offset-1">
-                        <h3>{{$banner?$banner->name:''}}</h3>
+                        <h3>{{ $banner ? $banner->name : '' }}</h3>
                         <a href="category.html" class="btn btn-dark">Get Yours!</a>
                     </div>
                     <div class="pl-lg-3 col-md-4 offset-md-0 offset-1 pt-3">
@@ -153,10 +168,7 @@ input[type="range"]::-moz-range-thumb{
                     <span>Filter</span>
                 </a>
 
-                <div class="toolbox-item filter-toggle d-none d-lg-flex">
-                    <span>Filters:</span>
-                    <a href=#>&nbsp;</a>
-                </div>
+
             </div>
             <!-- End .toolbox-left -->
 
@@ -166,11 +178,11 @@ input[type="range"]::-moz-range-thumb{
         </nav>
 
         <div class="row main-content-wrap">
-            <div class="col-lg-9 main-content">
+            <div class="col-lg-9 main-content shop-products">
                 <div class="row">
                     @forelse($products as $productlist)
                         <div class="col-6 col-sm-4 col-md-3">
-                            <div class="product-default">
+                            <div class="product-default inner-quickview inner-icon">
                                 <figure>
                                     <a href="{{ url('product/' . $productlist->id) }}">
                                         <img src="{{ asset($productlist->feature_image) }}" width="280" height="280"
@@ -182,10 +194,15 @@ input[type="range"]::-moz-range-thumb{
                                     <div class="label-group">
                                         {{-- <div class="product-label label-hot">HOT</div> --}}
                                         @if ($productlist->discount > 0)
-                                            <div class="product-label label-sale">{{ substr($productlist->discount, 0, 2) }}%
+                                            <div class="product-label label-sale">
+                                                {{ substr($productlist->discount, 0, 2) }}%
                                             </div>
                                         @endif
                                     </div>
+                                    @if ($productlist->is_for_request_quote)
+                                        <span class="btn-quickview pointer" title="Quote Request"
+                                            onclick="showQuoteRequestModal({{ $productlist }})"> Quote Request</span>
+                                    @endif
                                 </figure>
 
                                 <div class="product-details">
@@ -197,30 +214,39 @@ input[type="range"]::-moz-range-thumb{
                                     </div>
 
                                     <h3 class="product-title"> <a
-                                            href="{{ url('product/' . $productlist->id) }}">{{ $productlist->name }}</a> </h3>
+                                            href="{{ url('product/' . $productlist->id) }}">{{ $productlist->name }}</a>
+                                    </h3>
 
-                                    @if($productlist->rating>0)
+                                    @if ($productlist->rating > 0)
                                         <div class="ratings-container">
                                             <div class="product-ratings">
-                                                <span class="ratings" style="width:{{ (($productlist->rating)/5)*100}}%"></span>
+                                                <span class="ratings"
+                                                    style="width:{{ ($productlist->rating / 5) * 100 }}%"></span>
                                                 <!-- End .ratings -->
                                                 <span class="tooltiptext tooltip-top"></span>
                                             </div>
-                                        </div> 
-                                    @else
-                                    <div class="ratings-container">
-                                        <div class="" style="height:11px">
                                         </div>
-                                    </div>                         
+                                    @else
+                                        <div class="ratings-container">
+                                            <div class="" style="height:11px">
+                                            </div>
+                                        </div>
                                     @endif
 
                                     <div class="price-box" style="width: max-content;">
-                                        @if ($productlist->discount > 0)
+                                        @if ($productlist->is_for_request_quote)
+                                            <div class="label-group">
+                                                {{-- <div class="product-label label-hot">HOT</div> --}}
+                                                <div class="product-label label-sale">
+                                                    request for quote
+                                                </div>
+                                            </div>
+                                        @elseif ($productlist->discount > 0)
                                             <span
                                                 class="old-price">{{ $productlist->currency }}{{ $productlist->actual_price }}</span>
                                             <span
                                                 class="product-price">{{ $productlist->currency }}{{ $productlist->saleprice }}</span>
-                                        @else
+                                        @elseif($productlist->saleprice > 0)
                                             <span
                                                 class="product-price">{{ $productlist->currency }}{{ $productlist->saleprice }}</span>
                                         @endif
@@ -232,9 +258,9 @@ input[type="range"]::-moz-range-thumb{
                                 <!-- End .product-details -->
                             </div>
                         </div>
-                        @empty
-                            <p>Products not found</p>
-                        @endforelse
+                    @empty
+                        <p>Products not found</p>
+                    @endforelse
                     <!-- End .col-sm-4 -->
 
 
@@ -269,35 +295,40 @@ input[type="range"]::-moz-range-thumb{
 
                         <div class="collapse show" id="widget-body-3">
                             <div class="widget-body pb-0">
-                                <form method="GET" action="{{route('products')}}">
-                                    @csrf
-                                <div class="price-input">
-                                    <div class="field">
-                                    <span>Min</span>
-                                    <input type="number" class="input-min" name="minPrice" value="{{$min}}">
+                                <form method="GET" action="{{ route('products') }}"> 
+                                    <div class="price-input">
+                                        <div class="field">
+                                            <span>Min</span>
+                                            <input type="number" class="input-min" name="minPrice"
+                                                value="{{ $min }}">
+                                        </div>
+                                        <div class="separator">-</div>
+                                        <div class="field">
+                                            <span>Max</span>
+                                            <input type="number" class="input-max" name="maxPrice"
+                                                value="{{ $max }}">
+                                        </div>
                                     </div>
-                                    <div class="separator">-</div>
-                                    <div class="field">
-                                    <span>Max</span>
-                                    <input type="number" class="input-max" name="maxPrice" value="{{$max}}">
+                                    <div class="slider">
+                                        <div class="progress"></div>
                                     </div>
-                                </div>
-                                <div class="slider">
-                                    <div class="progress"></div>
-                                </div>
-                                <div class="range-input">
-                                    <input type="range" class="range-min"  min="{{$min}}" max="{{$max}}" value="{{$min_price?$min_price:$min}}" step="100">
-                                    <input type="range" class="range-max" min="{{$min}}" max="{{$max}}" value="{{$max_price?$max_price:$max}}" step="100">
-                                </div>
+                                    <div class="range-input">
+                                        <input type="range" class="range-min" min="{{ $min }}"
+                                            max="{{ $max }}" value="{{ $min_price ? $min_price : $min }}"
+                                            step="100">
+                                        <input type="range" class="range-max" min="{{ $min }}"
+                                            max="{{ $max }}" value="{{ $max_price ? $max_price : $max }}"
+                                            step="100">
+                                    </div>
                                     <!-- <div class="price-slider-wrapper"> -->
-                                        <!-- <div id="price-slider"></div> -->
+                                    <!-- <div id="price-slider"></div> -->
                                     <!-- </div> -->
                                     <div
                                         class="filter-price-action d-flex align-items-center justify-content-between flex-wrap">
                                         <!-- <div class="filter-price-text">
-                                            Price:{{$min}} - {{$max}} 
-                                           <span id="filter-price-range"></span>
-                                        </div> -->
+                                                                    Price:{{ $min }} - {{ $max }}
+                                                                   <span id="filter-price-range"></span>
+                                                                </div> -->
                                         <!-- End .filter-price-text -->
 
                                         <button type="submit" class="btn btn-primary">Filter</button>
@@ -314,7 +345,7 @@ input[type="range"]::-moz-range-thumb{
 
                     <!-- End .widget -->
 
-                    <div class="widget widget-featured">
+                    <div class="widget widget-featured  ">
                         <h3 class="widget-title">Featured</h3>
 
                         <div class="widget-body">
@@ -334,19 +365,20 @@ input[type="range"]::-moz-range-thumb{
                                                 <h3 class="product-title"> <a
                                                         href="{{ url('product/' . $list->id) }}">{{ $list->name }}</a>
                                                 </h3>
-                                                @if($list->rating>0)
+                                                @if ($list->rating > 0)
                                                     <div class="ratings-container">
                                                         <div class="product-ratings">
-                                                            <span class="ratings" style="width:{{ (($list->rating)/5)*100}}%"></span>
+                                                            <span class="ratings"
+                                                                style="width:{{ ($list->rating / 5) * 100 }}%"></span>
                                                             <!-- End .ratings -->
                                                             <span class="tooltiptext tooltip-top"></span>
                                                         </div>
-                                                    </div> 
-                                                @else
-                                                <div class="ratings-container">
-                                                    <div class="" style="height:11px">
                                                     </div>
-                                                </div>                         
+                                                @else
+                                                    <div class="ratings-container">
+                                                        <div class="" style="height:11px">
+                                                        </div>
+                                                    </div>
                                                 @endif
                                                 <div class="price-box">
                                                     @if ($list->discount > 0)
@@ -386,50 +418,56 @@ input[type="range"]::-moz-range-thumb{
     </div>
     <!-- End .container -->
 
+
+    @include('website.include.quote-request-modal')
     <div class="mb-4"></div>
     <!-- margin -->
 
 @endsection
 @section('scripts')
-<script>
-    const rangeInput = document.querySelectorAll(".range-input input"),
-priceInput = document.querySelectorAll(".price-input input"),
-range = document.querySelector(".slider .progress");
-let priceGap = 1000;
-priceInput.forEach(input =>{
-    input.addEventListener("input", e =>{
-        let minPrice = parseInt(priceInput[0].value),
-        maxPrice = parseInt(priceInput[1].value);
-        
-        if((maxPrice - minPrice >= priceGap) && maxPrice <= rangeInput[1].max){
-            if(e.target.className === "input-min"){
-                rangeInput[0].value = minPrice;
-                range.style.left = ((minPrice / rangeInput[0].max) * 100) + "%";
-            }else{
-                rangeInput[1].value = maxPrice;
-                range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
-            }
-        }
-    });
-});
-rangeInput.forEach(input =>{
-    input.addEventListener("input", e =>{
-        let minVal = parseInt(rangeInput[0].value),
-        maxVal = parseInt(rangeInput[1].value);
-        if((maxVal - minVal) < priceGap){
-            if(e.target.className === "range-min"){
-                rangeInput[0].value = maxVal - priceGap
-            }else{
-                rangeInput[1].value = minVal + priceGap;
-            }
-        }else{
-            priceInput[0].value = minVal;
-            priceInput[1].value = maxVal;
-            range.style.left = ((minVal / rangeInput[0].max) * 100) + "%";
-            range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%";
-        }
-    });
-});
-</script>
-@endsection
+    <script>
+        const PRODUCT = {}
+    </script>
+    <script src="{{ url('website/assets/js/products.js') }}"></script>
 
+    <script>
+        const rangeInput = document.querySelectorAll(".range-input input"),
+            priceInput = document.querySelectorAll(".price-input input"),
+            range = document.querySelector(".slider .progress");
+        let priceGap = 1000;
+        priceInput.forEach(input => {
+            input.addEventListener("input", e => {
+                let minPrice = parseInt(priceInput[0].value),
+                    maxPrice = parseInt(priceInput[1].value);
+
+                if ((maxPrice - minPrice >= priceGap) && maxPrice <= rangeInput[1].max) {
+                    if (e.target.className === "input-min") {
+                        rangeInput[0].value = minPrice;
+                        range.style.left = ((minPrice / rangeInput[0].max) * 100) + "%";
+                    } else {
+                        rangeInput[1].value = maxPrice;
+                        range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
+                    }
+                }
+            });
+        });
+        rangeInput.forEach(input => {
+            input.addEventListener("input", e => {
+                let minVal = parseInt(rangeInput[0].value),
+                    maxVal = parseInt(rangeInput[1].value);
+                if ((maxVal - minVal) < priceGap) {
+                    if (e.target.className === "range-min") {
+                        rangeInput[0].value = maxVal - priceGap
+                    } else {
+                        rangeInput[1].value = minVal + priceGap;
+                    }
+                } else {
+                    priceInput[0].value = minVal;
+                    priceInput[1].value = maxVal;
+                    range.style.left = ((minVal / rangeInput[0].max) * 100) + "%";
+                    range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%";
+                }
+            });
+        });
+    </script>
+@endsection

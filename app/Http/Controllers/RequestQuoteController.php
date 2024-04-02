@@ -10,29 +10,33 @@ use App\Services\RequestQuoteService;
 class RequestQuoteController extends Controller
 {
 
-    public function index(){
-    $quotes = RequestQuote::orderBy('id','DESC')->get();
-    return view('admin.quote.quotelist',compact('quotes'));
-
+    public function index()
+    {
+        $quotes = RequestQuote::orderBy('id', 'DESC')->get();
+        return view('admin.quote.quotelist', compact('quotes'));
     }
 
     public function store(QuoteRequest $request)
-    {   
+    {
+        try {
             $requestQuote = RequestQuoteService::store($request);
-
-            return redirect()->back()->with('success', 'Quote requested successfully');
+            return response()->json(['status' => true, 'message' => 'Quote requested successfully. Our team will contact you via email soon.']);
+        } catch (\Throwable $th) {
+            return response()->json(['status' => false, 'message' => $th->getMessage()]);
+        }
     }
-    public function updateStatus($id,$status){
-        $requestQuote = RequestQuoteService::updateQuoteStatus($id,$status);
+    public function updateStatus($id, $status)
+    {
+        $requestQuote = RequestQuoteService::updateQuoteStatus($id, $status);
         return redirect()->back()->with('success', 'Quote accepted successfully');
     }
     public function update(QuoteRequest $request)
     {
         try {
-        $requestQuote = RequestQuoteService::update($request);
-        return $requestQuote;
+            $requestQuote = RequestQuoteService::update($request);
+            return $requestQuote;
         } catch (\Throwable $th) {
-        return $th;
+            return $th;
         }
     }
 }

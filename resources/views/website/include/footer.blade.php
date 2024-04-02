@@ -2,7 +2,7 @@
     <div class="footer-middle">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-4 col-sm-6">
                     <div class="widget">
                         <h4 class="widget-title">Contact Info</h4>
                         <ul class="contact-info">
@@ -39,9 +39,9 @@
                 </div>
                 <!-- End .col-lg-3 -->
 
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-4 col-sm-6">
                     <div class="widget">
-                        <h4 class="widget-title">Pages</h4>
+                        <h4 class="widget-title">Links</h4>
 
                         <ul class="links">
                             <li><a href="{{ url('/') }}">Home</a></li>
@@ -60,13 +60,13 @@
                 </div>
                 <!-- End .col-lg-3 -->
 
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-4 col-sm-6">
                     <div class="widget">
                         <h4 class="widget-title">Popular Categories</h4>
 
                         <div class="tagcloud">
                             @foreach ($categories as $catlist)
-                                <a href="{{ url('category=' . $catlist->name) }}">{{ $catlist->name }}</a>
+                                <a href="{{ url('products/' . $catlist->name) }}">{{ $catlist->name }}</a>
                             @endforeach
 
                         </div>
@@ -75,19 +75,7 @@
                 </div>
                 <!-- End .col-lg-3 -->
 
-                <div class="col-lg-3 col-sm-6">
-                    <div class="widget widget-newsletter">
-                        <h4 class="widget-title">Subscribe newsletter</h4>
-                        <p>Get all the latest information on events, sales and offers. Sign up for newsletter:
-                        </p>
-                        <form action="#" class="mb-0">
-                            <input type="email" class="form-control m-b-3" placeholder="Email address" required>
-
-                            <input type="submit" class="btn btn-primary shadow-none" value="Subscribe">
-                        </form>
-                    </div>
-                    <!-- End .widget -->
-                </div>
+              
                 <!-- End .col-lg-3 -->
             </div>
             <!-- End .row -->
@@ -100,21 +88,9 @@
         <div class="footer-bottom">
             <div class="container d-sm-flex align-items-center">
                 <div class="footer-left">
-                    <span class="footer-copyright">© Porto eCommerce. 2021. All Rights Reserved</span>
+                    <span class="footer-copyright">© Cabinet Room. 2021. All Rights Reserved</span>
                 </div>
-
-                <div class="footer-right ml-auto mt-1 mt-sm-0">
-                    <div class="payment-icons">
-                        <span class="payment-icon visa"
-                            style="background-image: url({{ asset('website/assets/images/payments/payment-visa.svg') }})"></span>
-                        <span class="payment-icon paypal"
-                            style="background-image: url({{ asset('website/assets/images/payments/payment-paypal.svg') }})"></span>
-                        <span class="payment-icon stripe"
-                            style="background-image: url({{ asset('website/assets/images/payments/payment-stripe.png') }})"></span>
-                        <span class="payment-icon verisign"
-                            style="background-image:  url({{ asset('website/assets/images/payments/payment-verisign.svg') }})"></span>
-                    </div>
-                </div>
+ 
             </div>
         </div>
         <!-- End .footer-bottom -->

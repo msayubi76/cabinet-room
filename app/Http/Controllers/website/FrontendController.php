@@ -33,7 +33,7 @@ class FrontendController extends Controller
 
         $categoriesWithProducts = $categories->filter((function ($category) {
             return $category->products()->count() > 0;
-        })); 
+        }));
 
 
         return view('website.index', compact('categories',  'featuredProducts', 'arrivialProducts',   'cart', 'banners', 'saleItems', 'categoriesWithProducts'));
@@ -51,40 +51,36 @@ class FrontendController extends Controller
     }
     public function products(Request $request, $category = null, $sub_category = null)
     {
-        try {
-            $min_price = $request->minPrice ? $request->minPrice : '';
-            $max_price = $request->maxPrice ? $request->maxPrice : '';
-            $products = new Product;
-            if ($min_price != "") {
-                $products =  $products->where('saleprice', '>', $min_price);
-            }
-            if ($max_price != "") {
-                $products =  $products->where('saleprice', '<', $max_price);
-            }
-            $products = $products->latest()->where('is_active', '1');
-
-            if ($category) :
-                $categories =  Category::orWhere('name', 'like', "%{$category}%")->pluck('id');
-                $products = $products->whereIn('category_id', $categories);
-            endif;
-            if ($sub_category) :
-                $sub_categories =  SubCategory::orWhere('name', 'like', "%{$sub_category}%")->pluck('id');
-                $products = $products->whereIn('sub_category_id', $sub_categories);
-            endif;
-            $products = $products->paginate(10);
-
-            $categories = Category::where('is_active', '1')->with('subcategories')->where('is_active', '1')->get();
-            $featuredProducts = Product::where('is_feature_product', '1')->where('is_active', '1')->get();
-            $cart = Cart::where('user_id', Auth::id())->get();
-            $min = round(Product::min('saleprice'));
-            $max = round(Product::max('saleprice'));
-
-            $banner = Banner::where('page_name', 'products')->orderBy('id', 'DESC')->first();
-
-            return view('website.pages.shop', compact('categories',  'products', 'cart', 'featuredProducts', 'min', 'max', 'min_price', 'max_price', 'banner'));
-        } catch (\Throwable $th) {
-            return response()->json(['status' => false, 'message' => $th->getMessage()]);
+        $min_price = $request->minPrice ? $request->minPrice : '';
+        $max_price = $request->maxPrice ? $request->maxPrice : '';
+        $products = new Product;
+        if ($min_price != "") {
+            $products =  $products->where('saleprice', '>', $min_price);
         }
+        if ($max_price != "") {
+            $products =  $products->where('saleprice', '<', $max_price);
+        }
+        $products = $products->latest()->where('is_active', '1');
+
+        if ($category) :
+            $categories =  Category::orWhere('name', 'like', "%{$category}%")->pluck('id');
+            $products = $products->whereIn('category_id', $categories);
+        endif;
+        if ($sub_category) :
+            $sub_categories =  SubCategory::orWhere('name', 'like', "%{$sub_category}%")->pluck('id');
+            $products = $products->whereIn('sub_category_id', $sub_categories);
+        endif;
+        $products = $products->paginate(10);
+
+        $categories = Category::where('is_active', '1')->with('subcategories')->where('is_active', '1')->get();
+        $featuredProducts = Product::where('is_feature_product', '1')->where('is_active', '1')->get();
+        $cart = Cart::where('user_id', Auth::id())->get();
+        $min = round(Product::min('saleprice'));
+        $max = round(Product::max('saleprice'));
+
+        $banner = Banner::where('page_name', 'products')->orderBy('id', 'DESC')->first();
+
+        return view('website.pages.shop', compact('categories',  'products', 'cart', 'featuredProducts', 'min', 'max', 'min_price', 'max_price', 'banner'));
     }
     public function productsFilter(Request $request)
     {

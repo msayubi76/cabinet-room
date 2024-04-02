@@ -1,5 +1,124 @@
 @extends('website.master')
-@section('title', 'Single product')
+@section('title', $product->name)
+@section('style')
+    <style>
+        i.anc-tw {
+            background: url(../images/twitter.png)no-repeat 10px 9px #1CA4D6;
+            width: 26px;
+            height: 19px;
+            display: inline-block;
+            padding: 10px 6px;
+            float: left;
+            border-radius: 4px 0px 0px 4px;
+        }
+
+        i.anc-fa {
+            float: left;
+            background: url(/form-assets/images/facebook.png)no-repeat 6px 9px #37528C;
+            width: 35px;
+            height: 35px;
+            display: inline-block;
+            padding: 10px 6px;
+
+            border-radius: 4px 0px 0px 4px;
+        }
+
+        i.anc-go {
+            background: url(/form-assets/images/google.png)no-repeat 9px 9px #C74534;
+            width: 35px;
+            height: 35px;
+            display: inline-block;
+            padding: 10px 6px;
+            float: left;
+            border-radius: 4px 0px 0px 4px;
+        }
+
+
+        .login-bottom {
+            text-align: center;
+            background: rgba(236, 236, 236, 0.29);
+            padding: 0px 0px 40px 0px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            padding: 0 1.5em 2em;
+        }
+
+        .login-bottom h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #000;
+            padding: 25px 0px 0px 0px;
+        }
+
+        .login-bottom p {
+            font-size: 15px;
+            font-weight: 400;
+            color: #000;
+            margin: 4px 0px 10px 0px;
+        }
+
+        .login-bottom h4,
+        .login-bottom h4 a {
+            font-size: 13px;
+        }
+
+        .reg-bwn a {
+            padding: 6px 18px;
+        }
+
+        .login-bottom h3 {
+            padding: 15px 0px 0px 0px;
+            margin-top: 0.51em;
+        }
+
+        .button a {
+            font-size: 15px;
+            font-weight: 600;
+            color: #fff;
+            margin: 0px 1.5% 0px 0px;
+            border-radius: 4px;
+            float: left;
+            width: 45%;
+            margin-left: 20px;
+            padding: 0px 0;
+        }
+
+        .button a.tw {
+            background: #1DAEE3;
+            float: left;
+
+        }
+
+        .button a.fa {
+            background: #3B5998;
+            float: left;
+
+        }
+
+        .button a span {
+            margin-top: 8px;
+            display: block;
+        }
+
+        .button a.go {
+            background: #D34836;
+            margin: 0;
+            float: left;
+        }
+
+        .button a.tw:hover {
+            background: #1CA4D6;
+        }
+
+        .button a.fa:hover {
+            background: #37528C;
+        }
+
+        .button a.go:hover {
+            background: #C74534;
+        }
+    </style>
+@endsection
 @section('content')
     <div class="container">
         <nav aria-label="breadcrumb" class="breadcrumb-nav">
@@ -132,8 +251,8 @@
                         <a href="https://www.facebook.com/" class="social-icon social-facebook icon-facebook text-white"
                             target="_blank" title="Facebook"></a>
                         <!-- <a href="#" class="social-icon  text-white" target="_blank" title="Facebook">
-                                                                                                                                                                                                                                            <i class="fa fa-whatsapp"></i>
-                                                                                                                                                                                                                                        </a> -->
+                                                                                                                                                                                                                                                                    <i class="fa fa-whatsapp"></i>
+                                                                                                                                                                                                                                                                </a> -->
 
                     </div>
                     <!-- End .product-desc -->
@@ -199,7 +318,7 @@
                                 data-target="#loginModal">Add to Cart</a>
                         @endif
                         @if ($product->is_for_request_quote == 1 && $quoteCheck == true)
-                            <a class="btn btn-dark  btn-sm" data-toggle="modal" data-target="#requestModal">Request
+                            <a class="btn btn-dark  btn-sm" onclick="showQuoteRequestModal({{ $product }})">Request
                                 Quote</a>
                         @endif
                     </div>
@@ -590,7 +709,8 @@
     </div>
     <!-- End .container -->
     <!-- Modal -->
-    
+
+    @include('website.include.login-modal')
     @include('website.include.quote-request-modal')
 @endsection
 
@@ -602,8 +722,6 @@
     </script>
     <script src="{{ asset('website/assets/js/products.js') }}"></script>
     <script>
-         
-
         function loginUser() {
             $(".login-btn").attr('disabled', 'disabled');
             $(".login-btn").html("Checking..");
