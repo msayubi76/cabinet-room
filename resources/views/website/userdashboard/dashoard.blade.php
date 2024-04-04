@@ -78,19 +78,7 @@
                                     <a href="#order" class="link-to-tab"><i class="sicon-social-dropbox"></i></a>
                                     <div class="feature-box-content">
                                         <h3> {{ $orders->count() }} ORDERS</h3>
-                                        <h3> ORDERS Status</h3>
-                                        @foreach ($orders as $orderlist)
-                                            @if ($orderlist->order_status == 'pending')
-                                                <span class="badge badge-warning text-black">
-                                                    {{ $orderlist->order_status }}</span>
-                                            @elseif ($orderlist->order_status == 'rejected')
-                                                <span class="badge badge-danger text-black">
-                                                    {{ $orderlist->order_status }}</span>
-                                            @else
-                                                <span class=" badge badge-success text-black">
-                                                    {{ $orderlist->order_status }}</span>
-                                            @endif
-                                        @endforeach
+
 
 
 
@@ -115,80 +103,72 @@
                         <h3 class="account-sub-title d-none d-md-block"><i
                                 class="sicon-social-dropbox align-middle mr-3"></i>Orders</h3>
                         <div class="order-table-container text-center">
-                            @if ($orders->count() > 0)
-                                <table class="table table-order text-left">
-                                    <thead>
+
+                            <table class="table table-order text-left">
+                                <thead>
+                                    <tr>
+                                        <th class="order-id">Sr No</th>
+
+                                        <th class="order-status">Status</th>
+
+
+                                        <th class="order-price">Total Price</th>
+
+                                        <th class="order-status">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @forelse ($orders as $orderlist)
                                         <tr>
-                                            <th class="order-id">Sr No</th>
+                                            <td>
+                                                {{ $loop->count }}
+                                            </td>
 
-                                            <th class="order-status">Status</th>
+
+                                            <td>
+                                                @if ($orderlist->order_status == 'pending')
+                                                    <span class="badge badge-warning text-black">
+                                                        {{ $orderlist->order_status }}</span>
+                                                @elseif ($orderlist->order_status == 'rejected')
+                                                    <span class="badge badge-danger text-black">
+                                                        {{ $orderlist->order_status }}</span>
+                                                @else
+                                                    <span class=" badge badge-success text-black">
+                                                        {{ $orderlist->order_status }}</span>
+                                                @endif
+
+                                            </td>
 
 
-                                            <th class="order-price">Total Price</th>
+                                            <td>
+                                                {{ $orderlist->payment->payment }}
 
-                                            <th class="order-status">Action</th>
+                                            </td>
+
+                                            <td>
+                                                <a href="{{ url('user-dashboard/order-detail/' . $orderlist->id) }}"><i
+                                                        class="fas fa-eye "></i>
+                                                </a>
+                                            </td>
+
                                         </tr>
-                                    </thead>
-                                    <tbody>
+                                    @empty
+                                        <tr>
+                                            <td colspan="3" class="text-center">
+                                                Orders not available
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
 
-                                        @foreach ($orders as $orderlist)
-                                            <tr>
-                                                <td>
-                                                    {{ $loop->count }}
-                                                </td>
-
-
-                                                <td>
-                                                    @if ($orderlist->order_status == 'pending')
-                                                        <span class="badge badge-warning text-black">
-                                                            {{ $orderlist->order_status }}</span>
-                                                    @elseif ($orderlist->order_status == 'rejected')
-                                                        <span class="badge badge-danger text-black">
-                                                            {{ $orderlist->order_status }}</span>
-                                                    @else
-                                                        <span class=" badge badge-success text-black">
-                                                            {{ $orderlist->order_status }}</span>
-                                                    @endif
-
-                                                </td>
-
-
-                                                <td>
-                                                    {{ $orderlist->payment->payment }}
-
-                                                </td>
-
-                                                <td>
-                                                    <a href="{{ url('user-dashboard/order-detail/' . $orderlist->id) }}"><i
-                                                            class="fas fa-external-link-alt "
-                                                            style="margin-left: 20px;"></i>
-                                                        <h5 class="porto-sicon-title ">Order Detail</h5>
-                                                    </a>
-
-
-                                                </td>
-
-                                            </tr>
-                                        @endforeach
-
-
-
-                                    </tbody>
-                                </table>
-                            @else
-                                <h5>No Order Available Yet</h5>
-                            @endif
                             <hr class="mt-0 mb-3 pb-2" />
 
                             <a href="{{ '/products' }}" class="btn btn-dark">Go Shop</a>
                         </div>
                     </div>
                 </div><!-- End .tab-pane -->
-
-
-
-
-
 
                 <div class="tab-pane fade" id="edit" role="tabpanel">
                     <h3 class="account-sub-title d-none d-md-block mt-0 pt-1 ml-1"><i
@@ -224,7 +204,7 @@
 
 
                             <div class="form-footer mt-3 mb-0">
-                                <button type="submit" name="submit" class="btn btn-dark mr-0">
+                                <button type="submit" name="submit" class="btn btn-dark mr-0 p-3 text-capitalize">
                                     Save changes
                                 </button>
                             </div>
@@ -258,7 +238,7 @@
                             </div>
 
                             <div class="form-footer mt-3 mb-0">
-                                <button type="submit" class="btn btn-dark mr-0">
+                                <button type="submit" class="btn btn-dark mr-0 p-3 text-capitalize">
                                     Save changes
                                 </button>
                             </div>

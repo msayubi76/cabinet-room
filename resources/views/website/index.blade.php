@@ -1,5 +1,5 @@
 @extends('website.master')
-
+@section('title', 'Home')
 @section('content')
     <div class="home-slider slide-animate owl-carousel owl-theme show-nav-hover nav-big mb-2 text-uppercase"
         data-owl-options="{
@@ -148,8 +148,8 @@
                     }
                 }">
                 @foreach ($arrivialProducts as $arriviallist)
-                    <div class="  new-arrival product-default inner-quickview inner-icon appear-animate animated fadeInUpShorter appear-animation-visible"
-                        data-animation-name="fadeInUpShorter">
+                    <div class="  new-arrival product-default inner-quickview inner-icon appear-animate animated   appear-animation-visible"
+                        >
                         <figure class="img-effect">
                             <a href="{{ url('product/' . $arriviallist->id) }}">
                                 <img src="{{ $arriviallist->feature_image }}" alt="product">

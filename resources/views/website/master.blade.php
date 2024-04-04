@@ -55,66 +55,14 @@
         rel="stylesheet">
     <link href="{{ url('admin-assets/plugins/slick.css') }}" rel="stylesheet">
     <link href="{{ url('admin-assets/plugins/slick-theme.css') }}" rel="stylesheet">
+    <link href="{{ url('admin-assets/plugins/custom.css') }}" rel="stylesheet">
 
 
     <!-- Main CSS File -->
 
     <link rel="stylesheet" type="text/css" href="{{ asset('website/assets/vendor/fontawesome-free/css/all.min.css') }}">
     <style>
-        .pagination {
-            float: right;
-            margin-top: 10px;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .sale-items .slick-slide img {
-            height: 150px !important;
-        }
-
-        .sale-items .slick-slide {
-            padding-right: 4px;
-        }
-
-        .sale-items .slick-prev {
-            left: -40px;
-        }
-
-        .slick-next:before,
-        .slick-prev:before {
-            content: '';
-        }
-
-        .slick-prev,
-        .slick-next {
-            font-size: 36px;
-            color: black;
-        }
-
-        .slick-prev:hover,
-        .slick-prev:focus,
-        .slick-next:hover,
-        .slick-next:focus {
-            color: black;
-        }
-
-        .just-launched img,
-        .shop-products img {
-            height: 200px !important;
-        }
-
-        .featured-products img {
-            height: 150px !important;
-        }
-
-        .categories-products img {
-            height: 220px !important;
-        }
-        .widget-featured .widget-featured-products img{
-            height: 75px;
-        }
+        
     </style>
     @yield('style')
 </head>

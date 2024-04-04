@@ -5,6 +5,7 @@ const addToCart= $('#add-to-cart')
 const requestModal = $('#requestModal')
 const productIdIp = $('#product_id')
 const backendErrorText = $('.backend-error-text')
+const productPrice = $('#product-price')
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -15,14 +16,17 @@ function selectColor(color){
     selectedColor.val(color.id)
 }
 onChangeVariation()
-function onChangeVariation(selectedVar = null){
+function onChangeVariation(selectedVar = null, element = null){
     let color = selectedVar
     if(selectedVar == null){
         color = $('#color-list').find('li.active').data('id')
     }
     
    const variation = PRODUCT.variations.find((v) => v.id == color)
-   if(variation){
+   if(!variation){
+    return
+   }
+
     console.log('variation', variation);
 
     let stockHtml = `<b>In Stock:</b> ${variation.stock}`
@@ -30,13 +34,17 @@ function onChangeVariation(selectedVar = null){
     addToCart.prop('disabled', false)
     addToCart.html('Add to Cart')
     
-
+    productPrice.text(parseFloat(variation.price))
     if(variation.stock==0){
         stockHtml = `<b>Out of Stock</b>`
         addToCart.prop('disabled', true)
         addToCart.html('Out of Stock')
     }
     stockText.html(stockHtml)
+   if(element){
+
+     $(element).closest('ul').find('.active').removeClass('active')
+     $(element).addClass('active')
    }
 }
 

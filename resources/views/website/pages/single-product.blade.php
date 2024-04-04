@@ -189,7 +189,7 @@
                 <!-- End .product-single-gallery -->
 
                 <div class="col-lg-7 col-md-6 product-single-details ">
-                    <h1 class="product-title">{!! $product->name !!}</h1>
+                    <h1 class="product-title">{!! $product->name !!} {!! $product->category ? $product->category->name : '' !!}</h1>
                     <table>
                         <tbody>
                             <tr>
@@ -232,12 +232,9 @@
 
 
                     <div class="price-box">
-                        @if ($product->discount > 0)
-                            <span class="old-price">{{ $product->currency }}{!! $product->actual_price !!}</span>
-                            <span class="new-price">{{ $product->currency }}{!! $product->saleprice !!}</span>
-                        @elseif($product->saleprice > 0)
-                            <span class="new-price">{{ $product->currency }}{!! $product->saleprice !!}</span>
-                        @endif
+                        <p>Price</p>
+                        <span class="new-price ">{{ $product->currency }} <span
+                                id="product-price">{!! $product->saleprice !!}</span></span>
 
                     </div>
                     <!-- End .price-box -->
@@ -247,52 +244,29 @@
                         <p>{!! $product->short_description !!}</p>
 
                     </div>
-                    <div class="product-desc">
-                        <a href="https://www.facebook.com/" class="social-icon social-facebook icon-facebook text-white"
-                            target="_blank" title="Facebook"></a>
-                        <!-- <a href="#" class="social-icon  text-white" target="_blank" title="Facebook">
-                                                                                                                                                                                                                                                                    <i class="fa fa-whatsapp"></i>
-                                                                                                                                                                                                                                                                </a> -->
 
-                    </div>
-                    <!-- End .product-desc -->
 
-                    <ul class="single-info-list">
-
-                        {{-- <li>
-                            SKU: <strong>654613612</strong>
-                        </li> --}}
-
-                        <li>
-                            CATEGORY: <strong><a href="#"
-                                    class="product-category">{!! $product->category ? $product->category->name : '' !!}</a></strong>
-                        </li>
-                        {{--
-                        <li>
-                            TAGs: <strong><a href="#" class="product-category">CLOTHES</a></strong>,
-                            <strong><a href="#" class="product-category">SWEATER</a></strong>
-                        </li> --}}
-                    </ul>
 
                     @if (count($colors) > 0)
                         <div class="product-filters-container">
-                            <div class="product-single-filter"><label>Color:</label>
+                            <div class="product-single-filter"><label><b>Colors</b></label>
                                 <ul class="config-size-list config-color-list config-filter-list" id="color-list">
                                     @foreach ($colors as $key => $color)
-                                        <li data-id="{{ $color->id }}" class="{{ $key == 0 ? 'active' : '' }}"
-                                            onclick="onChangeVariation({{ $color->id }})">
-                                            <a href="javascript:;" class="filter-color border"
-                                                style="background-color: {{ $color->value }};"></a>
+                                        <li data-id="{{ $color->id }}" class="{{ $key == 0 ? 'active' : '' }} pointer"
+                                            onclick="onChangeVariation({{ $color->id }}, this)">
+                                            <div class="color ">
+                                                <img src="{{ $color->media[0]->url }}" alt="" srcset=""
+                                                    height="80px">
+
+                                                <div class="text-capitalize mb-0 text-center">{{ $color->value }}</div>
+                                            </div>
                                         </li>
                                     @endforeach
 
 
                                 </ul>
                             </div>
-                            <div class="product-single-filter">
-                                <label></label>
-                                <a class="font1 text-uppercase clear-btn" href="#">Clear</a>
-                            </div>
+
                         </div>
                     @endif
                     <div class="product-action">

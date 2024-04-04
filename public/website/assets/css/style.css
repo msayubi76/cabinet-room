@@ -5921,8 +5921,8 @@ figure .porto-loading-icon {
     letter-spacing: 0.025em;
     font-family: Montserrat;
     text-transform: uppercase;
-    visibility: hidden;
-    opacity: 0;
+    visibility: visible;
+    opacity: 1;
     transform: none;
     margin: 0;
     border: none;
@@ -10905,7 +10905,7 @@ span.toggle::before {
 .config-size-list {
     margin: 0;
     padding: 0;
-    font-size: 0;
+    font-size: 12px;
     list-style: none;
 }
 
@@ -14331,8 +14331,8 @@ aside .widget-info i {
 }
 .table.table-cart .product-single-qty .form-control,
 .table.table-wishlist .product-single-qty .form-control {
-    height: 48px;
-    width: 44px;
+    height: 40px;
+    width: 58px;
     font-size: 1.6rem;
     font-weight: 700;
 }

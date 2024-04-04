@@ -44,7 +44,7 @@ class CartController extends Controller
             $categories = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();
 
             $cart = Cart::where('user_id', Auth::id())->with(['product', 'variation'])->get();
-          
+
             return view('website.pages.cart', compact('categories',  'cart'));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
@@ -57,19 +57,13 @@ class CartController extends Controller
         try {
             $product_id = $request->product_id;
             $quantity = $request->quantity;
-
-            if (Cart::where('product_id', $product_id)->where('user_id', Auth::id())->exists()) {
-                $update_cart = Cart::where('product_id', $product_id)->where('user_id', Auth::id())->first();
-                $cart_id = $update_cart->id;
-                $update_cart->quantity = $quantity;
-                $update_cart->update();
-                $cart = Cart::where('user_id', Auth::id())->with('product')->get();
-                return response()->json(['status' => 'Cart item updated successfully.', 'data' => $cart]);
-            }
-
-            return response()->json(['status' => 'Login  to continue']);
+            $update_cart = Cart::where('product_id', $product_id)->where('user_id', Auth::id())->first();
+            $update_cart->quantity = $quantity;
+            $update_cart->update();
+            $cart = Cart::where('user_id', Auth::id())->with('product')->get();
+            return response()->json(['message' => 'Cart item updated successfully.', 'data' => $cart, 'status' => true]);
         } catch (\Throwable $th) {
-            return $th;
+            return response()->json(['message' => $th->getMessage(),   'status' => false]);
         }
     }
 

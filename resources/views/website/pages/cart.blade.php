@@ -70,31 +70,38 @@
                                             </h5>
                                         </td>
                                         <td class="text-center">
-                                            {{ $cartlist->product->currency }}{{ $cartlist->product->saleprice }}
+                                            {{ $cartlist->product->currency }}
+
+                                            (
+                                            {{ $cartlist->variation ? (int) $cartlist->variation->price : $cartlist->product->saleprice }})
                                         </td>
                                         <td class="text-center">
                                             <input type="hidden" class="product_id" value='{{ $cartlist->product_id }}'>
                                             <div class="product-single-qty">
 
-                                                <input class="horizontal-quantity form-control" name="quantity"
-                                                    onchange="updatePrice(this,'{{ $cartlist->product->id }}','{{ $cartlist->product->saleprice }}')"
-                                                    type="text" value="{{ $cartlist->quantity }}">
+                                                <input class="horizontal-quantitys form-control " name="quantity"
+                                                    min="1"
+                                                    max="{{ $cartlist->variation ? $cartlist->variation->stock : $cartlist->product->stock }}"
+                                                    onchange="updatePrice(this,'{{ $cartlist->product->id }}',{{ $cartlist->variation ? $cartlist->variation->price : $cartlist->product->saleprice }}, {{ $cartlist }} )"
+                                                    type="number" value="{{ $cartlist->quantity }}">
                                             </div><!-- End .product-single-qty -->
                                         </td>
-                                        @php $total =$cartlist->product->saleprice * $cartlist->quantity ; @endphp
+                                        @php $total =  $cartlist->variation ? $cartlist->variation->price : $cartlist->product->saleprice * $cartlist->quantity ; @endphp
                                         <td class="text-center"><span
                                                 class="subtotal-price">{{ $cartlist->product->currency }}<span
-                                                    id="quantity_total_{{ $cartlist->product->id }}">{{ $total }}</span></span>
+                                                    id="quantity_total_{{ $cartlist->product->id }}">{{ (int) $total }}</span></span>
                                         </td>
 
                                         <td class="text-center">
 
 
                                             <div class="float-right">
-                                                <button type="submit" class="btn btn-shop update-cart p-4">
+                                                <button type="submit"
+                                                    class="btn btn-shop update-cart   btn-sm btn-sm p-3 text-capitalize">
                                                     Update
                                                 </button>
-                                                <button type="button" class="btn btn-shop p-4"
+                                                <button type="button"
+                                                    class="btn btn-shop  btn-sm p-3 text-capitalize btn-sm"
                                                     onclick="viewDetailDialog({{ $cartlist }})">
                                                     Detail
                                                 </button>
@@ -104,7 +111,7 @@
                                 </tr>
 
 
-                                @php $alltotal +=$cartlist->product->saleprice * $cartlist->quantity ; @endphp
+                                @php $alltotal +=$cartlist->variation ? (int) $cartlist->variation->price : $cartlist->product->saleprice * $cartlist->quantity ; @endphp
 
 
                             @empty
@@ -287,9 +294,11 @@
 
             $('.update-cart').click(function(e) {
                 e.preventDefault();
+                const updateButton = $(this)
+                updateButton.prop('disabled', true)
 
                 var product_id = $(this).closest('.product_data').find('.product_id').val();
-                var quantity = $(this).closest('.product_data').find('.horizontal-quantity').val();
+                var quantity = $(this).closest('.product_data').find('.horizontal-quantitys').val();
 
 
                 data = {
@@ -301,8 +310,7 @@
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-
+                    } 
                 });
                 $.ajax({
                     method: "POST",
@@ -310,13 +318,34 @@
                     data: data,
 
                     success: function(response) {
+                        updateButton.prop('disabled', false)
                         // window.location.reload();
-                        console.log('response', response.data);
-                        // toster.success("", response.status, "success");
+                        console.log('response', response);
+
+                        if (response.status) {
+                            swal({
+                                title: 'Success',
+                                text: response.message,
+                                icon: "success",
+                            });
+                        } else {
+                            swal({
+                                type: 'error',
+                                text: response.message,
+                                icon: "error",
+                            });
+                        }
+                    },
+
+                    error: function(error) {
+                        updateButton.prop('disabled', false)
+                        // window.location.reload();
+                        var errorMessage = error.statusText;
+
                         swal({
-                            title: "Success",
-                            text: response.status,
-                            icon: "success",
+                            title: "Error",
+                            text: errorMessage,
+                            icon: "error",
                         });
                     }
                 });
@@ -326,15 +355,16 @@
             });
         });
 
-        function updatePrice(data, id, price) {
+        function updatePrice(data, id, price, cart) {
+
             let priceVal = data.value * price
             let oldTotal = $('#quantity_total_' + id).html()
             let subTotal = $('#subtotal').html()
 
             let newTotal = (subTotal - oldTotal) + priceVal
-            $('#subtotal').html(newTotal.toFixed(2))
-            $('#totalAmount').html(newTotal.toFixed(2))
-            $('#quantity_total_' + id).html(priceVal.toFixed(2))
+            $('#subtotal').html(newTotal)
+            $('#totalAmount').html(newTotal)
+            $('#quantity_total_' + id).html(priceVal)
         }
     </script>
 @endsection
