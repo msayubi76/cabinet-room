@@ -62,12 +62,15 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset('website/assets/vendor/fontawesome-free/css/all.min.css') }}">
     <style>
-        
+
     </style>
     @yield('style')
 </head>
 
 <body class="loaded sidebar-opened">
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+    </div>
     {{-- front --}}
     <div class="page-wrapper">
 
@@ -86,13 +89,7 @@
     </div>
     <!-- End .page-wrapper -->
 
-    <div class="loading-overlay">
-        <div class="bounce-loader">
-            <div class="bounce1"></div>
-            <div class="bounce2"></div>
-            <div class="bounce3"></div>
-        </div>
-    </div>
+
 
     <div class="mobile-menu-overlay"></div>
     <!-- End .mobil-menu-overlay -->
@@ -139,11 +136,120 @@
                 source: availableTags
             });
         }
+
+        // Show loader
+        function showLoader() {
+            document.getElementById('loader-wrapper').style.display = 'flex';
+        }
+
+        // Hide loader
+        function hideLoader() {
+            document.getElementById('loader-wrapper').style.display = 'none';
+        }
+
+        // Call showLoader() when page starts loading
+        showLoader();
+
+        // Call hideLoader() when page finishes loading
+        window.addEventListener('load', hideLoader);
     </script>
 
     <!-- Main JS File -->
     <script src="{{ asset('website/assets/js/main.min.js') }}"></script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script> --}}
+
+    <script>
+        function openDeleteDialog(id) {
+            $("#deleteID").val(id);
+            $("#deleteModal").modal('show');
+        }
+
+        function deleteCartItem() {
+            $("#button-delete").text('Loading...');
+            $("#button-delete").attr('disabled', true);
+            // alert(product_id);
+            var product_id = $('#deleteID').val();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                method: "GET",
+                url: "/delete",
+                data: {
+                    'product_id': product_id,
+                },
+
+                success: function(response) {
+                    $("#button-delete").html("Yes");
+                    $("#button-delete").attr('disabled', false);
+                    window.location.reload();
+                    // alert(response);
+                    swal("", response.message, "success");
+                },
+                error: function(error) {
+                    // $(form)
+                    $("#button-delete").html("Yes");
+                    $("#button-delete").attr('disabled', false);
+
+                    var errorMessage = error.statusText;
+                    var sweetMessage = error.statusText;
+
+                    swal({
+                        title: "Error",
+                        text: sweetMessage,
+                        icon: "error",
+                    });
+
+                },
+            });
+        }
+
+        $(document).ready(function() {
+
+            $('.update-cart').click(function(e) {
+                e.preventDefault();
+
+                var product_id = $(this).closest('.product_data').find('.product_id').val();
+                var quantity = $(this).closest('.product_data').find('.horizontal-quantity').val();
+
+
+                data = {
+                    'product_id': product_id,
+                    'quantity': quantity,
+                }
+
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+
+                });
+                $.ajax({
+                    method: "POST",
+                    url: "/update",
+                    data: data,
+
+                    success: function(response) {
+                        // window.location.reload();
+                        console.log('response', response.data);
+                        // toster.success("", response.status, "success");
+                        swal({
+                            title: "Success",
+                            text: response.message,
+                            icon: "success",
+                        });
+                    }
+                });
+
+
+
+            });
+        });
+    </script>
     @yield('scripts')
 </body>
 

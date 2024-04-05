@@ -71,14 +71,11 @@ class CartController extends Controller
     {
         try {
             $product_id = $request->product_id;
-            if (Cart::where('product_id', $product_id)->where('user_id', Auth::id())->exists()) {
-                $cart = Cart::where('product_id', $product_id)->where('user_id', Auth::id())->first();
-                $cart->delete();
-                return response()->json(['status' => 'Item deleted successfully from cart']);
-            }
-            return response()->json(['status' => 'loggin to continue']);
+            $cart = Cart::where('product_id', $product_id)->where('user_id', Auth::id())->first();
+            $cart->delete();
+            return response()->json(['message' => 'Item deleted successfully from cart.',   'status' => true]);
         } catch (\Throwable $th) {
-            return $th;
+            return response()->json(['message' => $th->getMessage(),   'status' => false]);
         }
     }
 }

@@ -26,10 +26,6 @@ class CheckOutController extends Controller
 
             $cart = Cart::where('user_id', Auth::id())->with(['product', 'variation'])->get();
             $cities = config('constant.cities');
-
-             
-            
-            
             return view('website.pages.checkout', compact('categories',  'cart', 'cities'));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());

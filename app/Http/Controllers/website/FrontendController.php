@@ -132,7 +132,7 @@ class FrontendController extends Controller
             if ($cartItem->product_id == $product->id) {
                 $productCheck = 0;
             }
-        }
+        } 
 
         return view('website.pages.single-product', compact('categories', 'colors', 'product', 'relatedProducts', 'featuredProductsFooter', 'arrivialProductsFooter', 'cart', 'latestPoductsFooter', 'featuredProductsPrevese', 'latestPoductsNext', 'productCheck', 'quoteCheck'));
     }

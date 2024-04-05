@@ -1,7 +1,7 @@
 
 const selectedColor = $('#selectedColor')
-const stockText= $('#stock-text')
-const addToCart= $('#add-to-cart')
+const stockText = $('#stock-text')
+const addToCart = $('#add-to-cart')
 const requestModal = $('#requestModal')
 const productIdIp = $('#product_id')
 const backendErrorText = $('.backend-error-text')
@@ -12,40 +12,43 @@ $.ajaxSetup({
     }
 });
 
-function selectColor(color){
+function selectColor(color) {
     selectedColor.val(color.id)
 }
 onChangeVariation()
-function onChangeVariation(selectedVar = null, element = null){
+function onChangeVariation(selectedVar = null, element = null) {
     let color = selectedVar
-    if(selectedVar == null){
+    if (selectedVar == null) {
         color = $('#color-list').find('li.active').data('id')
     }
-    
-   const variation = PRODUCT.variations.find((v) => v.id == color)
-   if(!variation){
-    return
-   }
 
+    let variation = PRODUCT.variations.find((v) => v.id == color)
+    
+    if (!variation) {
+        variation = {
+            stock: PRODUCT.stock || 0,
+            price: PRODUCT.saleprice
+        }
+    }
     console.log('variation', variation);
 
     let stockHtml = `<b>In Stock:</b> ${variation.stock}`
-    
+
     addToCart.prop('disabled', false)
     addToCart.html('Add to Cart')
-    
+
     productPrice.text(parseFloat(variation.price))
-    if(variation.stock==0){
+    if (variation.stock == 0) {
         stockHtml = `<b>Out of Stock</b>`
         addToCart.prop('disabled', true)
         addToCart.html('Out of Stock')
     }
     stockText.html(stockHtml)
-   if(element){
+    if (element) {
 
-     $(element).closest('ul').find('.active').removeClass('active')
-     $(element).addClass('active')
-   }
+        $(element).closest('ul').find('.active').removeClass('active')
+        $(element).addClass('active')
+    }
 }
 
 
@@ -63,7 +66,7 @@ function requestQuote() {
     var discription = $('#discription').val();
     console.log('product_id', product_id);
 
-   
+
     backendErrorText.text('')
     $.ajax({
         type: "POST",
@@ -78,13 +81,13 @@ function requestQuote() {
             'discription': discription,
         },
 
-        success: function(response) {
-            requestModal.modal('hide') 
+        success: function (response) {
+            requestModal.modal('hide')
             $(".add-quote").html("Request Quote");
             $(".add-quote").attr('disabled', false);
             swal("", response.message, "success");
         },
-        error: function(error) {
+        error: function (error) {
             // $(form)
             $(".add-quote").html("Request Quote");
             $(".add-quote").attr('disabled', false);
@@ -108,7 +111,7 @@ function handleValidationErrors(error, type = 'create') {
     let errors = error.responseJSON.errors;
     var errorMessage = error.responseJSON.message
     var element = '';
-    $.each(errors, function(key, item) {
+    $.each(errors, function (key, item) {
         element = key.split('.')
         if (element.length > 1) {
             element = `${element[0]}_${element[1]}`

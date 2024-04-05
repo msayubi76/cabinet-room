@@ -21,7 +21,9 @@
 
         <div class="row">
             <div class="col-lg-7">
-                {{ $errors }}
+                @if ($errors->any())
+                    {{ $errors }}
+                @endif
                 <ul class="checkout-steps">
                     <li>
                         <h2 class="step-title">Billing Details</h2>
@@ -63,15 +65,16 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>City <abbr class="required" title="required">*</abbr></label>
+                                        <input type="text" class="form-control" name="city" id="city">
 
-                                        <select name="city" id="city" class="form-control"
+                                        {{-- <select name="city" id="city" class="form-control"
                                             onchange="selectCity(this)">
                                             <option value="">Select City</option>
                                             @foreach ($cities as $city)
                                                 <option {{ old('city') == $city['name'] ? 'selected' : '' }}
                                                     value="{{ $city['name'] }}">{{ $city['name'] }}</option>
                                             @endforeach
-                                        </select>
+                                        </select> --}}
                                         @error('city')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -206,7 +209,8 @@
                                     <h4>Shipping Charges</h4>
                                 </td>
                                 <td class="price-col">
-                                    <span id="shipment-charges">--</span>
+                                    Free Delivery
+                                    {{-- <span id="shipment-charges">--</span> --}}
                                 </td>
                             </tr>
                             <tr class="order-shipping">
@@ -216,7 +220,7 @@
                                     <div class="form-group form-group-custom-control">
                                         <div class="custom-control custom-radio d-flex">
                                             <input type="radio" class="custom-control-input" name="radio" checked />
-                                            <label class="custom-control-label">Home Delivery</label>
+                                            <label class="custom-control-label">Cash on Delivery</label>
                                         </div>
                                         <!-- End .custom-checkbox -->
                                     </div>
@@ -239,7 +243,7 @@
                         </tfoot>
                     </table>
 
-                    
+
 
                     <button type="submit" class="btn btn-dark btn-place-order" form="checkout-form">
                         Place order

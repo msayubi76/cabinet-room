@@ -44,13 +44,14 @@ class OrderService
         $OrderDetailData = [];
         $cartItems = $user->cartItems;
 
-        $cities = config('constant.cities');
+        // $cities = config('constant.cities');
 
-        $filteredCity = array_filter($cities, function ($city) use ($shipping_detail) {
-            return $city['name'] === $shipping_detail->city;
-        });
-        $foundCity = reset($filteredCity);
-        $city_charges = $foundCity['charges'];
+        // $filteredCity = array_filter($cities, function ($city) use ($shipping_detail) {
+        //     return $city['name'] === $shipping_detail->city;
+        // });
+        // $foundCity = reset($filteredCity);
+        // $city_charges = $foundCity['charges'];
+        $city_charges = 0;
 
         $total_quantity = 0;
 
@@ -61,7 +62,8 @@ class OrderService
             $quantity = $item->quantity;
 
             $saleprice = (float) $product->saleprice;
-            $shipping_charges = $product->shipping_charge + $city_charges;
+            // $shipping_charges = $product->shipping_charge + $city_charges;
+            $shipping_charges = $city_charges;
 
             $price = $saleprice * $quantity;
             $variation_id = $item->variation_id;
@@ -71,9 +73,11 @@ class OrderService
             $OrderDetailData[] = ['product_id' => $product->id, 'quantity' => $quantity, 'price' => $saleprice, 'order_id' => $order->id,  'variation_id' => $variation_id];
 
             // inventory
-             
+
             $variation = Variation::find($variation_id);
-            $variation->update(['stock' => $variation->stock - $quantity]);
+            if ($variation) :
+                $variation->update(['stock' => $variation->stock - $quantity]);
+            endif;
             $product->update(['stock' => $product->stock - $quantity]);
 
         endforeach;

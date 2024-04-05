@@ -25,6 +25,7 @@ class SettingController extends Controller
             SettingService::update($request ); 
             return redirect()->back()->with('success', 'Setting updated successfully.');
         } catch (\Throwable $th) {
+            dd($th);
             return redirect( )->back()->with('error', $th->getMessage());
         }
     }

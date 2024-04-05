@@ -50,6 +50,7 @@ class SettingService
             $product_banner['folder_name'] = 'banners';
             $product_banner['image_name'] =  $image_name;
             $product_banner['image_url'] = url('/storage/banners/' . $image_name);
+           
             if (!$productBanner) {
                 $banner = Banner::create($product_banner);
             } else {
@@ -59,10 +60,11 @@ class SettingService
         if ($request->hasFile('search_banner_image')) {
             $image_name = FileUploadTrait::fileUpload($request->search_banner_image, 'banners');
             $search_banner['page_name'] = 'search';
-            $product_banner['name'] = 'Search Page Banner';
+            $search_banner['name'] = 'Search Page Banner';
             $search_banner['folder_name'] = 'banners';
             $search_banner['image_name'] =  $image_name;
             $search_banner['image_url'] = url('/storage/banners/' . $image_name);
+            
             if (!$searchBanner) {
                 $banner = Banner::create($search_banner);
             } else {

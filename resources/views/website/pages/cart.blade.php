@@ -234,7 +234,7 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary px-4 py-3" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
