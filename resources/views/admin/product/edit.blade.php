@@ -319,6 +319,8 @@
                                             <th>Name </th>
                                             <th>Value</th>
                                             <th>Price</th>
+                                            <th>Discount</th>
+                                            <th>Sale Price</th>
                                             <th>Stock</th>
                                             <th>Images</th>
                                             <th>Action</th>
@@ -329,7 +331,7 @@
                                                 @if (isset($variations[$i]))
                                                     @php $variation = $variations[$i]; @endphp
                                                 @else
-                                                    @php $variation =    ['name' => '', 'value' => '', 'price' => '', 'stock' => '', 'id'=> '']; @endphp
+                                                    @php $variation =    ['name' => '', 'value' => '', 'price' => '', 'stock' => '', 'id'=> '',  'discount' => '', 'sale_price' => '']; @endphp
                                                 @endif
                                                 <tr>
                                                     <td class="count">{{ $i + 1 }}</td>
@@ -349,9 +351,23 @@
                                                     </td>
                                                     <td>
                                                         <input class="form-control price" type="number"
-                                                            name="Variation[{{ $i }}][price]"
+                                                            name="Variation[{{ $i }}][price]"  onkeyup="calculateVariationDiscount(this)"  onchange="calculateVariationDiscount(this)"
                                                             placeholder="Price" value="{{ $variation['price'] }}">
                                                         <span class="error_price text-danger Err"></span>
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control discount" type="number"
+                                                            name="Variation[{{ $i }}][discount]" required onkeyup="calculateVariationDiscount(this)"  onchange="calculateVariationDiscount(this)" 
+                                                            placeholder="Discount" min="0"
+                                                            value="{{ old('Variation.' . $i . '.discount', $variation['discount']) }}">
+                                                            <span class="error_discount text-danger Err"></span>
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control sale_price" type="number"
+                                                            name="Variation[{{ $i }}][sale_price]" required
+                                                            placeholder="Price" min="0"  readonly
+                                                            value="{{ old('Variation.' . $i . '.sale_price', $variation['sale_price']) }}">
+                                                            <span class="error_sale_price text-danger Err"></span>
                                                     </td>
                                                     <td>
                                                         <input class="form-control stock" type="number"
@@ -365,9 +381,9 @@
                                                         <span class="error_images text-danger Err"></span>
                                                     </td>
                                                     <td>
-                                                        <button type="button" class="btn-success btn text-white save"
+                                                        <button type="button" class="btn-success btn text-white save btn-sm "
                                                             onclick="editVariation(this, {{ $variation['id'] }})">Save</button>
-                                                        <button type="button" class="btn-danger btn delete"
+                                                        <button type="button" class="btn-danger btn delete btn-sm"
                                                             onclick="deleteVariation(this, {{ $variation['id'] }})">Delete</button>
                                                     </td>
                                                 </tr>

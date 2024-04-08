@@ -73,6 +73,7 @@
 
                             <li><a href="{{ url('admin/pending/orders')}}">Pending</a></li>
                             <li><a href="{{ url('admin/Accepted/orders')}}">Accepted</a></li>
+                            <li><a href="{{ url('admin/shipped/orders')}}">Shipped</a></li>
                             <li><a href="{{ url('admin/Completed/orders')}}">Completed</a></li>
                             <li><a href="{{ url('admin/Rejected/orders')}}">Rejected</a></li>
                             <li><a href="{{ url('admin/Canceled/orders')}}">Canceled</a></li>

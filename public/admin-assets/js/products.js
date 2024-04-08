@@ -11,12 +11,11 @@ const imagesIp = $('.images')
 const availableStock = $('#available-stock')
 
 $("#actualprice,#discount").keyup(function (e) {
-    var actual = $("#actualprice").val();
-    var discount = $("#discount").val();
-    var divide = (discount / 100).toFixed(2);
-    var mutiplication = actual * divide;
-    var mainvalue = actual - mutiplication;
-    $("#saleprice").val(mainvalue);
+    calculateDiscountPrice()
+});
+
+$("#actualprice,#discount").change(function (e) {
+    calculateDiscountPrice()
 });
 
 
@@ -26,6 +25,40 @@ $("#category").on('change', function () {
 });
 
 
+function calculateDiscountPrice(){
+    var actual = $("#actualprice").val();
+    var discount = $("#discount").val();
+    var divide = (discount / 100).toFixed(2);
+    var mutiplication = actual * divide;
+    var mainvalue = actual - mutiplication;
+    $("#saleprice").val(mainvalue);
+
+    $(".discount").val(discount);
+
+    $('#variationTableBody tr').each(function(index, row){
+        console.log('row', row);
+        const price = parseFloat( $(row).find('.price').val())|| 0
+        const discount =  parseFloat($(row).find('.discount').val())|| 0
+        
+        const discountPrice =  ((price*discount)/100).toFixed(0)|| 0
+        const salePrice = price - discountPrice
+        console.log('values', $(row).find('.sale_price'), price, discount, discountPrice, salePrice);
+        $(row).find('.sale_price').val(salePrice)
+    })
+}
+
+function calculateVariationDiscount(element){
+    const row = $(element).closest('tr')
+ 
+    const price = parseFloat( $(row).find('.price').val())|| 0
+    const discount =  parseFloat($(row).find('.discount').val())|| 0
+    
+    const discountPrice =  ((price*discount)/100).toFixed(0) || 0
+    const salePrice = price - discountPrice
+    console.log('values', $(row).find('.sale_price'), price, discount, discountPrice, salePrice);
+    $(row).find('.sale_price').val(salePrice)
+
+}
 
 function getSubCategory() {
     var id = $("#category").val();
@@ -80,9 +113,21 @@ function addMoreVariation(showSave = false) {
         </td>
         <td>
             <input class="form-control price" type="number" required
-                name="Variation[${length}][price]"
+                name="Variation[${length}][price]" onkeyup="calculateVariationDiscount(this)"  onchange="calculateVariationDiscount(this)" 
                 placeholder="Price" />
                 <span class="error_price text-danger Err"></span>
+        </td>
+        <td>
+            <input class="form-control discount" type="number" required
+                name="Variation[${length}][discount]" onkeyup="calculateVariationDiscount(this)"  onchange="calculateVariationDiscount(this)" 
+                placeholder="Discount" />
+                <span class="error_discount text-danger Err"></span>
+        </td>
+        <td>
+            <input class="form-control sale_price" type="number" required
+                name="Variation[${length}][sale_price]" readonly
+                placeholder="Sale Price" />
+                <span class="error_sale_price text-danger Err"></span>
         </td>
         <td>
             <input class="form-control stock" type="number" required
@@ -98,10 +143,10 @@ function addMoreVariation(showSave = false) {
         <td>`
 
     if (showSave) {
-        row = row + `<button type="button" class="btn-success btn text-white save"
+        row = row + `<button type="button" class="btn-success btn text-white save btn-sm"
         onclick="editVariation(this)">Save</button>`
     }
-    row = row + `<button type="button" class="btn-danger btn delete" onclick="deleteVariation(this)">Delete</button>
+    row = row + `<button type="button" class="btn-danger btn delete btn-sm" onclick="deleteVariation(this)">Delete</button>
         </td>
     </tr>`
     variationTableBody.append(row)
@@ -197,6 +242,8 @@ function editVariation(element, variation = '') {
     const value = row.find('.value')
     const price = row.find('.price')
     const stock = row.find('.stock')
+    const discount = row.find('.discount')
+    const sale_price = row.find('.sale_price')
     const images = row.find('.images')[0].files
 
     const formData = new FormData();
@@ -209,6 +256,8 @@ function editVariation(element, variation = '') {
     formData.append('price', price.val());
     formData.append('stock', stock.val());
     formData.append('value', value.val());
+    formData.append('discount', discount.val());
+    formData.append('sale_price', sale_price.val());
     formData.append('product_id', currentProduct.id);
     formData.append('_method', 'put');
     console.log('images', images);

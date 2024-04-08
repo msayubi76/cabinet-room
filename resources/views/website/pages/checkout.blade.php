@@ -179,11 +179,15 @@
                                     </td>
 
                                     <td class="price-col">
-                                        @php $total = $cartitem->product->saleprice * $cartitem->quantity; @endphp
+                                        @php
+                                            $total = $cartitem->variation
+                                                ? $cartitem->variation->sale_price * $cartitem->quantity
+                                                : $cartitem->product->saleprice * $cartitem->quantity;
+                                        @endphp
                                         <span> {{ $cartitem->product->currency }}{{ $total }}</span>
                                     </td>
                                 </tr>
-                                @php $all_item_total += $cartitem->product->saleprice * $cartitem->quantity; @endphp
+                                @php $all_item_total += $cartitem->variation ? $cartitem->variation->sale_price * $cartitem->quantity : $cartitem->product->saleprice * $cartitem->quantity; @endphp
                             @endforeach
 
                         </tbody>
@@ -195,7 +199,7 @@
 
                                 <td class="price-col">
 
-                                    <span>{{ $cartitem->product->currency }}{{ $all_item_total }}</span>
+                                    <span> Rs {{ $all_item_total }}</span>
                                 </td>
                             </tr>
 

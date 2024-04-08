@@ -5,7 +5,11 @@ const addToCart = $('#add-to-cart')
 const requestModal = $('#requestModal')
 const productIdIp = $('#product_id')
 const backendErrorText = $('.backend-error-text')
-const productPrice = $('#product-price')
+const actualPrice = $('#actual-price')
+const actualPriceText = $('#actual-price-text')
+const salePrice = $('#sale-price')
+const  discountPercentage= $('#discount-percentage')
+const discountPercentageLabel = $('.discount-percentage-label')
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -27,25 +31,37 @@ function onChangeVariation(selectedVar = null, element = null) {
     if (!variation) {
         variation = {
             stock: PRODUCT.stock || 0,
-            price: PRODUCT.saleprice
+            sale_price: PRODUCT.saleprice,
+            price:PRODUCT.actual_price,
+            discount:PRODUCT.discount
         }
     }
-    console.log('variation', variation);
 
     let stockHtml = `<b>In Stock:</b> ${variation.stock}`
 
     addToCart.prop('disabled', false)
     addToCart.html('Add to Cart')
-
-    productPrice.text(parseFloat(variation.price))
+ 
     if (variation.stock == 0) {
         stockHtml = `<b>Out of Stock</b>`
         addToCart.prop('disabled', true)
         addToCart.html('Out of Stock')
     }
     stockText.html(stockHtml)
-    if (element) {
 
+    console.log('variation', variation, variation.discount>0);
+    salePrice.text(parseInt(variation.sale_price))
+    if(variation.discount>0){
+        discountPercentage.text(parseInt(variation.discount))
+        discountPercentageLabel.removeClass('d-none')
+        actualPriceText.removeClass('d-none')
+        actualPrice.text(parseInt(variation.price)) //actual_price
+    }else{
+        discountPercentageLabel.addClass('d-none')
+        actualPriceText.addClass('d-none')
+    }
+
+    if (element) {
         $(element).closest('ul').find('.active').removeClass('active')
         $(element).addClass('active')
     }

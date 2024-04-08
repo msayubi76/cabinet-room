@@ -55,31 +55,38 @@ class OrderService
 
         $total_quantity = 0;
 
+
         foreach ($cartItems as  $item) :
 
             $product = $item->product;
-
-            $quantity = $item->quantity;
-
-            $saleprice = (float) $product->saleprice;
-            // $shipping_charges = $product->shipping_charge + $city_charges;
-            $shipping_charges = $city_charges;
-
-            $price = $saleprice * $quantity;
             $variation_id = $item->variation_id;
 
-            $amount =  $amount + round($price, 4);
-            $total_amount = $amount + round($shipping_charges, 4);
-            $OrderDetailData[] = ['product_id' => $product->id, 'quantity' => $quantity, 'price' => $saleprice, 'order_id' => $order->id,  'variation_id' => $variation_id];
+            $variation = Variation::find($variation_id);
+            $quantity = $item->quantity;
+
+            $sale_price = $product->saleprice;
+            $shipping_charges = $city_charges;
 
             // inventory
 
-            $variation = Variation::find($variation_id);
+
+           
             if ($variation) :
                 $variation->update(['stock' => $variation->stock - $quantity]);
+                $sale_price = $variation->sale_price * $quantity;
+            else :
+                $sale_price = $sale_price * $quantity;
             endif;
-            $product->update(['stock' => $product->stock - $quantity]);
 
+            $amount =  $amount + round($sale_price, 4);
+            $total_amount = $amount + round($shipping_charges, 4);
+
+            $product->update(['stock' => $product->stock - $quantity]);
+           
+
+
+            $OrderDetailData[] = ['product_id' => $product->id, 'quantity' => $quantity, 'price' => $sale_price, 'order_id' => $order->id,  'variation_id' => $variation_id];
+          
         endforeach;
         $payment->update(['payment' => $amount, 'remaining_amount' => $amount, 'shipping_charges' => $shipping_charges, 'total_amount' => $total_amount]);
         OrderDetail::insert($OrderDetailData);

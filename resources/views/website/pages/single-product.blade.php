@@ -138,9 +138,15 @@
             <div class="row">
                 <div class="col-lg-5 col-md-6 product-single-gallery hidden-overflow">
                     <div class="product-slider-container">
-
+                        <div class="label-group">
+                            
+                            <div class="product-label label-sale d-none discount-percentage-label">
+                                <span id="discount-percentage"></span>%
+                            </div>
+                        </div>
 
                         <div class="product-single-carousel owl-carousel owl-theme show-nav-hover  ">
+                            
                             @foreach ($colors as $key => $color)
                                 @foreach ($color->media as $color_media)
                                     <div class="product-item">
@@ -231,12 +237,25 @@
                     <hr class="short-divider">
 
 
-                    <div class="price-box">
-                        <p>Price</p>
+                    {{-- <div class="price-box">
+                    
                         <span class="new-price ">{{ $product->currency }} <span
                                 id="product-price">{!! $product->saleprice !!}</span></span>
 
+                    </div> --}}
+
+                    <div class="price-box" style="width: max-content;">
+                        <p>Price</p>
+                        <del class="old-price d-none" id="actual-price-text">{{ $product->currency }}
+                            <span id="actual-price"></span>
+                        </del>
+                        <span class="product-price ">{{ $product->currency }}
+
+                            <span id="sale-price"></span>
+                        </span>
+
                     </div>
+
                     <!-- End .price-box -->
 
                     <div class="product-desc">

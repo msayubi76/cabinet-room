@@ -31,6 +31,8 @@ class ProductVariationRequest extends FormRequest
             'price' => ['required', 'numeric'],
             'stock' => ['required', 'numeric', 'min:0'],
             'value' => ['required', 'string'],
+            'discount' => ['required', 'numeric', 'max:100', 'min:0'],
+            'sale_price' => ['required', 'numeric'],
             'product_id' => ['required', 'exists:products,id'],
             'images.*' => ['required', File::image()
                 ->max(12 * 1024),]

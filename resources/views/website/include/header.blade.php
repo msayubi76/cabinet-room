@@ -152,7 +152,7 @@
                                             <span class="cart-product-info">
                                                 <span class="cart-product-qty">{{ $cartlist->quantity }}</span> ×
                                                 (
-                                                {{ $cartlist->variation ? (int) $cartlist->variation->price : $cartlist->product->saleprice }})
+                                                {{ $cartlist->variation ? (int) $cartlist->variation->sale_price : $cartlist->product->saleprice }})
                                             </span>
                                         </div>
 
@@ -170,7 +170,7 @@
                                                 onclick="openDeleteDialog({{ $cartlist->product_id }})"><span>×</span></a>
                                         </figure>
                                     </div>
-                                    @php $total += $cartlist->variation ? (int) $cartlist->variation->price : $cartlist->product->saleprice * $cartlist->quantity; @endphp
+                                    @php $total += $cartlist->variation ? (int) $cartlist->variation->sale_price  * $cartlist->quantity: $cartlist->product->saleprice * $cartlist->quantity; @endphp
                                 @endforeach
                                 <!-- End .product -->
 

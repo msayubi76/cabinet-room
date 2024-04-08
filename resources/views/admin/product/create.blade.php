@@ -249,7 +249,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row px-4" id="product-variations">
+                                <div class="row" id="product-variations">
                                     <div class="col-md-6">
                                         <h3>Product Variations</h3>
                                     </div>
@@ -258,17 +258,21 @@
                                             onclick="addMoreVariation()">Add
                                             More</button>
                                     </div>
-                                    <div class="col-md-12">
+                                    <div class="col-md-12 px-0">
                                         @php
                                             $variations = old('Variation', []);
                                             $variationCount = count($variations);
+                                           
                                         @endphp
+                                        
                                         <table class="table">
                                             <thead>
                                                 <th>Sr No</th>
                                                 <th>Name </th>
                                                 <th>Value</th>
                                                 <th>Price</th>
+                                                <th>Discount</th>
+                                                <th>Sale Price</th>
                                                 <th>Stock</th>
                                                 <th>Images</th>
                                                 <th>Action</th>
@@ -279,7 +283,7 @@
                                                     @if (isset($variations[$i]))
                                                         @php $variation = $variations[$i]; @endphp
                                                     @else
-                                                        @php $variation = ['name' => '', 'value' => '', 'price' => '', 'stock' => '']; @endphp
+                                                        @php $variation = ['name' => '', 'value' => '', 'price' => '', 'stock' => '', 'discount' => '', 'sale_price' => '']; @endphp
                                                     @endif
                                                     <tr>
                                                         <td class="count">{{ $i + 1 }}</td>
@@ -298,10 +302,22 @@
                                                                 value="{{ old('Variation.' . $i . '.value', $variation['value']) }}">
                                                         </td>
                                                         <td>
-                                                            <input class="form-control" type="number"
+                                                            <input class="form-control price" type="number"
                                                                 name="Variation[{{ $i }}][price]" required
-                                                                placeholder="Price"
+                                                                placeholder="Price" min="0" onkeyup="calculateVariationDiscount(this)"  onchange="calculateVariationDiscount(this)" 
                                                                 value="{{ old('Variation.' . $i . '.price', $variation['price']) }}">
+                                                        </td>
+                                                        <td>
+                                                            <input class="form-control discount" type="number"
+                                                                name="Variation[{{ $i }}][discount]" required onkeyup="calculateVariationDiscount(this)"  onchange="calculateVariationDiscount(this)" 
+                                                                placeholder="Discount" min="0"
+                                                                value="{{ old('Variation.' . $i . '.discount', $variation['discount']) }}">
+                                                        </td>
+                                                        <td>
+                                                            <input class="form-control sale_price" type="number"
+                                                                name="Variation[{{ $i }}][sale_price]" required
+                                                                placeholder="Price" min="0"  readonly
+                                                                value="{{ old('Variation.' . $i . '.sale_price', $variation['sale_price']) }}">
                                                         </td>
                                                         <td>
                                                             <input class="form-control stock" type="number"
@@ -315,7 +331,7 @@
                                                                 name="Variation[{{ $i }}][images][]">
                                                         </td>
                                                         <td>
-                                                            <button type="button" class="btn-danger btn"
+                                                            <button type="button" class="btn-danger btn btn-sm"
                                                                 onclick="deleteVariation(this)">Delete</button>
                                                         </td>
                                                     </tr>

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Variation extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'price', 'stock', 'product_id', 'value'];
+    protected $fillable = ['name', 'price', 'stock', 'product_id', 'value', 'discount', 'sale_price'];
 
     public function media()
     {
