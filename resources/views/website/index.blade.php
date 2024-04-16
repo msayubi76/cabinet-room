@@ -9,26 +9,10 @@
     }">
         @foreach ($banners as $banner)
             <div class="  home-slide1 banner">
-
                 <img class="slide-bg" src="{{ $banner->image_url }}" height="499" alt="slider image">
-
-
             </div>
         @endforeach
-
-        <!-- End .home-slide -->
-
-
-        <!-- End .home-slide -->
     </div>
-    <!-- End .home-slider -->
-
-
-
-
-
-
-    <!-- End .container -->
 
     <section class="featured-products-section">
         <div class="container">
@@ -39,8 +23,14 @@
                 'dots': false,
                 'nav': true,
                 'responsive': {
-                    '992': {
-                        'items': 4
+                    '320': {
+                        'items': 2
+                    },
+                    '425': {
+                        'items': 3
+                    },
+                    '767': {
+                        'items': 5  
                     },
                     '1200': {
                         'items': 8
@@ -50,8 +40,6 @@
                     }
                 }
             }">
-
-
                     @foreach ($categories as $catitem)
                         <div class="product-default feature-product item">
                             <div class="product-category p-3 border category-container">
@@ -66,15 +54,10 @@
                                     </div>
                                 </a>
                             </div>
-
                         </div>
                     @endforeach
                 </div>
-
             </div>
-
-
-
             <!-- End .featured-proucts -->
         </div>
     </section>
@@ -106,8 +89,7 @@
                             </h3>
                             <!-- End .product-container -->
                             <div class="price-box">
-                                <span
-                                    class="product-price">{{ $saleItem->currency }}{{ (int) $saleItem->saleprice }}</span>
+                                <span class="product-price">{{ $saleItem->currency }}{{ (int) $saleItem->saleprice }}</span>
                             </div>
 
                         </div>
@@ -133,12 +115,18 @@
                     'dots': false,
                     'nav': true,
                     'responsive': {
-                        '992': {
+                        '320': {
+                            'items': 1
+                        },
+                        '375': {
+                            'items': 2
+                        },
+                        '767': {
                             'items': 4
                         },
-                        '1200': {
+                        '992': {
                             'items': 5
-                        },  
+                        },
                         '1400': {
                             'items': 7
                         },
@@ -148,8 +136,8 @@
                     }
                 }">
                 @foreach ($arrivialProducts as $arriviallist)
-                    <div class="  new-arrival product-default inner-quickview inner-icon appear-animate animated   appear-animation-visible"
-                        >
+                    <div
+                        class="  new-arrival product-default inner-quickview inner-icon appear-animate animated   appear-animation-visible">
                         <figure class="img-effect">
                             <a href="{{ url('product/' . $arriviallist->id) }}">
                                 <img src="{{ $arriviallist->feature_image }}" alt="product">
@@ -224,17 +212,23 @@
                     'dots': false,
                     'nav': true,
                     'responsive': {
-                        '992': {
+                        '320': {
+                            'items': 1
+                        },
+                        '375': {
+                            'items': 2
+                        },
+                        '767': {
                             'items': 4
                         },
-                        '1200': {
-                            'items': 6
+                        '992': {
+                            'items': 5
                         },
-                        '1300': {
-                            'items': 6
+                        '1400': {
+                            'items': 7
                         },
                         '1600': {
-                            'items': 9
+                            'items': 10
                         }
                     }
                 }">
@@ -327,17 +321,23 @@
                     'dots': false,
                     'nav': true,
                     'responsive': {
-                        '992': {
+                        '320': {
+                            'items': 1
+                        },
+                        '375': {
+                            'items': 2
+                        },
+                        '767': {
                             'items': 4
                         },
-                        '1200': {
-                            'items': 6
+                        '992': {
+                            'items': 5
                         },
-                        '1300': {
-                            'items': 6
+                        '1400': {
+                            'items': 7
                         },
                         '1600': {
-                            'items': 9
+                            'items': 10
                         }
                     }
                 }">

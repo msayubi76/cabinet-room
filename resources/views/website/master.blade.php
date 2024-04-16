@@ -67,7 +67,7 @@
     @yield('style')
 </head>
 
-<body class="loaded sidebar-opened">
+<body class="loaded ">
     <div id="loader-wrapper">
         <div id="loader"></div>
     </div>
