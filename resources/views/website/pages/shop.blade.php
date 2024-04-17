@@ -181,7 +181,7 @@
             <div class="col-lg-9 main-content shop-products">
                 <div class="row">
                     @forelse($products as $productlist)
-                        <div class="col-6 col-sm-4 col-md-3">
+                        <div class="col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 ">
                             <div class="product-default inner-quickview inner-icon">
                                 <figure>
                                     <a href="{{ url('product/' . $productlist->id) }}">

@@ -22,11 +22,13 @@ function selectColor(color) {
 onChangeVariation()
 function onChangeVariation(selectedVar = null, element = null) {
     let color = selectedVar
+    
+     
     if (selectedVar == null) {
         color = $('#color-list').find('li.active').data('id')
     }
 
-    let variation = PRODUCT.variations.find((v) => v.id == color)
+    let variation = PRODUCT.variations?.find((v) => v.id == color)
     
     if (!variation) {
         variation = {

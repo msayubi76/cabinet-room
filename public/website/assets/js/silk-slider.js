@@ -37,17 +37,17 @@ $('.general-slick-slider').slick({
         }
       },
       {
-        breakpoint: 425,
+        breakpoint: 480,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3
+          slidesToShow: 2,
+          slidesToScroll: 2
         }
       },
       {
         breakpoint: 375,
         settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
+          slidesToShow: 2,
+          slidesToScroll: 2
         }
       },
       {
