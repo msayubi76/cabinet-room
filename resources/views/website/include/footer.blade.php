@@ -62,7 +62,7 @@
 
                 <div class="col-lg-4 col-sm-6">
                     <div class="widget">
-                        <h4 class="widget-title">Popular Categories</h4>
+                        <h4 class="widget-title">Categories</h4>
 
                         <div class="tagcloud">
                             @foreach ($categories as $catlist)
