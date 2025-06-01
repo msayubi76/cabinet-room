@@ -18,93 +18,69 @@ class DefaultUserSeeder extends Seeder
      */
     public function run()
     {
-
-
-        $admin = User::create([
-            'name' => 'admin',
+        // Create or update admin user
+        $admin = User::updateOrCreate(
+            ['email' => 'admin@gmail.com'],
+            [
+                'name' => 'admin',
                 'last_name' => 'admin',
                 'mobile_no' => '03015913636',
                 'city' => 'islamabad',
                 'address' => 'islamabad',
                 'region' => 'islam',
                 'type' => 'super-admin',
-                'email' => 'admin@gmail.com',
-                'password' => Hash::make(12345678)
-        ]);
+                'password' => Hash::make('12345678')
+            ]
+        );
 
-        $customer = User::create([
-            'name' => 'customer',
-            'last_name' => 'customer',
-            'mobile_no' => '03015913636',
-            'city' => 'islamabad',
-            'address' => 'islamabad',
-            'region' => 'islam',
-            'type' => 'customer',
-            'email' => 'customer@gmail.com',
-            'password' => Hash::make(12345678)
-        ]);
-        $admin_role = Role::create(['name' => 'super-admin']);
+        // Create or update customer user
+        $customer = User::updateOrCreate(
+            ['email' => 'customer@gmail.com'],
+            [
+                'name' => 'customer',
+                'last_name' => 'customer',
+                'mobile_no' => '03015913636',
+                'city' => 'islamabad',
+                'address' => 'islamabad',
+                'region' => 'islam',
+                'type' => 'customer',
+                'password' => Hash::make('12345678')
+            ]
+        );
 
+        // Create roles if they don't exist
+        $admin_role = Role::firstOrCreate(['name' => 'super-admin']);
+        $customer_role = Role::firstOrCreate(['name' => 'customer']);
 
+        // Define permissions by module
+        $permissions = [
+            'User' => ['create', 'update', 'delete'],
+            'Role' => ['create', 'update', 'delete'],
+            'Permission' => ['create', 'update', 'delete'],
+            'Category' => ['create', 'update', 'delete'],
+            'SubCategory' => ['create', 'update', 'delete'],
+            'Product' => ['create', 'update', 'delete'],
+            'Banner' => ['create', 'update', 'delete'],
+        ];
 
-        $permission = Permission::create(['name' => 'update-user','display_name' => 'update-user','module_name' => 'User']);
+        // Create permissions
+        foreach ($permissions as $module => $actions) {
+            foreach ($actions as $action) {
+                Permission::firstOrCreate([
+                    'name' => "$action-$module",
+                    'display_name' => "$action-$module",
+                    'module_name' => $module
+                ]);
+            }
+        }
 
-        $permission = Permission::create(['name' => 'create-user','display_name' => 'create-user','module_name' => 'User']);
-
-        $permission = Permission::create(['name' => 'delete-user','display_name' => 'delete-user','module_name' => 'User']);
-
-
-
-        $permission = Permission::create(['name' => 'update-role','display_name' => 'update-role','module_name' => 'Role']);
-
-        $permission = Permission::create(['name' => 'create-role','display_name' => 'create-role','module_name' => 'Role']);
-
-        $permission = Permission::create(['name' => 'delete-role','display_name' => 'delete-role','module_name' => 'Role']);
-
-
-        $permission = Permission::create(['name' => 'update-permission','display_name' => 'update-permission','module_name' => 'Permission']);
-
-        $permission = Permission::create(['name' => 'create-permission','display_name' => 'create-permission','module_name' => 'Permission']);
-
-        $permission = Permission::create(['name' => 'delete-permission','display_name' => 'delete-permission','module_name' => 'Permission']);
-
-
-        $permission = Permission::create(['name' => 'update-category','display_name' => 'update-category','module_name' => 'Category']);
-
-        $permission = Permission::create(['name' => 'create-category','display_name' => 'create-category','module_name' => 'Category']);
-
-        $permission = Permission::create(['name' => 'delete-category','display_name' => 'delete-category','module_name' => 'Category']);
-
-
-        $permission = Permission::create(['name' => 'update-sub-category','display_name' => 'update-sub-category','module_name' => 'SubCategory']);
-
-        $permission = Permission::create(['name' => 'create-sub-category','display_name' => 'create-sub-category','module_name' => 'SubCategory']);
-
-        $permission = Permission::create(['name' => 'delete-sub-category','display_name' => 'delete-sub-category','module_name' => 'SubCategory']);
-
-
-        $permission = Permission::create(['name' => 'update-product','display_name' => 'update-product','module_name' => 'Product']);
-
-        $permission = Permission::create(['name' => 'create-product','display_name' => 'create-product','module_name' => 'Product']);
-
-        $permission = Permission::create(['name' => 'delete-product','display_name' => 'delete-product','module_name' => 'Product']);
-
-
-        $permission = Permission::create(['name' => 'update-banners','display_name' => 'update-banners','module_name' => 'Banner']);
-
-        $permission = Permission::create(['name' => 'create-banners','display_name' => 'create-banners','module_name' => 'Banner']);
-
-        $permission = Permission::create(['name' => 'delete-banners','display_name' => 'delete-banners','module_name' => 'Banner']);
-
-
-
-
-
-
+        // Assign role to admin
         $admin->assignRole($admin_role);
 
-
-
-        $admin_role->givePermissionTo(Permission::all());
+        // Give all permissions to admin role
+        $admin_role->syncPermissions(Permission::all());
+        
+        // Optionally assign customer role
+        $customer->assignRole($customer_role);
     }
 }
