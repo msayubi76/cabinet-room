@@ -62,7 +62,7 @@
 
                 <div class="col-lg-4 col-sm-6">
                     <div class="widget">
-                        <h4 class="widget-title">Categories</h4>
+                        <h4 class="widget-title">Popular Categories</h4>
 
                         <div class="tagcloud">
                             @foreach ($categories as $catlist)
@@ -88,7 +88,7 @@
         <div class="footer-bottom">
             <div class="container d-sm-flex align-items-center">
                 <div class="footer-left">
-                    <span class="footer-copyright">© Cabinet Room. 2021. All Rights Reserved</span>
+                    <span class="footer-copyright">© Cabinet Room. 2025. All Rights Reserved</span>
                 </div>
  
             </div>
