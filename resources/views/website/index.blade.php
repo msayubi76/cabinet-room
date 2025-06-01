@@ -82,7 +82,8 @@
                         </figure>
                         <div class="product-details">
                             <div class="category-list">
-                                <a href="category.html" class="product-category">{{ $saleItem->category->name }}</a>
+                            <!--    <a href="category.html" class="product-category">{{ $saleItem->category->name }}</a> -->
+                            <a href="category.html" class="product-category">{{ optional($saleItem->category)->name ?? 'Uncategorized' }}</a>
                             </div>
                             <h3 class="product-title">
                                 <a href="{{ url('product/' . $saleItem->id) }}">{{ $saleItem->name }}</a>
