@@ -29,14 +29,14 @@ class FrontendController extends Controller
 
         $cart = Cart::where('user_id', Auth::id())->get();
         $banners = Banner::orderBy('id', 'DESC')->where('name', 'home')->get();
-        $saleItems = Product::where('discount', '>', '0')->with(['category'])->limit(24)->latest()->where('is_active', '1')->limit(36)->get();
+        
 
         $categoriesWithProducts = $categories->filter((function ($category) {
             return $category->products()->count() > 0;
         }));
 
 
-        return view('website.index', compact('categories',  'featuredProducts', 'arrivialProducts',   'cart', 'banners', 'saleItems', 'categoriesWithProducts'));
+        return view('website.index', compact('categories',  'featuredProducts', 'arrivialProducts',   'cart', 'banners',  'categoriesWithProducts'));
     }
 
     public function categories()

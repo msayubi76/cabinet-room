@@ -64,48 +64,6 @@
 
     <section class="new-products-section mt-2">
         <div class="container">
-            <h2 class="  heading-border ls-20 border-0">Sale Items</h2>
-
-
-            <div class="   general-slick-slider   mb-2 sale-items">
-
-                @foreach ($saleItems as $saleItem)
-                    <div class="product-default  ">
-                        <figure>
-                            <a href="{{ url('product/' . $saleItem->id) }}">
-                                <img src="{{ url($saleItem->feature_image) }}" alt="product">
-                                <img src="{{ url($saleItem->feature_image) }}" alt="product">
-                            </a>
-                            <div class="label-group">
-                                <div class="product-label label-sale">{{ substr($saleItem->discount, 0, 2) }}%</div>
-                            </div>
-                        </figure>
-                        <div class="product-details">
-                            <div class="category-list">
-                            <a href="category.html" class="product-category">{{ $saleItem->category->name }}</a>
-                    
-                            </div>
-                            <h3 class="product-title">
-                                <a href="{{ url('product/' . $saleItem->id) }}">{{ $saleItem->name }}</a>
-                            </h3>
-                           
-                            <div class="price-box">
-                                <span class="product-price">{{ $saleItem->currency }}{{ (int) $saleItem->saleprice }}</span>
-                            </div>
-
-                        </div>
-                        
-                    </div>
-                @endforeach
-            </div>
-
-
-        </div>
-    </section>
-
-
-    <section class="new-products-section mt-2">
-        <div class="container">
 
             <h2 class=" heading-border ls-20 border-0  ">
                 <span>Just Launched</span>
