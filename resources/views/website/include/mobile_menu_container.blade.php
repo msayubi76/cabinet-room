@@ -8,7 +8,7 @@
                     <a href="category.html">Categories</a>
                     <ul>
                         @foreach ($categories as $catitem )
-                        <li><a href="{{url('category=' .$catitem->name)}}">{{ $catitem->name }}</a></li>
+                        <li><a href="{{ url('category/' . $catitem->id) }}">{{ $catitem->name }}</a></li>
                         @endforeach
 
                     </ul>
