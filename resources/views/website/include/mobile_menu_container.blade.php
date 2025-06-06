@@ -19,7 +19,7 @@
 
                 </li>
                 <li>
-                    <a href="#">Pages<span class="tip tip-hot">Hot!</span></a>
+                    <a href="#">Pages</a>
                     <ul>
                         <li>
                             <a href="{{ url('/about-us') }}">About Us</a>
@@ -43,20 +43,6 @@
                 </li>
 
 
-            </ul>
-
-            <ul class="mobile-menu mt-2 mb-2">
-                <li class="border-0">
-                    <a href="#">
-                        Special Offer!
-                    </a>
-                </li>
-                <li class="border-0">
-                    <a href="#" target="_blank">
-                        Buy Porto!
-                        <span class="tip tip-hot">Hot</span>
-                    </a>
-                </li>
             </ul>
 
             <ul class="mobile-menu">
