@@ -60,9 +60,9 @@
             </div>
             <!-- End .featured-proucts -->
         </div>
-    </section>
-
-    <section class="new-products-section mt-2">
+        
+    <!-- </section>
+     <section class="new-products-section mt-2">
         <div class="container">
             <h2 class="  heading-border ls-20 border-0">Sale Items</h2>
 
@@ -83,25 +83,25 @@
                         <div class="product-details">
                             <div class="category-list">
                             <a href="category.html" class="product-category">{{ $saleItem->category->name }}</a>
-                             <!-- <a href="category.html" class="product-category">{{ optional($saleItem->category)->name ?? 'Uncategorized' }}</a> -->
+                             <a href="category.html" class="product-category">{{ optional($saleItem->category)->name ?? 'Uncategorized' }}</a> 
                             </div>
                             <h3 class="product-title">
                                 <a href="{{ url('product/' . $saleItem->id) }}">{{ $saleItem->name }}</a>
                             </h3>
-                            <!-- End .product-container -->
+                            End .product-container 
                             <div class="price-box">
                                 <span class="product-price">{{ $saleItem->currency }}{{ (int) $saleItem->saleprice }}</span>
                             </div>
 
                         </div>
-                        <!-- End .product-details -->
+                         End .product-details
                     </div>
                 @endforeach
             </div>
 
 
         </div>
-    </section>
+    </section> -->
 
 
     <section class="new-products-section mt-2">
