@@ -36,7 +36,7 @@ class FrontendController extends Controller
         }));
 
 
-        return view('website.index', compact('categories',  'featuredProducts', 'arrivialProducts',   'cart', 'banners', 'categoriesWithProducts'));
+        return view('website.index', compact('categories',  'featuredProducts', 'arrivialProducts',   'cart', 'banners', 'saleItems', 'categoriesWithProducts'));
     }
 
     public function categories()
