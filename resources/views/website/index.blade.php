@@ -148,8 +148,6 @@
                     
                     </div>
                 @endforeach
-
-
             </div>
             <!-- End .featured-proucts -->
 
