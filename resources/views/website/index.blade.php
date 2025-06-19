@@ -94,7 +94,7 @@
                         }
                     }
                 }">
-                @foreach ($arrivialProducts as $arriviallist)
+                <!-- @foreach ($arrivialProducts as $arriviallist)
                     <div
                         class="  new-arrival product-default inner-quickview inner-icon appear-animate animated   appear-animation-visible">
                         <figure class="img-effect">
@@ -145,9 +145,9 @@
                             </div>
 
                         </div>
-                        <!-- End .product-details -->
+                        
                     </div>
-                @endforeach
+                @endforeach  -->
 
 
             </div>
