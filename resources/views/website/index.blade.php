@@ -122,7 +122,7 @@
                                     onclick="showQuoteRequestModal({{ $arriviallist }})"> Quote Request</span>
                             @endif
                         </figure>
-                        <!-- <div class="product-details text-center">
+                         <div class="product-details text-center">
                             <div class="category-list">
                                 <a href=""
                                     class="product-category">{{ $arriviallist->category ? $arriviallist->category->name : '' }}</a>
@@ -144,8 +144,8 @@
 
                             </div>
 
-                        </div>  -->
-                        
+                        </div> 
+                    
                     </div>
                 @endforeach
 
