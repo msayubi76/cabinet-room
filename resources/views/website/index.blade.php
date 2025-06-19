@@ -94,7 +94,7 @@
                         }
                     }
                 }">
-                <!-- @foreach ($arrivialProducts as $arriviallist)
+                 @foreach ($arrivialProducts as $arriviallist)
                     <div
                         class="  new-arrival product-default inner-quickview inner-icon appear-animate animated   appear-animation-visible">
                         <figure class="img-effect">
@@ -122,7 +122,7 @@
                                     onclick="showQuoteRequestModal({{ $arriviallist }})"> Quote Request</span>
                             @endif
                         </figure>
-                        <div class="product-details text-center">
+                        <!-- <div class="product-details text-center">
                             <div class="category-list">
                                 <a href=""
                                     class="product-category">{{ $arriviallist->category ? $arriviallist->category->name : '' }}</a>
@@ -144,10 +144,10 @@
 
                             </div>
 
-                        </div>
+                        </div>  -->
                         
                     </div>
-                @endforeach  -->
+                @endforeach
 
 
             </div>
