@@ -151,7 +151,7 @@
         showLoader();
 
         // Call hideLoader() when page finishes loading
-        window.addEventListener('load', hideLoader);
+        window.addEventListener('DOMContentLoaded', hideLoader);
     </script>
 
     <!-- Main JS File -->

@@ -22,10 +22,10 @@ class FrontendController extends Controller
     public function index()
     {
         $categories = Category::where('is_active', '1')->with(['subcategories', 'products.category' => function ($query) {
-            return $query->where('is_active', 1)->limit(18);
+            return $query->where('is_active', 1)->limit(24);
         }])->get();
-        $featuredProducts = Product::where('is_feature_product', '1')->limit(12)->latest()->where('is_active', '1')->get();
-        $arrivialProducts = Product::latest()->where('is_active', '1')->limit(12)->get();
+        $featuredProducts = Product::where('is_feature_product', '1')->limit(24)->latest()->where('is_active', '1')->get();
+        $arrivialProducts = Product::latest()->where('is_active', '1')->limit(24)->get();
 
         $cart = Cart::where('user_id', Auth::id())->get();
         $banners = Banner::orderBy('id', 'DESC')->where('name', 'home')->get();

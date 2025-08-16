@@ -8406,9 +8406,7 @@ a:focus {
 .owl-carousel.nav-large .owl-nav i {
     padding: 4px 2px;
 }
-.owl-carousel.nav-image-center .owl-nav button {
-    top: 35%;
-}
+ 
 .owl-carousel.show-nav-hover .owl-nav {
     opacity: 0;
     transition: opacity 0.2s, color 0.2s;
