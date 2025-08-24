@@ -206,7 +206,7 @@
                                         @endif
                                     </figure>
 
-                                    <div class="product-details">
+                                    <div class="product-details px-2">
                                         <div class="category-wrap">
                                             <div class="category-list">
                                                 <a href=""
