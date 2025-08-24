@@ -182,80 +182,82 @@
                 <div class="row">
                     @forelse($products as $productlist)
                         <div class="col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 ">
-                            <div class="product-default inner-quickview inner-icon">
-                                <figure>
-                                    <a href="{{ url('product/' . $productlist->id) }}">
-                                        <img src="{{ asset($productlist->feature_image) }}" width="280" height="280"
-                                            alt="product" />
-                                        <img src="{{ asset($productlist->feature_image) }}" width="280" height="280"
-                                            alt="product" />
-                                    </a>
+                            <div class="card rounded">
+                                <div class="product-default inner-quickview inner-icon">
+                                    <figure>
+                                        <a href="{{ url('product/' . $productlist->id) }}">
+                                            <img src="{{ asset($productlist->feature_image) }}" width="280"
+                                                height="280" alt="product" />
+                                            <img src="{{ asset($productlist->feature_image) }}" width="280"
+                                                height="280" alt="product" />
+                                        </a>
 
-                                    <div class="label-group">
-                                        {{-- <div class="product-label label-hot">HOT</div> --}}
-                                        @if ($productlist->discount > 0)
-                                            <div class="product-label label-sale">
-                                                {{ substr($productlist->discount, 0, 2) }}%
-                                            </div>
-                                        @endif
-                                    </div>
-                                    @if ($productlist->is_for_request_quote)
-                                        <span class="btn-quickview pointer" title="Quote Request"
-                                            onclick="showQuoteRequestModal({{ $productlist }})"> Quote Request</span>
-                                    @endif
-                                </figure>
-
-                                <div class="product-details">
-                                    <div class="category-wrap">
-                                        <div class="category-list">
-                                            <a href=""
-                                                class="product-category">{{ $productlist->category ? $productlist->category->name : '' }}</a>
-                                        </div>
-                                    </div>
-
-                                    <h3 class="product-title"> <a
-                                            href="{{ url('product/' . $productlist->id) }}">{{ $productlist->name }}</a>
-                                    </h3>
-
-                                    @if ($productlist->rating > 0)
-                                        <div class="ratings-container">
-                                            <div class="product-ratings">
-                                                <span class="ratings"
-                                                    style="width:{{ ($productlist->rating / 5) * 100 }}%"></span>
-                                                <!-- End .ratings -->
-                                                <span class="tooltiptext tooltip-top"></span>
-                                            </div>
-                                        </div>
-                                    @else
-                                        <div class="ratings-container">
-                                            <div class="" style="height:11px">
-                                            </div>
-                                        </div>
-                                    @endif
-
-                                    <div class="price-box" style="width: max-content;">
-                                        @if ($productlist->is_for_request_quote)
-                                            <div class="label-group">
-                                                {{-- <div class="product-label label-hot">HOT</div> --}}
+                                        <div class="label-group">
+                                            {{-- <div class="product-label label-hot">HOT</div> --}}
+                                            @if ($productlist->discount > 0)
                                                 <div class="product-label label-sale">
-                                                    request for quote
+                                                    {{ substr($productlist->discount, 0, 2) }}%
+                                                </div>
+                                            @endif
+                                        </div>
+                                        @if ($productlist->is_for_request_quote)
+                                            <span class="btn-quickview pointer" title="Quote Request"
+                                                onclick="showQuoteRequestModal({{ $productlist }})"> Quote Request</span>
+                                        @endif
+                                    </figure>
+
+                                    <div class="product-details">
+                                        <div class="category-wrap">
+                                            <div class="category-list">
+                                                <a href=""
+                                                    class="product-category">{{ $productlist->category ? $productlist->category->name : '' }}</a>
+                                            </div>
+                                        </div>
+
+                                        <h3 class="product-title"> <a
+                                                href="{{ url('product/' . $productlist->id) }}">{{ $productlist->name }}</a>
+                                        </h3>
+
+                                        @if ($productlist->rating > 0)
+                                            <div class="ratings-container">
+                                                <div class="product-ratings">
+                                                    <span class="ratings"
+                                                        style="width:{{ ($productlist->rating / 5) * 100 }}%"></span>
+                                                    <!-- End .ratings -->
+                                                    <span class="tooltiptext tooltip-top"></span>
                                                 </div>
                                             </div>
-                                        @elseif ($productlist->discount > 0)
-                                            <span
-                                                class="old-price">{{ $productlist->currency }}{{ $productlist->actual_price }}</span>
-                                            <span
-                                                class="product-price">{{ $productlist->currency }}{{ $productlist->saleprice }}</span>
-                                        @elseif($productlist->saleprice > 0)
-                                            <span
-                                                class="product-price">{{ $productlist->currency }}{{ $productlist->saleprice }}</span>
+                                        @else
+                                            <div class="ratings-container">
+                                                <div class="" style="height:11px">
+                                                </div>
+                                            </div>
                                         @endif
+
+                                        <div class="price-box" style="width: max-content;">
+                                            @if ($productlist->is_for_request_quote)
+                                                <div class="label-group">
+                                                    {{-- <div class="product-label label-hot">HOT</div> --}}
+                                                    <div class="product-label label-sale">
+                                                        request for quote
+                                                    </div>
+                                                </div>
+                                            @elseif ($productlist->discount > 0)
+                                                <span
+                                                    class="old-price">{{ $productlist->currency }}{{ $productlist->actual_price }}</span>
+                                                <span
+                                                    class="product-price">{{ $productlist->currency }}{{ $productlist->saleprice }}</span>
+                                            @elseif($productlist->saleprice > 0)
+                                                <span
+                                                    class="product-price">{{ $productlist->currency }}{{ $productlist->saleprice }}</span>
+                                            @endif
+                                        </div>
+                                        <!-- End .price-box -->
+
+
                                     </div>
-                                    <!-- End .price-box -->
-
-
+                                    <!-- End .product-details -->
                                 </div>
-                                <!-- End .product-details -->
                             </div>
                         </div>
                     @empty
@@ -295,7 +297,7 @@
 
                         <div class="collapse show" id="widget-body-3">
                             <div class="widget-body pb-0">
-                                <form method="GET" action="{{ route('products') }}"> 
+                                <form method="GET" action="{{ route('products') }}">
                                     <div class="price-input">
                                         <div class="field">
                                             <span>Min</span>
@@ -326,9 +328,9 @@
                                     <div
                                         class="filter-price-action d-flex align-items-center justify-content-between flex-wrap">
                                         <!-- <div class="filter-price-text">
-                                                                    Price:{{ $min }} - {{ $max }}
-                                                                   <span id="filter-price-range"></span>
-                                                                </div> -->
+                                                                        Price:{{ $min }} - {{ $max }}
+                                                                       <span id="filter-price-range"></span>
+                                                                    </div> -->
                                         <!-- End .filter-price-text -->
 
                                         <button type="submit" class="btn btn-primary">Filter</button>

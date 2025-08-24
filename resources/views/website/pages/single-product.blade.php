@@ -139,14 +139,14 @@
                 <div class="col-lg-5 col-md-6 product-single-gallery hidden-overflow">
                     <div class="product-slider-container">
                         <div class="label-group">
-                            
+
                             <div class="product-label label-sale d-none discount-percentage-label">
                                 <span id="discount-percentage"></span>%
                             </div>
                         </div>
 
                         <div class="product-single-carousel owl-carousel owl-theme show-nav-hover  ">
-                            
+
                             @foreach ($colors as $key => $color)
                                 @foreach ($color->media as $color_media)
                                     <div class="product-item">
@@ -372,76 +372,82 @@
         </div>
         <!-- End .product-single-tabs -->
 
-        <div class="products-section pt-0">
+        <div class="products-section pt-0 related-products">
             <h2 class="section-title">Related Products</h2>
 
-            <div class="products-slider owl-carousel owl-theme dots-top dots-small">
+
+            <div class="row">
                 @foreach ($relatedProducts as $product_item)
-                    <div class="product-default">
-                        <figure>
-                            <a href="{{ url('product/' . $product_item->id) }}">
-                                <img src="{{ asset($product_item->feature_image) }}" width="280" height="280"
-                                    alt="product">
-                                <img src="{{ asset($product_item->feature_image) }}" width="280" height="280"
-                                    alt="product">
-                            </a>
-                            @if ($product_item->is_for_request_quote)
-                                <div class="label-group">
-                                    {{-- <div class="product-label label-hot">HOT</div> --}}
-                                    <div class="product-label label-sale">
-                                        request for quote
-                                    </div>
-                                </div>
-                            @elseif ($product_item->discount > 0)
-                                <div class="label-group">
-                                    <div class="product-label label-sale">{{ substr($product_item->discount, 0, 2) }}%
-                                    </div>
-                                </div>
-                            @endif
+                    <div class="col-xl-2 col-lg-3 col-sm-6 col-6 mb-2">
+                        <div class="card rounded mb-0">
+                            <div class="product-default mb-0">
+                                <figure>
+                                    <a href="{{ url('product/' . $product_item->id) }}">
+                                        <img src="{{ asset($product_item->feature_image) }}" width="280"
+                                            height="280" alt="product">
+                                        <img src="{{ asset($product_item->feature_image) }}" width="280"
+                                            height="280" alt="product">
+                                    </a>
+                                    @if ($product_item->is_for_request_quote)
+                                        <div class="label-group">
+                                            {{-- <div class="product-label label-hot">HOT</div> --}}
+                                            <div class="product-label label-sale">
+                                                request for quote
+                                            </div>
+                                        </div>
+                                    @elseif ($product_item->discount > 0)
+                                        <div class="label-group">
+                                            <div class="product-label label-sale">
+                                                {{ substr($product_item->discount, 0, 2) }}%
+                                            </div>
+                                        </div>
+                                    @endif
 
-                        </figure>
-                        <div class="product-details">
-                            <div class="category-list">
-                                <a href=""
-                                    class="product-category">{{ $product_item->category ? $product_item->category->name : '' }}</a>
+                                </figure>
+                                <div class="product-details">
+                                    <div class="category-list">
+                                        <a href=""
+                                            class="product-category">{{ $product_item->category ? $product_item->category->name : '' }}</a>
+                                    </div>
+                                    <h3 class="product-title">
+                                        <a href="{{ url('product/' . $product_item->id) }}">{{ $product_item->name }}</a>
+                                    </h3>
+                                    @if ($product_item->rating > 0)
+                                        <div class="ratings-container">
+                                            <div class="product-ratings">
+                                                <span class="ratings"
+                                                    style="width:{{ ($product_item->rating / 5) * 100 }}%"></span>
+                                                <!-- End .ratings -->
+                                                <span class="tooltiptext tooltip-top"></span>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="ratings-container">
+                                            <div class="" style="height:11px">
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    <!-- End .product-container -->
+                                    <div class="price-box">
+                                        @if ($product_item->discount > 0)
+                                            <del
+                                                class="old-price">{{ $product_item->currency }}{{ $product_item->actual_price }}</del>
+                                            <span
+                                                class="product-price">{{ $product_item->currency }}{{ $product_item->saleprice }}</span>
+                                        @elseif($product_item->saleprice > 0)
+                                            <span
+                                                class="product-price">{{ $product_item->currency }}{{ $product_item->saleprice }}</span>
+                                        @endif
+
+                                    </div>
+
+                                </div>
+                                <!-- End .product-details -->
                             </div>
-                            <h3 class="product-title">
-                                <a href="{{ url('product/' . $product_item->id) }}">{{ $product_item->name }}</a>
-                            </h3>
-                            @if ($product_item->rating > 0)
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings"
-                                            style="width:{{ ($product_item->rating / 5) * 100 }}%"></span>
-                                        <!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div>
-                                </div>
-                            @else
-                                <div class="ratings-container">
-                                    <div class="" style="height:11px">
-                                    </div>
-                                </div>
-                            @endif
-
-                            <!-- End .product-container -->
-                            <div class="price-box">
-                                @if ($product_item->discount > 0)
-                                    <del
-                                        class="old-price">{{ $product_item->currency }}{{ $product_item->actual_price }}</del>
-                                    <span
-                                        class="product-price">{{ $product_item->currency }}{{ $product_item->saleprice }}</span>
-                                @elseif($product_item->saleprice > 0)
-                                    <span
-                                        class="product-price">{{ $product_item->currency }}{{ $product_item->saleprice }}</span>
-                                @endif
-
-                            </div>
-
                         </div>
-                        <!-- End .product-details -->
                     </div>
-                @endforeach
+                @endforeach 
             </div>
             <!-- End .products-slider -->
         </div>

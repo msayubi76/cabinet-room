@@ -24,7 +24,7 @@
                 'nav': true,
                 'responsive': {
                     '320': {
-                        'items': 2
+                        'items': 3
                     },
                     '425': {
                         'items': 3
@@ -34,14 +34,11 @@
                     },
                     '1200': {
                         'items': 8
-                    },
-                    '1400': {
-                        'items': 8
-                    }
+                    } 
                 }
             }">
                     @foreach ($categories as $catitem)
-                        <div class="product-default feature-product item">
+                        <div class="  feature-product item">
                             <div class="product-category p-3 border category-container">
                                 <a href="{{ route('products', $catitem->name) }}">
                                     <figure>
@@ -81,10 +78,10 @@
                                 'items': 2
                             },
                             '992': {
-                                'items': 4
+                                'items': 6
                             },
                             '1400': {
-                                'items': 6
+                                'items': 7
                             }
                         }
                     }">
@@ -191,11 +188,8 @@
                             'items': 5
                         },
                         '1400': {
-                            'items': 7
-                        },
-                        '1600': {
-                            'items': 10
-                        }
+                            'items': 6
+                        } 
                     }
                 }">
 
@@ -272,7 +266,7 @@
 
 
     @foreach ($categoriesWithProducts as $category)
-        <section class="featured-products-section mt-1 categories-products1">
+        <section class="featured-products-section mt-1 categories-products">
             <div class="container">
                 <div class="row">
                     <div class="col-md-5  col-7">
@@ -373,15 +367,14 @@
 
                 <div class="products-slider custom-products owl-carousel owl-theme nav-outer show-nav-hover nav-image-center"
                     data-owl-options="{
-        'dots': false,
-        'nav': true,
-        'responsive': { 
-            '425': { 'items': 2 },
-            '767': { 'items': 3 },
-            '992': { 'items': 4 },
-            '1400': { 'items': 6 }
-        }
-     }">
+                        'dots': false,
+                        'nav': true,
+                        'responsive': { 
+                            '425': { 'items': 2 },
+                            '767': { 'items': 3 },
+                            '992': { 'items': 6 }
+                        }
+                    }">
 
                     @if ($category->products->count() > 12)
                         {{-- 🔹 Two-row layout (chunked into 2 per slide) --}}

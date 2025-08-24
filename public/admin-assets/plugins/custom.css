@@ -46,8 +46,9 @@ body {
     height: 150px !important;
 }
 
-.categories-products img {
-    height: 220px !important;
+.categories-products img,
+.related-products img{
+    height: 176px !important;
 }
 
 .widget-featured .widget-featured-products img {
