@@ -149,7 +149,7 @@
                         </table>
 
                         <div class="checkout-methods">
-                            <a href="{{ url('check-out') }}" class="btn btn-block btn-dark ">Proceed to Checkout
+                            <a href="{{ url('check-out') }}" class="btn btn-block btn-primary ">Proceed to Checkout
                                 <i class="fa fa-arrow-right"></i></a>
                         </div>
                     </div><!-- End .cart-summary -->

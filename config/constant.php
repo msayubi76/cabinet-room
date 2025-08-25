@@ -40,6 +40,6 @@ $cities = [
 
 
 return [
-    'curencies' =>  collect($currencies),
+    'curencies' =>  $currencies,
     'cities' =>  $cities,
 ];

@@ -2168,8 +2168,8 @@ a.btn.disabled {
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary.focus {
-    border-color: #00a3f5;
-    background-color: #00a3f5;
+    border-color: #21b259;
+    background-color: #21b259;
     color: #fff;
     box-shadow: none;
 }
@@ -2182,8 +2182,8 @@ a.btn.disabled {
 .btn-primary:not(:disabled):not(.disabled):active,
 .btn-primary:not(:disabled):not(.disabled).active,
 .show > .btn-primary.dropdown-toggle {
-    border-color: #005e8c;
-    background-color: #006699;
+    border-color: #21b259;
+    background-color: #21b259;
     color: #fff;
 }
 

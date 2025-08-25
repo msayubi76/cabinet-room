@@ -44,8 +44,9 @@ class FrontendController extends Controller
         try {
             $categories = Category::where('is_active', '1')->with('subcategories')->get();
             $cart = Cart::where('user_id', Auth::id())->get();
-            return view('website.pages.categories', compact('categories', 'subcategory', 'cart'));
+            return view('website.pages.categories', compact('categories',  'cart'));
         } catch (\Throwable $th) {
+            dd($th) ;
             return response()->json(['status' => false, 'message' => $th->getMessage()]);
         }
     }
