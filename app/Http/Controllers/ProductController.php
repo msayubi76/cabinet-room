@@ -33,8 +33,7 @@ class ProductController extends Controller
         try {
             ProductService::store($request); 
             return redirect(route('products.index'))->with('success', 'Product added successfully.');
-        } catch (\Throwable $th) {
-            dd($th);
+        } catch (\Throwable $th) { 
             return redirect(route('products.index'))->with('error', $th->getMessage());
         }
     }

@@ -25,7 +25,7 @@
     <!--login start here-->
 
     <div class="login">
-        <h2>Cabinet | Login</h2>
+        <h2>RkHardware | Login</h2>
 
         <form method="post" action="{{ route('login') }}">
             @csrf
@@ -80,14 +80,13 @@
         <div class="login-bottom">
             <h3>Login</h3>
             <p>With your social media account</p>
-            <div class="social-icons">
+            <div class="social-icons text-center">
                 <div class="button">
-                    {{-- <a class="tw" href="#"> <i class="anc-tw"> </i> <span>Twitter</span> --}}
-                    <div class="clear"> </div></a>
-                    <a class="fa" href="{{ route('facebook-auth') }}"> <i class="anc-fa"> </i>
+                     
+                    {{-- <a class="fa" href="{{ route('facebook-auth') }}"> <i class="anc-fa"> </i>
                         <span>Facebook</span>
                         <div class="clear"> </div>
-                    </a>
+                    </a> --}}
                     <a class="go" href="{{ route('google-auth') }}"><i class="anc-go"> </i><span>Google+</span>
                         <div class="clear"> </div>
                     </a>
@@ -107,9 +106,7 @@
         <script async src="{{ asset('form-assets/js/adsbygoogle.js') }}"></script>
     </div>
 
-    <div class="copyright">
-        <p>Template by <a href="https://www.designmaz.net/" target="_blank"> DesignMaz </a></p>
-    </div>
+
     <!--login end here-->
 </body>
 

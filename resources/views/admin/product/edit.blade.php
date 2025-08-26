@@ -149,6 +149,8 @@
                                         @enderror
 
                                     </div>
+
+                                    
                                     <div class="col-md-4 mb-8">
                                         <label for="">Sale Price<span class="text-danger">*</span></label>
                                         <input type="number" class="form-control input-default" id="saleprice"
@@ -172,7 +174,7 @@
                                     </div>
                                    
 
-                                    <div class="col-md-3 mb-8">
+                                    <div class="col-md-4 mb-8">
                                         <label for="">Product Currency<span class="text-danger">*</span></label>
                                         <select name="currency" class="form-control" id="currency">
                                             <option value="">-- Select Currency --</option>
@@ -258,7 +260,7 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="col-md-2 mb-8">
+                                    {{-- <div class="col-md-2 mb-8">
                                         <label for="is_for_request_quote">
 
                                             <input type="checkbox" class="form-check-input" value="1"
@@ -268,7 +270,7 @@
                                         @error('is_for_request_quote')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
-                                    </div>
+                                    </div> --}}
                                     <div class="col-md-2">
                                         <label for="is_installment_available" for="is_installment_available">
                                             <input type="checkbox" id="is_installment_available" class="form-check-input"

@@ -326,7 +326,7 @@ form {
   font-size: 20px;
   font-weight: 700;
   color: #000;
-  padding: 25px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
 }
 
 .login-bottom p {
@@ -419,10 +419,10 @@ form {
   font-size: 15px;
   font-weight: 600;
   color: #fff;
-  margin: 0px 1.5% 0px 0px;
+  margin: 0 30.5% !important;
   border-radius: 4px;
   float: left;
-  width: 45%;
+  width: 115px;
   margin-left: 20px;
   padding: 0px 0;
 }
@@ -444,12 +444,7 @@ form {
   display: block;
 }
 
-.button a.go {
-  background: #D34836;
-  margin: 0;
-  float: left;
-}
-
+ 
 .button a.tw:hover {
   background: #1CA4D6;
 }

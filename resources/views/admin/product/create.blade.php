@@ -12,7 +12,7 @@
                                 <strong>Whoops!</strong><br> There were some<strong> problems</strong> with your
                                 input.
                             </div>
-                            {{ $errors }}
+                           
                             <br><br>
                         @endif
                         <h4 class="card-title">Add Product</h4>
@@ -121,6 +121,18 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
+
+                                    <div class="col-md-4 mb-8">
+                                        <label for="">Shipping Charges  </label>
+                                        <input type="number" min="0" class="form-control input-default"
+                                            placeholder="Shipping Charge" :value="old('shipping_charge')"
+                                            name="shipping_charge">
+                                        @error('shipping_charge')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+
                                     <div class="col-md-4 mb-8">
                                         <label for="">Sale Price <span class="text-danger">*</span></label>
                                         <input type="number" class="form-control input-default" id="saleprice"
@@ -161,8 +173,8 @@
                                                 value="{{ old('delivered_in') }}" name="delivered_in"
                                                 aria-label="Recipient's username" aria-describedby="basic-addon2">
                                             <!-- <div class="input-group-append">
-                                                                                                                                                                                                                            <span class="input-group-text" id="basic-addon2">Working days</span>
-                                                                                                                                                                                                                        </div> -->
+                                                                                                                                                                                                                                    <span class="input-group-text" id="basic-addon2">Working days</span>
+                                                                                                                                                                                                                                </div> -->
                                         </div>
                                         @error('delivered_in')
                                             <div class="text-danger">{{ $message }}</div>
@@ -180,7 +192,7 @@
                                     <div class="col-md-4">
                                         <label for="">Available Stock </label>
                                         <input type="number" class="form-control input-default" min="1"
-                                            id="available-stock"  placeholder="Available Stock"
+                                            id="available-stock" placeholder="Available Stock"
                                             value="{{ old('stock') }}" name="stock">
                                         @error('stock')
                                             <div class="text-danger">{{ $message }}</div>
@@ -227,7 +239,7 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="col-md-2 mb-8">
+                                    {{-- <div class="col-md-2 mb-8">
                                         <label class=" col-form-label form-check-label" for="is_for_request_quote">
 
                                             <input type="checkbox" class="form-check-input" name="is_for_request_quote"
@@ -237,7 +249,7 @@
                                         @error('is_for_request_quote')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-md-2">
                                         <label class=" col-form-label form-check-label" for="is_installment_available">
@@ -262,9 +274,9 @@
                                         @php
                                             $variations = old('Variation', []);
                                             $variationCount = count($variations);
-                                           
+
                                         @endphp
-                                        
+
                                         <table class="table">
                                             <thead>
                                                 <th>Sr No</th>
@@ -304,19 +316,23 @@
                                                         <td>
                                                             <input class="form-control price" type="number"
                                                                 name="Variation[{{ $i }}][price]" required
-                                                                placeholder="Price" min="0" onkeyup="calculateVariationDiscount(this)"  onchange="calculateVariationDiscount(this)" 
+                                                                placeholder="Price" min="0"
+                                                                onkeyup="calculateVariationDiscount(this)"
+                                                                onchange="calculateVariationDiscount(this)"
                                                                 value="{{ old('Variation.' . $i . '.price', $variation['price']) }}">
                                                         </td>
                                                         <td>
                                                             <input class="form-control discount" type="number"
-                                                                name="Variation[{{ $i }}][discount]" required onkeyup="calculateVariationDiscount(this)"  onchange="calculateVariationDiscount(this)" 
+                                                                name="Variation[{{ $i }}][discount]" required
+                                                                onkeyup="calculateVariationDiscount(this)"
+                                                                onchange="calculateVariationDiscount(this)"
                                                                 placeholder="Discount" min="0"
                                                                 value="{{ old('Variation.' . $i . '.discount', $variation['discount']) }}">
                                                         </td>
                                                         <td>
                                                             <input class="form-control sale_price" type="number"
                                                                 name="Variation[{{ $i }}][sale_price]" required
-                                                                placeholder="Price" min="0"  readonly
+                                                                placeholder="Price" min="0" readonly
                                                                 value="{{ old('Variation.' . $i . '.sale_price', $variation['sale_price']) }}">
                                                         </td>
                                                         <td>

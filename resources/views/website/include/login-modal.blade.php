@@ -39,10 +39,10 @@
                             <div class="button">
                                 {{-- <a class="tw" href="#"> <i class="anc-tw"> </i> <span>Twitter</span> --}}
                                 <div class="clear"> </div></a>
-                                <a class="fa" href="{{ route('facebook-auth') }}"> <i class="anc-fa"> </i>
+                                {{-- <a class="fa" href="{{ route('facebook-auth') }}"> <i class="anc-fa"> </i>
                                     <span>Facebook</span>
                                     <div class="clear"> </div>
-                                </a>
+                                </a> --}}
                                 <a class="go" href="{{ route('google-auth') }}"><i class="anc-go">
                                     </i><span>Google+</span>
                                     <div class="clear"> </div>

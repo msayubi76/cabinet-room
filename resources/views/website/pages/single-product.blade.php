@@ -75,7 +75,7 @@
             font-size: 15px;
             font-weight: 600;
             color: #fff;
-            margin: 0px 1.5% 0px 0px;
+            margin: 0 26.5% !important;
             border-radius: 4px;
             float: left;
             width: 45%;
