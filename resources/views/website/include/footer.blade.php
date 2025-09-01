@@ -41,18 +41,15 @@
 
                 <div class="col-lg-4 col-sm-6">
                     <div class="widget">
-                        <h4 class="widget-title">Links</h4>
-
+                      
                         <ul class="links">
                             <li><a href="{{ url('/') }}">Home</a></li>
                             <li><a href="{{ url('categories') }}">Categories</a></li>
                             <li><a href="{{ url('/products') }}">Shop</a></li>
                             <li><a href="{{ url('/about-us') }}">About Us</a></li>
                             <li><a href="{{ url('/contact-us') }}">Contact Us</a></li>
-                            <li><a href="{{ url('user-dashboard') }}">My Account</a></li>
-
-                            <li><a href="{{ url('cart') }}">Cart</a></li>
-                            <li><a href="{{ url('login') }}">Login</a></li>
+                           
+                        
                             <li><a href="{{ url('/privacy-and-policy') }}">Privacy</a></li>
                         </ul>
                     </div>
