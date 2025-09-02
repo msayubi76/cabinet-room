@@ -156,7 +156,6 @@
                                             </span>
                                         </div>
 
-                                        <!-- End .product-details -->
 
                                         <figure class="product-image-container">
                                             <a href="/product/{{ $cartlist->product_id }}" class="product-image">
@@ -239,23 +238,6 @@
                                             </ul>
                                         </div>
 
-
-                                        <!-- <div class="col-lg-6 p-0">
-                                            <div class="menu-banner">
-                                                <figure>
-                                                    <img src="{{ $catlist->image_url }}" width="192"
-                                                        height="313" alt="Menu banner">
-                                                </figure>
-                                                <div class="banner-content">
-                                                    <h4>
-                                                        <span class="">UP TO</span><br />
-                                                        <b class="">50%</b>
-                                                        <i>OFF</i>
-                                                    </h4>
-                                                    <a href="category.html" class="btn btn-sm btn-dark">SHOP NOW</a>
-                                                </div>
-                                            </div>
-                                        </div> -->
                                     </div>
                                 </div>
                             @endforeach
@@ -300,5 +282,5 @@
         </div>
     </div>
 </header>
- 
+
 <!-- End .header -->

@@ -298,18 +298,14 @@
 
 
                         <!-- End .product-single-qty -->
-                        @if (Auth::user() && !$product->is_for_request_quote)
-                            @if ($productCheck == 1)
-                                <button class="btn btn-primary add-cart mr-2 btn-sm" id="add-to-cart" title="Add to Cart">Add
-                                    to Cart </button>
-                            @endif
-                            @if ($productCheck == 0)
-                                <a href="{{ url('cart') }}" class="btn btn-gray view-cart btn-sm">View cart</a>
-                            @endif
-                        @elseif(!$product->is_for_request_quote)
-                            <a class="btn btn-primary  mr-2 btn-sm" title="Add to Cart" data-toggle="modal" id="add-to-cart"
-                                data-target="#loginModal">Add to Cart</a>
+                        @if ($productCheck == 1)
+                            <button class="btn btn-primary add-cart mr-2 btn-sm" id="add-to-cart" title="Add to Cart">Add
+                                to Cart </button>
                         @endif
+                        @if ($productCheck == 0)
+                            <a href="{{ url('cart') }}" class="btn btn-gray view-cart btn-sm">View cart</a>
+                        @endif
+
                         @if ($product->is_for_request_quote == 1 && $quoteCheck == true)
                             <a class="btn btn-primary  btn-sm" onclick="showQuoteRequestModal({{ $product }})">Request
                                 Quote</a>
@@ -447,7 +443,7 @@
                             </div>
                         </div>
                     </div>
-                @endforeach 
+                @endforeach
             </div>
             <!-- End .products-slider -->
         </div>
@@ -820,7 +816,7 @@
                     },
                     success: function(response) {
                         swal("", response.status, "success");
-                        setTimeout(location.reload(), 20000);
+                        // setTimeout(location.reload(), 20000);
                     },
                     error: function(res) {
                         $(".add-cart").prop('disabled', false)

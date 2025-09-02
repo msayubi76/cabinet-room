@@ -14,7 +14,7 @@ use App\Http\Controllers\website\FacebookAuthController;
 
 // ----------> Webste layout <------------- //
 Route::get('/', [FrontendController::class, 'index']);
- 
+
 Route::get('products/{category?}/{sub_category?}', [FrontendController::class, 'products'])->name('products');
 // Route::get('products-filter/{category?}/{sub_category?}', [FrontendController::class, 'productsFilter'])->name('productsFilter');
 
@@ -40,14 +40,16 @@ Route::post('add-quote', [RequestQuoteController::class, 'store'])->name('reques
 Route::get('update-quote-status/{id}/{status}', [RequestQuoteController::class, 'updateStatus'])->name('updateQuoteStatus');
 Route::post('add-quote', [RequestQuoteController::class, 'store'])->name('requestQuote');
 
+Route::get('cart', [CartController::class, 'viewCart']);
+Route::get('delete', [CartController::class, 'delete']);
+Route::post('update', [CartController::class, 'update']);
 
 Route::middleware(['auth'])->group(function () {
     // ----------> Webste Checout <----------- //
     Route::get('check-out', [CheckOutController::class, 'index'])->name('check-out.index');
     Route::post('check-out', [CheckOutController::class, 'store'])->name('check-out');
-    Route::get('cart', [CartController::class, 'viewCart']);
-    Route::post('update', [CartController::class, 'update']);
-    Route::get('delete', [CartController::class, 'delete']);
+
+
 
     Route::get('user-dashboard', [UserDashboardController::class, 'index'])->name('user-dashboard');
     Route::get('user-dashboard/order-detail/{order}', [UserDashboardController::class, 'orderDetail'])->name('order-detail');

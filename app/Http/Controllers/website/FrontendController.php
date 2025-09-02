@@ -14,6 +14,7 @@ use App\Services\SettingService;
 use App\Http\Controllers\Controller;
 use App\Models\Media;
 use App\Models\Setting;
+use App\Models\Variation;
 use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
@@ -29,7 +30,7 @@ class FrontendController extends Controller
 
         $cart = Cart::where('user_id', Auth::id())->get();
         $banners = Banner::orderBy('id', 'DESC')->where('name', 'home')->get();
-        
+
 
         $categoriesWithProducts = $categories->filter((function ($category) {
             return $category->products()->count() > 0;
@@ -46,7 +47,7 @@ class FrontendController extends Controller
             $cart = Cart::where('user_id', Auth::id())->get();
             return view('website.pages.categories', compact('categories',  'cart'));
         } catch (\Throwable $th) {
-            dd($th) ;
+            dd($th);
             return response()->json(['status' => false, 'message' => $th->getMessage()]);
         }
     }
@@ -116,8 +117,8 @@ class FrontendController extends Controller
         $product->load('variations');
 
         $colors = $product->variations()->where('name', 'color')->with('media')->get();
-
-
+        $cart = [];
+        $productCheck = 1;
 
         $quoteCheck = true;
         if (Auth::user()) {
@@ -126,14 +127,36 @@ class FrontendController extends Controller
             if ($resultQuote) {
                 $resultQuote->status == 2 ? $quoteCheck = true : $quoteCheck = false;
             }
+            $cart = Cart::where('user_id', Auth::id())->get();
+        } else {
+
+
+            // ✅ Guest user → load from session
+            $sessionCart = session()->get('cart', []);
+
+            $cart = collect($sessionCart)->map(function ($item) {
+                $product   = Product::with('images')->find($item['product_id']); // eager load product data
+                $variation = Variation::find($item['variation_id']);
+
+                return (object) [
+                    'product_id'   => $item['product_id'],
+                    'variation_id' => $item['variation_id'],
+                    'quantity'     => $item['quantity'],
+                    'product'      => $product,
+                    'variation'    => $variation,
+                ];
+            })->values();
         }
-        $cart = Cart::where('user_id', Auth::id())->get();
-        $productCheck = 1;
+
         foreach ($cart as $cartItem) {
+
             if ($cartItem->product_id == $product->id) {
                 $productCheck = 0;
             }
-        } 
+        }
+ 
+
+
 
         return view('website.pages.single-product', compact('categories', 'colors', 'product', 'relatedProducts', 'featuredProductsFooter', 'arrivialProductsFooter', 'cart', 'latestPoductsFooter', 'featuredProductsPrevese', 'latestPoductsNext', 'productCheck', 'quoteCheck'));
     }

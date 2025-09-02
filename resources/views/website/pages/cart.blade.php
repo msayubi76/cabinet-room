@@ -82,7 +82,7 @@
                                                 <input class="horizontal-quantitys form-control " name="quantity"
                                                     min="1"
                                                     max="{{ $cartlist->variation ? $cartlist->variation->stock : $cartlist->product->stock }}"
-                                                    onchange="updatePrice(this,'{{ $cartlist->product->id }}',{{ $cartlist->variation ? $cartlist->variation->sale_price : $cartlist->product->saleprice }}, {{ $cartlist }} )"
+                                                    onchange="updatePrice(this,'{{ $cartlist->product->id }}',{{ $cartlist->variation ? $cartlist->variation->sale_price : $cartlist->product->saleprice }} )"
                                                     type="number" value="{{ $cartlist->quantity }}">
                                             </div><!-- End .product-single-qty -->
                                         </td>
@@ -102,7 +102,7 @@
                                                 </button>
                                                 <button type="button"
                                                     class="btn btn-shop  btn-sm p-3 text-capitalize btn-sm"
-                                                    onclick="viewDetailDialog({{ $cartlist }})">
+                                                    onclick='viewDetailDialog( @json($cartlist) )'>
                                                     Detail
                                                 </button>
                                             </div><!-- End .float-right -->
@@ -284,7 +284,18 @@
 
                     window.location.reload();
                     // alert(response);
-                    swal("", response.status, "success");
+                    swal("", response.message, "success");
+                },
+                error: function(error) {
+                    $("#button-delete").text('Yes');
+                    // window.location.reload();
+                    var errorMessage = error.statusText;
+
+                    swal({
+                        title: "Error",
+                        text: errorMessage,
+                        icon: "error",
+                    });
                 }
             });
         }
@@ -294,12 +305,14 @@
 
             $('.update-cart-btn').click(function(e) {
                 e.preventDefault();
-                
+
                 const updateButton = $(this)
                 updateButton.prop('disabled', true)
 
                 var product_id = $(this).closest('.product_data').find('.product_id').val();
                 var quantity = $(this).closest('.product_data').find('.horizontal-quantitys').val();
+                console.log('product_id', product_id);
+
 
 
                 data = {
@@ -320,7 +333,7 @@
 
                     success: function(response) {
                         updateButton.prop('disabled', false)
-                        // window.location.reload();
+                        window.location.reload();
                         console.log('response', response);
 
                         if (response.status) {
@@ -356,7 +369,7 @@
             });
         });
 
-        function updatePrice(data, id, price, cart) {
+        function updatePrice(data, id, price) {
 
             let priceVal = data.value * price
             let oldTotal = $('#quantity_total_' + id).html()
