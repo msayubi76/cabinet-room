@@ -72,7 +72,6 @@ class FrontendController extends Controller
 
         $categories = Category::where('is_active', '1')->with('subcategories')->where('is_active', '1')->get();
         $featuredProducts = Product::where('is_feature_product', '1')->where('is_active', '1')->get();
-
         $min = round(Product::min('saleprice'));
         $max = round(Product::max('saleprice'));
 
@@ -150,7 +149,6 @@ class FrontendController extends Controller
                 $productCheck = 0;
             }
         }
-
 
 
 

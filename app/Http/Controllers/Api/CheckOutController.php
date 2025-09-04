@@ -60,7 +60,6 @@ class CheckOutController extends Controller
 
     public function store(ShippingRequest $request)
     {
-
         try {
             $order = OrderService::store($request);
             return redirect(route('user-dashboard'))->with('message', 'Order placed successfully.');
