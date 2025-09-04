@@ -16,31 +16,57 @@ use App\Services\OrderDetailService;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests\ShippingRequest;
+use App\Models\Product;
+use App\Models\Variation;
 
 class CheckOutController extends Controller
 {
     public function index()
     {
         try {
-            $category = Category::where('is_active', '0')->get();
-            $subcategory = SubCategory::where('is_active', '0')->get();
-            $cart = Cart::where('user_id', Auth::id())->get();
-            return view('website.pages.checkout', compact('category', 'subcategory', 'cart'));
+            $categories = Category::where('is_active', '1')->with('subcategories')->limit(12)->get();
+
+            $cities = config('constant.cities');
+
+            if (Auth::user()) {
+
+                $cart = Cart::where('user_id', Auth::id())->get();
+            } else {
+
+
+                // ✅ Guest user → load from session
+                $sessionCart = session()->get('cart', []);
+
+                $cart = collect($sessionCart)->map(function ($item) {
+                    $product   = Product::with('images')->find($item['product_id']); // eager load product data
+                    $variation = Variation::find($item['variation_id']);
+
+                    return (object) [
+                        'product_id'   => $item['product_id'],
+                        'variation_id' => $item['variation_id'],
+                        'quantity'     => $item['quantity'],
+                        'product'      => $product,
+                        'variation'    => $variation,
+                    ];
+                })->values();
+            }
+
+
+            return view('website.pages.checkout', compact('categories',  'cart', 'cities'));
         } catch (\Throwable $th) {
-            return $th;
+            return redirect()->back()->with('error', $th->getMessage());
         }
     }
 
     public function store(ShippingRequest $request)
     {
+
         try {
             $order = OrderService::store($request);
-
-            return redirect('check-out')->with('success', 'Your Shipping  added successfully.');
-
+            return redirect(route('user-dashboard'))->with('message', 'Order placed successfully.');
         } catch (\Throwable $th) {
-
-            return $th;
+            dd($$th);
+            return back()->with('error', $th->getMessage());
         }
     }
 }

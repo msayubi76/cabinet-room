@@ -14,8 +14,32 @@ $currencies = [
     ],
 ];
 
+$cities = [
+    [
+        'name' => 'Islamabad',
+        'charges' => 0,
+    ],
+    [
+        'name' => 'Rawalpindi',
+        'charges' => 0,
+    ],
+    [
+        'name' => 'Lahore',
+        'charges' => 20,
+    ],
+    [
+        'name' => 'Multan',
+        'charges' => 20,
+    ],
+    [
+        'name' => 'Abottabad',
+        'charges' => 20,
+    ]
+];
+
 
 
 return [
-    'curencies' =>  collect($currencies),
+    'curencies' =>  $currencies,
+    'cities' =>  $cities,
 ];

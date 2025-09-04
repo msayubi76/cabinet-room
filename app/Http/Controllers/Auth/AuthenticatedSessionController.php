@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Providers\RouteServiceProvider;
+use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider;
+use App\Http\Requests\Auth\LoginRequest;
+use Laravel\Socialite\Facades\Socialite;
+
 
 class AuthenticatedSessionController extends Controller
 {
@@ -28,10 +33,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
+        
         $request->authenticate();
 
         $request->session()->regenerate();
-
+        if (isset($request->product_page)) {
+            return redirect()->route('website.single-product',$request->product_page);
+        }
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
@@ -51,4 +59,69 @@ class AuthenticatedSessionController extends Controller
 
         return redirect('/');
     }
+
+     // Google login
+     public function redirectToGoogle(Request $request)
+     {
+         return Socialite::driver('google')->redirect();
+
+     }
+
+     // Google callback
+     public function handleGoogleCallback(Request $request)
+     {
+         $userdata = Socialite::driver('google')->user();
+         $user = User::where('email',$userdata->email)->where('auth_type','google')->first();
+         if($user)
+         {
+            Auth::login($user);
+
+            return redirect('/');
+         }
+         else{
+            $uuid =Str::uuid()->toString();
+            $user = new User();
+            $user->name = $userdata->name;
+
+            $user->email = $userdata->email;
+            $user->password = Hash::make($uuid.now());
+            $user->auth_type = 'google';
+            $user->save();
+         }
+
+
+
+     }
+
+     // Facebook login
+     public function redirectToFacebook(Request $request)
+     {
+         return Socialite::driver('facebook')->redirect();
+     }
+
+     // Facebook callback
+     public function handleFacebookCallback(Request $request)
+     {
+         $userdata = Socialite::driver('facebook')->user();
+
+         $user = User::where('email',$userdata->email)->where('auth_type','facebook')->first();
+         if($user)
+         {
+            Auth::login($user);
+
+            return redirect('/');
+         }
+         else{
+            $uuid =Str::uuid()->toString();
+            $user = new User();
+            $user->name = $userdata->name;
+
+            $user->email = $userdata->email;
+            $user->password = Hash::make($uuid.now());
+            $user->auth_type = 'facebook';
+            $user->save();
+         }
+     }
+
+
 }

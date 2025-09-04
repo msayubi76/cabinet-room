@@ -6,10 +6,16 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
+                        @if (session('message'))
+                            <div class="alert alert-success"> {{ session('message') }}</div>
+                        @endif
+
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 <strong>Whoops!</strong><br> There were some<strong> problems</strong> with your
-                                input.<br><br>
+                                input.
+
+                                {{ $errors }}
 
                             </div>
                         @endif
@@ -24,14 +30,16 @@
                                 <div class="form-group row mb-8">
 
                                     <div class="col-md-4">
+                                        <label for=""> Product Name<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control input-default" id="edit_name"
-                                        placeholder="Product Name" value="{{ $product->name }}" name="name">
+                                            placeholder="Product Name" value="{{ $product->name }}" name="name">
                                         @error('name')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="col-md-4">
+                                        <label for=""> Product Category<span class="text-danger">*</span></label>
                                         <select name="category_id" class="form-control" id="category">
                                             <option value="">-- Select Category --</option>
                                             @foreach ($category as $catitem)
@@ -46,81 +54,116 @@
                                     </div>
 
                                     <div class="col-md-4">
+                                        <label for=""> Product Sub Category </label>
                                         <select name="sub_category_id" id="subcategory" class="form-control">
-                                            <option>-- Select sub Category --</option>
+                                            <option value="">-- Select sub Category --</option>
 
                                             @foreach ($sub_categories as $sub_category)
-                                                <option value="{{ $sub_category->id }}" {{ $product->sub_category_id == $sub_category->id?' selected':'' }}>{{ $sub_category->name }}</option>
+                                                <option value="{{ $sub_category->id }}"
+                                                    {{ $product->sub_category_id == $sub_category->id ? ' selected' : '' }}>
+                                                    {{ $sub_category->name }}</option>
                                             @endforeach
 
 
                                         </select>
                                         @error('sub_category_id')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                    </div>
-
-
-                                </div>
-
-                                <div class="form-group mb-8">
-                                    <textarea class="form-control h-150px mysummernote" id="edit_description mysummernote" name="description" rows="6"
-                                        placeholder="Write here.......">{{ $product->description }}</textarea>
-                                        @error('description')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group row mb-8">
-                                    <div class="col-md-6">
-                                        <div class="mb-8">
-                                            <img src="{{ asset( $product->feature_image) }}" width="50px"
-                                                height="50px" alt="img">
-                                        </div>
-                                        <input type="file" class="form-control" id="edit_feature_image" name="feature_image"
-                                            placeholder="feature image" :value="old('feature_image')">
-                                            @error('feature_image')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                     <div class="col-md-6">
-                                        <div class="mb-8">
-                                            @foreach ($product->images as $image)
-                                            <i class="fa-solid fa-xmark"></i> <img src="{{ $image->url }}" width="50px"
-                                                height="50px"/>
 
-                                             @endforeach
+                                    <div class="col-md-6">
+                                        <label for=""> Product Discription<span class="text-danger">*</span></label>
+                                        <textarea class="form-control h-150px mysummernote" id="edit_description mysummernote" name="description" rows="6"
+                                            placeholder="Write here.......">{{ $product->description }}</textarea>
+                                        @error('description')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="">Product Short Discription<span
+                                                class="text-danger">*</span></label>
+                                        <textarea class="form-control h-150px mysummernote" id="edit_description mysummernote" name="short_description"
+                                            rows="6" placeholder="Write here.......">{{ $product->short_description }}</textarea>
+                                        @error('short_description')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-group row mb-8">
+                                    <div class="col-md-6">
+
+                                        <label for=""> Feature Image<span class="text-danger">*</span></label>
+                                        <input type="file" class="form-control" id="edit_feature_image"
+                                            name="feature_image" placeholder="feature image" :value="old('feature_image')">
+                                        @error('feature_image')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                        <div class="mb-8">
+                                            <img src="{{ asset($product->feature_image) }}" width="50px" height="50px"
+                                                alt="img">
                                         </div>
-                                        {{-- <label class="col-lg-4 col-form-label" for="name">Multiple Images <span class="text-danger">*</span>
-                                        </label> --}}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="">Multiple Images
+                                        </label>
                                         <input type="file" class="form-control" id="images" name="images[]"
-                                    placeholder="images"  multiple>
-                                    @error('images')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                                            placeholder="images" :value="old('images')" multiple>
+                                        @error('images')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                        <div class="row">
+                                            @foreach ($product->images as $image)
+                                                <div class="col-md-2">
+                                                    <a href=""></a> <img src="{{ $image->url }}" width="50px"
+                                                        height="50px" />
+                                                    <a href="{{ url('admin/delete/' . $image->id) }}" class="d-block">
+                                                        remove</a>
+                                                </div>
+                                            @endforeach
+                                        </div>
                                     </div>
 
 
                                 </div>
                                 <div class="form-group row ">
                                     <div class="col-md-4 mb-8">
-                                        <input type="text" class="form-control input-default" id="edit_actual_price"
-                                            placeholder="Actual Price" value="{{ $product->actual_price }}"
+                                        <label for="">Actual Price<span class="text-danger">*</span></label>
+                                        <input type="number" class="form-control input-default" id="actualprice"
+                                            placeholder="Actual Price" value="{{ (int) $product->actual_price }}"
                                             name="actual_price">
-                                            @error('actual_price')
+                                        @error('actual_price')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
 
                                     </div>
                                     <div class="col-md-4 mb-8">
-                                        <input type="text" class="form-control input-default" id="edit_discount"
-                                            placeholder="Discount" value="{{ $product->discount }}" name="discount">
-                                            @error('discount')
+                                        <label for="">Discount Optional </label>
+                                        <input type="number" class="form-control input-default" id="discount"
+                                            placeholder="Discount Optional" value="{{ (int) $product->discount }}"
+                                            name="discount">
+                                        @error('discount')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
 
                                     </div>
+
+                                    
                                     <div class="col-md-4 mb-8">
+                                        <label for="">Sale Price<span class="text-danger">*</span></label>
+                                        <input type="number" class="form-control input-default" id="saleprice"
+                                            placeholder="Sale Price" value="{{ (int) $product->saleprice }}"
+                                            name="saleprice">
+                                        @error('saleprice')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
+                                    </div>
+
+                                    <div class="col-md-4 mb-8">
+                                        <label for="">Shipping Charge </label>
                                         <input type="text" class="form-control input-default" id="edit_shipping_charge"
                                             placeholder="Shipping Charge" value="{{ $product->shipping_charge }}"
                                             name="shipping_charge">
@@ -129,83 +172,229 @@
                                         @enderror
 
                                     </div>
+                                   
+
+                                    <div class="col-md-4 mb-8">
+                                        <label for="">Product Currency<span class="text-danger">*</span></label>
+                                        <select name="currency" class="form-control" id="currency">
+                                            <option value="">-- Select Currency --</option>
+                                            @foreach (currencies() as $currency)
+                                                <option value="{{ $currency->code }}"
+                                                    {{ $product->currency == $currency->code ? ' selected' : '' }}>
+                                                    {{ $currency->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('code')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="">Delivered-in</label>
+                                        <div class="input-group mb-3">
+                                            <input type="number" class="form-control" placeholder="01-05 Working days "
+                                                value="{{ $product->delivered_in }}" name="delivered_in"
+                                                aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                            <!-- <div class="input-group-append">
+                                                                                                                                            <span class="input-group-text" id="basic-addon2">Working days</span>
+                                                                                                                                        </div> -->
+                                        </div>
+                                        @error('delivered_in')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="">Reviews</label>
+                                        <input type="number" class="form-control input-default" min="1"
+                                            max="5" placeholder="Rate" value="{{ $product->rating }}"
+                                            name="rating">
+                                        @error('rating')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="">Available Stock </label>
+                                        <input type="number" class="form-control input-default" min="1"
+                                            id="available-stock"  placeholder="Available Stock"
+                                            value="{{ $product->stock }}" name="stock">
+                                        @error('stock')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
                                 </div>
 
+                                <div class="row px-4">
 
 
-                                <div class="form-group row ">
-                                    <div class="col-md-4 mb-8">
-                                        <input type="text" class="form-control input-default" id="edit_colour"
-                                            placeholder="colour" value="{{ $product->colour }}" name="colour">
-                                            @error('colour')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-
-                                    </div>
-                                    <div class="col-md-4 mb-8">
-                                        <input type="text" class="form-control input-default" id="edit-length"
-                                            placeholder="length" value="{{ $product->length }}"name="length">
-                                            @error('length')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-
-                                    </div>
-                                    <div class="col-md-4 mb-8">
-                                        <input type="text" class="form-control input-default" id="edit_width"
-                                            placeholder="width" value="{{ $product->width }}"name="width">
-                                            @error('width')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-
-                                    </div>
-                                </div>
-                                <div class="form-group row ">
-                                    <div class="col-md-4 mb-8">
-                                    <select name="currency" class="form-control" id="currency">
-                                        <option value="">-- Select currency --</option>
-                                        @foreach ( currencies() as $currency )
-
-
-                                        <option value="{{$currency->code}}" {{ $product->currency == $currency->code?' selected':'' }}>{{$currency->name}}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('code')
+                                    <div class="col-md-2 mb-8">
+                                        <label for="is_active">
+                                            <input type="checkbox" class="form-check-input" value="1"
+                                                id="is_active" name="is_active"
+                                                {{ $product->is_active == '1' ? 'checked' : '' }}>Active
+                                        </label>
+                                        @error('width')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="col-md-4 mb-8">
-                                        <label class="col-lg-4 col-form-label form-check-label" for="name">
+
+                                    <div class="col-md-2 mb-8">
+                                        <label for="is_feature_product">
 
                                             <input type="checkbox" class="form-check-input" value="1"
-                                                name="is_feature_product"
+                                                name="is_feature_product" id="is_feature_product"
                                                 {{ $product->is_feature_product == '1' ? 'checked' : '' }}>Feature Product
                                         </label>
                                         @error('width')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="col-md-4 mb-8">
-                                        <label class="col-lg-4 col-form-label form-check-label" for="name">
+                                    <div class="col-md-2 mb-8">
+                                        <label for="is_arrival_product">
 
                                             <input type="checkbox" class="form-check-input" value="1"
-                                                name="is_feature_product"
+                                                name="is_arrival_product" id="is_arrival_product"
                                                 {{ $product->is_arrival_product == '1' ? 'checked' : '' }}>Arrival Product
                                         </label>
                                         @error('is_arrival_product')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
+                                    {{-- <div class="col-md-2 mb-8">
+                                        <label for="is_for_request_quote">
+
+                                            <input type="checkbox" class="form-check-input" value="1"
+                                                name="is_for_request_quote" id="is_for_request_quote"
+                                                {{ $product->is_for_request_quote == '1' ? 'checked' : '' }}>Request Quote
+                                        </label>
+                                        @error('is_for_request_quote')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div> --}}
+                                    <div class="col-md-2">
+                                        <label for="is_installment_available" for="is_installment_available">
+                                            <input type="checkbox" id="is_installment_available" class="form-check-input"
+                                                name="is_installment_available" value="1"
+                                                {{ $product->is_installment_available == '1' ? 'checked' : '' }}>
+                                            Installment Available </label>
+                                    </div>
+
                                 </div>
+
+
+
+
+
                                 <div class="modal-footer">
                                     <a href="{{ url('/admin/products') }}" type="button" class="btn btn-secondary">
                                         Close </a>
-                                    <button type="submit" id="button-update" onclick="updateProduct(this)"
-                                        class="btn btn-primary">Update Products</button>
-                                </div><br>
+                                    <button type="submit" id="button-update" class="btn btn-primary">Update
+                                        Products</button>
+                                </div>
+
+
+
+
 
 
 
                             </form>
+                            <hr>
+                            <div class="row px-4" id="product-variations">
+                                <div class="col-md-6">
+                                    <h3>Product Variations</h3>
+                                </div>
+                                <div class="col-md-6 text-right px-5">
+                                    <button type="button" class="btn-success btn text-white"
+                                        onclick="addMoreVariation(true)">Add
+                                        More</button>
+                                </div>
+                                <div class="col-md-12">
+                                    @php
+
+                                        $variations = $variations;
+                                        $variationCount = count($variations);
+                                    @endphp
+                                    <table class="table">
+                                        <thead>
+                                            <th>Sr No</th>
+                                            <th>Name </th>
+                                            <th>Value</th>
+                                            <th>Price</th>
+                                            <th>Discount</th>
+                                            <th>Sale Price</th>
+                                            <th>Stock</th>
+                                            <th>Images</th>
+                                            <th>Action</th>
+                                        </thead>
+                                        <tbody id="variationTableBody">
+
+                                            @for ($i = 0; $i < max(1, $variationCount); $i++)
+                                                @if (isset($variations[$i]))
+                                                    @php $variation = $variations[$i]; @endphp
+                                                @else
+                                                    @php $variation =    ['name' => '', 'value' => '', 'price' => '', 'stock' => '', 'id'=> '',  'discount' => '', 'sale_price' => '']; @endphp
+                                                @endif
+                                                <tr>
+                                                    <td class="count">{{ $i + 1 }}</td>
+                                                    <td>
+                                                        <select class="form-control name"
+                                                            name="Variation[{{ $i }}][name]">
+                                                            <option {{ $variation['name'] == 'color' ? 'selected' : '' }}
+                                                                value="color">Color</option>
+                                                        </select>
+                                                        <span class="error_name text-danger Err"></span>
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control value" type="text"
+                                                            name="Variation[{{ $i }}][value]"
+                                                            placeholder="Value" value="{{ $variation['value'] }}">
+                                                        <span class="error_value text-danger Err"></span>
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control price" type="number"
+                                                            name="Variation[{{ $i }}][price]"  onkeyup="calculateVariationDiscount(this)"  onchange="calculateVariationDiscount(this)"
+                                                            placeholder="Price" value="{{ $variation['price'] }}">
+                                                        <span class="error_price text-danger Err"></span>
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control discount" type="number"
+                                                            name="Variation[{{ $i }}][discount]" required onkeyup="calculateVariationDiscount(this)"  onchange="calculateVariationDiscount(this)" 
+                                                            placeholder="Discount" min="0"
+                                                            value="{{ old('Variation.' . $i . '.discount', $variation['discount']) }}">
+                                                            <span class="error_discount text-danger Err"></span>
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control sale_price" type="number"
+                                                            name="Variation[{{ $i }}][sale_price]" required
+                                                            placeholder="Price" min="0"  readonly
+                                                            value="{{ old('Variation.' . $i . '.sale_price', $variation['sale_price']) }}">
+                                                            <span class="error_sale_price text-danger Err"></span>
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control stock" type="number"
+                                                            name="Variation[{{ $i }}][stock]"  onkeyup="updateStock()" onchange="updateStock()"
+                                                            placeholder="Stock" value="{{ $variation['stock'] }}">
+                                                        <span class="error_stock text-danger Err"></span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="file" class="images" multiple
+                                                            name="Variation[{{ $i }}][images][]">
+                                                        <span class="error_images text-danger Err"></span>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn-success btn text-white save btn-sm "
+                                                            onclick="editVariation(this, {{ $variation['id'] }})">Save</button>
+                                                        <button type="button" class="btn-danger btn delete btn-sm"
+                                                            onclick="deleteVariation(this, {{ $variation['id'] }})">Delete</button>
+                                                    </td>
+                                                </tr>
+                                            @endfor
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -214,96 +403,18 @@
     </div>
 
 @endsection
-@section('scripts')
+{{-- @section('scripts')
     <script>
-        // function updateProduct() {
-        //     var form = $('#edit-product-form')[0];
-        //     $("#button-update").text('Loading...');
-        //     proudct_id = form.proudct_id.value;
-        //     console.log(proudct_id);
-        //     console.log('proudct_id', proudct_id);
+        $("#actualprice,#discount").keyup(function(e) {
+            var actual = $("#actualprice").val();
+            var discount = $("#discount").val();
+            var divide = (discount / 100).toFixed(2);
+            var mutiplication = actual * divide;
+            var mainvalue = actual - mutiplication;
+            $("#saleprice").val(mainvalue);
 
-        //     const myFormData = new FormData(form);
-        //     const formDataObj = {};
-        //     myFormData.forEach((value, key) => (formDataObj[key] = value));
-        //     console.log(formDataObj);
-        //     $.ajax({
-        //         headers: {
-        //             'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
-        //         },
-        //         url: "/admin/products/" + proudct_id, // the endpoint
-        //         type:"POST", // salahuyddin changed
-        //         processData: false,
-        //         contentType: false,
-        //         data: myFormData,
-        //         beforeSend: function () {
-        //             $(form)
-        //             $('.backend-error-text').text('')
-        //             $("#button-update").prop("disabled", true);
 
-        //         },
-        //         success: function (data) {
-        //             $("#button-update").prop("disabled", false);
-        //             $("#button-update").text("Update Product");
-
-        //             $(form)
-        //                 .find('[type="button"]')
-        //                 .prop("disabled", false);
-        //                 swal({
-        //                     title: "",
-        //                     text: data.message,
-        //                     icon: "success",
-        //                 });
-        //                 $(form)
-        //                 .find('[type="button"]')
-        //                 .prop("disabled", false);
-
-        //         },
-        //         error: function (error) {
-        //             $(form)
-        //             $("#button-update").prop("disabled", false);
-        //             $("#button-update").text("Update Product");
-        //             var errorMessage = error.statusText;
-        //             var sweetMessage = error.statusText;
-
-        //             if (error.status == 422) {
-        //                 errorMessage = handleValidationErrors(error, 'edit')
-        //                 sweetMessage = 'Invalid Data'
-        //             }
-        //             swal({
-        //                 title: "Error",
-        //                 text: sweetMessage,
-        //                 icon: "error",
-        //               });
-
-        //         },
-        //     });
-        // }
-        // function handleValidationErrors(error, type = 'create') {
-        //     let errors = error.responseJSON.errors;
-        //     var errorMessage = error.responseJSON.message
-        //     var element = '';
-        //     $.each(errors, function (key, item) {
-        //         element = key.split('.')
-        //         if (element.length > 1) {
-        //             element = `${element[0]}_${element[1]}`
-        //         } else {
-        //             element = `${element}`
-        //         }
-        //         // dataAttr = $(element).closest('.tab').data('id')
-        //         // $(`.step-${dataAttr}`).addClass('backend-error')
-        //         if (type == 'edit') {
-        //             console.log('edit',element);
-        //             $(`#edit_${element}_text`).text(item[0])
-
-        //         } else if (type == 'create') {
-        //             $(`#${element}_text`).text(item[0])
-
-        //         }
-        //     });
-
-        //     return errorMessage;
-        // }
+        });
 
 
 
@@ -338,4 +449,14 @@
             });
         }
     </script>
+@endsection --}}
+
+
+@section('scripts')
+
+    <script>
+        const currentProduct = @json($product)
+    </script>
+    <script src="{{ url('admin-assets/js/products.js') }}"></script>
+
 @endsection

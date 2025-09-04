@@ -7,9 +7,10 @@ use Illuminate\Http\Request;
 
 class MediaController extends Controller
 {
-    public function delete($id)
+    public function destroy($id)
     {
         $media = Media::findorFail($id);
         $media->delete();
+        return redirect()->back()->with('success','Media file deleted successfully ');
     }
 }

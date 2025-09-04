@@ -13,4 +13,8 @@ class ShippingDetail extends Model
     protected $fillable =[
         'first_name', 'last_name', 'address', 'city', 'country', 'post_code', 'phone_number', 'email','notes', 'user_id'
     ];
+    public function shipping()
+    {
+        return $this->hasMany(ShippingDetail::class,'shipping_detail_id');
+    }
 }

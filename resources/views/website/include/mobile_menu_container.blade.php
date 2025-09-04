@@ -5,65 +5,32 @@
             <ul class="mobile-menu">
                 <li><a href="{{ url('/') }}">Home</a></li>
                 <li>
-                    <a href="category.html">Categories</a>
+                    <a href="javascript:;">Categories</a>
                     <ul>
-                        @foreach ($category as $catitem )
-                        <li><a href="{{url('category=' .$catitem->name)}}">{{ $catitem->name }}</a></li>
+                        @foreach ($categories as $catitem)
+
+                        {{-- {{route('products', ['category' => $catitem->name])}} --}}
+                            <li><a href="{{ route('products', ['category' => $catitem->name]) }}">{{ $catitem->name }}</a></li>
                         @endforeach
-                        
+
                     </ul>
                 </li>
                 <li>
-                    <a href="{{ url('/products') }}">Products</a>
-                    
-                  
+                    <a href="{{ url('/products') }}">Products</a> 
                 </li>
+                 
                 <li>
-                    <a href="#">Pages<span class="tip tip-hot">Hot!</span></a>
-                    <ul>
-                        <li>
-                            <a href="{{ url('/about-us') }}">About Us</a>
-                        </li>
-                        <li>
-                            <a href="{{ url('/contact-us') }}">Contact Us</a>
-                        </li>
-                        <li>
-                            <a href="{{ url('/privacy-and-policy') }}">Privacy and Policy</a>
-                        </li>
-                        <li>
-                            <a href="{{ url('user-dashboard') }}">Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="login.html">Login</a>
-                        </li>
-                        <li>
-                            <a href="forgot-password.html">Forgot Password</a>
-                        </li>
-                    </ul>
+                    <a href="{{ url('/privacy-and-policy') }}">Privacy and Policy</a>
                 </li>
                 
-            
-            </ul>
 
-            <ul class="mobile-menu mt-2 mb-2">
-                <li class="border-0">
-                    <a href="#">
-                        Special Offer!
-                    </a>
-                </li>
-                <li class="border-0">
-                    <a href="#" target="_blank">
-                        Buy Porto!
-                        <span class="tip tip-hot">Hot</span>
-                    </a>
-                </li>
             </ul>
 
             <ul class="mobile-menu">
                 <li><a href="{{ url('user-dashboard') }}">My Account</a></li>
                 <li><a href="{{ url('about-us') }}">About Us</a></li>
                 <li><a href="{{ url('contact-us') }}">Contact Us</a></li>
-               
+
                 <li><a href="{{ url('cart') }}">Cart</a></li>
                 <li><a href="login.html" class="login-link">Log In</a></li>
             </ul>

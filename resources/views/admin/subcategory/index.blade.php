@@ -11,8 +11,9 @@
                                 <h4 class="card-title">SubCategories Table</h4>
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-4 text-right">
-                                <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addcategory">Add
-                                    SubCategory</button>
+                                @can('create-category')
+                                <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addcategory">Add SubCategory</button>
+                                @endcan
 
                             </div>
                         </div>
@@ -31,7 +32,7 @@
                                     @foreach ($sub_categories as $cate)
                                         <tr id='row_{{ $cate->id }}'>
                                             <td>{{ $cate->name }}</td>
-                                            <td>{{ $cate->category->name }}</td>
+                                            <td>{{ $cate->category?$cate->category->name:'' }}</td>
                                             <td><img src="{{ $cate->image_url }}" height="50px" width="50px"
                                                     alt=""></td>
 
@@ -55,12 +56,15 @@
                                                                 class="btn btn-primary dropdown-toggle py-0 px-2"
                                                                 data-toggle="dropdown"></button>
                                                             <div class="dropdown-menu">
-                                                                <a class="dropdown-item"
-                                                                    onclick="openViewModal({{ $cate }})">View</a>
-                                                                <a class="dropdown-item"
-                                                                    href="javascript:openEditModal({{ json_encode($cate) }})">Edit</a>
+                                                                <!-- <a class="dropdown-item" onclick="openViewModal({{ $cate }})">View</a> -->
+                                                                    @can('update-category')
+                                                                <a class="dropdown-item" href="javascript:openEditModal({{ json_encode($cate) }})">Edit</a>
+                                                                    @endcan
+
+                                                                    @can('delete-category')
                                                                 <a class="dropdown-item"
                                                                     href="javascript:openDeleteDialog({{ $cate->id }})">Delete</a>
+                                                                    @endcan
                                                             </div>
                                                         </div>
                                                     </div>
@@ -71,6 +75,9 @@
                                 </tbody>
 
                             </table>
+                        </div>
+                        <div class="pagination justify-content-center">
+                            {{ $sub_categories->links() }}
                         </div>
                     </div>
                 </div>
@@ -118,7 +125,7 @@
                         <div class="row">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
                                 <img id="image_preview" src="{{ url('images/profile/default_image.png') }}" alt=""
-                                    width="120" height="90" class="rounded-circle border border-dark" />
+                                    width="120" height="100" class="rounded-circle border border-dark" />
                             </div>
                         </div>
 
@@ -130,9 +137,9 @@
                                 <select name="category_id" class="form-control" id="">
                                     <option value="">-- Select Category --</option>
                                     @foreach ($category as $catitem)
-                                        @if ($catitem)
+
                                             <option value="{{ $catitem->id }}">{{ $catitem->name }}</option>
-                                        @endif
+
                                     @endforeach
                                 </select>
                                 <div id="category_id_text" class="text-danger backend-error-text"></div>
@@ -202,7 +209,7 @@
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
 
                                 <img id="edit_image_preview" src="{{ url('images/profile/62a7764c8bf14.jpg') }}"
-                                    alt="" width="120" class="rounded-circle border border-dark" />
+                                    alt="" width="120" height="100" class="rounded-circle border border-dark" />
                             </div>
                         </div>
                         <div class="row">
@@ -228,10 +235,12 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6  my-2">
-                                <label class="form-label form-check-label " for="name" style="margin-top: 35px">
-                                    Active</label>
+                                <label class="form-label form-check-label" for="name"
+                                style="margin-top: 35px; margin-left:30px;">
 
-                                <input type="checkbox" id="edit_is_active" name="is_active" value="">
+                                <input type="checkbox" class="form-check-input" id="edit_is_active" name="is_active"
+                                value="{{old('is_active')}}" @if(old('is_active', true)) checked @endif>Active </label>
+
                                 <div id="edit_is_active" class="text-danger backend-error-text"></div>
 
                             </div>
@@ -337,7 +346,7 @@
                         <div class="btn-group">
                             <div class="btn-group"><button id="btnGroupDrop${data.sub_category.id}" type="button"
                                     class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button>
-                                <div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal(${data.sub_category})">View</a>
+                                <div class="dropdown-menu"> 
                                     <a class="dropdown-item" href="javascript:;" onclick='openEditModal(${SUBCATEGORY})'>Edit</a><a
                                         class="dropdown-item" href="javascript:openDeleteDialog(${data.sub_category.id});">Delete</a></div>
                             </div>
@@ -345,7 +354,7 @@
                     </div>
                 </td>
             </tr>`
-                    $("#table_id").append(string);
+                    $("#table_id").prepend(string);
 
 
                     $('#addcategory').modal('hide');
@@ -424,7 +433,15 @@
             document.getElementById('edit_name').value = subcategory.name;
 
             $('#edit_is_active').val(subcategory.is_active)
-            $('#edit_is_active').prop('checked', subcategory.is_active == 1 ? true : false)
+            // $('#edit_is_active').prop('checked', subcategory.is_active == 1 ? true : false)
+            if($("#edit_is_active").prop('checked', subcategory.is_active == 1 )){
+          $("#edit_is_active").val('TRUE');
+     }else{
+          $("#edit_is_active").val('FALSE');
+     }
+
+
+
 
             document.getElementById('sub_category_id').value = subcategory.id;
             document.getElementById('categories').value = subcategory.category_id;
@@ -464,6 +481,7 @@
 
                 },
                 success: function(data) {
+                    console.log(data);
                     $("#button-update").prop("disabled", false);
                     $("#button-update").text("Edit SubCategory");
 
@@ -489,24 +507,24 @@
                     var string =
                         `<tr id="row_${data.sub_category.id}">
                 <td>${data.sub_category.name}</td>
-                <td>${data.subcategory.category_id}</td>
-                <td><img src="'${data.sub_category.image_url}'" alt=""></td>
-                <td>${(data.sub_category.is_active == '1' ? "Hidden" : "Show")}</td>
+                <td>${data.sub_category.category.name}</td>
+                <td><img src="${data.sub_category.image_url}" alt="" height="50px" width="50px"></td>
+                <td class="text-center"><span class="badge badge-${ data.sub_category.is_active == '1' ? 'success' : 'warning' }">${(data.sub_category.is_active == '1' ? 'active' : 'not-active')}</td>
 
-                <td>
+<td>
                     <div class="button-group">
                         <div class="btn-group">
                             <div class="btn-group"><button id="btnGroupDrop${data.sub_category.id}" type="button"
                                     class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button>
-                                <div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal(${data.sub_category})">View</a>
-                                    <a class="dropdown-item" href="javascript:;" onclick='openEditModal(${CATRGORY})'>Edit</a><a
+                                <div class="dropdown-menu"> 
+                                    <a class="dropdown-item" href="javascript:;" onclick='openEditModal(${SUBCATEGORY})'>Edit</a><a
                                         class="dropdown-item" href="javascript:openDeleteDialog(${data.sub_category.id});">Delete</a></div>
                             </div>
                         </div>
                     </div>
                 </td>
             </tr>`
-                    $("#table_id").append(string);
+                    $("#table_id").prepend(string);
 
                     $('#editsubcategory').modal('hide');
 

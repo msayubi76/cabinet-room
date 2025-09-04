@@ -22,6 +22,7 @@ class ShippingService
         );
 
         $data['user_id'] = auth()->user()->id;
+        $data['country'] = 'Pakistan';
 
        return ShippingDetail::create($data);
 

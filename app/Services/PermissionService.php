@@ -8,7 +8,7 @@ class PermissionService
 {
 
 public static function getPermissions(){
-$permissions = Permission::orderBy('id', 'DESC')->paginate(30);
+$permissions = Permission::orderBy('id', 'DESC')->paginate(20);
 return $permissions;
 }
 

@@ -48,9 +48,10 @@ class RoleController extends Controller
     public function attachPermission($role)
     {
        try{
+        $role = Role::find($role);
          $permissions = PermissionService::moduleWisePermissions();
         $modules = PermissionService::moduleWisePermissions();
-        $role = Role::find($role);
+
 
         return view('admin.role.attachpermission', compact('role', 'permissions', 'modules'));
        }catch (\Throwable $th) {

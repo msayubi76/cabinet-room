@@ -1,5 +1,5 @@
 @extends('website.master')
-@section('title' , "Contact Us")
+@section('title', 'Contact Us')
 @section('content')
     <nav aria-label="breadcrumb" class="breadcrumb-nav">
         <div class="container">
@@ -14,63 +14,52 @@
         </div>
     </nav>
 
-    <div id="map"></div>
+
 
     <div class="container contact-us-container">
         <div class="contact-info">
+
             <div class="row">
                 <div class="col-12">
-                    <h2 class="ls-n-25 m-b-1">
-                        Contact Info
-                    </h2>
 
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing
-                        elit. Sed imperdiet libero id nisi euismod, sed
-                        porta est consectetur. Vestibulum auctor felis eget
-                        orci semper vestibulum. Pellentesque ultricies nibh
-                        gravida, accumsan libero luctus, molestie nunc.L
-                        orem ipsum dolor sit amet, consectetur adipiscing
-                        elit.
-                    </p>
+
+
+
+                    <p>{!! $setting->contact_us_detail !!}</p>
+
+
                 </div>
 
-                <div class="col-sm-6 col-lg-3">
+                <div class="col-sm-6 col-lg-4">
                     <div class="feature-box text-center">
-                        <i class="sicon-location-pin"></i>
+                        <i class="far fa-calendar-alt"></i>
                         <div class="feature-box-content">
-                            <h3>Address</h3>
-                            <h5>123 Wall Street, New York / NY</h5>
+                            <h3> Address</h3>
+                            <h5>{{ $setting->address }}</h5>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-3">
+                <div class="col-sm-6 col-lg-4">
                     <div class="feature-box text-center">
                         <i class="fa fa-mobile-alt"></i>
                         <div class="feature-box-content">
                             <h3>Phone Number</h3>
-                            <h5>(800) 123-4567</h5>
+                            <h5>{{ $setting->mobile_no1 }}</h5>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-3">
+                 
+                <div class="col-sm-6 col-lg-4">
                     <div class="feature-box text-center">
                         <i class="far fa-envelope"></i>
                         <div class="feature-box-content">
                             <h3>E-mail Address</h3>
-                            <h5>porto@portotheme.com</h5>
+                            <h5>{{ $setting->email }}</h5>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="feature-box text-center">
-                        <i class="far fa-calendar-alt"></i>
-                        <div class="feature-box-content">
-                            <h3>Working Days/Hours</h3>
-                            <h5>Mon - Sun / 9:00AM - 8:00PM</h5>
-                        </div>
-                    </div>
-                </div>
+
+
             </div>
         </div>
 
@@ -98,7 +87,7 @@
                     </div>
 
                     <div class="form-footer mb-0">
-                        <button type="submit" class="btn btn-dark font-weight-normal">
+                        <button type="submit" class="btn btn-dark font-weight-normal btn-sm">
                             Send Message
                         </button>
                     </div>

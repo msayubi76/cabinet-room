@@ -24,16 +24,14 @@ class SettingRequest extends FormRequest
     public function rules()
     {
         return [
-            'privacy_and _policy_detail' => ['nullable'],
+
             'about_us_detail' => ['nullable'],
             'contact_us_detail' => ['nullable'],
             'name' => ['nullable'],
             'email' => ['nullable'],
-            'mobile_no1' => ['nullable'],
-            'mobile_no2' => ['nullable'],
-
+            'mobile_no1' => ['nullable'], 
             'address' => ['nullable'],
-
+            'privacy_detail' => ['nullable'],
         ];
     }
 }

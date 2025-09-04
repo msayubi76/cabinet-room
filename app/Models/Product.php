@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
@@ -20,37 +21,47 @@ class Product extends Model
         'description',
         'actual_price',
         'discount',
+        'saleprice',
         'shipping_charge',
         'colour',
         'feature_image',
         'feature_image_name',
         'folder_name',
         // 'images',
-
+        'stock',
         'length',
         'width',
         'is_feature_product',
         'is_arrival_product',
         'currency',
+        'short_description',
+        'is_active',
+        'is_for_request_quote',
+
         'created_by',
         'updated_by',
         'deleted_by',
+
+        'delivered_in',
+        'rating',
+        'sku',
+        'is_installment_available',
 
 
     ];
     public function category()
     {
-        return $this->belongsTo(Category::class, 'category_id');
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
     public function subcategory()
     {
-        return $this->belongsTo(SubCategory::class, 'sub_category_id');
+        return $this->belongsTo(SubCategory::class, 'sub_category_id', 'id');
     }
 
 
     public function subCategories()
     {
-        return $this->category()->subcategories;
+        return $this->category->subcategories;
     }
 
 
@@ -69,7 +80,8 @@ class Product extends Model
         return $this->hasmany(OrderDetail::class, 'product_id');
     }
 
-
-
-
+    public function variations(): HasMany
+    {
+        return $this->hasMany(Variation::class);
+    }
 }

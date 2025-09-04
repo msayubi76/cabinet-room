@@ -11,35 +11,47 @@
                                 <h4 class="card-title">Users Table</h4>
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-4 text-right">
-                                <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addUserModal">Add
-                                    User</button>
-
+                                @can('create-user')
+                                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addUserModal">Add User</button>
+                                @endcan
                             </div>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered zero-configuration">
                                 <thead>
                                     <tr>
-                                        <th>Fist Name</th>
+                                        <th>First Name</th>
                                         <th>Last Name</th>
                                         <th>Email</th>
-                                        <th>Status</th>
+                                        <th>Role</th>
+                                        <th>Type</th>
+                                        <th>Profile</th>
+
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="table_id">
                                     @foreach ($users as $user)
                                         <tr id='row_{{ $user->id }}'>
-                                            <td>{{ $user->fist_name }}</td>
+                                            <td>{{ $user->name }}</td>
                                             <td>{{ $user->last_name }}</td>
                                             <td>{{ $user->email }}</td>
-                                            <td>
+                                            {{-- <td>
                                                 @if ($user->email_verified_at == null)
                                                     Not Approved
                                                 @else
                                                     Approved
                                                 @endif
+                                            </td> --}}
+                                            <td>
+                                                @foreach ($user->roles as $role)
+                                                    <span class="">{{ $role->name }}</span>
+                                                @endforeach
                                             </td>
+                                            <td>{{ $user->type }}</td>
+
+                                            <td><img src="{{ $user->image_url }}" height="50px" width="50px"
+                                                    alt=""></td>
                                             <td>
                                                 <div class="button-group">
                                                     <div class="btn-group">
@@ -49,11 +61,15 @@
                                                                 data-toggle="dropdown"></button>
                                                             <div class="dropdown-menu">
                                                                 <a class="dropdown-item"
-                                                                href="javascript:openViewModal({{ json_encode($user) }})">View</a>
-                                                                <a class="dropdown-item"
-                                                                    href="javascript:openEditModal({{ json_encode($user) }})">Edit</a>
-                                                                <a class="dropdown-item"
-                                                                    href="javascript:openDeleteDialog({{ $user->id }})">Delete</a>
+                                                                    href="javascript:openViewModal({{ json_encode($user) }})">View</a>
+                                                                @can('update-user')
+                                                                    <a class="dropdown-item"
+                                                                        href="javascript:openEditModal({{ json_encode($user) }})">Edit</a>
+                                                                @endcan
+                                                                @can('delete-user')
+                                                                    <a class="dropdown-item"
+                                                                        href="javascript:openDeleteDialog({{ $user->id }})">Delete</a>
+                                                                @endcan
                                                             </div>
                                                         </div>
                                                     </div>
@@ -64,6 +80,9 @@
                                 </tbody>
 
                             </table>
+                        </div>
+                        <div class="pagination justify-content-center">
+                            {{ $users->links() }}
                         </div>
                     </div>
                 </div>
@@ -94,7 +113,7 @@
     </div>
     {{-- add --}}
     <div class="modal fade" id="addUserModal">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-m modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Add User</h5>
@@ -108,16 +127,16 @@
                         <div class="row">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
                                 <img id="image_preview" src="{{ url('images/profile/default_image.png') }}" alt=""
-                                    style="max-width: 120Px;" class="rounded-circle border border-dark" />
+                                    width="120" height="100" class="rounded-circle border border-dark" />
                             </div>
                         </div>
                         <div class="form-validation">
                             <div class="form-group row">
 
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" id="fist_name" name="fist_name"
-                                        placeholder="Fist Name" :value="old('fist_name')">
-                                    <div id="fist_name_text" class="text-danger backend-error-text"></div>
+                                    <input type="text" class="form-control" id="name" name="name"
+                                        placeholder="Fist Name" :value="old('name')">
+                                    <div id="name_text" class="text-danger backend-error-text"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="last_name" name="last_name"
@@ -182,6 +201,20 @@
                                     <div id="confirmed_text" class="text-danger"></div>
                                 </div>
                             </div>
+                            <h3 class="text-xl my-4 text-gray-600">Role</h3>
+                            <div class="grid grid-cols-3 gap-4">
+                                @foreach ($roles as $role)
+                                    <div class="flex flex-col justify-cente">
+                                        <div class="flex flex-col">
+                                            <label class="inline-flex items-center mt-3">
+                                                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600"
+                                                    name="roles[]" value="{{ $role->id }}"><span
+                                                    class="ml-2 text-gray-700">{{ $role->name }}</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
 
 
                         </div>
@@ -224,13 +257,13 @@
                             <div class="form-group row">
 
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" id="edit_fist_name" name="fist_name"
-                                        placeholder="Enter a name.." value="">
-                                    <div id="edit_fist_name_text" class="text-danger backend-error-text"></div>
+                                    <input type="text" class="form-control" id="edit_name" name="name"
+                                        placeholder="Enter a first name.." value="">
+                                    <div id="edit_name_text" class="text-danger backend-error-text"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="edit_last_name" name="last_name"
-                                        placeholder="Enter a name.." value="">
+                                        placeholder="Enter a last name.." value="">
                                     <div id="edit_last_name_text" class="text-danger backend-error-text"></div>
                                 </div>
                             </div>
@@ -238,12 +271,12 @@
 
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="edit_mobile_no" name="mobile_no"
-                                        placeholder="Enter a name.." value="">
+                                        placeholder="Enter a mobile no.." value="">
                                     <div id="edit_mobile_no_text" class="text-danger backend-error-text"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="edit_address" name="address"
-                                        placeholder="Enter a name.." value="">
+                                        placeholder="Enter a address.." value="">
                                     <div id="edit_address_text" class="text-danger backend-error-text"></div>
                                 </div>
                             </div>
@@ -251,12 +284,12 @@
 
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="edit_city" name="city"
-                                        placeholder="Enter a name.." value="">
+                                        placeholder="Enter a city.." value="">
                                     <div id="edit_city_text" class="text-danger backend-error-text"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="edit_region" name="region"
-                                        placeholder="Enter a name.." value="">
+                                        placeholder="Enter a region.." value="">
                                     <div id="edit_region_text" class="text-danger backend-error-text"></div>
                                 </div>
                             </div>
@@ -264,22 +297,34 @@
 
                                 <div class="col-md-6">
                                     <input type="email" class="form-control" id="edit_email" name="email"
-                                        placeholder="Enter a name.." value="">
+                                        placeholder="Enter a email.." value="">
                                     <div id="edit_email_text" class="text-danger backend-error-text"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="file" class="form-control" id="edit_profile" name="profile"
-                                        placeholder="Enter a name.." value="">
+                                        placeholder="Enter a profile image.." value="">
                                     <div id="edit_profile_text" class="text-danger backend-error-text"></div>
                                 </div>
                             </div>
 
-                            <div class="form-group row">
 
-                                <div class="col-lg-6">
+                            <h3 class="text-xl my-4 text-gray-600">Role</h3>
+                            <div class="grid grid-cols-3 gap-4">
+                                @foreach ($roles as $role)
+                                    <div class="flex flex-col justify-cente">
+                                        <div class="flex flex-col">
+                                            <label class="inline-flex items-center mt-3">
+                                                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600"
+                                                    name="roles[]" value="{{ $role->id }}"
+                                                    @if (count($user->roles->where('id', $role->id))) checked @endif><span
+                                                    class="ml-2 text-gray-700">{{ $role->name }}</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                @endforeach
 
 
-                                </div>
+
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -313,7 +358,7 @@
                         <div class="form-validation">
                             <div class="form-group row">
                                 <div class="col-12 text-center">
-                                    <label class=" col-form-label" id="view_fist_name" for="">
+                                    <label class=" col-form-label" id="view_name" for="">
                                     </label>
                                 </div>
 
@@ -407,12 +452,15 @@
 
                     const USER = JSON.stringify(data.user)
 
+
                     var string =
                         `<tr id="row_${data.user.id}">
-                                <td>${data.user.fist_name}</td>
+                                <td>${data.user.name}</td>
                                 <td>${data.user.last_name}</td>
                                 <td>${data.user.email}</td>
-                                <td>${data.user.email_verified_at == undefined ? "Not Approved" : "Approved"}</td>
+                                <td>${data.user.roles.name}</td>
+                                <td>${data.user.type}</td>
+                                <td><img src="${data.user.image_url}" alt="" height="50px" width="50px"></td>
                                 <td>
                                     <div class="button-group">
                                         <div class="btn-group">
@@ -426,7 +474,7 @@
                                     </div>
                                 </td>
                             </tr>`
-                    $("#table_id").append(string);
+                    $("#table_id").prepend(string);
 
                     $('#addUserModal').modal('hide');
 
@@ -499,13 +547,18 @@
                     });
 
                     const USER = JSON.stringify(data.user)
+                    console.log('edited user',data.user);
                     $("#row_" + data.user.id).remove();
                     var string =
                         `<tr id="row_${data.user.id}">
-                            <td>${data.user.fist_name}</td>
+                            <td>${data.user.name}</td>
                             <td>${data.user.last_name}</td>
                             <td>${data.user.email}</td>
-                            <td>${data.user.email_verified_at == undefined ? "Not Approved" : "Approved"}</td>
+
+                            <td>${data.user.roles?data.user.roles.name:''}</td>
+                                <td>${data.user.type}</td>
+                                <td><img src="${data.user.image_url}" alt="" height="50px" width="50px"></td>
+
                             <td>
                                 <div class="button-group">
                                     <div class="btn-group">
@@ -519,7 +572,8 @@
                                 </div>
                             </td>
                         </tr>`
-                    $("#table_id").append(string);
+
+                    $("#table_id").prepend(string);
 
 
                     $('#editModalUser').modal('hide');
@@ -551,7 +605,7 @@
 
             console.log('openEditModal', user);
 
-            document.getElementById('edit_fist_name').value = user.fist_name;
+            document.getElementById('edit_name').value = user.name;
             document.getElementById('edit_last_name').value = user.last_name;
             document.getElementById('edit_mobile_no').value = user.mobile_no;
             document.getElementById('edit_address').value = user.address;
@@ -577,7 +631,7 @@
         function openViewModal(user) {
             // document.getElementById('view_name').value = user.name;
             // document.getElementById('view_email').value = user.email;
-            document.getElementById("view_fist_name").innerHTML = user.fist_name;
+            document.getElementById("view_name").innerHTML = user.name;
             document.getElementById("view_last_name").innerHTML = user.last_name;
             // document.getElementById("view_mobile_no").innerHTML = user.mobile_no;
             // document.getElementById("view_address").innerHTML = user.address;

@@ -11,17 +11,26 @@ class Order extends Model
 
     protected $table = 'orders';
 
-    protected $fillable =[
+    protected $fillable = [
         'user_id', 'payment_id', 'shipping_detail_id', 'order_status', 'tax', 'delivery_fee', 'cancel_at',
     ];
     public function orderDetails()
     {
-        return $this->hasMany(OrderDetail::class,'order_id');
+        return $this->hasMany(OrderDetail::class, 'order_id');
     }
-    public function payments(){
+    public function payment()
+    {
         return $this->belongsTo(Payment::class, 'payment_id');
     }
-    public function users(){
+    public function user()
+    {
         return $this->belongsTo(User::class, 'user_id');
+    }
+    public function shipping()
+    {
+        return $this->belongsTo(ShippingDetail::class, 'shipping_detail_id');
+    }
+    public function paymenthistories(){
+        return $this->hasMany(paymenthistories::class,'order_id');
     }
 }

@@ -1,66 +1,144 @@
 @extends('layouts.theme')
 @section('title', 'Home')
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid order-page">
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-lg-8 col-md-6 col-sm-8 text-left">
-                                <h4 class="card-title">Orders Table</h4>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-4 text-right">
+                        @if ($orders->count() > 0)
+                            <div class="row">
+                                <div class="col-lg-8 col-md-6 col-sm-8 text-left">
+                                    <h4 class="card-title">Customers Orders </h4>
+                                </div>
+                                {{-- <div class="col-lg-4 col-md-6 col-sm-4 text-right">
                                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addcategory">Add
                                     Category</button>
+                            </div> --}}
                             </div>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered zero-configuration" id="table">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>price</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="table_id">
-                                    @foreach ($orders as $order)
-                                        <tr id='row_{{ $order->id }}'>
-                                            <td>{{ $order->users->fist_name }} {{ $order->users->last_name }}</td>
-                                            <td>{{ $order->payments->payment }}</td>
-                                            <td>
-                                                <span
-                                                class="badge badge-{{ $order->order_status == 'padding' ? 'success' : 'warning' }}">
-                                                {{ $order->order_status == 'padding' ? 'not-padding' : 'padding' }}</span>
-                                            </td>
+
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered zero-configuration" id="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr No</th>
+                                            <th>Order Date</th>
+                                            <th>Price</th>
+                                            <th>Remaining Price</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody id="table_id">
+                                        @php $i=0; @endphp
+                                        @foreach ($orders as $order)
+                                            <tr class="order_data" id='row_{{ $order->id }}'>
+                                                <td>{{ $i + 1 }}</td>
+                                                <td> {{ date('d F, Y h:i A', strtotime($order->created_at)) }}</td>
+                                                <td>{{ $order->payment->payment }}</td>
+                                                <td>{{ $order->payment->remaining_amount }}</td>
+                                                <td>
+                                                    <input type="hidden" class="id" value='{{ $order->id }}'>
+                                                    {{ $order->order_status }}
+                                                    <!-- <select id="my_selection" class="form-select order_status " name="order_status" style="height: 29px;
+                                                border-radius: 5px;
+                                                background: content-box;">
 
 
 
-                                            <td>
-                                                <div class="button-group">
-                                                    <div class="btn-group">
+                                                        <option {{ $order->order_status == 'pending' ? 'selected' : '' }} value="pending" class="sweet">
+                                                            Pending
+                                                        </option>
+
+                                                        <option {{ $order->order_status == 'Accepted' ? 'selected' : '' }} value="Accepted" class="sweet">Accepted</option>
+                                                        <option {{ $order->order_status == 'Completed' ? 'selected' : '' }} value="Completed" class="sweet">Completed</option>
+                                                        <option {{ $order->order_status == 'Rejected' ? 'selected' : '' }} value="Rejected" class="sweet">Rejected</option>
+                                                        <option {{ $order->order_status == 'Canceled' ? 'selected' : '' }} value="Canceled" class="sweet">Canceled</option>
+
+                                                    </select> -->
+
+
+                                                    <!-- <a href="" class="btn btn-sm btn-primary update-status"> Update Status</a> -->
+
+                                                </td>
+
+                                                <td>
+                                                    <div class="button-group">
                                                         <div class="btn-group">
-                                                            <button id="btnGroupDrop1" type="button"
-                                                                class="btn btn-primary dropdown-toggle py-0 px-2"
-                                                                data-toggle="dropdown"></button>
-                                                            <div class="dropdown-menu">
-                                                                <a class="dropdown-item"
-                                                                    onclick="openViewModal({{ $order }})">View</a>
-                                                                <a class="dropdown-item"
-                                                                    href="javascript:openEditModal({{ json_encode($order) }})">Edit</a>
-                                                                <a class="dropdown-item"
-                                                                    href="javascript:openDeleteDialog({{ $order->id }})">Delete</a>
+                                                            <div class="btn-group">
+                                                                <button id="btnGroupDrop1" type="button"
+                                                                    class="btn btn-primary dropdown-toggle py-0 px-2"
+                                                                    data-toggle="dropdown"></button>
+                                                                <div class="dropdown-menu">
+                                                                    @if ($order->order_status == 'pending')
+                                                                        <a class="dropdown-item"
+                                                                            href="javascript:openConfirmationDialog('Accepted',{{ $order->id }})"
+                                                                            class="btn btn-sm btn-primary">Accept Order</a>
+                                                                        <a class="dropdown-item"
+                                                                            href="javascript:openConfirmationDialog('Completed',{{ $order->id }})"
+                                                                            class="btn btn-sm btn-primary">Complete
+                                                                            Order</a>
+                                                                        <a class="dropdown-item"
+                                                                            href="javascript:openConfirmationDialog('Rejected',{{ $order->id }})"
+                                                                            class="btn btn-sm btn-primary">Reject Order</a>
+                                                                        <a class="dropdown-item"
+                                                                            href="javascript:openConfirmationDialog('Canceled',{{ $order->id }})"
+                                                                            class="btn btn-sm btn-primary">Cancel Order</a>
+                                                                    @elseif ($order->order_status == 'Accepted')
+                                                                        <a class="dropdown-item"
+                                                                            href="javascript:openConfirmationDialog('shipped',{{ $order->id }})"
+                                                                            class="btn btn-sm btn-primary">Shipping
+                                                                            Started</a>
+                                                                        <a class="dropdown-item"
+                                                                            href="javascript:openConfirmationDialog('Completed',{{ $order->id }})"
+                                                                            class="btn btn-sm btn-primary">Complete
+                                                                            Order</a>
+                                                                        <a class="dropdown-item"
+                                                                            href="javascript:openConfirmationDialog('Rejected',{{ $order->id }})"
+                                                                            class="btn btn-sm btn-primary">Reject Order</a>
+                                                                        <a class="dropdown-item"
+                                                                            href="javascript:openConfirmationDialog('Canceled',{{ $order->id }})"
+                                                                            class="btn btn-sm btn-primary">Cancel Order</a>
+                                                                    @elseif ($order->order_status == 'shipped')
+                                                                        <a class="dropdown-item"
+                                                                            href="javascript:openConfirmationDialog('Completed',{{ $order->id }})"
+                                                                            class="btn btn-sm btn-primary">Completed</a>
+                                                                    @endif
+
+
+                                                                    <a class="dropdown-item"
+                                                                        href="javascript:openPaymentModal({{ json_encode($order) }})">Payment</a>
+                                                                    <a class="dropdown-item"
+                                                                        href="{{ url('admin/view-order/' . $order->id) }}"
+                                                                        class="btn btn-sm btn-primary">View</a>
+                                                                    <a class="dropdown-item"
+                                                                        href="{{ url('admin/order/' . $order->id) }}"
+                                                                        class="btn btn-sm btn-primary">Payment History</a>
+
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+
+                                                    {{-- <a  class="btn btn-sm btn-success text-white"
+                                                href="javascript:openPaymentModal({{ json_encode($order) }})">Payment</a>
+                                        <a href="{{ url('admin/view-order/'.$order->id) }}" class="btn btn-sm btn-primary">View</a> --}}
+
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+
+
+                                </table>
+                            </div>
+                        @else
+                            <h4 class="card-title">No Orders Available Right Now</h4>
+
+                        @endif
+                        <div class="pagination justify-content-center">
+                            {{ $orders->links() }}
                         </div>
                     </div>
                 </div>
@@ -90,163 +168,118 @@
             </div>
         </div>
     </div>
-    {{-- add --}}
-    <div class="modal fade" id="addorder">
+
+    <div class="modal fade" id="payment">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add Category</h5>
+                    <h5 class="modal-title">Payment</h5>
                     <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form class="form-valide" id="category-form" method="post" enctype="multipart/form-data">
+                    <form class="form-valide" id="payment-form" method="post" enctype="multipart/form-data">
                         @csrf
-                        <div class="row">
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
-                                <img id="image_preview" src="{{ url('images/profile/default_image.png') }}" alt=""
-                                    width="120" class="rounded-circle border border-dark" />
-                            </div>
-                        </div>
+
+                        <input type="hidden" id="order_id" name="order_id">
+                        <input type="hidden" id="user_id" name="user_id">
+                        {{-- <input type="hidden" value="PUT" name="_method"> --}}
                         <div class="form-validation">
-                            <div class="form-group ">
-                                <label class="col-lg-4 col-form-label" for="name">Name <span
-                                        class="text-danger">*</span>
+
+
+                            <div class="modal-body row">
+                                <div class="col-md-12">
+                                    <label class="form-label" for="name">Amount<span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" id="amount" name="amount"
+                                        placeholder="Enter ammount.." value="">
+                                    <div id="amount_text" class="text-danger backend-error-text"></div>
+                                    @error('amount')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+
+
+                            </div>
+                            <div class="modal-body">
+                                <label class="form-label" for="name">Comment
                                 </label>
-                                <input type="text" class="form-control" id="name" name="name"
-                                    placeholder="Category name.." :value="old('name')">
-                                <div id="name_text" class="text-danger backend-error-text"></div>
+                                <textarea class="form-control col-xs-12" name="comment" placeholder="Order here" id="comment" rows="7"
+                                    cols="50" :value="old('comment')"></textarea>
+                                <div id="comment_text" class="text-danger backend-error-text"></div>
                             </div>
-                            <div class="form-group ">
-                                <label class="col-lg-4 col-form-label" for="name">Image <span
-                                        class="text-danger">*</span>
-                                </label>
-                                <input type="file" class="form-control" id="category_image" name="category_image"
-                                    placeholder="category_image" :value="old('category_image')">
-                                <div id="profile_text" class="text-danger backend-error-text"></div>
-                            </div>
-                            <div class="form-group ">
-                                <label class="col-lg-4 col-form-label form-check-label" for="name">
-                                    <input type="checkbox" class="form-check-input" checked name="is_active"
-                                        value="1">status </label>
-                                <div id="is_active_text" class="text-danger backend-error-text"></div>
-                            </div>
+
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" id="button-save" onclick="submitCategory(this)"
-                                class="btn btn-primary">Add Category</button>
+                            <button type="button" id="button-update" onclick="payment(this)"
+                                class="btn btn-primary">Submit</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    {{-- edit --}}
-    <div class="modal fade" id="editcategory">
+    <div class="modal fade" id="changeStatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Category</h5>
-                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                    <input type="hidden" value="-1" id="changeStatusValue">
+                    <input type="hidden" value="-1" id="orderId">
+
+                    <h5 class="modal-title" id="exampleModalLongTitle">Change Status
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form class="form-valide" id="edit-category-form" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <input type="hidden" value="-1" id="category_id">
-                        <input type="hidden" value="PUT" name="_method">
-                        <div class="form-validation">
-                            <div class="row">
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
-                                    <img id="edit_image_preview" src="{{ url('images/profile/62a7764c8bf14.jpg') }}"
-                                        alt="" width="120" class="rounded-circle border border-dark" />
-                                </div>
-                            </div>
-                            <div class="form-group ">
-                                <label class="col-lg-4 col-form-label" for="name">Name <span
-                                        class="text-danger">*</span>
-                                </label>
-                                <input type="text" class="form-control" id="edit_name" name="name"
-                                    placeholder="Enter a name.." value="">
-                                <div id="edit_name_text" class="text-danger backend-error-text"></div>
-                            </div>
-                            <div class="form-group ">
-                                <label class="col-lg-4 col-form-label" for="name">Image <span
-                                        class="text-danger">*</span>
-                                </label>
-                                <input type="file" class="form-control" id="edit_category_image"
-                                    name="category_image" placeholder="Enter a name.." value="">
-                                <div id="edit_category_image_text" class="text-danger backend-error-text"></div>
-                            </div>
-                            <div class="form-group ">
-                                <label class="col-lg-4 col-form-label form-check-label" for="name">
-                                    <input type="checkbox" id="edit_is_active" name="is_active" value=""> Status
-                                </label>
-                                <div id="edit_is_active" class="text-danger backend-error-text"></div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" id="button-update" onclick="editCategory(this)"
-                                class="btn btn-primary">Edit Category</button>
-                        </div>
-                    </form>
+                    Are you sure you want to change the current status to <span id="changeStatusTo"></span>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button type="button" id="button-delete" class="btn btn-primary"
+                        onclick="updateStatus()">Yes</button>
                 </div>
             </div>
         </div>
     </div>
 @endsection
-{{-- @section('scripts')
+@section('scripts')
     <script>
-        category_image.onchange = evt => {
-            const [file] = category_image.files
-            console.log('file', file);
-            if (file) {
-                image_preview.src = URL.createObjectURL(file)
-            }
-        }
-        edit_category_image.onchange = evt => {
-            const [file] = edit_category_image.files
-            if (file) {
-                edit_image_preview.src = URL.createObjectURL(file)
-            }
+        function openConfirmationDialog(Status, id) {
+            $("#changeStatusValue").val(Status);
+
+            $("#changeStatusTo").html(Status);
+            $("#orderId").val(id);
+            $("#changeStatus").modal('show');
         }
 
+        function updateStatus() {
+            $("#changeStatus").modal('hide');
 
-        function submitCategory() {
-            var form = $('#category-form')[0];
-            $("#button-save").text('Loading...');
-            const myFormData = new FormData(form);
-
+            var id = $("#orderId").val();
+            var order_status = $('#changeStatusValue').val();
+            console.log('order sttus', order_status);
+            data = {
+                'id': id,
+                'order_status': order_status,
+            }
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
                 },
-                url: "/admin/category", // the endpoint
-                type: "POST", // http method
-                processData: false,
-                contentType: false,
-                data: myFormData,
-                beforeSend: function() {
-                    $(form)
-                    $('.backend-error-text').text('')
-                    $("#button-save").prop("disabled", true);
-                },
-                success: function(data) {
-                    console.log(data)
-                    $("#button-save").prop("disabled", false);
-                    $("#button-save").text("Add Category");
+                method: "POST",
+                url: "{{ route('orders') }}",
+                data: data,
 
-                    if (data.status == false) {
-                        swal({
-                            title: "Error",
-                            text: data.message,
-                            icon: "error",
-                        });
-                        return;
-                    }
-                    console.log('data', data);
+                success: function(data) {
+                    console.log(data);
+                    $('#row_' + id).remove();
+                    // window.location.reload();
                     swal({
                         title: "",
                         text: data.message,
@@ -254,135 +287,101 @@
 
                     });
 
-                    document.getElementById("category-form").reset();
-
-                    const CATRGORY = JSON.stringify(data.category)
-                    var string =
-                        `<tr id="row_${data.category.id}">
-               <td>${data.category.name}</td>
-               <td><img src="${data.category.image_url}" height="50px" width="50px" alt=""></td>
-               <td class="text-center"><span class="badge badge-${ data.category.is_active == '1' ? 'success' : 'warning' }">${(data.category.is_active == '1' ? 'active' : 'not-active')}</td>
-
-               <td>
-                   <div class="button-group">
-                       <div class="btn-group">
-                           <div class="btn-group"><button id="btnGroupDrop${data.category.id}" type="button"
-                                   class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button>
-                               <div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal(${data.category})">View</a>
-                                   <a class="dropdown-item" href="javascript:;" onclick='openEditModal(${CATRGORY})'>Edit</a><a
-                                       class="dropdown-item" href="javascript:openDeleteDialog(${data.category.id});">Delete</a></div>
-                           </div>
-                       </div>
-                   </div>
-               </td>
-           </tr>`
-                    $("#table_id").append(string);
-
-
-                    $('#addcategory').modal('hide');
-
-
-                },
-                error: function(error) {
-                    $(form)
-                    $("#button-save").prop("disabled", false);
-                    $("#button-save").text("Add Category");
-                    var errorMessage = error.statusText;
-                    var sweetMessage = error.statusText;
-                    if (error.status == 422) {
-                        errorMessage = handleValidationErrors(error)
-                        sweetMessage = 'Invalid Data'
-                    }
-                    swal({
-                        title: "Error",
-                        text: sweetMessage,
-                        icon: "error",
-                    });
-
-                },
+                }
             });
         }
+        $(document).ready(function() {
+            $('.sweet').click(function(e) {
+                e.preventDefault();
 
-        function openDeleteDialog(id) {
-            $("#deleteID").val(id);
-            $("#deleteModal").modal('show');
-        }
-
-        function deleteCategory() {
-            $("#button-delete").text('Loading... ');
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                url: "/admin/category/" + $("#deleteID").val(), // the endpoint
-                type: "DELETE", // http method
-                processData: false,
-                contentType: false,
-                success: function(data) {
-                    $("#button-delete").prop("disabled", false);
-                    $("#button-delete").text("Yes");
-
-                    if (data.status == false) {
-                        swal({
-                            title: "Error",
-                            text: data.message,
-                            icon: "error",
-                        });
-                        return;
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You want to  be change the order status !",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire(
+                            'Changed!',
+                            'Your order status  has been changed.',
+                            'success'
+                        )
                     }
-
-                    $('.alert-success').html(data.success).fadeIn('slow');
-                    // $('.alert-success').delay(3000).fadeOut('slow');
-                    document.getElementById("row_" + $("#deleteID").val()).remove();
-                    swal({
-                        title: "",
-                        text: data.message,
-                        icon: "success",
-                    });
-                    $('#deleteModal').modal('hide');
-                },
-                error: function(error) {
-                    $("#button-delete").prop("disabled", false);
-                    $("#button-delete").text("Yes");
-                    alert(error);
-
-
-                },
+                })
             });
+
+
+            // $('.update-status').click(function(e) {
+            //     e.preventDefault();
+
+            //     var id = $(this).closest('.order_data').find('.id').val();
+            //     var order_status = $(this).closest('.order_data').find('.order_status').val();
+            //     console.log('order sttus',order_status);
+            //     data = {
+            //         'id': id,
+            //         'order_status': order_status,
+            //     }
+            //     $.ajax({
+            //         headers: {
+            //             'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
+            //         },
+            //         method: "POST",
+            //         url: "{{ route('orders') }}",
+            //         data: data,
+
+            //         success: function(data) {
+            //             console.log(data);
+            //             // window.location.reload();
+            //             swal({
+            //                 title: "",
+            //                 text: data.message,
+            //                 icon: "success",
+
+            //             });
+
+            //         }
+            //     });
+
+
+
+            // });
+
+
+
+        });
+
+        function openPaymentModal(order) {
+            console.log(order.id);
+
+            document.getElementById('amount').value = order.payment.remaining_amount;
+
+
+
+            document.getElementById('order_id').value = order.id;
+            document.getElementById('user_id').value = order.user_id;
+
+            $("#payment").modal()
         }
 
-        function openEditModal(category) {
-
-            document.getElementById('edit_name').value = category.name;
-            document.getElementById('edit_is_active').value = category.is_active == '1' ? 'checked' : '';
-
-            document.getElementById('category_id').value = category.id;
-            var image;
-            if (category.image_url) {
-                image = category.image_url;
-            } else {
-                image = base_url + '/storage/profile/62a7764c8bf14.jpg';
-            }
-            // document.getElementById('edit_profile').value = user.image_name;
-            $('#edit_image_preview').attr('src', image)
-            // document.getElementById('edit_image_preview').src = user.image_url;
-
-            $("#editcategory").modal()
-        }
-
-        function editCategory() {
-            var form = $('#edit-category-form')[0];
+        function payment() {
+            var form = $('#payment-form')[0];
             $("#button-update").text('Loading...');
-            category_id = form.category_id.value;
+            order_id = form.order_id.value;
+
 
 
             const myFormData = new FormData(form);
 
+
+
             $.ajax({
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: "/admin/category/" + category_id, // the endpoint
+                url: "/admin/orders/" + order_id, // the endpoint
                 type: "POST",
                 processData: false,
                 contentType: false,
@@ -394,8 +393,9 @@
 
                 },
                 success: function(data) {
+                    console.log(data)
                     $("#button-update").prop("disabled", false);
-                    $("#button-update").text("Edit Category");
+                    $("#button-update").text("Submit");
 
                     if (data.status == false) {
                         swal({
@@ -403,6 +403,7 @@
                             text: data.message,
                             icon: "error",
                         });
+
                         return;
                     }
 
@@ -412,43 +413,23 @@
                         text: data.message,
                         icon: "success",
                     });
-                    const CATEGORY = JSON.stringify(data.category)
-                    $("#row_" + data.category.id).remove();
-                    var string =
-                        `<tr id="row_${data.category.id}">
-               <td>${data.category.name}</td>
-               <td><img src="'${data.category.profile}'" alt=""></td>
-               <td>${(data.category.is_active == '1' ? "Hidden" : "Show")}</td>
 
-               <td>
-                   <div class="button-group">
-                       <div class="btn-group">
-                           <div class="btn-group"><button id="btnGroupDrop${data.category.id}" type="button"
-                                   class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button>
-                               <div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal(${data.category})">View</a>
-                                   <a class="dropdown-item" href="javascript:;" onclick='openEditModal(${CATEGORY})'>Edit</a><a
-                                       class="dropdown-item" href="javascript:openDeleteDialog(${data.category.id});">Delete</a></div>
-                           </div>
-                       </div>
-                   </div>
-               </td>
-           </tr>`
-                    $("#table_id").append(string);
+                    ;
 
 
-                    $('#editcategory').modal('hide');
-
+                    $('#payment').modal('hide');
+                    myTimeout = setTimeout(location.reload(), 3500);
 
                 },
                 error: function(error) {
                     $(form)
                     $("#button-update").prop("disabled", false);
-                    $("#button-update").text("Edit Category");
+                    $("#button-update").text("Submit");
                     var errorMessage = error.statusText;
                     var sweetMessage = error.statusText;
 
                     if (error.status == 422) {
-                        errorMessage = handleValidationErrors(error, 'edit')
+                        errorMessage = handleValidationErrors(error)
                         sweetMessage = 'Invalid Data'
                     }
                     swal({
@@ -460,6 +441,101 @@
 
                 },
             });
+        }
+
+        //    function payment() {
+        //     var form = $('#payment-form')[0];
+        //        $("#button-update").text('Loading...');
+        //        const myFormData = new FormData(form);
+        //             const formDataObj = {};
+
+        //        $.ajax({
+        //            headers: {
+        //                'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
+        //            },
+        //            method: "/admin/orders", // the endpoint
+        //            type: "POST", // http method
+        //            processData: false,
+        //            contentType: false,
+        //            data: myFormData,
+        //            beforeSend: function() {
+        //                $(form)
+        //                $('.backend-error-text').text('')
+        //                $("#button-update").prop("disabled", true)
+
+        //            },
+        //            success: function(data) {
+        //             console.log(data)
+        //                $("#button-update").prop("disabled", false);
+        //                $("#button-update").text("Submit");
+
+        //                if (data.status == false) {
+        //                    swal({
+        //                        title: "Error",
+        //                        text: data.message,
+        //                        icon: "error",
+        //                    });
+        //                    return;
+        //                }
+
+
+        //                swal({
+        //                    title: "",
+        //                    text: data.message,
+        //                    icon: "success",
+        //                });
+
+        //     //            const CATRGORY = JSON.stringify(data.category)
+        //     //            var string =
+        //     //                `<tr id="row_${data.category.id}">
+    //     //       <td>${data.category.name}</td>
+    //     //       <td><img src="${data.category.image_url}" height="50px" width="50px" alt=""></td>
+    //     //       <td class="text-center"><span class="badge badge-${ data.category.is_active == '1' ? 'success' : 'warning' }">${(data.category.is_active == '1' ? 'active' : 'not-active')}</td>
+
+    //     //       <td>
+    //     //           <div class="button-group">
+    //     //               <div class="btn-group">
+    //     //                   <div class="btn-group"><button id="btnGroupDrop${data.category.id}" type="button"
+    //     //                           class="btn btn-primary dropdown-toggle py-0 px-2" data-toggle="dropdown"></button>
+    //     //                       <div class="dropdown-menu"> <a class="dropdown-item" onclick="openViewModal(${data.category})">View</a>
+    //     //                           <a class="dropdown-item" href="javascript:;" onclick='openEditModal(${CATRGORY})'>Edit</a><a
+    //     //                               class="dropdown-item" href="javascript:openDeleteDialog(${data.category.id});">Delete</a></div>
+    //     //                   </div>
+    //     //               </div>
+    //     //           </div>
+    //     //       </td>
+    //     //   </tr>`
+        //                $("#table_id").append(string);
+
+
+        //                $('#addcategory').modal('hide');
+
+
+        //            },
+        //            error: function(error) {
+        //                $(form)
+        //                $("#button-update").prop("disabled", false);
+        //                $("#button-update").text("Submit");
+        //                var errorMessage = error.statusText;
+        //                var sweetMessage = error.statusText;
+
+        //                if (error.status == 422) {
+        //                    errorMessage = handleValidationErrors(error, 'edit')
+        //                    sweetMessage = 'Invalid Data'
+        //                }
+        //                swal({
+        //                    title: "Error",
+        //                    text: sweetMessage,
+        //                    icon: "error",
+        //                });
+
+
+        //            },
+        //        });
+        //    }
+
+        document.getElementById('my_selection').onchange = function() {
+            window.location.href = this.children[this.selectedIndex].getAttribute('href');
         }
 
         function handleValidationErrors(error, type = 'create') {
@@ -486,4 +562,4 @@
             return errorMessage;
         }
     </script>
-@endsection --}}
+@endsection

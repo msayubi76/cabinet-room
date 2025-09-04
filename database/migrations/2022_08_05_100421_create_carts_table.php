@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained('users');
             $table->foreignId('product_id')->nullable()->constrained('products');
             $table->integer('quantity');
+
             $table->timestamps();
         });
     }

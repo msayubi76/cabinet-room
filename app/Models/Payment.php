@@ -12,7 +12,7 @@ class Payment extends Model
     protected $table = 'payments';
 
     protected $fillable =[
-        'user_id', 'status', 'method', 'payment',
+        'user_id', 'status', 'method', 'payment','remaining_amount','complete_at','shipping_charges', 'total_amount'
     ];
     public function user(){
         return $this->belongsTo(User::class, 'user_id');

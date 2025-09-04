@@ -40,7 +40,7 @@
         </nav>
 
         <div class="row">
-            @foreach ($category as $cateorylist)
+            @foreach ($categories as $cateorylist)
 
 
             <div class="col-6 col-sm-4 col-md-3 col-xl-2">

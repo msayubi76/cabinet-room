@@ -1,5 +1,5 @@
 @extends('website.master')
-@section('title' , "About Us")
+@section('title', 'About Us')
 
 @section('content')
     <div class="page-header page-header-bg text-left"
@@ -23,22 +23,37 @@
     <div class="about-section">
         <div class="container">
             <h2 class="subtitle">OUR STORY</h2>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.</p>
 
-            <p class="lead">“ Many desktop publishing packages and web page editors now use Lorem Ipsum as their
-                default model search for evolved over sometimes by accident, sometimes on purpose ”</p>
+            <div>{!! $setting->about_us_detail !!}</div>
+
         </div><!-- End .container -->
     </div><!-- End .about-section -->
 
     <div class="features-section bg-gray">
         <div class="container">
-            <h2 class="subtitle">WHY CHOOSE US</h2>
+            <h2 class="subtitle">Bank Detail</h2>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="feature-box bg-white">
+                        <i class="icon-shipped"></i>
+
+                        <div class="feature-box-content p-0">
+                            <h3 class="mb-0">  Soneri Bank </h3>
+                            <p>
+                                <strong>
+                                    Account Title:
+                                </strong> RK TRADERS
+                            </p>
+                            <p>
+                                <strong>
+                                    IBAN NO:
+                                </strong> PK86SONE0020520004454961
+                            </p>
+                        </div><!-- End .feature-box-content -->
+                    </div><!-- End .feature-box -->
+                </div><!-- End .col-lg-4 -->
+            </div>
+
             <div class="row">
                 <div class="col-lg-4">
                     <div class="feature-box bg-white">
@@ -83,7 +98,8 @@
         <div class="container">
             <h2 class="subtitle text-center">HAPPY CLIENTS</h2>
 
-            <div class="testimonials-carousel owl-carousel owl-theme images-left" data-owl-options="{
+            <div class="testimonials-carousel owl-carousel owl-theme images-left"
+                data-owl-options="{
                 'margin': 20,
                 'lazyLoad': true,
                 'autoHeight': true,
@@ -100,7 +116,7 @@
                 <div class="testimonial">
                     <div class="testimonial-owner">
                         <figure>
-                            <img src="assets/images/clients/client1.png" alt="client">
+                            <img src="/website/assets/images/clients/client1.png" alt="client">
                         </figure>
 
                         <div>
@@ -118,7 +134,7 @@
                 <div class="testimonial">
                     <div class="testimonial-owner">
                         <figure>
-                            <img src="assets/images/clients/client2.png" alt="client">
+                            <img src="/website/assets/images/clients/client2.png" alt="client">
                         </figure>
 
                         <div>
@@ -136,7 +152,7 @@
                 <div class="testimonial">
                     <div class="testimonial-owner">
                         <figure>
-                            <img src="assets/images/clients/client1.png" alt="client">
+                            <img src="/website/assets/images/clients/client1.png" alt="client">
                         </figure>
 
                         <div>

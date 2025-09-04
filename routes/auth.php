@@ -11,7 +11,7 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
+    Route::get('register/{product_id?}', [RegisteredUserController::class, 'create'])
                 ->name('register');
 
     Route::post('register', [RegisteredUserController::class, 'store']);
@@ -32,6 +32,9 @@ Route::middleware('guest')->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.update');
+
+
+
 });
 
 Route::middleware('auth')->group(function () {
@@ -53,4 +56,15 @@ Route::middleware('auth')->group(function () {
 
     Route::get('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+
 });
+
+  // Google login
+  Route::get('login/google', [AuthenticatedSessionController::class, 'redirectToGoogle'])->name('login.google');
+  Route::get('login/google/callback', [AuthenticatedSessionController::class, 'handleGoogleCallback']);
+
+  // Facebook login
+  Route::get('login/facebook', [AuthenticatedSessionController::class, 'redirectToFacebook'])->name('login.facebook');
+  Route::get('login/facebook/callback', [AuthenticatedSessionController::class, 'handleFacebookCallback']);
+
+

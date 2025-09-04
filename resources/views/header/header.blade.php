@@ -42,7 +42,7 @@
                 </div>
                 <div class="header-right">
                     <ul class="clearfix">
-                        <li class="icons dropdown"><a href="javascript:void(0)" data-toggle="dropdown">
+                        {{-- <li class="icons dropdown"><a href="javascript:void(0)" data-toggle="dropdown">
                                 <i class="mdi mdi-email-outline"></i>
                                 <span class="badge badge-pill gradient-1">3</span>
                             </a>
@@ -166,11 +166,11 @@
                                     </ul>
                                 </div>
                             </div>
-                        </li>
+                        </li> --}}
                         <li class="icons dropdown">
                             <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
                                 <span class="activity active"></span>
-                                <img src="{{ url('../admin-assets/images/user/1.png')}}" height="40" width="40" alt="">
+                                <img src="{{ Auth::user()->image_url}}" height="40" width="40" alt="">
                             </div>
                             <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                                 <div class="dropdown-content-body">

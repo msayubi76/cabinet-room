@@ -21,6 +21,7 @@ return new class extends Migration
             $table->mediumText('description')->nullable();
             $table->decimal('actual_price')->nullable();
             $table->decimal('discount')->nullable();
+            $table->decimal('saleprice')->nullable();
             $table->decimal('shipping_charge')->nullable();
             $table->string('colour')->nullable();
             $table->string('folder_name')->nullable();
@@ -30,7 +31,10 @@ return new class extends Migration
             $table->double('width')->nullable();
             $table->boolean('is_feature_product')->default('0');
             $table->boolean('is_arrival_product')->default('0');
-            $table->string('currency')->default('Dollar');
+            $table->string('currency')->default('Rs');
+            $table->mediumText('short_description')->nullable();
+            $table->tinyInteger('is_active')->default('0');
+            $table->tinyInteger('is_for_request_quote')->default('0');
 
 
             $table->foreignId('created_by')->nullable()->constrained('users')->cascadeOnDelete() ;

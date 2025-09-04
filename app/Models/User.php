@@ -21,7 +21,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'fist_name',
+        'name',
         'last_name',
 
         'address',
@@ -34,6 +34,9 @@ class User extends Authenticatable
         'image_folder',
         'image_name',
         'image_url',
+        'email_verified_at',
+        'google_id',
+        'facebook_id',
     ];
 
     /**
@@ -69,6 +72,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class,'user_id');
     }
+
+
 
 
 

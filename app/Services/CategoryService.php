@@ -13,7 +13,7 @@ use App\Http\Requests\CategoryRequest;
 class CategoryService
 {
     public static function getCategory(){
-        return Category::orderBy('id', 'DESC')->paginate(30);
+        return Category::orderBy('id', 'DESC')->paginate(20);
     }
 
     public static function store(CategoryRequest $request)
@@ -41,8 +41,19 @@ class CategoryService
     }
 
     public static function update(CategoryRequest $request, Category $category){
+
         DB::beginTransaction();
         $data = $request->validated();
+        if ($request->hasFile('category_image')) :
+            $image_name = FileUploadTrait::fileUpload($request->category_image, 'categories');
+
+            $data['folder_name'] = 'categories';
+            $data['image_name'] =  $image_name;
+            $data['image_url'] = url('/storage/categories/' . $image_name);
+        endif;
+        $data['is_active'] =  $request->is_active == true ? '1' : '0';
+
+
 
         $category->update($data);
 

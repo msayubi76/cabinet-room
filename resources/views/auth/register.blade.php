@@ -1,109 +1,132 @@
-<!DOCTYPE html>
-<html class="h-100" lang="en">
 
+
+
+
+
+
+<!DOCTYPE HTML>
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Cabinet | Register</title>
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url('admin/assets/images/favicon.png')}}">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    <link href="{{ url('admin/css/style.css')}}" rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+<!-- Custom Theme files -->
+<link href="{{ asset('form-assets/css/style.css') }}" rel="stylesheet" type="text/css" media="all"/>
+<!-- Custom Theme files -->
+<script type="text/javascript" src="{{ asset('form-assets/js/jquery.min.js') }}"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="{{asset('form-assets/css/stylelogin.css')  }}">
+
+<!--Google Fonts-->
+<link href="{{ asset('form-assets/css/family.css') }}" rel='stylesheet' type='text/css'>
+<!--Google Fonts-->
+
 
 </head>
+<body>
+<!--login start here-->
 
-<body class="h-100">
+<div class="login">
+	<h2>Cabinet | Register</h2>
 
-    <!--*******************
-        Preloader start
-    ********************-->
-    <div id="preloader">
-        <div class="loader">
-            <svg class="circular" viewBox="25 25 50 50">
-                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
-            </svg>
+	<form  method="post" action="{{ route('register') }}">
+        @csrf
+
+        <div>
+            <input type="hidden" name="product_id" value="{{$product_id}}">
+            <input type="text" name="name" class="user active" placeholder="First Name" :value="old('name')"/>
+            @error('name')
+            <span class="text-danger" role="alert" style="
+
+                text-align: center;
+                    color: rgb(219, 0, 0);
+                margin-left: 50px;font-size:13px;">
+                {{ $message }}
+            </span>
+            @enderror
         </div>
-    </div>
-    <!--*******************
-        Preloader end
-    ********************-->
 
 
 
+            <input type="text" name="last_name" class="user active" placeholder="Last Name" :value="old('last_name')"/>
+            @error('last_name')
+            <span class="text-danger" role="alert" style="
+
+            text-align: center;
+                color: rgb(219, 0, 0);
+            margin-left: 50px;font-size:13px;">
+            {{ $message }}
+        </span>
+            @enderror
 
 
-    <div class="login-form-bg h-100">
-        <div class="container h-100">
-            <div class="row justify-content-center h-100">
-                <div class="col-xl-6">
-                    <div class="form-input-content">
-                        <div class="card login-form mb-0">
-                            <div class="card-body pt-5">
 
-                                    <a class="text-center" href="index.html"> <h4>Cabinet Room</h4></a>
+        <input type="text" name="email" class="email active" placeholder="Email" :value="old('email')"/>
+        @error('email')
+        <span class="text-danger" role="alert" style="
 
-                                <form class="mt-5 mb-5 login-input" method="post" action="{{ route('register') }}">
-                                        @csrf
-                                    <div class="form-group">
-                                        <input type="text" class="form-control"  placeholder="Name"  name="name" value="{{old('name')}}"  required>
-                                        @error('name')
-                                        <span class="text-danger" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="email" class="form-control"  placeholder="Email"  name="email" value="{{old('email')}}"  required>
-                                        @error('email')
-                                        <span class="text-danger" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control" placeholder="Password" name="password" required>
-                                        @error('password')
-                                        <span class="text-danger" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control" placeholder="password confirmation" name="password_confirmation" required>
-                                        @error('password_confirmation')
-                                        <span class="text-danger" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-                                    <button class="btn login-form__btn submit w-100" type="submit">Sign in</button>
-                                </form>
-                                    <p class="mt-5 login-form__footer">Have account <a  href="{{ route('login') }}" class="text-primary">Sign Up </a> now</p>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                text-align: center;
+                    color: rgb(219, 0, 0);
+                margin-left: 50px;font-size:13px;">
+                {{ $message }}
+            </span>
+        @enderror
+		<input type="password" name="password" class="lock active" placeholder="Password" :value="old('password')"/>
+        @error('password')
+        <span class="text-danger" role="alert" style="
+
+        text-align: center;
+            color: rgb(219, 0, 0);
+        margin-left: 50px;font-size:13px;">
+        {{ $message }}
+    </span>
+        @enderror
+        <input type="password" name="password_confirmation" class="lock active" placeholder="Password Confirmation "/>
+        @error('password_confirmation')
+        <span class="text-danger" role="alert" style="
+
+        text-align: center;
+            color: rgb(219, 0, 0);
+        margin-left: 50px;font-size:13px;">
+        {{ $message }}
+    </span>
+        @enderror
+
+	<div class="forgot">
+		 <div class="login-check">
+ 			 <label class="checkbox"><input type="checkbox" name="checkbox" checked><i> </i> Remember Me</label>
+
+ 		  </div>
     </div>
 
+		<div class="clear"> </div>
 
+	<div class="login-bwn">
+	   <input type="submit" value="Sign Up" />
+	</div>
+</form>
+	<div class="login-bottom">
 
+	 <div class="social-icons">
 
-    <!--**********************************
-        Scripts
-    ***********************************-->
-    <script src="{{ url('admin/plugins/common/common.min.js')}}"></script>
-    <script src="{{ url('admin/js/custom.min.js')}}"></script>
-    <script src="{{ url('admin/js/settings.js')}}"></script>
-    <script src="{{ url('admin/js/gleek.js')}}"></script>
-    <script src="{{ url('admin/js/styleSwitcher.js')}}"></script>
+		<h4>If you have already account? <a  href="{{ route('login') }}"></a></h4>
+		<div class="reg-bwn"><a href="{{ route('login') }}">Sign In</a></div>
+	</div>
+  </div>
+</div>
+<div style="text-align:center; margin-top:10px;">
+				<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-8011246932591811"
+data-ad-slot="9844648019"
+data-ad-format="auto"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+<script async src="{{ asset('form-assets/js/adsbygoogle.js') }}"></script>
+				</div>
+
+<!--login end here-->
 </body>
 </html>
-
 
 
 

@@ -2,8 +2,15 @@
 @section('title', 'profile')
 @section('content')
 <div class="container-fluid">
-    <div class="row">
-
+   <div class="row">
+        <!-- <div id="preloader"  class="d-none">
+            <div class="loader">
+                <svg class="circular" viewBox="25 25 50 50">
+                    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3"
+                        stroke-miterlimit="10" />
+                </svg>
+            </div>
+        </div> -->
         <div class="col-md-2">
         </div>
         <div class="col-md-8">
@@ -34,20 +41,20 @@
 
                                     <div class="row">
                                         <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
-                                            <img id="edit_image_preview" src="{{ url('images/profile/62a7764c8bf14.jpg') }}" alt=""
-                                                width="120" class="rounded-circle border border-dark" />
+                                            <img id="edit_image_preview" src="{{ Auth::user()->image_url }}" alt=""
+                                                width="120" height="100" class="rounded-circle border border-dark" />
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <div class="col-md-6">
-                                            <input type="text" class="form-control" id="edit_fist_name" name="fist_name"
-                                            placeholder="Enter a name.." value="{{ Auth::user()->fist_name }}" readonly>
+                                            <input type="text" class="form-control" id="edit_name" name="name"
+                                            placeholder="Enter a first name.." value="{{ Auth::user()->name }}" readonly>
 
                                          </div>
                                         <div class="col-md-6">
                                             <input type="text" class="form-control" id="edit_last_name" name="last_name"
-                                            placeholder="Enter a name.." value="{{ Auth::user()->last_name }}" readonly>
+                                            placeholder="Enter a last name.." value="{{ Auth::user()->last_name }}" readonly>
 
                                         </div>
 
@@ -96,16 +103,16 @@
                                 <input type="hidden" value="PUT" name="_method">
                                 <div class="row">
                                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center p-2">
-                                        <img id="edit_image_preview" src="{{ url('images/profile/62a7764c8bf14.jpg') }}" alt=""
-                                            width="120" class="rounded-circle border border-dark" />
+                                        <img id="edit_image_preview" src="{{ Auth::user()->image_url }}" alt=""
+                                            width="120" height="100" class="rounded-circle border border-dark" />
                                     </div>
                                 </div>
                                 <div class="form-validation">
                                 <div class="form-group row">
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" id="edit_fist_name" name="fist_name"
-                                        placeholder="Enter a name.." value="{{ Auth::user()->fist_name }}">
-                                        <div id="edit_fist_name_text" class="text-danger backend-error-text"></div>
+                                        <input type="text" class="form-control" id="edit_name" name="name"
+                                        placeholder="Enter a name.." value="{{ Auth::user()->name }}">
+                                        <div id="edit_name_text" class="text-danger backend-error-text"></div>
                                      </div>
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" id="edit_last_name" name="last_name"
@@ -143,7 +150,7 @@
 
                                      <input type="file" class="form-control" id="edit_profile" name="profile"
                                     placeholder="Choose File" value="">
-                                    <div id="edit_fist_profile_text" class="text-danger backend-error-text"></div>
+                                    <div id="edit_profile_text" class="text-danger backend-error-text"></div>
                                 </div>
                                 <div class="form-group">
                                     <input type="email" class="form-control" id="edit_email" name="email"
@@ -151,7 +158,7 @@
                                     <div id="edit_email_text" class="text-danger backend-error-text"></div>
 
                                     </div>
-                              <button type="submit" name="submit"  class="btn btn-dark">save</button>
+                              <button type="submit" name="submit" id="save-profile" class="btn btn-dark">save</button>
                                 </div>
                         </form>
 
@@ -174,7 +181,7 @@
                                     <input type="password" class="form-control" id="password" placeholder="Confirm Password" name="password_confirmation">
                                     <div id="edit_password_confirmation_text" class="text-danger"></div></div>
                                 </div>
-                                <button type="submit" class="btn btn-dark">update Passowrd</button>
+                                <button type="submit" id="UpdateProfile" class="btn btn-dark">update Passowrd</button>
                             </div>
 
                         </form>
@@ -210,6 +217,9 @@
     $(function(){
 /* UPDATE ADMIN PERSONAL INFO */
 $('#adminIninfo').on('submit', function(e){
+    $("#save-profile").text('Loading...');
+
+    // $('#ssave-profile').css('display', 'block');
     e.preventDefault();
     $.ajax({
        url:$(this).attr('action'),
@@ -222,6 +232,8 @@ $('#adminIninfo').on('submit', function(e){
             $('#adminIninfo')
             $('.backend-error-text').text('')
                 .prop("disabled", true);
+            $("#save-profile").prop("disabled", true);
+
         },
         success: function (data) {
 
@@ -233,6 +245,9 @@ $('#adminIninfo').on('submit', function(e){
                     text: data.message,
                     icon: "success",
                   });
+        // $('#preloader').css('display', 'none');
+        $("#save-profile").prop("disabled", false);
+        $("#save-profile").text("Save");
         },
         error: function (error) {
             $('#adminIninfo')
@@ -249,6 +264,10 @@ $('#adminIninfo').on('submit', function(e){
                 text: sweetMessage,
                 icon: "error",
               });
+
+              $('#preloader').css('display', 'none');
+              $("#save-profile").prop("disabled", false);
+              $("#save-profile").text("Save");
             // toastr.error(errorMessage, "Error");
             // hideLoader();
         },
@@ -280,6 +299,9 @@ function handleValidationErrors(error, type = 'create') {
 }
 
 $('#changepassword').on('submit', function(e){
+    //  $('#preloader').css('display', 'block');
+     $("#UpdateProfile").text('Loading...');
+
      e.preventDefault();
      $.ajax({
         url:$(this).attr('action'),
@@ -292,9 +314,11 @@ $('#changepassword').on('submit', function(e){
             $('#changepassword')
                 .find('[type="button"]')
                 .prop("disabled", true);
+            $("#UpdateProfile").prop("disabled", true);    
         },
         success: function (data) {
-
+            $("#UpdateProfile").prop("disabled", false);
+            $("#UpdateProfile").text("Update Password");
             $('#changepassword')
                 .find('[type="button"]')
                 .prop("disabled", false);
@@ -303,8 +327,11 @@ $('#changepassword').on('submit', function(e){
                     text: data.msg,
                     icon: "success",
                   });
+        // $('#preloader').css('display', 'none');
         },
         error: function (error) {
+            $("#UpdateProfile").prop("disabled", false);
+            $("#UpdateProfile").text("Update Password");
             $('#adminIninfo')
                 .find('[type="button"]')
                 .prop("disabled", false);
@@ -321,6 +348,7 @@ $('#changepassword').on('submit', function(e){
               });
             // toastr.error(errorMessage, "Error");
             // hideLoader();
+        // $('#preloader').css('display', 'none');
         },
     });
     });

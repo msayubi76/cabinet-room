@@ -12,9 +12,9 @@
 
     <title>@yield('title')</title>
 
-    <meta name="keywords" content="HTML5 Template" />
-    <meta name="description" content="Porto - Bootstrap eCommerce Template">
-    <meta name="author" content="SW-THEMES">
+    <meta name="keywords" content="Cabinet Room" />
+    <meta name="description" content="online ecommerce digital store">
+    <meta name="author" content="Salah-ud-Din">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('website/assets/images/icons/favicon.png') }}">
@@ -44,30 +44,36 @@
 
     <!--  CSS File -->
     <link rel="stylesheet" href="{{ asset('website/assets/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('website/assets/css/style.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('website/assets/css/style.min.css') }}"> --}}
 
-    <link rel="stylesheet" href="{{ asset('website/assets/css/demo4.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('website/assets/css/demo4.min.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('website/assets/css/jquery.ui.css') }}">
+    <link href="{{ url('admin-assets/plugins/sweetalert/css/sweetalert.css') }}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,400;1,100&display=swap"
+        rel="stylesheet">
+    <link href="{{ url('admin-assets/plugins/slick.css') }}" rel="stylesheet">
+    <link href="{{ url('admin-assets/plugins/slick-theme.css') }}" rel="stylesheet">
+    <link href="{{ url('admin-assets/plugins/custom.css') }}" rel="stylesheet">
 
 
     <!-- Main CSS File -->
-    <link rel="stylesheet" href="{{ asset('website/assets/css/demo4.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('website/assets/vendor/fontawesome-free/css/all.min.css')}}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('website/assets/vendor/fontawesome-free/css/all.min.css') }}">
+    <style>
+
+    </style>
+    @yield('style')
 </head>
 
-<body>
+<body class="loaded ">
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+    </div>
     {{-- front --}}
     <div class="page-wrapper">
-        <div class="top-notice bg-primary text-white">
-            <div class="container text-center">
-                <h5 class="d-inline-block">Get Up to <b>40% OFF</b> New-Season Styles</h5>
-                <a href="category.html" class="category">MEN</a>
-                <a href="category.html" class="category ml-2 mr-3">WOMEN</a>
-                <small>* Limited time only.</small>
-                <button title="Close (Esc)" type="button" class="mfp-close">×</button>
-            </div>
-            <!-- End .container -->
-        </div>
+
         <!-- End .top-notice -->
 
         @include('website.include.header')
@@ -83,13 +89,7 @@
     </div>
     <!-- End .page-wrapper -->
 
-    <div class="loading-overlay">
-        <div class="bounce-loader">
-            <div class="bounce1"></div>
-            <div class="bounce2"></div>
-            <div class="bounce3"></div>
-        </div>
-    </div>
+
 
     <div class="mobile-menu-overlay"></div>
     <!-- End .mobil-menu-overlay -->
@@ -111,38 +111,147 @@
     <script src="{{ asset('website/assets/js/plugins.min.js') }}"></script>
     <script src="{{ asset('website/assets/js/jquery.plugin.min.js') }}"></script>
     <script src="{{ asset('website/assets/js/jquery.countdown.min.js') }}"></script>
-
+    <script src="{{ asset('website/assets/js/nouislider.min.js') }}"></script>
     <script src="{{ asset('website/assets/js/jquery.appear.min.js') }}"></script>
+    <script src="{{ url('admin-assets/plugins/sweetalert/js/sweetalert.min.js') }}"></script>
     <script src="{{ asset('website/assets/js/jquery.ui.js') }}"></script>
-     <script>
-
-          var availableTags = [];
-
-                $.ajax({
-                    method: "GET",
-                    url: "/product-list",
-
-                    success: function (response) {
-                        startAutoComplete(response);
-
-                    }
-                });
-                function startAutoComplete(availableTags){
-                    $( "#search_product" ).autocomplete({
-            source: availableTags
-          });
-                }
+    <script src="{{ url('admin-assets/plugins/slick.min.js') }}"></script>
 
 
-        </script>
+    <script>
+        var availableTags = [];
+
+        $.ajax({
+            method: "GET",
+            url: "/product-list",
+
+            success: function(response) {
+                startAutoComplete(response);
+
+            }
+        });
+
+        function startAutoComplete(availableTags) {
+            $("#search_product").autocomplete({
+                source: availableTags
+            });
+        }
+
+        // Show loader
+        function showLoader() {
+            document.getElementById('loader-wrapper').style.display = 'flex';
+        }
+
+        // Hide loader
+        function hideLoader() {
+            document.getElementById('loader-wrapper').style.display = 'none';
+        }
+
+        // Call showLoader() when page starts loading
+        showLoader();
+
+        // Call hideLoader() when page finishes loading
+        window.addEventListener('DOMContentLoaded', hideLoader);
+    </script>
 
     <!-- Main JS File -->
     <script src="{{ asset('website/assets/js/main.min.js') }}"></script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script> --}}
+
+    <script>
+        function openDeleteDialog(id) {
+            $("#deleteID").val(id);
+            $("#deleteModal").modal('show');
+        }
+
+        function deleteCartItem() {
+            $("#button-delete").text('Loading...');
+            $("#button-delete").attr('disabled', true);
+            // alert(product_id);
+            var product_id = $('#deleteID').val();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                method: "GET",
+                url: "/delete",
+                data: {
+                    'product_id': product_id,
+                },
+
+                success: function(response) {
+                    $("#button-delete").html("Yes");
+                    $("#button-delete").attr('disabled', false);
+                    window.location.reload();
+                    // alert(response);
+                    swal("", response.message, "success");
+                },
+                error: function(error) {
+                    // $(form)
+                    $("#button-delete").html("Yes");
+                    $("#button-delete").attr('disabled', false);
+
+                    var errorMessage = error.statusText;
+                    var sweetMessage = error.statusText;
+
+                    swal({
+                        title: "Error",
+                        text: sweetMessage,
+                        icon: "error",
+                    });
+
+                },
+            });
+        }
+
+        $(document).ready(function() {
+
+            $('.update-cart').click(function(e) {
+                e.preventDefault();
+
+                var product_id = $(this).closest('.product_data').find('.product_id').val();
+                var quantity = $(this).closest('.product_data').find('.horizontal-quantity').val();
+
+
+                data = {
+                    'product_id': product_id,
+                    'quantity': quantity,
+                }
+
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+
+                });
+                $.ajax({
+                    method: "POST",
+                    url: "/update",
+                    data: data,
+
+                    success: function(response) {
+                        // window.location.reload();
+                        console.log('response', response.data);
+                        // toster.success("", response.status, "success");
+                        swal({
+                            title: "Success",
+                            text: response.message,
+                            icon: "success",
+                        });
+                    }
+                });
+
+
+
+            });
+        });
+    </script>
     @yield('scripts')
 </body>
 
-
-<!-- Mirrored from portotheme.com/html/porto_ecommerce/demo4.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Jul 2022 13:50:31 GMT -->
 
 </html>

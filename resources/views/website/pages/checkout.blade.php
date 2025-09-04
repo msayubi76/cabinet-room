@@ -1,106 +1,39 @@
 @extends('website.master')
-@section('title', 'Checout')
+@section('title', 'Checkout')
 
 @section('content')
     <div class="container checkout-container">
+        @include('alerts')
         <ul class="checkout-progress-bar d-flex justify-content-center flex-wrap">
             <li>
-                <a href="{{ url('cart') }}">Shopping Cart</a>
+                <a href="">Shopping Cart</a>
             </li>
             <li class="active">
-                <a href="{{ url('check-out') }}">Checkout</a>
+                <a href="">Checkout</a>
             </li>
             <li class="disabled">
                 <a href="#">Order Complete</a>
             </li>
         </ul>
 
-        <div class="login-form-container">
-            <h4>Returning customer?
-                <button data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
-                    class="btn btn-link btn-toggle">Login</button>
-            </h4>
 
-            <div id="collapseOne" class="collapse">
-                <div class="login-section feature-box">
-                    <div class="feature-box-content">
-                        <form action="#" id="login-form">
-                            <p>
-                                If you have shopped with us before, please enter your details below. If you are a new
-                                customer, please proceed to the Billing & Shipping section.
-                            </p>
 
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="mb-0 pb-1">Username or email <span class="required">*</span></label>
-                                        <input type="email" class="form-control" required />
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="mb-0 pb-1">Password <span class="required">*</span></label>
-                                        <input type="password" class="form-control" required />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <button type="submit" class="btn">LOGIN</button>
-
-                            <div class="form-footer mb-1">
-                                <div class="custom-control custom-checkbox mb-0 mt-0">
-                                    <input type="checkbox" class="custom-control-input" id="lost-password" />
-                                    <label class="custom-control-label mb-0" for="lost-password">Remember
-                                        me</label>
-                                </div>
-
-                                <a href="forgot-password.html" class="forget-password">Lost your password?</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="checkout-discount">
-            <h4>Have a coupon?
-                <button data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne"
-                    class="btn btn-link btn-toggle">ENTER YOUR CODE</button>
-            </h4>
-
-            <div id="collapseTwo" class="collapse">
-                <div class="feature-box">
-                    <div class="feature-box-content">
-                        <p>If you have a coupon code, please apply it below.</p>
-
-                        <form action="#">
-                            <div class="input-group">
-                                <input type="text" class="form-control form-control-sm w-auto" placeholder="Coupon code"
-                                    required="" />
-                                <div class="input-group-append">
-                                    <button class="btn btn-sm mt-0" type="submit">
-                                        Apply Coupon
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="row">
             <div class="col-lg-7">
+                @if ($errors->any())
+                    {{ $errors }}
+                @endif
                 <ul class="checkout-steps">
                     <li>
-                        <h2 class="step-title">Billing details</h2>
+                        <h2 class="step-title">Billing Details</h2>
                         @if (session('message'))
                             <div class="alert alert-success"> {{ session('message') }}</div>
                         @endif
 
                         <form action="{{ url('check-out') }}" method="post" id="checkout-form">
                             @csrf
+
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -128,70 +61,76 @@
                                 </div>
                             </div>
 
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>City <abbr class="required" title="required">*</abbr></label>
+                                        <input type="text" class="form-control" name="city" id="city">
 
-
-                            <div class="select-custom">
-                                <label>State / County <abbr class="required" title="required">*</abbr></label>
-                                <input type="text" name="country" class="form-control" value="{{ old('country') }}" />
-                                @error('country')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                                        {{-- <select name="city" id="city" class="form-control"
+                                            onchange="selectCity(this)">
+                                            <option value="">Select City</option>
+                                            @foreach ($cities as $city)
+                                                <option {{ old('city') == $city['name'] ? 'selected' : '' }}
+                                                    value="{{ $city['name'] }}">{{ $city['name'] }}</option>
+                                            @endforeach
+                                        </select> --}}
+                                        @error('city')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Street address
+                                            <abbr class="required" title="required">*</abbr></label>
+                                        <input type="text" name="address" class="form-control"
+                                            placeholder="House number and street name" value="{{ old('address') }}" />
+                                        @error('address')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="form-group mb-1 pb-2">
-                                <label>Street address
-                                    <abbr class="required" title="required">*</abbr></label>
-                                <input type="text" name="address" class="form-control"
-                                    placeholder="House number and street name" value="{{ old('address') }}" />
-                                @error('address')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
+
+                            <div class="row">
+
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Phone <abbr class="required" title="required">*</abbr></label>
+                                        <input type="tel" name="phone_number" class="form-control" placeholder="Phone"
+                                            value="{{ old('phone_number') }}" />
+                                        @error('phone_number')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Email address
+                                            <abbr class="required" title="required">*</abbr></label>
+                                        <input type="email" name="email" class="form-control"
+                                            value="{{ old('email') }}" />
+                                        @error('email')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
                             </div>
+
+
+
+
 
                             {{-- <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Apartment, suite, unite, etc. (optional)" required />
                             </div> --}}
 
-                            <div class="form-group">
-                                <label>Town / City
-                                    <abbr class="required" title="required">*</abbr></label>
-                                <input type="text" name="city" class="form-control"
-                                    value="{{ old('city') }}" />
-                                @error('city')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
 
 
-
-                            <div class="form-group">
-                                <label>Postcode / Zip
-                                    <abbr class="required" title="required">*</abbr></label>
-                                <input type="text" name="post_code" class="form-control"
-                                    value="{{ old('post_code') }}" />
-                                @error('post_code')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label>Phone <abbr class="required" title="required">*</abbr></label>
-                                <input type="tel" name="phone_number" class="form-control"
-                                    value="{{ old('phone_number') }}" />
-                                @error('phone_number')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label>Email address
-                                    <abbr class="required" title="required">*</abbr></label>
-                                <input type="email" name="email" class="form-control"
-                                    value="{{ old('email') }}" />
-                                @error('email')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
 
 
 
@@ -229,29 +168,53 @@
                                 <tr>
                                     <td class="product-col">
                                         <h3 class="product-title">
-                                            {{ $cartitem->product->name }} ×
+                                            {{ $cartitem->product->name }}
+                                            @if ($cartitem->variation)
+                                                ({{ $cartitem->variation->value }})
+                                            @endif
+                                            ×
                                             <span class="product-qty">{{ $cartitem->quantity }}</span>
+
                                         </h3>
                                     </td>
 
                                     <td class="price-col">
-                                        @php $total = $cartitem->product->actual_price * $cartitem->quantity; @endphp
+                                        @php
+                                            $total = $cartitem->variation
+                                                ? $cartitem->variation->sale_price * $cartitem->quantity
+                                                : $cartitem->product->saleprice * $cartitem->quantity;
+                                        @endphp
                                         <span> {{ $cartitem->product->currency }}{{ $total }}</span>
                                     </td>
                                 </tr>
-                                @php $all_item_total += $cartitem->product->actual_price * $cartitem->quantity; @endphp
+                                @php $all_item_total += $cartitem->variation ? $cartitem->variation->sale_price * $cartitem->quantity : $cartitem->product->saleprice * $cartitem->quantity; @endphp
                             @endforeach
 
                         </tbody>
                         <tfoot>
                             <tr class="cart-subtotal">
                                 <td>
-                                    <h4>Subtotal</h4>
+                                    <h4>Sub Total</h4>
                                 </td>
 
                                 <td class="price-col">
 
-                                    <span>${{ $all_item_total }}</span>
+                                    <span> Rs {{ $all_item_total }}</span>
+                                </td>
+                            </tr>
+
+                            <tr class="order-shipping">
+                                @php $shippingTotal = 0; @endphp
+                                @foreach ($cart as $cartitem)
+                                    @php $shippingTotal = $shippingTotal+$cartitem->product->shipping_charge; @endphp
+                                @endforeach
+                                @php $all_item_total = $all_item_total+$shippingTotal; @endphp
+                                <td>
+                                    <h4>Shipping Charges</h4>
+                                </td>
+                                <td class="price-col">
+                                    Free Delivery
+                                    {{-- <span id="shipment-charges">--</span> --}}
                                 </td>
                             </tr>
                             <tr class="order-shipping">
@@ -261,7 +224,7 @@
                                     <div class="form-group form-group-custom-control">
                                         <div class="custom-control custom-radio d-flex">
                                             <input type="radio" class="custom-control-input" name="radio" checked />
-                                            <label class="custom-control-label">payment Delivery</label>
+                                            <label class="custom-control-label">Cash on Delivery</label>
                                         </div>
                                         <!-- End .custom-checkbox -->
                                     </div>
@@ -278,22 +241,13 @@
                                     <h4>Total</h4>
                                 </td>
                                 <td>
-                                    <b
-                                        class="total-price"><span>${{ $all_item_total }}</span></b>
+                                    <b class="total-price">Rs <span id="total-price">{{ $all_item_total }}</span></b>
                                 </td>
                             </tr>
                         </tfoot>
                     </table>
 
-                    <div class="payment-methods">
-                        <h4 class="">Payment methods</h4>
-                        <div class="info-box with-icon p-0">
-                            <p>
-                                Sorry, it seems that there are no available payment methods for your state. Please contact
-                                us if you require assistance or wish to make alternate arrangements.
-                            </p>
-                        </div>
-                    </div>
+
 
                     <button type="submit" class="btn btn-dark btn-place-order" form="checkout-form">
                         Place order
@@ -306,4 +260,12 @@
         <!-- End .row -->
     </div>
     <!-- End .container -->
+@endsection
+
+@section('scripts')
+    <script>
+        const CITIES = @json($cities);
+        const totalPrice = @json($all_item_total);
+    </script>
+    <script src="{{ url('website/assets/js/checkout.js') }}"></script>
 @endsection

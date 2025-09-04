@@ -5,56 +5,79 @@ namespace App\Services;
 
 
 use App\Models\Setting;
+use App\Models\Banner;
 use Illuminate\Support\Facades\DB;
 
 
 use App\Http\Requests\SettingRequest;
+use App\Http\Requests\BannerRequest;
+use App\Traits\FileUploadTrait;
 
 class SettingService
 {
-    public static function getSetting(){
-        return Setting::orderBy('id', 'DESC')->paginate(30);
+    public static function getSetting()
+    {
+        return Setting::firstOrCreate();
+
+        return Setting::first();
     }
 
-    public static function store(SettingRequest $request)
+    public static function getProductBanner()
+    {
+        return Banner::where('page_name', 'products')->first();
+    }
+
+    public static function getSearchBanner()
     {
 
-        DB::beginTransaction();
-        $data = $request->validated();
-
-        $setting = Setting::create($data);
-
-        DB::commit();
-        $response = ['status' => true, 'message' => 'Category added successfully.', 'setting' => $setting];
-
-        return $response;
+        return Banner::where('page_name', 'search')->first();
     }
 
-    public static function update(SettingRequest $request, Setting $setting){
-        DB::beginTransaction();
-        $data = $request->validated();
-
-        $setting->update($data);
 
 
-        DB::commit();
-        $response = ['status' => true, 'message' => 'Category updated successfully.', 'setting' => $setting];
-        return $response;
-    }
-
-    public static function destroy($id)
+    public static function update(SettingRequest $request)
     {
+        $data = $request->validated();
+        $setting = Setting::first();
+        $productBanner = Banner::where('page_name', 'products')->first();
+        $searchBanner = Banner::where('page_name', 'search')->first();
         DB::beginTransaction();
-        $setting = Category::FindorFail($id);
-        // $setting->subcategories()->delete();
-        // $setting->products()->delete();
+        if ($request->hasFile('product_banner_image')) {
+            $image_name = FileUploadTrait::fileUpload($request->product_banner_image, 'banners');
 
-        $setting->delete();
+            $product_banner['page_name'] = 'products';
+            $product_banner['name'] = 'Products Page Banner';
+            $product_banner['folder_name'] = 'banners';
+            $product_banner['image_name'] =  $image_name;
+            $product_banner['image_url'] = url('/storage/banners/' . $image_name);
+           
+            if (!$productBanner) {
+                $banner = Banner::create($product_banner);
+            } else {
+                $productBanner->update($product_banner);
+            }
+        }
+        if ($request->hasFile('search_banner_image')) {
+            $image_name = FileUploadTrait::fileUpload($request->search_banner_image, 'banners');
+            $search_banner['page_name'] = 'search';
+            $search_banner['name'] = 'Search Page Banner';
+            $search_banner['folder_name'] = 'banners';
+            $search_banner['image_name'] =  $image_name;
+            $search_banner['image_url'] = url('/storage/banners/' . $image_name);
+            
+            if (!$searchBanner) {
+                $banner = Banner::create($search_banner);
+            } else {
+                $searchBanner->update($search_banner);
+            }
+        }
+        if (!$setting) :
+            $setting = Setting::create($data);
+        else :
+            $setting->update($data);
+        endif;
         DB::commit();
-        $response = ['status' => true, 'message' => 'Category removed with sub category and realted Products successfully.'];
-        return $response;
+
+        return $setting;
     }
-
-
-
 }
