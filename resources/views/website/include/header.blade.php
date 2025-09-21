@@ -30,7 +30,8 @@
                                             @else
                                                 <a href="{{ url('login') }}">
                                     @endif
-                                    My Account</a>
+                                    My Account
+                                    </a>
                                 </li>
                                 <li><a href="{{ route('logout') }}">Log out</a></li>
                             @else

@@ -28,5 +28,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrap();
         View::composer('website.include.header', HeaderComposer::class);
+        View::composer('website.include.sticky_navbar', HeaderComposer::class);
     }
 }

@@ -170,26 +170,18 @@
                 <span>Featured Products</span>
             </h2>
 
-            <div class="products-slider  custom-products owl-carousel owl-theme nav-outer show-nav-hover nav-image-center featured-products"
+            <div class="products-slider custom-products owl-carousel owl-theme nav-outer show-nav-hover nav-image-center"
                 data-owl-options="{
-                    'dots': false,
-                    'nav': true,
-                    'responsive': {
-                        '320': {
-                            'items': 2
-                        },
-                        '375': {
-                            'items': 2
-                        },
-                        '767': {
-                            'items': 4
-                        },
-                        '992': {
-                            'items': 6
+                        'dots': false,
+                        'nav': true,
+                        'responsive': { 
+                            '425': { 'items': 2 },
+                            '767': { 'items': 3 },
+                            '992': { 'items': 6 }
                         }
-                        
-                    }
-                }">
+                    }">
+
+
 
 
                 @foreach ($featuredProducts as $featuredlist)
@@ -277,90 +269,6 @@
                         <a href="{{ url('products/' . $category->name) }}">View All</a>
                     </div>
                 </div>
-                {{-- <div class="products-slider custom-products owl-carousel owl-theme nav-outer show-nav-hover nav-image-center"
-                    data-owl-options="{
-                        'dots': false,
-                        'nav': true,
-                        'responsive': {
-                        
-                            '425': {
-                                'items': 2
-                            },
-                            '767': {
-                                'items': 3
-                            },
-                            '992': {
-                                'items': 5
-                            },
-                            '1400': {
-                                'items': 6
-                            }
-                        }
-                    }">
-
-                    @foreach ($category->products->chunk(2) as $chunk)
-                        <div class="item">
-                            <div class="row g-2">
-                                @foreach ($chunk as $featuredlist)
-                                    <div class="col-12">
-                                        <div class="card rounded">
-                                            <div class="product-default inner-quickview inner-icon">
-                                                <figure class="img-effect">
-                                                    <a href="{{ url('product/' . $featuredlist->id) }}">
-                                                        <img src="{{ $featuredlist->feature_image }}" width="180"
-                                                            height="180" alt="product" class="img-fluid p-2 rounded">
-                                                        <img src="{{ $featuredlist->feature_image }}" width="180"
-                                                            height="180" alt="product" class="img-fluid p-2 rounded">
-                                                    </a>
-
-
-                                                    @if ($featuredlist->is_for_request_quote)
-                                                        <div class="label-group">
-                                                            <div class="product-label label-sale">request for quote</div>
-                                                        </div>
-                                                    @elseif ($featuredlist->discount > 0)
-                                                        <div class="label-group">
-                                                            <div class="product-label label-sale">
-                                                                {{ substr($featuredlist->discount, 0, 2) }}%
-                                                            </div>
-                                                        </div>
-                                                    @endif
-                                                    @if ($featuredlist->is_for_request_quote)
-                                                        <span class="btn-quickview pointer" title="Quote Request"
-                                                            onclick="showQuoteRequestModal({{ $featuredlist }})"> Quote
-                                                            Request</span>
-                                                    @endif
-                                                </figure>
-                                                <div class="product-details px-2">
-                                                    <div class="category-list">
-                                                        <a href="" class="product-category">
-                                                            {{ $featuredlist->category ? $featuredlist->category->name : '' }}
-                                                        </a>
-                                                    </div>
-                                                    <h3 class="product-title">
-                                                        <a
-                                                            href="{{ url('product/' . $featuredlist->id) }}">{{ $featuredlist->name }}</a>
-                                                    </h3>
-                                                    <div class="price-box">
-                                                        @if ($featuredlist->discount > 0)
-                                                            <del
-                                                                class="old-price">{{ $featuredlist->currency }}{{ (int) $featuredlist->actual_price }}</del>
-                                                            <span
-                                                                class="product-price">{{ $featuredlist->currency }}{{ (int) $featuredlist->saleprice }}</span>
-                                                        @elseif($featuredlist->saleprice > 0)
-                                                            <span
-                                                                class="product-price">{{ $featuredlist->currency }}{{ (int) $featuredlist->saleprice }}</span>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    @endforeach
-                </div> --}}
 
 
                 <div class="products-slider custom-products owl-carousel owl-theme nav-outer show-nav-hover nav-image-center"

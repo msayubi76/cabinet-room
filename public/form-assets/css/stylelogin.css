@@ -587,13 +587,16 @@ h3 {
   .login {
     width: 88%;
   }
+
+  
 }
 
 @media(max-width:440px) {
   .button a {
     float: none;
     width: 100%;
-    margin-bottom: 1em;
+    margin:   0 !important;
+  
   }
 }
 

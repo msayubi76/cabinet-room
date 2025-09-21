@@ -31,13 +31,12 @@
                 <li><a href="{{ url('about-us') }}">About Us</a></li>
                 <li><a href="{{ url('contact-us') }}">Contact Us</a></li>
 
-                <li><a href="{{ url('cart') }}">Cart</a></li>
-                <li><a href="login.html" class="login-link">Log In</a></li>
+                <li><a href="{{ url('cart') }}">Cart</a></li> 
             </ul>
         </nav>
         <!-- End .mobile-nav -->
 
-        <form class="search-wrapper mb-2" action="#">
+       {{--  <form class="search-wrapper mb-2" action="#">
             <input type="text" class="form-control mb-0" placeholder="Search..." required />
             <button class="btn icon-search text-white bg-transparent p-0" type="submit"></button>
         </form>
@@ -49,7 +48,7 @@
             </a>
             <a href="#" class="social-icon social-instagram icon-instagram" target="_blank">
             </a>
-        </div>
+        </div> --}}
     </div>
     <!-- End .mobile-menu-wrapper -->
 </div>

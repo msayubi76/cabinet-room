@@ -42,7 +42,11 @@ class FrontendController extends Controller
     public function categories()
     {
         try {
-            return view('website.pages.categories');
+            $categories = Category::where('is_active', '1')->with(['subcategories', 'products.category' => function ($query) {
+                return $query->where('is_active', 1)->limit(24);
+            }])->get();
+
+            return view('website.pages.categories', compact('categories'));
         } catch (\Throwable $th) {
             return response()->json(['status' => false, 'message' => $th->getMessage()]);
         }
@@ -89,7 +93,7 @@ class FrontendController extends Controller
             $products = $products->paginate(10);
             $categories = Category::where('is_active', '1')->with('subcategories')->where('is_active', '1')->get();
             $featuredProducts = Product::where('is_feature_product', '1')->where('is_active', '1')->get();
-            
+
             $min = round(Product::min('saleprice'));
             $max = round(Product::max('saleprice'));
 
