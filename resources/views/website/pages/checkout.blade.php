@@ -17,22 +17,22 @@
         </ul>
 
 
+        <form action="{{ url('check-out') }}" method="post" id="checkout-form">
+            @csrf
 
 
-        <div class="row">
-            <div class="col-lg-7">
-                @if ($errors->any())
-                    {{ $errors }}
-                @endif
-                <ul class="checkout-steps">
-                    <li>
-                        <h2 class="step-title">Billing Details</h2>
-                        @if (session('message'))
-                            <div class="alert alert-success"> {{ session('message') }}</div>
-                        @endif
+            <div class="row">
+                <div class="col-lg-7">
+                    @if ($errors->any())
+                        {{ $errors }}
+                    @endif
+                    <ul class="checkout-steps">
+                        <li>
+                            <h2 class="step-title">Billing Details</h2>
+                            @if (session('message'))
+                                <div class="alert alert-success"> {{ session('message') }}</div>
+                            @endif
 
-                        <form action="{{ url('check-out') }}" method="post" id="checkout-form">
-                            @csrf
 
                             <div class="row">
                                 <div class="col-md-6">
@@ -145,118 +145,141 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                        </form>
-                    </li>
-                </ul>
-            </div>
-            <!-- End .col-lg-8 -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- End .col-lg-8 -->
 
-            <div class="col-lg-5">
-                <div class="order-summary">
-                    <h3>YOUR ORDER</h3>
+                <div class="col-lg-5">
+                    <div class="order-summary">
+                        <h3>YOUR ORDER</h3>
 
-                    <table class="table table-mini-cart">
-                        <thead>
-                            <tr>
-                                <th colspan="2">Product</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php $total = 0; @endphp
-                            @php $all_item_total = 0; @endphp
-                            @foreach ($cart as $cartitem)
+                        <table class="table table-mini-cart">
+                            <thead>
                                 <tr>
-                                    <td class="product-col">
-                                        <h3 class="product-title">
-                                            {{ $cartitem->product->name }}
-                                            @if ($cartitem->variation)
-                                                ({{ $cartitem->variation->value }})
-                                            @endif
-                                            ×
-                                            <span class="product-qty">{{ $cartitem->quantity }}</span>
+                                    <th colspan="2">Product</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php $total = 0; @endphp
+                                @php $all_item_total = 0; @endphp
+                                @foreach ($cart as $cartitem)
+                                    <tr>
+                                        <td class="product-col">
+                                            <h3 class="product-title">
+                                                {{ $cartitem->product->name }}
+                                                @if ($cartitem->variation)
+                                                    ({{ $cartitem->variation->value }})
+                                                @endif
+                                                ×
+                                                <span class="product-qty">{{ $cartitem->quantity }}</span>
 
-                                        </h3>
+                                            </h3>
+                                        </td>
+
+                                        <td class="price-col">
+                                            @php
+                                                $total = $cartitem->variation
+                                                    ? $cartitem->variation->sale_price * $cartitem->quantity
+                                                    : $cartitem->product->saleprice * $cartitem->quantity;
+                                            @endphp
+                                            <span> {{ $cartitem->product->currency }}{{ $total }}</span>
+                                        </td>
+                                    </tr>
+                                    @php $all_item_total += $cartitem->variation ? $cartitem->variation->sale_price * $cartitem->quantity : $cartitem->product->saleprice * $cartitem->quantity; @endphp
+                                @endforeach
+
+                            </tbody>
+                            <tfoot>
+                                <tr class="cart-subtotal">
+                                    <td>
+                                        <h4>Sub Total</h4>
                                     </td>
 
                                     <td class="price-col">
-                                        @php
-                                            $total = $cartitem->variation
-                                                ? $cartitem->variation->sale_price * $cartitem->quantity
-                                                : $cartitem->product->saleprice * $cartitem->quantity;
-                                        @endphp
-                                        <span> {{ $cartitem->product->currency }}{{ $total }}</span>
+
+                                        <span> Rs {{ $all_item_total }}</span>
                                     </td>
                                 </tr>
-                                @php $all_item_total += $cartitem->variation ? $cartitem->variation->sale_price * $cartitem->quantity : $cartitem->product->saleprice * $cartitem->quantity; @endphp
-                            @endforeach
 
-                        </tbody>
-                        <tfoot>
-                            <tr class="cart-subtotal">
-                                <td>
-                                    <h4>Sub Total</h4>
-                                </td>
+                                <tr class="order-shipping">
+                                    @php $shippingTotal = 0; @endphp
+                                    @foreach ($cart as $cartitem)
+                                        @php $shippingTotal = $shippingTotal+$cartitem->product->shipping_charge; @endphp
+                                    @endforeach
+                                    @php $all_item_total = $all_item_total+$shippingTotal; @endphp
+                                    <td>
+                                        <h4>Shipping Charges</h4>
+                                    </td>
+                                    <td class="price-col">
+                                        Free Delivery
+                                        {{-- <span id="shipment-charges">--</span> --}}
+                                    </td>
+                                </tr>
+                                <tr class="order-shipping">
+                                    <td class="text-left" colspan="2">
+                                        <h4 class="m-b-sm">Shipping</h4>
 
-                                <td class="price-col">
-
-                                    <span> Rs {{ $all_item_total }}</span>
-                                </td>
-                            </tr>
-
-                            <tr class="order-shipping">
-                                @php $shippingTotal = 0; @endphp
-                                @foreach ($cart as $cartitem)
-                                    @php $shippingTotal = $shippingTotal+$cartitem->product->shipping_charge; @endphp
-                                @endforeach
-                                @php $all_item_total = $all_item_total+$shippingTotal; @endphp
-                                <td>
-                                    <h4>Shipping Charges</h4>
-                                </td>
-                                <td class="price-col">
-                                    Free Delivery
-                                    {{-- <span id="shipment-charges">--</span> --}}
-                                </td>
-                            </tr>
-                            <tr class="order-shipping">
-                                <td class="text-left" colspan="2">
-                                    <h4 class="m-b-sm">Shipping</h4>
-
-                                    <div class="form-group form-group-custom-control">
-                                        <div class="custom-control custom-radio d-flex">
-                                            <input type="radio" class="custom-control-input" name="radio" checked />
-                                            <label class="custom-control-label">Cash on Delivery</label>
+                                        <div class="form-group form-group-custom-control">
+                                            <div class="custom-control custom-radio d-flex">
+                                                <input type="radio" class="custom-control-input" name="payment_method"
+                                                    checked id="cash-on-deliver" value="cod" />
+                                                <label class="custom-control-label" for="cash-on-deliver">Cash on
+                                                    Delivery</label>
+                                            </div>
+                                            <!-- End .custom-checkbox -->
                                         </div>
-                                        <!-- End .custom-checkbox -->
-                                    </div>
-                                    <!-- End .form-group -->
+
+                                        <div class="form-group form-group-custom-control">
+                                            <div class="custom-control custom-radio d-flex">
+                                                <input type="radio" class="custom-control-input" name="payment_method"
+                                                    id="online-transfer" value="online_transfer" />
+                                                <label class="custom-control-label" for="online-transfer">Online
+                                                    Transfer</label>
+                                            </div>
+                                            <!-- End .custom-checkbox -->
+                                        </div>
+
+                                        <div class="bank-account-detail" style="display:none;">
+                                            <h4>Bank Account Detail</h4>
+                                            <b> Name</b><br>
+                                            <span>RkHardware</span><br>
+
+                                            <b>Bank Name</b><br>
+                                            <span>UBL</span><br>
+
+                                            <b>Account No</b><br>
+                                            <span>2222 3333 4444 5555 </span><br>
+                                        </div>
 
 
-                                    <!-- End .form-group -->
-                                </td>
+                                    </td>
 
-                            </tr>
+                                </tr>
 
-                            <tr class="order-total">
-                                <td>
-                                    <h4>Total</h4>
-                                </td>
-                                <td>
-                                    <b class="total-price">Rs <span id="total-price">{{ $all_item_total }}</span></b>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-
+                                <tr class="order-total">
+                                    <td>
+                                        <h4>Total</h4>
+                                    </td>
+                                    <td>
+                                        <b class="total-price">Rs <span id="total-price">{{ $all_item_total }}</span></b>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
 
 
-                    <button type="submit" class="btn btn-dark btn-place-order" form="checkout-form">
-                        Place order
-                    </button>
+
+                        <button type="submit" class="btn btn-dark btn-place-order" form="checkout-form">
+                            Place order
+                        </button>
+                    </div>
+                    <!-- End .cart-summary -->
                 </div>
-                <!-- End .cart-summary -->
+                <!-- End .col-lg-4 -->
             </div>
-            <!-- End .col-lg-4 -->
-        </div>
+
+        </form>
         <!-- End .row -->
     </div>
     <!-- End .container -->
@@ -266,6 +289,16 @@
     <script>
         const CITIES = @json($cities);
         const totalPrice = @json($all_item_total);
+
+        $(document).ready(function() {
+            $('input[name="payment_method"]').change(function() {
+                if ($('#online-transfer').is(':checked')) {
+                    $('.bank-account-detail').slideDown();
+                } else {
+                    $('.bank-account-detail').slideUp();
+                }
+            });
+        });
     </script>
     <script src="{{ url('website/assets/js/checkout.js') }}"></script>
 @endsection

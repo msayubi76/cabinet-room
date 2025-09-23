@@ -22,11 +22,9 @@ class OrderService
         DB::beginTransaction();
         $user = auth()->user();
 
-
         $shipping_detail = ShippingService::store($request);
-
-        $payment = Payment::create(['user_id' => $user->id, 'amount' => 0, 'method' => 'cash_on_delivery']);
-
+        $payment = Payment::create(['user_id' => $user->id, 'amount' => 0, 'method' => $request->payment_method]);
+ 
         $OrderData['shipping_detail_id'] = $shipping_detail->id;
 
         $OrderData['payment_id'] = $payment->id;
@@ -68,9 +66,7 @@ class OrderService
             $shipping_charges = $city_charges;
 
             // inventory
-
-
-           
+ 
             if ($variation) :
                 $variation->update(['stock' => $variation->stock - $quantity]);
                 $sale_price = $variation->sale_price * $quantity;
@@ -82,13 +78,18 @@ class OrderService
             $total_amount = $amount + round($shipping_charges, 4);
 
             $product->update(['stock' => $product->stock - $quantity]);
-           
+
 
 
             $OrderDetailData[] = ['product_id' => $product->id, 'quantity' => $quantity, 'price' => $sale_price, 'order_id' => $order->id,  'variation_id' => $variation_id];
-          
+
         endforeach;
-        $payment->update(['payment' => $amount, 'remaining_amount' => $amount, 'shipping_charges' => $shipping_charges, 'total_amount' => $total_amount]);
+
+        if ($request->payment_method == 'online_transfer'):
+            $payment->update(['payment' => $amount, 'remaining_amount' => 0, 'status' => 'paid', 'shipping_charges' => $shipping_charges, 'total_amount' => $total_amount]);
+        else:
+            $payment->update(['payment' => $amount, 'remaining_amount' => $amount, 'shipping_charges' => $shipping_charges, 'total_amount' => $total_amount]);
+        endif;
         OrderDetail::insert($OrderDetailData);
 
         $user->cartItems()->delete();

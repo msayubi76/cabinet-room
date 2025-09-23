@@ -83,7 +83,19 @@
             @yield('content')
         </main>
         <!-- End .main -->
+        <a href="https://wa.me/923320313159" target="_blank" class=" rounded-circle position-fixed"
+            style="width: 40px;
+                    height: 40px;
+                    bottom: 51px;
+                    right: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 999;"
+            title="Chat with us on WhatsApp">
+            <img src="/images/whatsapp.svg" alt="" height="30px">
 
+        </a>
         @include('website.include.footer')
         <!-- End .footer -->
     </div>

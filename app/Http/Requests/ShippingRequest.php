@@ -28,9 +28,10 @@ class   ShippingRequest extends FormRequest
             'last_name' => ['required', 'string', 'max:255'],
             'phone_number' => ['required'],
             'address' => ['required'],
-            'city' => ['required'], 
+            'city' => ['required'],
             'email' => ['required'],
             'notes' => ['nullable', 'max:400'],
+            'payment_method' => ['required', 'in:cod,online_transfer'],
 
         ];
     }

@@ -43,10 +43,10 @@ Route::post('add-quote', [RequestQuoteController::class, 'store'])->name('reques
 Route::get('cart', [CartController::class, 'viewCart']);
 Route::get('delete', [CartController::class, 'delete']);
 Route::post('update', [CartController::class, 'update']);
-Route::get('check-out', [CheckOutController::class, 'index'])->name('check-out.index');
 
 Route::middleware(['auth'])->group(function () {
     // ----------> Webste Checout <----------- //
+    Route::get('check-out', [CheckOutController::class, 'index'])->name('check-out.index');
     Route::post('check-out', [CheckOutController::class, 'store'])->name('check-out');
 
 
