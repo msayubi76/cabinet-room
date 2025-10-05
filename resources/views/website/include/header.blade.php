@@ -14,7 +14,7 @@
 
                             <li><a href="{{ url('/') }}">Home</a></li>
                             <li><a href="{{ url('products') }}">Products</a></li>
-                            <li><a href="{{ url('gallary') }}">Gallary</a></li>
+                            <!--<li><a href="{{ url('gallary') }}">Gallary</a></li>-->
                             <li><a href="{{ url('about-us') }}">About Us</a></li>
                             <li><a href="{{ url('contact-us') }}">Contact Us</a></li>
                             @if (Auth::user())
@@ -92,7 +92,7 @@
                 <div class="header-contact d-none d-lg-flex pl-4 pr-4">
                     <img alt="phone" src="{{ asset('website/assets/images/phone.png') }}" width="30"
                         height="30" class="pb-1">
-                    <h6><span>Call us now</span><a href="tel:#" class="text-dark font1">03335263914</a></h6>
+                    <h6><span>Call us now</span><a href="tel:#" class="text-dark font1">03395297882</a></h6>
                 </div>
 
                 <a href="{{ url('login') }}" class="header-icon" title="login"><i class="icon-user-2"></i></a>

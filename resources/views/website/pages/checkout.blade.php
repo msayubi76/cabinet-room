@@ -242,14 +242,14 @@
 
                                         <div class="bank-account-detail" style="display:none;">
                                             <h4>Bank Account Detail</h4>
-                                            <b> Name</b><br>
-                                            <span>RkHardware</span><br>
+                                            <b> Account Title</b><br>
+                                            <span>RK TRADERS</span><br>
 
                                             <b>Bank Name</b><br>
-                                            <span>UBL</span><br>
+                                            <span>Soneri Bank</span><br>
 
                                             <b>Account No</b><br>
-                                            <span>2222 3333 4444 5555 </span><br>
+                                            <span>PK86SONE0020520004454961</span><br>
                                         </div>
 
 

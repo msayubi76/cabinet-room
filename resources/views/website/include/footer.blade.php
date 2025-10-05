@@ -26,11 +26,9 @@
                             @endforeach
                         </ul>
                         <div class="social-icons">
-                            <a href="#" class="social-icon social-facebook icon-facebook" target="_blank"
+                            <a href="https://www.facebook.com/profile.php?id=61580683346252" class="social-icon social-facebook icon-facebook" target="_blank"
                                 title="Facebook"></a>
-                            <a href="#" class="social-icon social-twitter icon-twitter" target="_blank"
-                                title="Twitter"></a>
-                            <a href="#" class="social-icon social-instagram icon-instagram" target="_blank"
+                            <a href="https://www.instagram.com/rkhardwaretraders.pk?igsh=MzZsc3YzcjlienMz" class="social-icon social-instagram icon-instagram" target="_blank"
                                 title="Instagram"></a>
                         </div>
                         <!-- End .social-icons -->
@@ -85,7 +83,7 @@
         <div class="footer-bottom">
             <div class="container d-sm-flex align-items-center">
                 <div class="footer-left">
-                    <span class="footer-copyright">© Cabinet Room. 2025. All Rights Reserved</span>
+                    <span class="footer-copyright">© RK Hardware. 2025. All Rights Reserved</span>
                 </div>
  
             </div>
