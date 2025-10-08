@@ -87,7 +87,7 @@
                     </div>
 
                     <div class="form-footer mb-0">
-                        <button type="submit" class="btn btn-dark font-weight-normal btn-sm">
+                        <button type="submit" class="btn btn-dark font-weight-normal btn-sm" style="border-color: #fb7d1a; background-color: #fb7d1a;">
                             Send Message
                         </button>
                     </div>

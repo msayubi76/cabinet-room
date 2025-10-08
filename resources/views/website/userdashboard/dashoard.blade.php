@@ -238,7 +238,7 @@
                             </div>
 
                             <div class="form-footer mt-3 mb-0">
-                                <button type="submit" class="btn btn-dark mr-0 p-3 text-capitalize">
+                                <button type="submit" class="btn btn-dark mr-0 p-3 text-capitalize" style="border-color: #fb7d1a; background-color: #fb7d1a;">
                                     Save changes
                                 </button>
                             </div>
