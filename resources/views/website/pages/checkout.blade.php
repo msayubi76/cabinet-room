@@ -250,6 +250,8 @@
 
                                             <b>Account No</b><br>
                                             <span>PK86SONE0020520004454961</span><br>
+
+                                            <p>After making the payment, please send your <b>payment slip</b> to us via the <b>WhatsApp chat button</b> below. Our team will verify your payment shortly and confirm your order for dispatch.</p>
                                         </div>
 
 
