@@ -7,7 +7,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Cabinet | Register</title>
+    <title>RkHardware | Register</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- Custom Theme files -->
 <link href="{{ asset('form-assets/css/style.css') }}" rel="stylesheet" type="text/css" media="all"/>
@@ -28,7 +28,7 @@
 <!--login start here-->
 
 <div class="login">
-	<h2>Cabinet | Register</h2>
+	<h2>RKHardware | Register</h2>
 
 	<form  method="post" action="{{ route('register') }}">
         @csrf
