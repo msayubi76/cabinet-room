@@ -103,7 +103,7 @@
 		<div class="clear"> </div>
 
 	<div class="login-bwn">
-	   <input type="submit" value="Sign Up" />
+	   <input type="submit" value="Sign Up" style="border-color: #fb7d1a; background-color: #fb7d1a;"/>
 	</div>
 </form>
 	<div class="login-bottom">
