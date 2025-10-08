@@ -77,11 +77,11 @@
                 <input type="submit" value="Log in" style="border-color: #fb7d1a; background-color: #fb7d1a; "/>
             </div>
         </form>
-        <!--<div class="login-bottom">
+        <div class="login-bottom">
             <h3>Login</h3>
-            <p>With your social media account</p>
+            <!--<p>With your social media account</p>-->
             <div class="social-icons text-center">
-                <div class="button">
+                <!--<div class="button">
                      
                     {{-- <a class="fa" href="{{ route('facebook-auth') }}"> <i class="anc-fa"> </i>
                         <span>Facebook</span>
@@ -91,11 +91,11 @@
                         <div class="clear"> </div>
                     </a>
                     <div class="clear"> </div>
-                </div>
+                </div>-->
                 <h4>Don,t have an Account? <a href="{{ route('register') }}"> Register Now!</a></h4>
                 <div class="reg-bwn"><a href="{{ route('register') }}">REGISTER</a></div>
             </div>
-        </div>-->
+        </div>
     </div>
     <div style="text-align:center; margin-top:10px;">
         <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8011246932591811"
