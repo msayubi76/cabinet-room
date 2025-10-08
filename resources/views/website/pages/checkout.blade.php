@@ -270,7 +270,7 @@
 
 
 
-                        <button type="submit" class="btn btn-dark btn-place-order" form="checkout-form">
+                        <button type="submit" class="btn btn-dark btn-place-order" form="checkout-form" style="border-color: #fb7d1a; background-color: #fb7d1a;">
                             Place order
                         </button>
                     </div>

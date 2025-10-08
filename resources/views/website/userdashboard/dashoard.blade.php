@@ -49,10 +49,10 @@
                             aria-controls="edit" aria-selected="false">Account
                             details</a>
                     </li>
-                    <li class="nav-item">
+                    <!--<li class="nav-item">
                         <a class="nav-link" id="quotes-tab" data-toggle="tab" href="#quotes" role="tab"
                             aria-controls="quotes" aria-selected="false">Request Quotes</a>
-                    </li>
+                    </li>-->
 
 
                     <li class="nav-item">
@@ -165,7 +165,7 @@
 
                             <hr class="mt-0 mb-3 pb-2" />
 
-                            <a href="{{ '/products' }}" class="btn btn-dark">Go Shop</a>
+                            <a href="{{ '/products' }}" class="btn btn-dark" style="border-color: #fb7d1a; background-color: #fb7d1a;">Go Shop</a>
                         </div>
                     </div>
                 </div><!-- End .tab-pane -->
@@ -204,7 +204,7 @@
 
 
                             <div class="form-footer mt-3 mb-0">
-                                <button type="submit" name="submit" class="btn btn-dark mr-0 p-3 text-capitalize">
+                                <button type="submit" name="submit" class="btn btn-dark mr-0 p-3 text-capitalize" style="border-color: #fb7d1a; background-color: #fb7d1a;">
                                     Save changes
                                 </button>
                             </div>
