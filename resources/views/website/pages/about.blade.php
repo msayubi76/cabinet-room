@@ -7,7 +7,7 @@
         <div class="container">
             <h1><span>ABOUT US</span>
                 OUR COMPANY</h1>
-            <a href="contact.html" class="btn btn-dark">Contact</a>
+            <a href="contact.html" class="btn btn-dark" style="border-color: #fb7d1a; background-color: #fb7d1a;">Contact</a>
         </div><!-- End .container -->
     </div><!-- End .page-header -->
 
