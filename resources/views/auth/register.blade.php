@@ -111,7 +111,7 @@
 	 <div class="social-icons">
 
 		<h4>If you have already account? <a  href="{{ route('login') }}"></a></h4>
-		<div class="reg-bwn"><a href="{{ route('login') }}">Sign In</a></div>
+		<div class="reg-bwn"  style="border-color: #fb7d1a;background-color: #fb7d1a;"><a href="{{ route('login') }}">Sign In</a></div>
 	</div>
   </div>
 </div>
