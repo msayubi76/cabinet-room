@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Cabinet | Login</title>
+    <title>RKHardware | Login</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Custom Theme files -->
     <link href="{{ asset('form-assets/css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
@@ -74,10 +74,10 @@
                 <div class="clear"> </div>
             </div>
             <div class="login-bwn">
-                <input type="submit" value="Log in" />
+                <input type="submit" value="Log in" style="border-color: #fb7d1a; background-color: #fb7d1a; "/>
             </div>
         </form>
-        <div class="login-bottom">
+        <!--<div class="login-bottom">
             <h3>Login</h3>
             <p>With your social media account</p>
             <div class="social-icons text-center">
@@ -95,7 +95,7 @@
                 <h4>Don,t have an Account? <a href="{{ route('register') }}"> Register Now!</a></h4>
                 <div class="reg-bwn"><a href="{{ route('register') }}">REGISTER</a></div>
             </div>
-        </div>
+        </div>-->
     </div>
     <div style="text-align:center; margin-top:10px;">
         <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8011246932591811"

@@ -43,10 +43,10 @@
                                     <span>Facebook</span>
                                     <div class="clear"> </div>
                                 </a> --}}
-                                <a class="go" href="{{ route('google-auth') }}"><i class="anc-go">
+                                <!--<a class="go" href="{{ route('google-auth') }}"><i class="anc-go">
                                     </i><span>Google+</span>
                                     <div class="clear"> </div>
-                                </a>
+                                </a>-->
                                 <div class="clear"> </div>
                             </div>
                              

@@ -61,8 +61,7 @@
 
                         <div class="feature-box-content p-0">
                             <h3>Free Shipping</h3>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                Ipsum has been the industr.</p>
+                            <p>Enjoy free shipping on all orders — no hidden fees or surprises at checkout! We make shopping easy and affordable by delivering your favorite products right to your doorstep at no extra cost.</p>
                         </div><!-- End .feature-box-content -->
                     </div><!-- End .feature-box -->
                 </div><!-- End .col-lg-4 -->
@@ -73,8 +72,7 @@
 
                         <div class="feature-box-content p-0">
                             <h3>100% Money Back Guarantee</h3>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                Ipsum has been the industr.</p>
+                            <p>Shop with confidence! If you’re not completely satisfied with your purchase, we offer a 100% money-back guarantee — no questions asked. Your satisfaction is our top priority.</p>
                         </div><!-- End .feature-box-content -->
                     </div><!-- End .feature-box -->
                 </div><!-- End .col-lg-4 -->
@@ -85,8 +83,7 @@
 
                         <div class="feature-box-content p-0">
                             <h3>Online Support 24/7</h3>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                Ipsum has been the industr.</p>
+                            <p>Need help anytime, anywhere? Our friendly customer support team is available 24/7 to assist you with product inquiries, order updates, or any issues you may face. We’re just a message away!</p>
                         </div><!-- End .feature-box-content -->
                     </div><!-- End .feature-box -->
                 </div><!-- End .col-lg-4 -->
