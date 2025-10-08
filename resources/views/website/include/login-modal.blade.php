@@ -57,7 +57,7 @@
             </div>
             <div class="modal-footer d-flex justify-content-center">
                 <div class="signup-section">Not a member yet? <a href="{{ url('register/' . $product->id) }}"
-                        class="text-info" style="border-color: #fb7d1a;background-color: #fb7d1a;">
+                        class="text-info" style="border-color: #fb7d1a; background-color: #fb7d1a;">
                         Sign Up</a>.</div>
             </div>
         </div>
