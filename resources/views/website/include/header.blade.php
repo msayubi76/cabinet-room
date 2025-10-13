@@ -143,7 +143,8 @@
                                         <div class="product-details">
                                             <h4 class="product-title">
                                                 <a href="javascript:;">
-                                                    {{ $cartlist->product->name }}
+                                                    <!--{{ $cartlist->product->name }} -->
+                                                    {{ $cartlist->product?->name ?? 'Product not available' }}
                                                     @if ($cartlist->variation)
                                                         ({{ $cartlist->variation?->value }})
                                                     @endif
