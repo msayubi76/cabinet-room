@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ShppingRequest;
 use App\Models\Variation;
+use App\Traits\FileUploadTrait;
 
 class OrderService
 {
@@ -34,7 +35,8 @@ class OrderService
         $OrderData['order_status'] = 'pending';
         $OrderData['delivery_fee'] = NULL;
         $OrderData['cancel_at'] = NULL;
-
+        $image_name = FileUploadTrait::fileUpload( $request->payment_receipt, 'receipts');
+        $OrderData['order_receipt'] = url('/storage/receipts/' . $image_name);
         $order = Order::create($OrderData);
 
         $amount = 0;

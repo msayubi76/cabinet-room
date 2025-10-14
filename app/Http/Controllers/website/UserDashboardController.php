@@ -63,19 +63,24 @@ class UserDashboardController extends Controller
     function changePassword(Request  $request)
     {
 
+        $pass_rule = 'required';
+        if(Auth::user()->requires_password_setup){
+            $pass_rule = '';
+        }
         $request->validate([
-            'oldpassword' => 'required',
+            'oldpassword' => $pass_rule,
             'password' => 'required|confirmed',
 
 
         ]);
         #Match The Old Password
-        if (!Hash::check($request->oldpassword, auth()->user()->password)) {
+        if (!Hash::check($request->oldpassword, auth()->user()->password) && !Auth::user()->requires_password_setup ) {
             return response()->json(['status' => 0, 'msg' => 'Old Password Doesnt match!']);
         }
         #Update the new Password
         User::whereId(auth()->user()->id)->update([
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
+            'requires_password_setup' => false,
         ]);
 
         return response()->json(['status' => 1, 'msg' => "Password changed successfully!"]);

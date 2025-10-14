@@ -22,6 +22,7 @@
                                     <thead>
                                         <tr>
                                             <th>Sr No</th>
+                                            <th>Order Receipt</th>
                                             <th>Order Date</th>
                                             <th>Price</th>
                                             <th>Remaining Price</th>
@@ -35,6 +36,9 @@
                                         @foreach ($orders as $order)
                                             <tr class="order_data" id='row_{{ $order->id }}'>
                                                 <td>{{ $i + 1 }}</td>
+                                                <td><a href="{{ $order->order_receipt }}" target="_blank">
+            <img src="{{ $order->order_receipt }}" alt="Payment Receipt" style="max-width: 100px; height: auto;" />
+        </a></td>
                                                 <td> {{ date('d F, Y h:i A', strtotime($order->created_at)) }}</td>
                                                 <td>{{ $order->payment->payment }}</td>
                                                 <td>{{ $order->payment->remaining_amount }}</td>
