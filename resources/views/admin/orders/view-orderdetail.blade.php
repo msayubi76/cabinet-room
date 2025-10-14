@@ -41,6 +41,13 @@
                                                 {{ $shipping_detail->address }} {{ $shipping_detail->city }}
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td>
+                                            <a href="{{ $order->order_receipt }}" target="_blank">
+            <img src="{{ $order->order_receipt }}" alt="Payment Receipt" style="max-width: 100px; height: auto;" />
+        </a>
+                                            </td>
+                                        </tr>
 
                                     </tbody>
                                 </table>
@@ -87,6 +94,7 @@
                                                    ( {{ $orderlist->variation->value }})
                                                 @endif
                                             </td>
+                                        
                                             <td>
                                                 {{ $orderlist->quantity }}
                                             </td>

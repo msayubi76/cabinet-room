@@ -37,6 +37,8 @@ class User extends Authenticatable
         'email_verified_at',
         'google_id',
         'facebook_id',
+        'requires_password_setup',
+        'password_setup_at'
     ];
 
     /**
