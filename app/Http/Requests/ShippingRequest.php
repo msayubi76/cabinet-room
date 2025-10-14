@@ -32,6 +32,7 @@ class   ShippingRequest extends FormRequest
             'email' => ['required'],
             'notes' => ['nullable', 'max:400'],
             'payment_method' => ['required', 'in:cod,online_transfer'],
+            'payment_receipt' => 'required_if:payment_method,online_transfer|file|mimes:jpeg,png,jpg,pdf|max:2048',
 
         ];
     }

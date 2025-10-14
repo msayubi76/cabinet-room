@@ -214,13 +214,15 @@
                         <form action="{{ route('changePassword') }}" method="POST" id="changepassword">
                             <div class="change-password">
                                 <h3 class="text-uppercase mb-2">Password Change</h3>
-
+                                @if(!Auth::user()->requires_password_setup)
                                 <div class="form-group">
                                     <label for="acc-password">Current Password (leave blank to leave
                                         unchanged)</label>
                                     <input type="password" class="form-control" id="oldpassword" name="oldpassword" />
                                     <div id="edit_oldpassword_text" class="text-danger"></div>
                                 </div>
+                                @endif
+                                
 
                                 <div class="form-group">
                                     <label for="acc-password">New Password (leave blank to leave
