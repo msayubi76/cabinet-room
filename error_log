@@ -1,0 +1,20 @@
+[24-Oct-2025 17:52:49 UTC] PHP Warning:  require(/home/rkhalxkl/public_html/vendor/autoload.php): Failed to open stream: No such file or directory in /home/rkhalxkl/public_html/artisan on line 18
+[24-Oct-2025 17:52:49 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/rkhalxkl/public_html/vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/rkhalxkl/public_html/artisan:18
+Stack trace:
+#0 {main}
+  thrown in /home/rkhalxkl/public_html/artisan on line 18
+[24-Oct-2025 17:52:53 UTC] PHP Warning:  require(/home/rkhalxkl/public_html/vendor/autoload.php): Failed to open stream: No such file or directory in /home/rkhalxkl/public_html/artisan on line 18
+[24-Oct-2025 17:52:53 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/rkhalxkl/public_html/vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/rkhalxkl/public_html/artisan:18
+Stack trace:
+#0 {main}
+  thrown in /home/rkhalxkl/public_html/artisan on line 18
+[24-Oct-2025 17:53:27 UTC] PHP Warning:  require(/home/rkhalxkl/public_html/vendor/autoload.php): Failed to open stream: No such file or directory in /home/rkhalxkl/public_html/artisan on line 18
+[24-Oct-2025 17:53:27 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/rkhalxkl/public_html/vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/rkhalxkl/public_html/artisan:18
+Stack trace:
+#0 {main}
+  thrown in /home/rkhalxkl/public_html/artisan on line 18
+[24-Oct-2025 17:53:38 UTC] PHP Warning:  require(/home/rkhalxkl/public_html/vendor/autoload.php): Failed to open stream: No such file or directory in /home/rkhalxkl/public_html/artisan on line 18
+[24-Oct-2025 17:53:38 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/rkhalxkl/public_html/vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/rkhalxkl/public_html/artisan:18
+Stack trace:
+#0 {main}
+  thrown in /home/rkhalxkl/public_html/artisan on line 18
