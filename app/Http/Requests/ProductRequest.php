@@ -46,7 +46,11 @@ class ProductRequest extends FormRequest
             'colour' => ['nullable'],
             'length' => ['nullable'],
             'width' => ['nullable'],
-
+            'height' => ['nullable'],
+            'weight' => ['nullable'],
+            'weight_unit' => ['nullable'],
+            'dimension_unit' => ['nullable'],
+            'tcs_product_description' => ['nullable'],
             'is_feature_product' => ['nullable', 'boolean'],
             'is_arrival_product' => ['nullable', 'boolean'],
             'currency' => ['required_without:is_for_request_quote',  'nullable'],
@@ -56,7 +60,8 @@ class ProductRequest extends FormRequest
             'delivered_in' => ['nullable', 'string'],
             'rating' => ['nullable', 'min:1', 'max:5', 'numeric'],
             'is_installment_available' => ['nullable', 'boolean'],
-            'shipping_charge' =>['nullable', 'numeric']
+            'shipping_charge' =>['nullable', 'numeric'],
+
 
         ];
     }
