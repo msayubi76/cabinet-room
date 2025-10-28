@@ -14,9 +14,7 @@
                             <div class="alert alert-danger">
                                 <strong>Whoops!</strong><br> There were some<strong> problems</strong> with your
                                 input.
-
                                 {{ $errors }}
-
                             </div>
                         @endif
                         <h4 class="card-title">Update Product</h4>
@@ -57,14 +55,11 @@
                                         <label for=""> Product Sub Category </label>
                                         <select name="sub_category_id" id="subcategory" class="form-control">
                                             <option value="">-- Select sub Category --</option>
-
                                             @foreach ($sub_categories as $sub_category)
                                                 <option value="{{ $sub_category->id }}"
                                                     {{ $product->sub_category_id == $sub_category->id ? ' selected' : '' }}>
                                                     {{ $sub_category->name }}</option>
                                             @endforeach
-
-
                                         </select>
                                         @error('sub_category_id')
                                             <div class="text-danger">{{ $message }}</div>
@@ -90,11 +85,8 @@
                                     </div>
                                 </div>
 
-
-
                                 <div class="form-group row mb-8">
                                     <div class="col-md-6">
-
                                         <label for=""> Feature Image<span class="text-danger">*</span></label>
                                         <input type="file" class="form-control" id="edit_feature_image"
                                             name="feature_image" placeholder="feature image" :value="old('feature_image')">
@@ -125,9 +117,102 @@
                                             @endforeach
                                         </div>
                                     </div>
-
-
                                 </div>
+
+                                <!-- TCS Shipping Information Section -->
+                                <div class="form-group row mb-8">
+                                    <div class="col-md-12">
+                                        <h4 class="card-title">TCS Shipping Information</h4>
+                                        <hr>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label for="">Weight <span class="text-danger">*</span></label>
+                                        <input type="number" class="form-control input-default" placeholder="Weight"
+                                            value="{{ $product->weight }}" name="weight" step="0.01" min="0.01">
+                                        @error('weight')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label for="">Weight Unit</label>
+                                        <select name="weight_unit" class="form-control">
+                                            <option value="kg" {{ $product->weight_unit == 'kg' ? 'selected' : '' }}>Kilograms (kg)</option>
+                                            <option value="g" {{ $product->weight_unit == 'g' ? 'selected' : '' }}>Grams (g)</option>
+                                            <option value="lbs" {{ $product->weight_unit == 'lbs' ? 'selected' : '' }}>Pounds (lbs)</option>
+                                        </select>
+                                        @error('weight_unit')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label for="">TCS Product Description</label>
+                                        <input type="text" class="form-control input-default" placeholder="TCS Description"
+                                            value="{{ $product->tcs_product_description }}" name="tcs_product_description">
+                                        @error('tcs_product_description')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label for="">SKU</label>
+                                        <input type="text" class="form-control input-default" placeholder="SKU"
+                                            value="{{ $product->sku }}" name="sku">
+                                        @error('sku')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <!-- Product Dimensions -->
+                                <div class="form-group row mb-8">
+                                    <div class="col-md-12">
+                                        <h5>Product Dimensions</h5>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label for="">Length</label>
+                                        <input type="number" class="form-control input-default" placeholder="Length"
+                                            value="{{ $product->length }}" name="length" step="0.01" min="0">
+                                        @error('length')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label for="">Width</label>
+                                        <input type="number" class="form-control input-default" placeholder="Width"
+                                            value="{{ $product->width }}" name="width" step="0.01" min="0">
+                                        @error('width')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label for="">Height</label>
+                                        <input type="number" class="form-control input-default" placeholder="Height"
+                                            value="{{ $product->height }}" name="height" step="0.01" min="0">
+                                        @error('height')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label for="">Dimension Unit</label>
+                                        <select name="dimension_unit" class="form-control">
+                                            <option value="cm" {{ $product->dimension_unit == 'cm' ? 'selected' : '' }}>Centimeters (cm)</option>
+                                            <option value="m" {{ $product->dimension_unit == 'm' ? 'selected' : '' }}>Meters (m)</option>
+                                            <option value="inch" {{ $product->dimension_unit == 'inch' ? 'selected' : '' }}>Inches</option>
+                                            <option value="mm" {{ $product->dimension_unit == 'mm' ? 'selected' : '' }}>Millimeters (mm)</option>
+                                        </select>
+                                        @error('dimension_unit')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
                                 <div class="form-group row ">
                                     <div class="col-md-4 mb-8">
                                         <label for="">Actual Price<span class="text-danger">*</span></label>
@@ -137,7 +222,6 @@
                                         @error('actual_price')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
-
                                     </div>
                                     <div class="col-md-4 mb-8">
                                         <label for="">Discount Optional </label>
@@ -147,10 +231,18 @@
                                         @error('discount')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
-
                                     </div>
 
-                                    
+                                    <div class="col-md-4 mb-8">
+                                        <label for="">Shipping Charge </label>
+                                        <input type="text" class="form-control input-default" id="edit_shipping_charge"
+                                            placeholder="Shipping Charge" value="{{ $product->shipping_charge }}"
+                                            name="shipping_charge">
+                                        @error('shipping_charge')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
                                     <div class="col-md-4 mb-8">
                                         <label for="">Sale Price<span class="text-danger">*</span></label>
                                         <input type="number" class="form-control input-default" id="saleprice"
@@ -159,20 +251,7 @@
                                         @error('saleprice')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
-
                                     </div>
-
-                                    <div class="col-md-4 mb-8">
-                                        <label for="">Shipping Charge </label>
-                                        <input type="text" class="form-control input-default" id="edit_shipping_charge"
-                                            placeholder="Shipping Charge" value="{{ $product->shipping_charge }}"
-                                            name="shipping_charge">
-                                            @error('shipping_charge')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-
-                                    </div>
-                                   
 
                                     <div class="col-md-4 mb-8">
                                         <label for="">Product Currency<span class="text-danger">*</span></label>
@@ -194,9 +273,6 @@
                                             <input type="number" class="form-control" placeholder="01-05 Working days "
                                                 value="{{ $product->delivered_in }}" name="delivered_in"
                                                 aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                            <!-- <div class="input-group-append">
-                                                                                                                                            <span class="input-group-text" id="basic-addon2">Working days</span>
-                                                                                                                                        </div> -->
                                         </div>
                                         @error('delivered_in')
                                             <div class="text-danger">{{ $message }}</div>
@@ -221,37 +297,32 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-
                                 </div>
 
                                 <div class="row px-4">
-
-
                                     <div class="col-md-2 mb-8">
                                         <label for="is_active">
                                             <input type="checkbox" class="form-check-input" value="1"
                                                 id="is_active" name="is_active"
                                                 {{ $product->is_active == '1' ? 'checked' : '' }}>Active
                                         </label>
-                                        @error('width')
+                                        @error('is_active')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
 
                                     <div class="col-md-2 mb-8">
                                         <label for="is_feature_product">
-
                                             <input type="checkbox" class="form-check-input" value="1"
                                                 name="is_feature_product" id="is_feature_product"
                                                 {{ $product->is_feature_product == '1' ? 'checked' : '' }}>Feature Product
                                         </label>
-                                        @error('width')
+                                        @error('is_feature_product')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-md-2 mb-8">
                                         <label for="is_arrival_product">
-
                                             <input type="checkbox" class="form-check-input" value="1"
                                                 name="is_arrival_product" id="is_arrival_product"
                                                 {{ $product->is_arrival_product == '1' ? 'checked' : '' }}>Arrival Product
@@ -260,17 +331,6 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    {{-- <div class="col-md-2 mb-8">
-                                        <label for="is_for_request_quote">
-
-                                            <input type="checkbox" class="form-check-input" value="1"
-                                                name="is_for_request_quote" id="is_for_request_quote"
-                                                {{ $product->is_for_request_quote == '1' ? 'checked' : '' }}>Request Quote
-                                        </label>
-                                        @error('is_for_request_quote')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div> --}}
                                     <div class="col-md-2">
                                         <label for="is_installment_available" for="is_installment_available">
                                             <input type="checkbox" id="is_installment_available" class="form-check-input"
@@ -278,130 +338,131 @@
                                                 {{ $product->is_installment_available == '1' ? 'checked' : '' }}>
                                             Installment Available </label>
                                     </div>
-
                                 </div>
 
-
-
-
+                                <!-- MOVE VARIATIONS SECTION INSIDE THE FORM -->
+                                <div class="row px-4" id="product-variations">
+                                    <div class="col-md-12">
+                                        <h3>Product Variations</h3>
+                                        <hr>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h4>Variations List</h4>
+                                    </div>
+                                    <div class="col-md-6 text-right px-5">
+                                        <button type="button" class="btn-success btn text-white"
+                                            onclick="addMoreVariation()">Add More</button>
+                                    </div>
+                                    <div class="col-md-12">
+                                        @php
+                                            $variations = $product->variations;
+                                            $variationCount = count($variations);
+                                        @endphp
+                                        <table class="table">
+                                            <thead>
+                                                <th>Sr No</th>
+                                                <th>Name</th>
+                                                <th>Value</th>
+                                                <th>Price</th>
+                                                <th>Discount</th>
+                                                <th>Sale Price</th>
+                                                <th>Stock</th>
+                                                <!-- TCS Fields for Variations -->
+                                                <th>Weight (kg)</th>
+                                                <th>Length (cm)</th>
+                                                <th>Width (cm)</th>
+                                                <th>Height (cm)</th>
+                                                <th>TCS Description</th>
+                                                <th>SKU</th>
+                                                <th>Images</th>
+                                                <th>Action</th>
+                                            </thead>
+                                            <tbody id="variationTableBody">
+                                                @foreach($product->variations as $i => $variation)
+                                                <tr>
+                                                    <input type="hidden" name="Variation[{{ $i }}][id]" value="{{ $variation->id }}">
+                                                    <td class="count">{{ $i + 1 }}</td>
+                                                    <td>
+                                                        <select class="form-control name" name="Variation[{{ $i }}][name]">
+                                                            <option value="color" {{ $variation->name == 'color' ? 'selected' : '' }}>Color</option>
+                                                            <option value="size" {{ $variation->name == 'size' ? 'selected' : '' }}>Size</option>
+                                                            <option value="material" {{ $variation->name == 'material' ? 'selected' : '' }}>Material</option>
+                                                            <option value="style" {{ $variation->name == 'style' ? 'selected' : '' }}>Style</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control value" type="text" name="Variation[{{ $i }}][value]" value="{{ $variation->value }}">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control price" type="number" name="Variation[{{ $i }}][price]" value="{{ $variation->price }}" onkeyup="calculateVariationDiscount(this)" onchange="calculateVariationDiscount(this)">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control discount" type="number" name="Variation[{{ $i }}][discount]" value="{{ $variation->discount }}" onkeyup="calculateVariationDiscount(this)" onchange="calculateVariationDiscount(this)">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control sale_price" type="number" name="Variation[{{ $i }}][sale_price]" value="{{ $variation->sale_price }}" readonly>
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control stock" type="number" name="Variation[{{ $i }}][stock]" value="{{ $variation->stock }}" onkeyup="updateStock()" onchange="updateStock()">
+                                                    </td>
+                                                    <!-- TCS Fields for Variation -->
+                                                    <td>
+                                                        <input class="form-control variant-weight" type="number" name="Variation[{{ $i }}][weight]" value="{{ $variation->weight }}" step="0.01" min="0.01" onchange="autoFillVariantDimensions(this)">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control variant-length" type="number" name="Variation[{{ $i }}][length]" value="{{ $variation->length }}" step="0.01" min="0">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control variant-width" type="number" name="Variation[{{ $i }}][width]" value="{{ $variation->width }}" step="0.01" min="0">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control variant-height" type="number" name="Variation[{{ $i }}][height]" value="{{ $variation->height }}" step="0.01" min="0">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control variant-tcs-desc" type="text" name="Variation[{{ $i }}][tcs_description]" value="{{ $variation->tcs_description }}">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control variant-sku" type="text" name="Variation[{{ $i }}][sku]" value="{{ $variation->sku }}">
+                                                    </td>
+                                                    <td>
+                                                        <input type="file" class="images" multiple name="Variation[{{ $i }}][images][]">
+                                                        @if($variation->media && count($variation->media) > 0)
+                                                            <div class="mt-2">
+                                                                @foreach($variation->media as $media)
+                                                                    <img src="{{ $media->url }}" width="30" height="30" class="mr-1">
+                                                                @endforeach
+                                                            </div>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn-danger btn delete btn-sm" onclick="deleteVariationRow(this)">Delete</button>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
 
                                 <div class="modal-footer">
                                     <a href="{{ url('/admin/products') }}" type="button" class="btn btn-secondary">
                                         Close </a>
-                                    <button type="submit" id="button-update" class="btn btn-primary">Update
-                                        Products</button>
+                                    <button type="submit" id="button-update" class="btn btn-primary">Update Products</button>
                                 </div>
-
-
-
-
-
-
-
                             </form>
-                            <hr>
-                            <div class="row px-4" id="product-variations">
-                                <div class="col-md-6">
-                                    <h3>Product Variations</h3>
-                                </div>
-                                <div class="col-md-6 text-right px-5">
-                                    <button type="button" class="btn-success btn text-white"
-                                        onclick="addMoreVariation(true)">Add
-                                        More</button>
-                                </div>
-                                <div class="col-md-12">
-                                    @php
-
-                                        $variations = $variations;
-                                        $variationCount = count($variations);
-                                    @endphp
-                                    <table class="table">
-                                        <thead>
-                                            <th>Sr No</th>
-                                            <th>Name </th>
-                                            <th>Value</th>
-                                            <th>Price</th>
-                                            <th>Discount</th>
-                                            <th>Sale Price</th>
-                                            <th>Stock</th>
-                                            <th>Images</th>
-                                            <th>Action</th>
-                                        </thead>
-                                        <tbody id="variationTableBody">
-
-                                            @for ($i = 0; $i < max(1, $variationCount); $i++)
-                                                @if (isset($variations[$i]))
-                                                    @php $variation = $variations[$i]; @endphp
-                                                @else
-                                                    @php $variation =    ['name' => '', 'value' => '', 'price' => '', 'stock' => '', 'id'=> '',  'discount' => '', 'sale_price' => '']; @endphp
-                                                @endif
-                                                <tr>
-                                                    <td class="count">{{ $i + 1 }}</td>
-                                                    <td>
-                                                        <select class="form-control name"
-                                                            name="Variation[{{ $i }}][name]">
-                                                            <option {{ $variation['name'] == 'color' ? 'selected' : '' }}
-                                                                value="color">Color</option>
-                                                        </select>
-                                                        <span class="error_name text-danger Err"></span>
-                                                    </td>
-                                                    <td>
-                                                        <input class="form-control value" type="text"
-                                                            name="Variation[{{ $i }}][value]"
-                                                            placeholder="Value" value="{{ $variation['value'] }}">
-                                                        <span class="error_value text-danger Err"></span>
-                                                    </td>
-                                                    <td>
-                                                        <input class="form-control price" type="number"
-                                                            name="Variation[{{ $i }}][price]"  onkeyup="calculateVariationDiscount(this)"  onchange="calculateVariationDiscount(this)"
-                                                            placeholder="Price" value="{{ $variation['price'] }}">
-                                                        <span class="error_price text-danger Err"></span>
-                                                    </td>
-                                                    <td>
-                                                        <input class="form-control discount" type="number"
-                                                            name="Variation[{{ $i }}][discount]" required onkeyup="calculateVariationDiscount(this)"  onchange="calculateVariationDiscount(this)" 
-                                                            placeholder="Discount" min="0"
-                                                            value="{{ old('Variation.' . $i . '.discount', $variation['discount']) }}">
-                                                            <span class="error_discount text-danger Err"></span>
-                                                    </td>
-                                                    <td>
-                                                        <input class="form-control sale_price" type="number"
-                                                            name="Variation[{{ $i }}][sale_price]" required
-                                                            placeholder="Price" min="0"  readonly
-                                                            value="{{ old('Variation.' . $i . '.sale_price', $variation['sale_price']) }}">
-                                                            <span class="error_sale_price text-danger Err"></span>
-                                                    </td>
-                                                    <td>
-                                                        <input class="form-control stock" type="number"
-                                                            name="Variation[{{ $i }}][stock]"  onkeyup="updateStock()" onchange="updateStock()"
-                                                            placeholder="Stock" value="{{ $variation['stock'] }}">
-                                                        <span class="error_stock text-danger Err"></span>
-                                                    </td>
-                                                    <td>
-                                                        <input type="file" class="images" multiple
-                                                            name="Variation[{{ $i }}][images][]">
-                                                        <span class="error_images text-danger Err"></span>
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn-success btn text-white save btn-sm "
-                                                            onclick="editVariation(this, {{ $variation['id'] }})">Save</button>
-                                                        <button type="button" class="btn-danger btn delete btn-sm"
-                                                            onclick="deleteVariation(this, {{ $variation['id'] }})">Delete</button>
-                                                    </td>
-                                                </tr>
-                                            @endfor
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
 
+@section('scripts')
+    <script>
+        const currentProduct = @json($product)
+    </script>
+    <script src="{{ url('admin-assets/js/products.js') }}"></script>
 @endsection
 {{-- @section('scripts')
     <script>
@@ -453,10 +514,8 @@
 
 
 @section('scripts')
-
     <script>
         const currentProduct = @json($product)
     </script>
     <script src="{{ url('admin-assets/js/products.js') }}"></script>
-
 @endsection

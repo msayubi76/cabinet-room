@@ -31,6 +31,7 @@ class Product extends Model
         'stock',
         'length',
         'width',
+        'height',
         'is_feature_product',
         'is_arrival_product',
         'currency',
@@ -46,6 +47,12 @@ class Product extends Model
         'rating',
         'sku',
         'is_installment_available',
+
+             // TCS and shipping fields
+             'weight',
+             'weight_unit',
+             'dimension_unit',
+             'tcs_product_description',
 
 
     ];
@@ -84,4 +91,56 @@ class Product extends Model
     {
         return $this->hasMany(Variation::class);
     }
+
+     /**
+     * Get product description for TCS shipment
+     */
+    public function getTCSDescription()
+    {
+        return $this->tcs_product_description ?? $this->name;
+    }
+
+    /**
+     * Get product weight in kg
+     */
+    public function getWeightInKg()
+    {
+        if (!$this->weight) return 0.5; // Default weight
+        
+        return match($this->weight_unit) {
+            'g' => $this->weight / 1000,
+            'lbs' => $this->weight * 0.453592,
+            default => $this->weight, // kg
+        };
+    }
+
+    /**
+     * Get product dimensions in cm
+     */
+    public function getDimensionsInCm()
+    {
+        $multiplier = match($this->dimension_unit) {
+            'm' => 100,
+            'inch' => 2.54,
+            'mm' => 0.1,
+            default => 1, // cm
+        };
+
+        return [
+            'length' => ($this->length ?? 0) * $multiplier,
+            'width' => ($this->width ?? 0) * $multiplier,
+            'height' => ($this->height ?? 0) * $multiplier,
+        ];
+    }
+
+    /**
+     * Calculate volumetric weight for TCS
+     */
+    public function getVolumetricWeight()
+    {
+        $dims = $this->getDimensionsInCm();
+        $volumetricWeight = ($dims['length'] * $dims['width'] * $dims['height']) / 5000; // TCS volumetric formula
+        return max($this->getWeightInKg(), $volumetricWeight);
+    }
+
 }
