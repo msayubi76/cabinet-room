@@ -123,4 +123,38 @@ class OrderController extends Controller
                         return response()->json(['status' => false, 'message' => $th->getMessage()]);
                 }
         }
+
+        public function trackTcs(Request $request, TcsService $tcs)
+{
+    $consignment = $request->consignment_number;
+    $order = \App\Models\Order::find($request->order_id);
+
+    $result = $tcs->trackShipment($consignment);
+
+    if ($result['success'] && $order) {
+        $order->update([
+            'tcs_status' => $result['data']['message'] ?? 'In Transit',
+            'tcs_shipment_data' => json_encode($result['data']),
+        ]);
+    }
+
+    return response()->json($result);
+}
+
+public function downloadTcsLabel(Request $request, TcsService $tcs)
+{
+    $consignment = $request->consignment_number;
+    $order = \App\Models\Order::find($request->order_id);
+
+    $result = $tcs->downloadShipmentLabel($consignment);
+
+    if ($result['success'] && $order) {
+        $order->update(['tcs_label_url' => $result['file_url']]);
+        return redirect()->to($result['file_url']);
+    }
+
+    return response('Error: ' . $result['error'], 500);
+}
+
+
 }

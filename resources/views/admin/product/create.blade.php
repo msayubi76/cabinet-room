@@ -1,7 +1,35 @@
 @extends('layouts.theme')
 @section('title', 'Home')
 @section('content')
-<div class="container-fluid">
+<style>
+.product-wrapper .table-responsive {
+  overflow-x: auto;
+}
+
+.product-wrapper #variationTableBody td, 
+.product-wrapper #variationTableBody th {
+  white-space: nowrap;
+  padding: 8px 12px;
+  vertical-align: middle;
+}
+
+.product-wrapper #variationTableBody input.form-control,
+.product-wrapper #variationTableBody select.form-control {
+  min-width: 120px;
+  font-size: 13px;
+  padding: 4px 6px;
+}
+
+.product-wrapper #variationTableBody td:last-child {
+  text-align: center;
+}
+
+.product-wrapper #variationTableBody tr {
+  border-bottom: 1px solid #dee2e6;
+}
+</style>
+
+<div class="container-fluid product-wrapper">
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -115,9 +143,9 @@
                                 <div class="col-md-3">
                                     <label for="">Weight Unit</label>
                                     <select name="weight_unit" class="form-control">
-                                        <option value="kg" {{ old('weight_unit') == 'kg' ? 'selected' : '' }}>Kilograms (kg)</option>
+                                        <!-- <option value="kg" {{ old('weight_unit') == 'kg' ? 'selected' : '' }}>Kilograms (kg)</option> -->
                                         <option value="g" {{ old('weight_unit') == 'g' ? 'selected' : '' }}>Grams (g)</option>
-                                        <option value="lbs" {{ old('weight_unit') == 'lbs' ? 'selected' : '' }}>Pounds (lbs)</option>
+                                        <!-- <option value="lbs" {{ old('weight_unit') == 'lbs' ? 'selected' : '' }}>Pounds (lbs)</option> -->
                                     </select>
                                     @error('weight_unit')
                                     <div class="text-danger">{{ $message }}</div>
@@ -180,9 +208,9 @@
                                     <label for="">Dimension Unit</label>
                                     <select name="dimension_unit" class="form-control">
                                         <option value="cm" {{ old('dimension_unit') == 'cm' ? 'selected' : '' }}>Centimeters (cm)</option>
-                                        <option value="m" {{ old('dimension_unit') == 'm' ? 'selected' : '' }}>Meters (m)</option>
+                                        <!-- <option value="m" {{ old('dimension_unit') == 'm' ? 'selected' : '' }}>Meters (m)</option>
                                         <option value="inch" {{ old('dimension_unit') == 'inch' ? 'selected' : '' }}>Inches</option>
-                                        <option value="mm" {{ old('dimension_unit') == 'mm' ? 'selected' : '' }}>Millimeters (mm)</option>
+                                        <option value="mm" {{ old('dimension_unit') == 'mm' ? 'selected' : '' }}>Millimeters (mm)</option> -->
                                     </select>
                                     @error('dimension_unit')
                                     <div class="text-danger">{{ $message }}</div>
@@ -341,7 +369,7 @@
                                     $variations = old('Variation', []);
                                     $variationCount = count($variations);
                                     @endphp
-
+                                    <div class="table-responsive">
                                     <table class="table">
                                         <thead>
                                             <th>Sr No</th>
@@ -352,7 +380,7 @@
                                             <th>Sale Price</th>
                                             <th>Stock</th>
                                             <!-- TCS Fields for Variations -->
-                                            <th>Weight (kg)</th>
+                                            <th>Weight (g)</th>
                                             <th>Length (cm)</th>
                                             <th>Width (cm)</th>
                                             <th>Height (cm)</th>
@@ -468,6 +496,7 @@
                                                 @endfor
                                         </tbody>
                                     </table>
+                                    </div>
                                 </div>
                             </div>
 

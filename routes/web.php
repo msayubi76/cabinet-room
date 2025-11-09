@@ -30,7 +30,7 @@ Route::get('/', function () {
 
 
 
-Route::prefix('admin')->middleware(['isAdmin','auth'])->group(function () {
+Route::prefix('admin')->middleware(['isAdmin', 'auth'])->group(function () {
     Route::get('dashboard', function () {
 
 
@@ -64,18 +64,20 @@ Route::prefix('admin')->middleware(['isAdmin','auth'])->group(function () {
     Route::resource('banners', BannerController::class);
 
 
-     Route::get('orders',[OrderController::class,'index']);
-     Route::get('{order_type}/orders',[OrderController::class,'orderType'])->name('orders');
-     Route::post('update', [OrderController::class, 'updateStatus'])->name('orders');
+    Route::get('orders', [OrderController::class, 'index']);
+    Route::get('{order_type}/orders', [OrderController::class, 'orderType'])->name('orders');
+    Route::post('update', [OrderController::class, 'updateStatus'])->name('orders');
 
-      Route::get('view-order/{order}',[OrderController::class,'viewOrder']);
-      Route::post('orders/{order}',[PaymentHistoryController::class,'store']);
-      Route::get('order/{order}',[PaymentHistoryController::class,'paymentHistory']);
+    Route::get('view-order/{order}', [OrderController::class, 'viewOrder']);
+    Route::post('orders/{order}', [PaymentHistoryController::class, 'store']);
+    Route::get('order/{order}', [PaymentHistoryController::class, 'paymentHistory']);
+    Route::post('/orders/tcs-track', [OrderController::class, 'trackTcs']);
+    Route::get('/orders/tcs-label', [OrderController::class, 'downloadTcsLabel']);
     //   Route::get('orders/payment/{id}',[PaymentHistoryController::class,'payment'])->name('order.payment');
     //   Route::post('orders/payment',[PaymentHistoryController::class,'store'])->name('order.payment');
 
-    Route::get('delete/{id}',[MediaController::class,'destroy']);
-    Route::get('quote',[RequestQuoteController::class,'index']);
+    Route::get('delete/{id}', [MediaController::class, 'destroy']);
+    Route::get('quote', [RequestQuoteController::class, 'index']);
     Route::post('quote', [RequestQuoteController::class, 'update'])->name('updateQuote');
 
     Route::any('getSubCategory', [ProductController::class, 'getSubCategory'])->name('getSubCategory');

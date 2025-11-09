@@ -24,20 +24,20 @@ class TcsService
     /**
      * Fallback shipping calculation when TCS API is unavailable
      */
-    private function calculateFallbackShipping($calculationData)
-    {
-        $baseRate = 150; // Base rate in PKR
-        $weightRate = 50; // PKR per kg
-        $codFeeRate = 0.02; // 2% COD fee
+    // private function calculateFallbackShipping($calculationData)
+    // {
+    //     $baseRate = 150; // Base rate in PKR
+    //     $weightRate = 50; // PKR per kg
+    //     $codFeeRate = 0.02; // 2% COD fee
 
-        $weight = $calculationData['weight'] ?? 1;
-        $codAmount = $calculationData['codAmount'] ?? 0;
+    //     $weight = $calculationData['weight'] ?? 1;
+    //     $codAmount = $calculationData['codAmount'] ?? 0;
 
-        $weightCharge = $weight * $weightRate;
-        $codFee = $codAmount * $codFeeRate;
+    //     $weightCharge = $weight * $weightRate;
+    //     $codFee = $codAmount * $codFeeRate;
 
-        return $baseRate + $weightCharge + $codFee;
-    }
+    //     return $baseRate + $weightCharge + $codFee;
+    // }
 
     private function getBearerToken()
 {
@@ -109,78 +109,168 @@ private function getAccessToken()
 }
 
 
-    /**
-     * Calculate shipping charges
-     */
+    // /**
+    //  * Calculate shipping charges
+    //  */
+    // public function calculateShippingCharges($order)
+    // {
+    //     try {
+    //         $accessToken = $this->getAccessToken();
+    //         if (!$accessToken) {
+    //             return [
+    //                 'success' => false,
+    //                 'error' => 'Failed to authenticate',
+    //                 'shipping_charges' => 200 // Fallback charge
+    //             ];
+    //         }
+
+    //         $totalWeight = 0;
+    //         foreach ($order->orderDetails as $orderDetail) {
+    //             $totalWeight += $orderDetail->getItemWeight() ?: 0.5;
+    //         }
+
+    //         $calculationData = [
+    //             "originCityName" => "KARACHI",
+    //             "destinationCityName" => strtoupper($order->shipping->city),
+    //             "weight" => max($totalWeight/1000, 0.5),
+    //             "noOfPieces" => $order->orderDetails->count(),
+    //             "codAmount" => $order->payment->method === 'cod' ? floatval($order->payment->total_amount) : 0,
+    //             "productDetails" => "General Goods",
+    //             "serviceType" => $order->payment->method === 'cod' ? "COD" : "OBS"
+    //         ];
+
+    //         // Try different endpoints for shipping calculation
+    //         $endpoints = [
+    //             '/ShippingCalculator/CalculateCharges',
+    //             '/Shipping/CalculateCharges',
+    //             '/Ecom/CalculateCharges'
+    //         ];
+
+    //         foreach ($endpoints as $endpoint) {
+    //             $response = Http::withHeaders([
+    //                 'Authorization' => 'Bearer ' . $accessToken,
+    //                 'Content-Type' => 'application/json',
+    //             ])->timeout(30)
+    //                 ->post(config('tcs.ecom_url') . $endpoint, $calculationData);
+
+    //             if ($response->successful()) {
+    //                 $chargeData = $response->json();
+    //                 $shippingCharges = $chargeData['totalAmount'] ?? $chargeData['charges'] ?? $chargeData['amount'] ?? 200;
+
+    //                 return [
+    //                     'success' => true,
+    //                     'shipping_charges' => floatval($shippingCharges),
+    //                     'chargeable_weight' => $totalWeight,
+    //                 ];
+    //             }
+    //         }
+
+    //         // Fallback calculation
+    //         return [
+    //             'success' => false,
+    //             'shipping_charges' => 200,
+    //             'chargeable_weight' => $totalWeight,
+    //             'error' => 'All calculation endpoints failed'
+    //         ];
+    //     } catch (\Exception $e) {
+    //         return [
+    //             'success' => false,
+    //             'shipping_charges' => 200,
+    //             'error' => 'Exception: ' . $e->getMessage()
+    //         ];
+    //     }
+    // }
     public function calculateShippingCharges($order)
-    {
-        try {
-            $accessToken = $this->getAccessToken();
-            if (!$accessToken) {
-                return [
-                    'success' => false,
-                    'error' => 'Failed to authenticate',
-                    'shipping_charges' => 200 // Fallback charge
-                ];
-            }
+{
+    try {
+        // Get the destination city from shipping
+        $destinationCity = $order->shipping->city ?? 'Karachi';
+        $codAmount = $order->payment->method === 'cod' ? floatval($order->payment->total_amount) : 0;
 
-            $totalWeight = 0;
-            foreach ($order->orderDetails as $orderDetail) {
-                $totalWeight += $orderDetail->getItemWeight() ?: 0.5;
-            }
-
-            $calculationData = [
-                "originCityName" => "KARACHI",
-                "destinationCityName" => strtoupper($order->shipping->city),
-                "weight" => max($totalWeight/1000, 0.5),
-                "noOfPieces" => $order->orderDetails->count(),
-                "codAmount" => $order->payment->method === 'cod' ? floatval($order->payment->total_amount) : 0,
-                "productDetails" => "General Goods",
-                "serviceType" => $order->payment->method === 'cod' ? "COD" : "OBS"
-            ];
-
-            // Try different endpoints for shipping calculation
-            $endpoints = [
-                '/ShippingCalculator/CalculateCharges',
-                '/Shipping/CalculateCharges',
-                '/Ecom/CalculateCharges'
-            ];
-
-            foreach ($endpoints as $endpoint) {
-                $response = Http::withHeaders([
-                    'Authorization' => 'Bearer ' . $accessToken,
-                    'Content-Type' => 'application/json',
-                ])->timeout(30)
-                    ->post(config('tcs.ecom_url') . $endpoint, $calculationData);
-
-                if ($response->successful()) {
-                    $chargeData = $response->json();
-                    $shippingCharges = $chargeData['totalAmount'] ?? $chargeData['charges'] ?? $chargeData['amount'] ?? 200;
-
-                    return [
-                        'success' => true,
-                        'shipping_charges' => floatval($shippingCharges),
-                        'chargeable_weight' => $totalWeight,
-                    ];
-                }
-            }
-
-            // Fallback calculation
-            return [
-                'success' => false,
-                'shipping_charges' => 200,
-                'chargeable_weight' => $totalWeight,
-                'error' => 'All calculation endpoints failed'
-            ];
-        } catch (\Exception $e) {
-            return [
-                'success' => false,
-                'shipping_charges' => 200,
-                'error' => 'Exception: ' . $e->getMessage()
-            ];
+        // Calculate total weight from order details
+        $totalWeight = 0;
+        foreach ($order->orderDetails as $orderDetail) {
+            $totalWeight += $this->getItemWeightInKg($orderDetail);
         }
-    }
 
+        // Use the same calculation as checkout
+        $shippingCharges = $this->calculateFallbackShipping([
+            'weight' => $totalWeight,
+            'codAmount' => $codAmount,
+            'destinationCity' => $destinationCity
+        ]);
+
+        return [
+            'success' => true,
+            'shipping_charges' => $shippingCharges,
+            'chargeable_weight' => $totalWeight,
+            'destination_city' => $destinationCity,
+            'calculation_type' => 'fallback'
+        ];
+
+    } catch (\Exception $e) {
+        Log::error('TCS Shipping Calculation Error: ' . $e->getMessage());
+        
+        // Emergency fallback
+        $fallbackCharge = 250;
+        return [
+            'success' => false,
+            'shipping_charges' => $fallbackCharge,
+            'error' => 'Calculation failed, using fallback'
+        ];
+    }
+}
+
+/**
+ * Get item weight in KG - consistent with checkout
+ */
+private function getItemWeightInKg($orderDetail)
+{
+    $rawWeight = $orderDetail->item_weight ?? $orderDetail->product->weight ?? 500;
+    $unit = strtolower($orderDetail->weight_unit ?? $orderDetail->product->weight_unit ?? 'g');
+    
+    if ($unit === 'g' || $unit === 'gram') {
+        return $rawWeight / 1000;
+    } elseif ($unit === 'kg' || $unit === 'kilogram') {
+        return $rawWeight;
+    } else {
+        return $rawWeight / 1000; // Default to grams
+    }
+}
+
+/**
+ * Fallback shipping calculator - consistent with checkout
+ */
+private function calculateFallbackShipping($calculationData)
+{
+    $baseRates = [
+        'local' => 150,
+        'metro' => 200, 
+        'national' => 250
+    ];
+
+    $weightRate = 80;
+    $codFeeRate = 0.02;
+    
+    $originCity = strtolower(config('tcs.origin_city', 'karachi'));
+    $destCity = strtolower($calculationData['destinationCity'] ?? 'karachi');
+    
+    // Determine zone
+    $zone = ($destCity === $originCity) ? 'local' : 
+            (in_array($destCity, ['karachi', 'lahore', 'islamabad', 'rawalpindi']) ? 'metro' : 'national');
+
+    $baseRate = $baseRates[$zone];
+    $weight = max($calculationData['weight'] ?? 1, 0.5);
+    $codAmount = $calculationData['codAmount'] ?? 0;
+
+    $roundedWeight = ceil($weight * 2) / 2;
+    $weightCharge = max(($roundedWeight - 0.5), 0) * $weightRate;
+    $codFee = $codAmount * $codFeeRate;
+
+    $total = $baseRate + $weightCharge + $codFee;
+
+    return round($total);
+}
     /**
      * Create shipment in TCS system with detailed debugging
      */
@@ -415,7 +505,7 @@ private function getAccessToken()
             "shipmentdate" => now()->format('d/m/Y H:i:s'),
             "shippingtype" => "",
             "currency" => "PKR",
-            "codamount" => $isCod ? floatval($order->payment->total_amount) : 0,
+            "codamount" => $isCod ? (float) $order->payment->total_amount : 0,
             "declaredvalue" => 0, // Use 0 instead of null
             "insuredvalue" => 0,  // Use 0 instead of null
             "transactiontype" => "",
@@ -522,44 +612,53 @@ private function formatMobileNumberExactly($phone)
     /**
      * Track shipment using E-Commerce API
      */
-    public function trackShipment($consignmentNumber)
-    {
-        log::info('trackShipment ');
-        log::info($consignmentNumber);
+    /**
+ * Track shipment using E-Commerce API
+ */
+public function trackShipment($consignmentNumber)
+{
+    Log::info('TCS → Tracking consignment', ['consignment' => $consignmentNumber]);
 
-        try {
-            $accessToken = $this->getAccessToken();
-            if (!$accessToken) {
-                return ['success' => false, 'error' => 'Authentication failed'];
-            }
+    try {
+        $accessToken = $this->getAccessToken();
+        if (!$accessToken) {
+            return ['success' => false, 'error' => 'Authentication failed'];
+        }
 
-            $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . $accessToken,
-            ])->get( config('tcs.ecom_url') . '/Consignment/' . $consignmentNumber . '/track');
+        $url = rtrim(config('tcs.ecom_url'), '/') . "/Consignment/{$consignmentNumber}/track";
 
-            if ($response->successful()) {
-                return [
-                    'success' => true,
-                    'tracking_info' => $response->json()
-                ];
-            } else {
-                return [
-                    'success' => false,
-                    'error' => 'Tracking failed: ' . $response->body()
-                ];
-            }
-        } catch (\Exception $e) {
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $accessToken,
+            'Accept' => 'application/json',
+        ])->timeout(30)->get($url);
+
+        Log::info('TCS → Track Response', [
+            'status' => $response->status(),
+            'body' => $response->body(),
+        ]);
+
+        if ($response->successful()) {
             return [
-                'success' => false,
-                'error' => 'Exception: ' . $e->getMessage()
+                'success' => true,
+                'data' => $response->json(),
             ];
         }
+
+        return [
+            'success' => false,
+            'error' => 'Tracking failed: ' . $response->body(),
+        ];
+    } catch (\Exception $e) {
+        Log::error('TCS → Track Exception', ['message' => $e->getMessage()]);
+        return ['success' => false, 'error' => 'Exception: ' . $e->getMessage()];
     }
+}
+
 
     /**
  * Download Shipment Receipt (CN Print)
  */
-public function downloadShipmentReceipt($consignmentNumber)
+public function downloadShipmentLabel($consignmentNumber)
 {
     try {
         $accessToken = $this->getAccessToken();

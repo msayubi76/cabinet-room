@@ -48,7 +48,7 @@ Route::middleware(['auth'])->group(function () {
     // ----------> Webste Checout <----------- //
     Route::get('check-out', [CheckOutController::class, 'index'])->name('check-out.index');
     Route::post('check-out', [CheckOutController::class, 'store'])->name('check-out');
-
+    Route::post('/calculate-shipping', [CheckOutController::class, 'calculateShipping'])->name('calculate.shipping');
 
 
     Route::get('user-dashboard', [UserDashboardController::class, 'index'])->name('user-dashboard');

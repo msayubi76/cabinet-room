@@ -189,7 +189,7 @@
                             <div class="dropdown-cart-action">
 
                                 @if ($cart->count() > 0)
-                                    <a href="{{ url('check-out') }}" class="btn btn-dark btn-block">Checkout</a>
+                                    <a href="{{ url('check-out') }}" class="btn btn-primary btn-block">Checkout</a>
                                     <a href="{{ url('cart') }}" class="btn btn-gray btn-block view-cart">View
                                         Cart</a>
                                 @endif

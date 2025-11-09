@@ -109,6 +109,14 @@
                                                                             href="javascript:openConfirmationDialog('Completed',{{ $order->id }})"
                                                                             class="btn btn-sm btn-primary">Completed</a>
                                                                     @endif
+                                                                    @if($order->tcs_consignment_number)
+                                                                        <!-- Download Label -->
+                                                                        <a href="javascript:void(0)" 
+                                                                        class="dropdown-item"
+                                                                        onclick="openTCSConfirmation('Label', {{ $order->id }}, '{{ $order->tcs_consignment_number }}')">
+                                                                            Download Shipping Label
+                                                                        </a>
+                                                                    @endif
 
 
                                                                     <a class="dropdown-item"
@@ -254,6 +262,46 @@
 @endsection
 @section('scripts')
     <script>
+        function openTCSConfirmation(action, orderId, consignmentNo) {
+    let routeUrl = '';
+    let method = '';
+
+    if (action === 'Track') {
+        routeUrl = '/admin/orders/tcs-track';
+        method = 'POST';
+    } 
+    else if (action === 'Label') {
+        routeUrl = '/admin/orders/tcs-label';
+        method = 'GET';
+    }
+
+    if (action === 'Label') {
+        // Just open the label PDF
+        const url = `${routeUrl}?consignment_number=${encodeURIComponent(consignmentNo)}&order_id=${orderId}`;
+        window.open(url, '_blank');
+    } else {
+        // Call the backend via AJAX (like updateStatus)
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            method: method,
+            url: routeUrl,
+            data: {
+                consignment_number: consignmentNo,
+                order_id: orderId
+            },
+            success: function(response) {
+                console.log('TCS Tracking Response:', response);
+                // you can optionally update UI here — no alert
+            },
+            error: function(xhr, status, error) {
+                console.error('TCS tracking failed:', error);
+            }
+        });
+    }
+}
+
         function openConfirmationDialog(Status, id) {
             $("#changeStatusValue").val(Status);
 

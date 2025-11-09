@@ -20,7 +20,6 @@
     <form action="{{ url('check-out') }}" method="post" id="checkout-form" enctype="multipart/form-data">
         @csrf
 
-
         <div class="row">
             <div class="col-lg-7">
                 @if ($errors->any())
@@ -216,28 +215,34 @@
                                     {{-- <span id="shipment-charges">--</span> --}}
                                 </td>
                             </tr>
+                            <input type="hidden" name="subtotal" id="subtotal_input" value="{{ $all_item_total }}">
+                            <input type="hidden" name="shipping_charges" id="shipping_charges_input" value="0">
+                            <input type="hidden" name="grand_total" id="grand_total_input" value="{{ $all_item_total }}">
                             <tr class="order-shipping">
                                 <td class="text-left" colspan="2">
                                     <h4 class="m-b-sm">Shipping</h4>
+                                    <!-- Shipping Calculation Info -->
+                                    <div id="shipping-calculation-info" class="mb-3 p-2 bg-light rounded" style="display: none;">
+                                        <small class="text-muted">
+                                            <i class="fa fa-info-circle"></i>
+                                            Shipping calculated for: <span id="selected-city">--</span>
+                                        </small>
+                                    </div>
 
                                     <div class="form-group form-group-custom-control">
                                         <div class="custom-control custom-radio d-flex">
                                             <input type="radio" class="custom-control-input" name="payment_method"
                                                 checked id="cash-on-deliver" value="cod" />
-                                            <label class="custom-control-label" for="cash-on-deliver">Cash on
-                                                Delivery</label>
+                                            <label class="custom-control-label" for="cash-on-deliver">Cash on Delivery</label>
                                         </div>
-                                        <!-- End .custom-checkbox -->
                                     </div>
 
                                     <div class="form-group form-group-custom-control">
                                         <div class="custom-control custom-radio d-flex">
                                             <input type="radio" class="custom-control-input" name="payment_method"
                                                 id="online-transfer" value="online_transfer" />
-                                            <label class="custom-control-label" for="online-transfer">Online
-                                                Transfer</label>
+                                            <label class="custom-control-label" for="online-transfer">Online Transfer</label>
                                         </div>
-                                        <!-- End .custom-checkbox -->
                                     </div>
 
                                     <div class="bank-account-detail" style="display:none;">
@@ -256,7 +261,7 @@
                                     </div>
 
                                     <!-- Add file upload input -->
-                                    <div class="form-group mt-3 payment-receipt-wrapper "  style="display:none;" >
+                                    <div class="form-group mt-3 payment-receipt-wrapper " style="display:none;">
                                         <label for="payment_receipt">Upload Payment Receipt <abbr class="required" title="required">*</abbr></label>
                                         <input type="file" name="payment_receipt" id="payment_receipt" class="form-control" accept="image/*,.pdf">
                                         <small class="form-text text-muted">Upload a clear image or PDF of your bank transfer receipt (Max: 2MB)</small>
@@ -264,10 +269,20 @@
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-
-
                                 </td>
+                            </tr>
 
+                            <tr class="order-shipping-charges">
+                                <td>
+                                    <h4>Shipping Charges</h4>
+                                    <small class="text-muted" id="shipping-calculation-text">Calculated based on destination</small>
+                                </td>
+                                <td class="price-col">
+                                    <span id="shipment-charges">Rs 0</span>
+                                    <div id="shipping-loading" style="display: none;">
+                                        <small class="text-muted">Calculating...</small>
+                                    </div>
+                                </td>
                             </tr>
 
                             <tr class="order-total">
@@ -299,7 +314,7 @@
 @endsection
 
 @section('scripts')
-<script>
+<!-- <script>
     const CITIES = @json($cities);
     const totalPrice = @json($all_item_total);
 
@@ -318,6 +333,127 @@
             }
         });
     });
-</script>
+</script> -->
 <script src="{{ url('website/assets/js/checkout.js') }}"></script>
+<script>
+    const CITIES = @json($cities);
+    const subtotal = @json($subtotal); // Make sure this variable is available
+
+    $(document).ready(function() {
+        let shippingCalculationTimeout;
+
+        // Payment method change
+        $('input[name="payment_method"]').change(function() {
+            if ($('#online-transfer').is(':checked')) {
+                $('.bank-account-detail').slideDown();
+                $('#payment_receipt').prop('required', true);
+                $('.payment-receipt-wrapper').show();
+            } else {
+                $('.bank-account-detail').slideUp();
+                $('#payment_receipt').prop('required', false);
+                $('.payment-receipt-wrapper').hide();
+            }
+            calculateShipping(); // Recalculate on payment method change
+        });
+
+        // City change event
+        $('#city').on('input', function() {
+            const city = $(this).val().trim();
+            if (city.length > 2) {
+                clearTimeout(shippingCalculationTimeout);
+                shippingCalculationTimeout = setTimeout(() => {
+                    calculateShipping();
+                }, 1000); // Debounce 1 second
+            }
+        });
+
+        // Calculate shipping function
+        function calculateShipping() {
+            const city = $('#city').val().trim();
+            const paymentMethod = $('input[name="payment_method"]:checked').val();
+
+            if (!city) {
+                resetShippingDisplay();
+                return;
+            }
+
+            // Show loading
+            $('#shipping-loading').show();
+            $('#shipping-calculation-info').hide();
+            $('#shipment-charges').text('Calculating...');
+
+            $.ajax({
+                url: '{{ route("calculate.shipping") }}',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    city: city,
+                    payment_method: paymentMethod
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // ✅ UPDATE HIDDEN FIELDS with calculated values
+                        $('#shipping_charges_input').val(response.shipping_charges);
+                        $('#grand_total_input').val(response.grand_total);
+                        
+                        // Update shipping charges display
+                        $('#shipment-charges').text('Rs ' + response.shipping_charges);
+                        
+                        // Update grand total display
+                        $('#total-price').text(response.grand_total);
+                        
+                        // Show calculation info
+                        $('#selected-city').text(city);
+                        $('#shipping-calculation-info').show();
+                        $('#shipping-calculation-text').text(
+                            response.calculation_type === 'tcs_api' ? 
+                            'Live TCS rates' : 
+                            'Standard rates'
+                        );
+                    } else {
+                        showShippingError();
+                    }
+                },
+                error: function(xhr) {
+                    console.error('Shipping calculation failed:', xhr);
+                    showShippingError();
+                },
+                complete: function() {
+                    $('#shipping-loading').hide();
+                }
+            });
+        }
+
+        function resetShippingDisplay() {
+            $('#shipment-charges').text('Rs 0');
+            $('#total-price').text(subtotal);
+            
+            // ✅ RESET HIDDEN FIELDS
+            $('#shipping_charges_input').val(0);
+            $('#grand_total_input').val(subtotal);
+            
+            $('#shipping-calculation-info').hide();
+            $('#shipping-calculation-text').text('Calculated based on destination');
+        }
+
+        function showShippingError() {
+            const fallbackCharge = 250;
+            const fallbackTotal = subtotal + fallbackCharge;
+            
+            // ✅ SET FALLBACK VALUES IN HIDDEN FIELDS
+            $('#shipping_charges_input').val(fallbackCharge);
+            $('#grand_total_input').val(fallbackTotal);
+            
+            $('#shipment-charges').text('Rs ' + fallbackCharge);
+            $('#shipping-calculation-text').text('Standard shipping rates applied');
+            $('#shipping-calculation-info').show();
+            $('#selected-city').text($('#city').val());
+        }
+
+        // Initial calculation if city is pre-filled
+        @if(old('city'))
+            calculateShipping();
+        @endif
+    });
+</script>
 @endsection

@@ -16,6 +16,18 @@ use App\Http\Requests\ShppingRequest;
 use App\Models\Variation;
 use App\Traits\FileUploadTrait;
 
+use App\Models\Category;
+use App\Models\BillingDetails;
+use App\Services\OrderService;
+use App\Services\BillingService;
+use App\Services\PaymentService;
+use App\Http\Controllers\Controller;
+use App\Services\OrderDetailService;
+
+use App\Http\Requests\ShippingRequest;
+use App\Models\Product;
+use Illuminate\Support\Facades\Log;
+
 class OrderService
 {
     public static function store(Request $request)
@@ -69,18 +81,26 @@ class OrderService
 
         $amount += round($sale_price, 4);
         $product->update(['stock' => $product->stock - $quantity]);
-
-        // Get product information for TCS
         // If variation exists and has its own dimensions, use them, otherwise use product dimensions
-        if ($variation && $variation->hasDimensions()) {
+        if ($variation && !empty($variation)) {
+            Log::info('variation');
+            Log::info($variation);
             // Assuming you add dimension fields to variations table
-            $itemWeight = $variation->weight ?? $product->getWeightInKg();
-            $dimensions = $variation->getDimensions() ?? $product->getDimensionsInCm();
-            $description = $variation->name ?? $product->getTCSDescription();
+            $itemWeight = $variation->weight;
+            $dimensions = [
+                'length' => $variation->length,
+                'width' => $variation->width,
+                'height' => $variation->height,
+            ];
+            $description = $variation->natcs_product_descriptionme;
         } else {
-            $itemWeight = $product->getWeightInKg();
-            $dimensions = $product->getDimensionsInCm();
-            $description = $product->getTCSDescription();
+            $itemWeight = $product->weight;
+            $dimensions = [
+                'length' => $product->length,
+                'width' => $product->width,
+                'height' => $product->height,
+            ];
+            $description = $product->tcs_product_description;
         }
 
         $orderDetailItem = [
@@ -101,23 +121,24 @@ class OrderService
         $OrderDetailData[] = $orderDetailItem;
 
     endforeach;
-
     $total_amount = $amount + round($city_charges, 4);
-
+    $subtotal = $request->subtotal;
+    $shippingCharges = $request->shipping_charges;
+    $grandTotal = $request->grand_total;
     if ($request->payment_method == 'online_transfer'):
         $payment->update([
-            'payment' => $amount, 
+            'payment' => $grandTotal, 
             'remaining_amount' => 0, 
             'status' => 'paid', 
-            'shipping_charges' => $city_charges, 
-            'total_amount' => $total_amount
+            'shipping_charges' => $shippingCharges, 
+            'total_amount' => $grandTotal
         ]);
     else:
         $payment->update([
-            'payment' => $amount, 
-            'remaining_amount' => $amount, 
-            'shipping_charges' => $city_charges, 
-            'total_amount' => $total_amount
+            'payment' => $grandTotal, 
+            'remaining_amount' => $grandTotal, 
+            'shipping_charges' => $shippingCharges, 
+            'total_amount' => $grandTotal
         ]);
     endif;
 

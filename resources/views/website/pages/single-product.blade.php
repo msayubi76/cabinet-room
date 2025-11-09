@@ -271,11 +271,17 @@
                             <div class="product-single-filter"><label><b>Colors</b></label>
                                 <ul class="config-size-list config-color-list config-filter-list" id="color-list">
                                     @foreach ($colors as $key => $color)
+                                    @php
+                                        $isMedia = empty($color->media);
+                                    @endphp
                                         <li data-id="{{ $color->id }}" class="{{ $key == 0 ? 'active' : '' }} pointer"
                                             onclick="onChangeVariation({{ $color->id }}, this)">
                                             <div class="color ">
+                                                @if($isMedia)
                                                 <img src="{{ $color->media[0]->url }}" alt="" srcset=""
-                                                    height="80px">
+                                                height="80px">
+                                                @endif
+                                             
 
                                                 <div class="text-capitalize mb-0 text-center">{{ $color->value }}</div>
                                             </div>

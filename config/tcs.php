@@ -28,11 +28,11 @@ return [
     |--------------------------------------------------------------------------
     */
     'shipper_name'     => env('TCS_SHIPPER_NAME', env('APP_NAME', 'Test Company')),
-    'shipper_address'  => env('TCS_SHIPPER_ADDRESS', '123 Test Street, Karachi'),
+    'shipper_address'  => env('TCS_SHIPPER_ADDRESS', '123 Test Street, Islamabad'),
     'shipper_phone'    => env('TCS_SHIPPER_PHONE', '923001234567'),
     'shipper_email'    => env('TCS_SHIPPER_EMAIL', 'operations@yourcompany.com'),
     'cost_center_code' => env('TCS_COST_CENTER_CODE', 'Test-01'),
-    'origin_city'      => env('TCS_ORIGIN_CITY', 'Karachi'),
+    'origin_city'      => env('TCS_ORIGIN_CITY', 'Islamabad'),
 
     /*
     |--------------------------------------------------------------------------
