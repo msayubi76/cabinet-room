@@ -170,7 +170,19 @@
                                                 onclick="openDeleteDialog({{ $cartlist->product_id }})"><span>×</span></a>
                                         </figure>
                                     </div>
-                                    @php $total += $cartlist->variation ? (int) $cartlist->variation->sale_price  * $cartlist->quantity: $cartlist->product->saleprice * $cartlist->quantity; @endphp
+                                 
+                                    @php
+                                        if ($cartlist->variation && isset($cartlist->variation->sale_price)) {
+                                            $price = (int) $cartlist->variation->sale_price;
+                                        } elseif ($cartlist->product && isset($cartlist->product->saleprice)) {
+                                            $price = (int) $cartlist->product->saleprice;
+                                        } else {
+                                            $price = 0;
+                                        }
+                                        
+                                        $quantity = $cartlist->quantity ?? 0;
+                                        $total += $price * $quantity;
+                                    @endphp
                                 @endforeach
                                 <!-- End .product -->
 
