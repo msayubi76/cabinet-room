@@ -73,7 +73,6 @@ class OrderController extends Controller
                                                         'shipping_calculation' => $shippingCalculation,
                                                         'payment_method' => $order->payment->method,
                                                         'cod_amount' => $order->payment->method === 'cod' ? $order->payment->total_amount : 0,
-                                                        'order' => $result['order']
                                                 ]);
                                         } else {
                                                 DB::rollBack();

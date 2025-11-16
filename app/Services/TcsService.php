@@ -430,7 +430,7 @@ private function calculateFallbackShipping($calculationData)
     $skus = [];
     foreach ($order->orderDetails as $orderDetail) {
         $skus[] = [
-            "description" => $orderDetail->products->name ?? 'Product',
+            "description" => $orderDetail->product_id ?? 'Product',
             "quantity" => (int)$orderDetail->quantity,
             "weight" =>  $orderDetail->item_weight?floatval($orderDetail->item_weight/1000):0.5, // Ensure float
             "uom" => "KG",
@@ -578,7 +578,7 @@ private function formatMobileNumberExactly($phone)
 
         $products = [];
         foreach ($order->orderDetails as $orderDetail) {
-            $products[] = $orderDetail->products->name . ' (Qty: ' . $orderDetail->quantity . ')';
+            $products[] = $orderDetail->product_id . ' (Qty: ' . $orderDetail->quantity . ')';
         }
         return implode(', ', $products);
     }
