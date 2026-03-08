@@ -21,13 +21,7 @@
 
             <div class="row">
                 <div class="col-12">
-
-
-
-
                     <p>{!! $setting->contact_us_detail !!}</p>
-
-
                 </div>
 
                 <div class="col-sm-6 col-lg-4">
@@ -94,7 +88,7 @@
                 </form>
             </div>
 
-            <div class="col-lg-6">
+           <!-- <div class="col-lg-6">
                 <h2 class="mt-6 mb-1">Frequently Asked Questions</h2>
                 <div id="accordion">
                     <div class="card card-accordion">
@@ -234,7 +228,8 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
+        
     </div>
 
     <div class="mb-8"></div>

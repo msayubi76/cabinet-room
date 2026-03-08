@@ -83,7 +83,7 @@
         <div class="footer-bottom">
             <div class="container d-sm-flex align-items-center">
                 <div class="footer-left">
-                    <span class="footer-copyright">© RK Hardware. 2025. All Rights Reserved</span>
+                    <span class="footer-copyright">© RK Hardware. 2026. All Rights Reserved</span>
                 </div>
  
             </div>
